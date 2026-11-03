@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://galfomorel-droid.github.io/immobilier-angevin/sitemap.xml
