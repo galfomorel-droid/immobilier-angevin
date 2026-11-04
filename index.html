@@ -4626,6 +4626,11 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
   .rs2-tile { padding: 16px 18px; }
 }
 
+/* L'agence : territoire en deux secteurs */
+.terr-groups { display: grid; gap: 26px; margin-top: 30px; }
+.terr-title { font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--marine); margin-bottom: 12px; }
+.terr-group .cb-chips { margin-top: 0; }
+
 </style>
 </head>
 <body>
@@ -4914,7 +4919,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
           </article>
           <article class="seo-card">
             <h3>Zone d'intervention</h3>
-            <p>Angers, Avrillé, Trélazé, Les Ponts-de-Cé, Saint-Barthélemy-d'Anjou, Beaucouzé, Bouchemaine, Écouflant, Mûrs-Érigné, Sainte-Gemmes-sur-Loire et l'ensemble de l'agglomération angevine.</p>
+            <p>Angers, Avrillé, Trélazé, Les Ponts-de-Cé, Saint-Barthélemy-d'Anjou, Beaucouzé, Bouchemaine, Écouflant et toute l'agglomération angevine, ainsi que Sablé-sur-Sarthe, Solesmes, Précigné, Parcé-sur-Sarthe, Noyen-sur-Sarthe et leurs alentours.</p>
           </article>
         </div>
 
@@ -5236,10 +5241,11 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
   <section class="cb-section cb-center">
     <div class="cb-wrap narrow">
       <span class="cb-kicker">Notre territoire</span>
-      <h2 class="cb-h2">Angers et son agglomération, nous les connaissons par cœur</h2>
-      <p class="cb-lead">Nous intervenons dans tous les quartiers d'Angers et dans les communes voisines.</p>
-      <div class="cb-chips" style="justify-content:center;">
-        <span class="cb-chip">Angers</span><span class="cb-chip">Avrillé</span><span class="cb-chip">Trélazé</span><span class="cb-chip">Les Ponts-de-Cé</span><span class="cb-chip">Saint-Barthélemy-d'Anjou</span><span class="cb-chip">Beaucouzé</span><span class="cb-chip">Bouchemaine</span><span class="cb-chip">Écouflant</span><span class="cb-chip">Mûrs-Érigné</span><span class="cb-chip">Sainte-Gemmes-sur-Loire</span><span class="cb-chip">Montreuil-Juigné</span><span class="cb-chip">Verrières-en-Anjou</span>
+      <h2 class="cb-h2">D'Angers à Sablé-sur-Sarthe, je connais chaque commune par cœur</h2>
+      <p class="cb-lead">J'interviens dans tous les quartiers d'Angers et dans son agglomération, ainsi qu'à Sablé-sur-Sarthe et dans ses alentours.</p>
+      <div class="terr-groups">
+        <div class="terr-group"><h3 class="terr-title">Secteur d'Angers</h3><div class="cb-chips" style="justify-content:center;"><span class="cb-chip">Angers</span><span class="cb-chip">Avrillé</span><span class="cb-chip">Trélazé</span><span class="cb-chip">Les Ponts-de-Cé</span><span class="cb-chip">Saint-Barthélemy-d'Anjou</span><span class="cb-chip">Beaucouzé</span><span class="cb-chip">Bouchemaine</span><span class="cb-chip">Écouflant</span><span class="cb-chip">Mûrs-Érigné</span><span class="cb-chip">Sainte-Gemmes-sur-Loire</span><span class="cb-chip">Montreuil-Juigné</span><span class="cb-chip">Verrières-en-Anjou</span></div></div>
+        <div class="terr-group"><h3 class="terr-title">Secteur de Sablé-sur-Sarthe</h3><div class="cb-chips" style="justify-content:center;"><span class="cb-chip">Sablé-sur-Sarthe</span><span class="cb-chip">Solesmes</span><span class="cb-chip">Juigné-sur-Sarthe</span><span class="cb-chip">Précigné</span><span class="cb-chip">Parcé-sur-Sarthe</span><span class="cb-chip">Noyen-sur-Sarthe</span><span class="cb-chip">Louailles</span><span class="cb-chip">Vion</span><span class="cb-chip">Morannes-sur-Sarthe</span><span class="cb-chip">Bouère</span><span class="cb-chip">Ballée</span><span class="cb-chip">Saint-Denis-d'Anjou</span></div></div>
       </div>
       <div class="cb-actions">
         <button class="cb-btn" onclick="showPage('contact')">Prendre contact</button>
@@ -5411,7 +5417,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
         </div>
         <div class="cb-card">
           <span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><h3 class="cb-h3">L'agence</h3><p><span data-adresse>Angers (49)</span><br><span data-horaires>Du lundi au samedi, sur rendez-vous</span></p>
-          <div class="cb-chips" style="margin-top:14px;"><span class="cb-chip contact-zone">Angers</span><span class="cb-chip contact-zone">Avrillé</span><span class="cb-chip contact-zone">Trélazé</span><span class="cb-chip contact-zone">Les Ponts-de-Cé</span><span class="cb-chip contact-zone">Saint-Barthélemy-d'Anjou</span><span class="cb-chip contact-zone">Beaucouzé</span><span class="cb-chip contact-zone">Bouchemaine</span><span class="cb-chip contact-zone">Écouflant</span></div>
+          <div class="cb-chips" style="margin-top:14px;"><span class="cb-chip contact-zone">Angers</span><span class="cb-chip contact-zone">Avrillé</span><span class="cb-chip contact-zone">Trélazé</span><span class="cb-chip contact-zone">Les Ponts-de-Cé</span><span class="cb-chip contact-zone">Saint-Barthélemy-d'Anjou</span><span class="cb-chip contact-zone">Bouchemaine</span><span class="cb-chip contact-zone">Sablé-sur-Sarthe</span><span class="cb-chip contact-zone">Solesmes</span><span class="cb-chip contact-zone">Précigné</span><span class="cb-chip contact-zone">Parcé-sur-Sarthe</span></div>
         </div>
       </div>
       <div class="cb-form contact-form-wrap" style="margin:0;max-width:none;">
