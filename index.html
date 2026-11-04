@@ -6275,10 +6275,14 @@ function _dansSecteur(b) { return !!b && (_SECTEUR_KEYS[_cleVille(b.ville)] === 
 
 // Identifiants des photos 3G à bandeau (liste du site Sabolien, scripts/scan-banners.mjs — à recopier si de nouveaux biens arrivent)
 var PHOTOS_BANDEAU = {"1048653": 1, "1048718": 1, "1055054": 1, "1060555": 1, "1067381": 1, "1067385": 1, "1082612": 1, "1082616": 1, "1113051": 1, "1113067": 1, "1152486": 1, "1152490": 1, "1174881": 1, "1177410": 1, "1223539": 1, "1223551": 1, "1223552": 1, "1231174": 1, "1235796": 1, "1235797": 1, "1235805": 1, "1238221": 1, "1238222": 1, "1238235": 1, "1238236": 1, "1238254": 1, "1238272": 1, "1238273": 1};
+// Biens dont la commune manque dans le flux 3G : identifiant 3G → [commune, code postal]
+var COMMUNES_FORCEES = { 2000024081: ['Solesmes', '72300'] };
 // Conversion d'une annonce du flux 3G (format « Sabolien ») vers le format du site
 function _from3G(x) {
   var m = String(x.city || '').match(/^(.*?)\s*\((\d{5})\)\s*$/);
   var ville = m ? m[1].trim() : String(x.city || '').trim(), cp = m ? m[2] : '';
+  // Commune absente dans 3G : corrigée à la main (indiquée par Charles)
+  if (!ville && COMMUNES_FORCEES[x.id]) { ville = COMMUNES_FORCEES[x.id][0]; cp = COMMUNES_FORCEES[x.id][1]; }
   var type = x.type ? x.type.charAt(0).toUpperCase() + x.type.slice(1) : 'Bien';
   var badge = String(x.badge || '').toLowerCase();
   var vus = {}, photos = [x.img].concat(x.gallery || []).filter(function (u) { if (!u || vus[u]) return false; vus[u] = 1; return true; });
