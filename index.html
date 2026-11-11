@@ -4667,6 +4667,12 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 /* « Mes dernières ventes » : moins de 4 ventes → cartes fixes et centrées */
 .vendus-track.vendus-static { animation: none !important; transform: none !important; width: 100%; justify-content: center; flex-wrap: wrap; }
 
+/* Espace pro : supprimer / réafficher */
+.btn-statut.btn-supprimer { background: #fff; color: #B50519; border: 1px solid #E7A2A9; }
+.btn-statut.btn-supprimer:hover { background: #B50519; color: #fff; border-color: #B50519; }
+.btn-statut.btn-reafficher { background: var(--marine); color: #fff; border-color: var(--marine); }
+#adminMasques .admin-bien-row { opacity: .75; }
+
 </style>
 </head>
 <body>
@@ -6045,11 +6051,16 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
     <div class="section-tag">Pilotage de mes biens</div>
     <h3 class="admin-titre">Mes biens en ligne</h3>
     <p class="admin-aide">Un clic publie aussitôt le changement sur le site, pour tous les visiteurs. Recliquer sur un statut actif le retire.
-      « Vendu » retire le bien des annonces et l'ajoute à « Mes dernières ventes » sur l'accueil. « À la une » : dès qu'un bien est coché, l'accueil n'affiche que les biens cochés (sinon, les plus récents). Les biens qui disparaissent de 3G disparaissent aussi du site.</p>
+      « Vendu » retire le bien des annonces et l'ajoute à « Mes dernières ventes » sur l'accueil. « Supprimer » retire le bien du site (il reste dans 3G) ; vous pouvez le réafficher plus bas. « À la une » : dès qu'un bien est coché, l'accueil n'affiche que les biens cochés (sinon, les plus récents). Les biens qui disparaissent de 3G disparaissent aussi du site.</p>
     <div class="admin-biens-list" id="adminList"></div>
     <div id="adminVendusWrap" hidden>
       <h3 class="admin-titre" style="margin-top:2.5rem;">Mes dernières ventes</h3>
       <div class="admin-biens-list" id="adminVendus"></div>
+    </div>
+    <div id="adminMasquesWrap" hidden>
+      <h3 class="admin-titre" style="margin-top:2.5rem;">Biens retirés du site</h3>
+      <p class="admin-aide">Ces biens sont toujours dans 3G mais n'apparaissent plus sur le site. « Réafficher » les remet en ligne.</p>
+      <div class="admin-biens-list" id="adminMasques"></div>
     </div>
   </div>
 </div>
@@ -10533,11 +10544,14 @@ async function loadBiens() {
           if (ov.alaune !== undefined) b.alaune = !!ov.alaune;
           if (ov.nouveaute !== undefined) b.nouveaute = !!ov.nouveaute;
           if (ov.baisse !== undefined) b.baisse = !!ov.baisse;
+          if (ov.masque !== undefined) b.masque = !!ov.masque;
         }
         if (b.statut === 'vendu') b.statut = 'en_vente';  // sécurité (le vendu vient de soldMap)
       });
 
-      biens = vendus.concat(actifsVisibles);
+      var _tous = vendus.concat(actifsVisibles);
+      biensMasques = _tous.filter(function(b){ return !!b.masque; });
+      biens = _tous.filter(function(b){ return !b.masque; });
 
       // Filtre villes dynamique
       biens.forEach(function(b){
@@ -10614,6 +10628,8 @@ function _normalizeBien(b) {
 // (AGENCE.statutProxyUrl), qui enregistre data/ventes.json dans le dépôt GitHub.
 // =====================================================================
 var _adminPwd = '';
+var biensMasques = [];   // biens retirés du site depuis l'espace pro (toujours présents dans 3G)
+function _adminTrouver(id) { var f = function (x) { return parseInt(x.id) === parseInt(id); }; return biens.find(f) || biensMasques.find(f); }
 function _urlStatuts() { return AGENCE.statutProxyUrl ? AGENCE.statutProxyUrl.replace(/\/?$/, '/') + 'statuts' : 'data/ventes.json'; }
 function _adminMode(setup) {
   var a = document.getElementById('adminLoginForm'), b = document.getElementById('adminSetupForm');
@@ -10725,11 +10741,13 @@ function _adminLigne(b) {
       '<button class="btn-statut btn-offre ' + (statut === 'offre_en_cours' ? 'active' : '') + '"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'offre_en_cours\')" title="Offre en cours">Offre</button>' +
       '<button class="btn-statut btn-compromis ' + (statut === 'sous_compromis' ? 'active' : '') + '"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'sous_compromis\')" title="Sous compromis">Compromis</button>' +
       '<button class="btn-statut btn-vendu"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'vendu\')" title="Vendu → Mes dernières ventes">Vendu</button>';
+  if (b.masque) actions = '<button class="btn-statut btn-reafficher"' + dis + ' onclick="adminSetMasque(' + b.id + ', false)" title="Remettre ce bien sur le site">↺ Réafficher sur le site</button>';
+  else actions += '<button class="btn-statut btn-supprimer"' + dis + ' onclick="adminSetMasque(' + b.id + ', true)" title="Retirer ce bien du site (il reste dans 3G)">Supprimer</button>';
   return '<div class="admin-bien-row">' +
       '<img class="admin-bien-img" src="' + _esc(b.img ? imgOpt(b.img, 300) : PLACEHOLDER_IMG) + '" alt="">' +
       '<div class="admin-bien-info"><h4>' + _esc(b.titre || b.type || 'Bien') + ' ' + badge + '</h4>' +
         '<p>' + _esc(b.ville || '') + ' · ' + _esc(b.type || '') + ' · ' + _esc(formatPrixPublic(b)) + '</p>' +
-        '<p class="admin-src">Réf. ' + _esc(ref) + (statut !== 'vendu' ? ' · <a href="#" onclick="showFiche(' + b.id + ');return false;" style="text-decoration:underline;">voir l\'annonce</a>' : '') + '</p></div>' +
+        '<p class="admin-src">Réf. ' + _esc(ref) + (statut !== 'vendu' && !b.masque ? ' · <a href="#" onclick="showFiche(' + b.id + ');return false;" style="text-decoration:underline;">voir l\'annonce</a>' : '') + '</p></div>' +
       '<div class="admin-bien-actions">' + actions + '</div>' +
     '</div>';
 }
@@ -10742,6 +10760,9 @@ function renderAdmin() {
   var w = document.getElementById('adminVendusWrap'), v = document.getElementById('adminVendus');
   if (w) w.hidden = vendus.length === 0;
   if (v) v.innerHTML = vendus.map(_adminLigne).join('');
+  var mw = document.getElementById('adminMasquesWrap'), m = document.getElementById('adminMasques');
+  if (mw) mw.hidden = biensMasques.length === 0;
+  if (m) m.innerHTML = biensMasques.map(_adminLigne).join('');
 }
 
 async function _chargerOverlay() {
@@ -10762,7 +10783,7 @@ async function _publierStatuts(ventes) {
 
 async function _adminMajBadge(id, changes) {
   if (_adminBusy) return;
-  var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); });
+  var b = _adminTrouver(id);
   if (!b) return;
   _adminBusy = true; renderAdmin();
   try {
@@ -10776,10 +10797,11 @@ async function _adminMajBadge(id, changes) {
     if (changes.alaune !== undefined) e.alaune = !!changes.alaune;
     if (changes.nouveaute !== undefined) e.nouveaute = !!changes.nouveaute;
     if (changes.baisse !== undefined) e.baisse = !!changes.baisse;
+    if (changes.masque !== undefined) { if (changes.masque) e.masque = true; else delete e.masque; e.override = true; }
     e.titre = b.titre || ''; e.type = b.type || 'Bien'; e.ville = b.ville || ''; e.cp = b.cp || ''; e.img = b.img || ''; e.prix = b.prix || 0;
     if (i >= 0) overlay[i] = e; else overlay.unshift(e);
     overlay = overlay.filter(function (v) {
-      return v.override || v.alaune || v.exclusif || (typeof v.nouveaute !== 'undefined') || (typeof v.baisse !== 'undefined') || (v.statut && v.statut !== 'en_vente');
+      return v.override || v.alaune || v.exclusif || v.masque || (typeof v.nouveaute !== 'undefined') || (typeof v.baisse !== 'undefined') || (v.statut && v.statut !== 'en_vente');
     });
     var ok = await _publierStatuts(overlay);
     if (!ok) return;
@@ -10789,6 +10811,11 @@ async function _adminMajBadge(id, changes) {
     if (changes.alaune !== undefined) b.alaune = !!changes.alaune;
     if (changes.nouveaute !== undefined) b.nouveaute = !!changes.nouveaute;
     if (changes.baisse !== undefined) b.baisse = !!changes.baisse;
+    if (changes.masque !== undefined) {
+      b.masque = !!changes.masque;
+      biens = biens.filter(function (x) { return x !== b; }); biensMasques = biensMasques.filter(function (x) { return x !== b; });
+      if (b.masque) biensMasques.unshift(b); else biens.push(b);
+    }
     try { localStorage.setItem('ia_biens', JSON.stringify(biens)); } catch (err) {}
     renderHomeGrid();
     if (typeof renderBiensGrid === 'function') renderBiensGrid();
@@ -10812,6 +10839,15 @@ async function adminSetExclusif(id) { var b = biens.find(function (x) { return p
 async function adminSetUne(id) { var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }) || {}; await _adminMajBadge(id, { alaune: !b.alaune }); }
 async function adminSetNouveaute(id) { var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }) || {}; await _adminMajBadge(id, { nouveaute: !_adminEtiquettes(b).nouveau }); }
 async function adminSetBaisse(id) { var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }) || {}; await _adminMajBadge(id, { baisse: !_adminEtiquettes(b).baisse }); }
+
+async function adminSetMasque(id, masquer) {
+  var msg = masquer
+    ? 'Retirer ce bien du site ? Il restera dans 3G, et vous pourrez le réafficher depuis « Biens retirés du site ».'
+    : 'Remettre ce bien sur le site ?';
+  var ok = await showConfirm(msg, { title: 'Espace pro', okText: masquer ? 'Supprimer du site' : 'Réafficher', cancelText: 'Annuler', danger: !!masquer });
+  if (!ok) return;
+  await _adminMajBadge(id, { masque: !!masquer });
+}
 
 // Cookies
 function initCookieBanner() {
