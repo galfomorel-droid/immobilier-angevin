@@ -6007,8 +6007,20 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
   <div class="modal" style="max-width:380px;">
     <button class="modal-close" onclick="closeModal('modal-admin')">✕</button>
     <h2 class="modal-title">Espace pro</h2>
-    <p class="modal-sub">Accès réservé à Charles MOREL.</p>
-    <form onsubmit="event.preventDefault();checkAdmin();" autocomplete="on" method="post" action="#">
+    <p class="modal-sub" id="adminModalSub">Accès réservé à Charles MOREL.</p>
+    <form id="adminSetupForm" hidden onsubmit="event.preventDefault();creerMotDePasseAdmin();" autocomplete="on" method="post" action="#">
+      <input type="text" name="username" value="espace-pro-angevin" autocomplete="username" style="position:absolute;opacity:0;pointer-events:none;height:0;width:0;" readonly tabindex="-1">
+      <div class="form-row">
+        <label class="form-label" for="adminPwdNew">Nouveau mot de passe</label>
+        <input type="password" class="form-input" id="adminPwdNew" autocomplete="new-password" minlength="8" placeholder="8 caractères minimum">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="adminPwdNew2">Confirmer le mot de passe</label>
+        <input type="password" class="form-input" id="adminPwdNew2" autocomplete="new-password" minlength="8">
+      </div>
+      <button type="submit" class="form-submit" id="adminSetupBtn">Créer mon mot de passe</button>
+    </form>
+    <form id="adminLoginForm" onsubmit="event.preventDefault();checkAdmin();" autocomplete="on" method="post" action="#">
       <input type="text" name="username" id="adminUser" value="espace-pro-angevin" autocomplete="username" style="position:absolute;opacity:0;pointer-events:none;height:0;width:0;" readonly tabindex="-1">
       <div class="form-row">
         <label class="form-label" for="adminPwd">Mot de passe</label>
@@ -6032,7 +6044,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
   <div class="admin-body">
     <div class="section-tag">Pilotage de mes biens</div>
     <h3 class="admin-titre">Mes biens en ligne</h3>
-    <p class="admin-aide">Un clic publie aussitôt le changement sur le site (visible par tous en 1 à 2 minutes). Recliquer sur un statut actif le retire.
+    <p class="admin-aide">Un clic publie aussitôt le changement sur le site, pour tous les visiteurs. Recliquer sur un statut actif le retire.
       « Vendu » retire le bien des annonces et l'ajoute à « Mes dernières ventes » sur l'accueil. « À la une » : dès qu'un bien est coché, l'accueil n'affiche que les biens cochés (sinon, les plus récents). Les biens qui disparaissent de 3G disparaissent aussi du site.</p>
     <div class="admin-biens-list" id="adminList"></div>
     <div id="adminVendusWrap" hidden>
@@ -6329,7 +6341,7 @@ var AGENCE = {
     tiktok: 'https://www.tiktok.com/@charles.morel3gimmo'
   },
   web3formsKey: '',     // clé gratuite sur web3forms.com : les formulaires arrivent par e-mail
-  statutProxyUrl: '',   // adresse du relais Cloudflare de l'espace pro (ex. https://immobilier-angevin.galfomorel.workers.dev/)
+  statutProxyUrl: 'https://immobilier-angevin.galfomorel.workers.dev/',   // relais Cloudflare de l'espace pro (serverless/statut-proxy.js)
   parrainagePrime: '400 €'
 };
 function _telIntl(t) { var d = String(t || '').replace(/[^0-9+]/g, ''); if (!d) return ''; if (d.charAt(0) === '0') d = '+33' + d.slice(1); return d; }
@@ -10332,7 +10344,7 @@ async function autoRefreshData() {
   if (document.hidden) return;
   try {
     var rb = await fetch(AGENCE.flux3G + '?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; });
-    var rv = await fetch('data/ventes.json?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; });
+    var rv = await fetch(_urlStatuts() + '?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; });
     var tb = (rb && rb.ok) ? await rb.text() : '';
     var tv = (rv && rv.ok) ? await rv.text() : '';
     if (!tb) return; // fetch raté → on ne touche à rien (on garde l'affichage actuel)
@@ -10460,7 +10472,7 @@ async function loadBiens() {
       fetch(AGENCE.flux3G + '?t=' + Date.now(), { cache: 'no-cache' })
         .then(function (r) { if (!r.ok) throw new Error('flux'); return r; })
         .catch(function () { return fetch('data/biens.json?t=' + Date.now(), { cache: 'no-cache' }); }),
-      fetch('data/ventes.json?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; }),
+      fetch(_urlStatuts() + '?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; }),
       null   // (data/vendus-auto.json : non utilisé)
     ]);
     var bRes = results[0], vRes = results[1], vaRes = results[2];
@@ -10602,13 +10614,51 @@ function _normalizeBien(b) {
 // (AGENCE.statutProxyUrl), qui enregistre data/ventes.json dans le dépôt GitHub.
 // =====================================================================
 var _adminPwd = '';
+function _urlStatuts() { return AGENCE.statutProxyUrl ? AGENCE.statutProxyUrl.replace(/\/?$/, '/') + 'statuts' : 'data/ventes.json'; }
+function _adminMode(setup) {
+  var a = document.getElementById('adminLoginForm'), b = document.getElementById('adminSetupForm');
+  if (a) a.hidden = !!setup; if (b) b.hidden = !setup;
+  var st = document.getElementById('adminModalSub');
+  if (st) st.textContent = setup ? 'Première connexion : choisissez votre mot de passe (8 caractères minimum).' : 'Accès réservé à Charles MOREL.';
+}
 var _adminAttempts = 0, _adminLockedUntil = 0, _adminBusy = false;
 
-function ouvrirEspacePro() {
+async function ouvrirEspacePro() {
   if (_adminPwd) { showPage('admin'); return; }
   var e = document.getElementById('adminError'); if (e) e.style.display = 'none';
+  _adminMode(false);
   openModal('modal-admin');
-  setTimeout(function () { var i = document.getElementById('adminPwd'); if (i) i.focus(); }, 150);
+  if (AGENCE.statutProxyUrl) {
+    try {
+      var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'etat' }) });
+      var j = await r.json(); if (r.ok && j.configure === false) _adminMode(true);
+    } catch (err) {}
+  }
+  setTimeout(function () { var i = document.getElementById(document.getElementById('adminSetupForm') && !document.getElementById('adminSetupForm').hidden ? 'adminPwdNew' : 'adminPwd'); if (i) i.focus(); }, 150);
+}
+
+async function creerMotDePasseAdmin() {
+  var p1 = ((document.getElementById('adminPwdNew') || {}).value || ''), p2 = ((document.getElementById('adminPwdNew2') || {}).value || '');
+  if (p1.length < 8) { showToast('8 caractères minimum.', 'error'); return; }
+  if (p1 !== p2) { showToast('Les deux mots de passe ne sont pas identiques.', 'error'); return; }
+  var btn = document.getElementById('adminSetupBtn'); if (btn) { btn.disabled = true; btn.textContent = 'Enregistrement…'; }
+  var status = 0;
+  try {
+    var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'setup', password: p1 }) });
+    status = r.status;
+  } catch (err) { status = -1; }
+  if (btn) { btn.disabled = false; btn.textContent = 'Créer mon mot de passe'; }
+  if (status === 409) { showToast('Un mot de passe existe déjà : connectez-vous.', 'warning', 6000); _adminMode(false); return; }
+  if (status !== 200) { showToast('Impossible d\'enregistrer le mot de passe pour le moment.', 'error', 6000); return; }
+  document.getElementById('adminPwdNew').value = ''; document.getElementById('adminPwdNew2').value = '';
+  _adminPwd = p1;
+  if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
+    try { navigator.credentials.store(new PasswordCredential({ id: 'espace-pro-angevin', name: "Espace pro — L'Immobilier Angevin", password: p1 })).catch(function () {}); } catch (err) {}
+  }
+  closeModal('modal-admin');
+  document.body.classList.add('admin-mode');
+  showToast('Mot de passe créé. Bienvenue dans votre espace pro.', 'success', 5000);
+  showPage('admin');
 }
 
 async function checkAdmin() {
@@ -10695,7 +10745,7 @@ function renderAdmin() {
 }
 
 async function _chargerOverlay() {
-  try { var r = await fetch('data/ventes.json?t=' + Date.now(), { cache: 'no-cache' }); if (r.ok) { var j = await r.json(); return Array.isArray(j.ventes) ? j.ventes : []; } } catch (e) {}
+  try { var r = await fetch(_urlStatuts() + '?t=' + Date.now(), { cache: 'no-cache' }); if (r.ok) { var j = await r.json(); return Array.isArray(j.ventes) ? j.ventes : []; } } catch (e) {}
   return [];
 }
 
@@ -10705,7 +10755,6 @@ async function _publierStatuts(ventes) {
   try {
     var res = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: _adminPwd, ventes: ventes }) });
     if (res.status === 401) { showToast('Mot de passe refusé par le serveur.', 'error', 6000); return false; }
-    if (res.status === 502) { showToast('Publication impossible : la clé GitHub du serveur a sans doute expiré.', 'error', 9000); return false; }
     if (!res.ok) { showToast('Échec de publication (' + res.status + ').', 'error', 6000); return false; }
     return true;
   } catch (e) { showToast('Connexion au serveur impossible.', 'error', 6000); return false; }
@@ -10744,7 +10793,7 @@ async function _adminMajBadge(id, changes) {
     renderHomeGrid();
     if (typeof renderBiensGrid === 'function') renderBiensGrid();
     renderVendusCarousel();
-    showToast("Publié sur le site (visible par tous d'ici 1 à 2 minutes)", 'success', 5000);
+    showToast('Publié sur le site.', 'success', 4000);
   } finally {
     _adminBusy = false; renderAdmin();
   }

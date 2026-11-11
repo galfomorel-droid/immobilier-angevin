@@ -1,0 +1,10 @@
+# Relais Cloudflare de l'espace pro (statuts des biens + mot de passe chiffré).
+# Déployé automatiquement par Cloudflare Workers Builds à chaque push sur GitHub.
+name = "immobilier-angevin"
+main = "serverless/statut-proxy.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "STATUTS"
+id = "240745a1136548bb917eaf33dd4309e7"
