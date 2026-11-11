@@ -4644,6 +4644,29 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
   .ft-credit { margin: 6px auto 0; text-align: center; }
 }
 
+/* ---------- Espace pro ---------- */
+#page-admin .admin-header { padding-top: calc(var(--nav-h) + 28px); background: var(--marine); }
+#page-admin .admin-header h2 { color: #fff; font-family: var(--sans); font-style: normal; font-weight: 800; }
+#page-admin .admin-header .cb-btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
+#page-admin .admin-header .cb-btn:not(.ghost) { background: #fff; color: var(--marine); border-color: #fff; }
+.admin-titre { font-family: var(--sans); font-style: normal; font-weight: 800; font-size: 1.4rem; color: var(--marine); margin: .3rem 0 .6rem; }
+.admin-aide { font-size: .85rem; color: var(--gris); max-width: 820px; margin-bottom: 1.6rem; }
+.admin-bien-row { border: 1px solid var(--line-c); border-radius: 14px; background: #fff; }
+.admin-bien-row h4 { font-family: var(--sans); font-style: normal; font-weight: 700; color: var(--marine); }
+.btn-statut { border-radius: 999px; font-family: var(--sans); }
+.btn-statut.active { background: var(--marine); color: #fff; border-color: var(--marine); }
+.btn-statut.btn-vendu.active { background: #1B7A3E; border-color: #1B7A3E; }
+.btn-statut.btn-compromis.active { background: #B8731E; border-color: #B8731E; }
+.btn-statut.btn-offre.active { background: #C24D0C; border-color: #C24D0C; }
+.btn-statut.btn-exclu.active { background: var(--rouge); border-color: var(--rouge); color: #fff; }
+.btn-statut[disabled] { opacity: .5; cursor: wait; }
+.admin-statut-badge { display: inline-block; margin-left: 6px; padding: 2px 9px; border-radius: 999px; font-size: .62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #fff; vertical-align: middle; }
+.admin-statut-compromis { background: #B8731E; } .admin-statut-offre { background: #C24D0C; } .admin-statut-vendu { background: #1B7A3E; }
+.admin-src { font-size: .72rem; color: var(--gris); }
+
+/* « Mes dernières ventes » : moins de 4 ventes → cartes fixes et centrées */
+.vendus-track.vendus-static { animation: none !important; transform: none !important; width: 100%; justify-content: center; flex-wrap: wrap; }
+
 </style>
 </head>
 <body>
@@ -4861,6 +4884,16 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
       </div>
       <p class="cb-map-credit">Cours d'eau et contours : © contributeurs OpenStreetMap</p>
     </div>
+  </section>
+
+  <!-- MES DERNIÈRES VENTES (biens marqués « Vendu » dans l'espace pro ; masquée s'il n'y en a aucun) -->
+  <section class="vendus-section" style="display:none;">
+    <div class="vendus-header">
+      <div class="section-tag">Mes dernières ventes</div>
+      <h2 class="vendus-title">Ils m'ont fait confiance pour vendre leur bien</h2>
+      <p class="vendus-subtitle">Un aperçu des biens récemment vendus, d'Angers à Sablé-sur-Sarthe.</p>
+    </div>
+    <div class="vendus-marquee"><div class="vendus-track"></div></div>
   </section>
 
   <!-- RÉSEAUX SOCIAUX (masqué tant qu'aucun réseau n'est renseigné dans AGENCE.reseaux) -->
@@ -5969,6 +6002,46 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 
 
 
+<!-- ===== ESPACE PRO : connexion ===== -->
+<div class="modal-overlay" id="modal-admin">
+  <div class="modal" style="max-width:380px;">
+    <button class="modal-close" onclick="closeModal('modal-admin')">✕</button>
+    <h2 class="modal-title">Espace pro</h2>
+    <p class="modal-sub">Accès réservé à Charles MOREL.</p>
+    <form onsubmit="event.preventDefault();checkAdmin();" autocomplete="on" method="post" action="#">
+      <input type="text" name="username" id="adminUser" value="espace-pro-angevin" autocomplete="username" style="position:absolute;opacity:0;pointer-events:none;height:0;width:0;" readonly tabindex="-1">
+      <div class="form-row">
+        <label class="form-label" for="adminPwd">Mot de passe</label>
+        <input type="password" class="form-input" id="adminPwd" name="password" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button type="submit" class="form-submit" id="adminLoginBtn">Accéder</button>
+    </form>
+    <p id="adminError" style="color:#B50519;font-size:.8rem;margin-top:.8rem;display:none;">Mot de passe incorrect.</p>
+  </div>
+</div>
+
+<!-- ===== ESPACE PRO : gestion des biens ===== -->
+<div id="page-admin" class="page">
+  <div class="admin-header">
+    <h2>Espace pro</h2>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="cb-btn ghost" onclick="adminDeconnexion()">Se déconnecter</button>
+      <button class="cb-btn" onclick="showPage('home')">← Retour au site</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="section-tag">Pilotage de mes biens</div>
+    <h3 class="admin-titre">Mes biens en ligne</h3>
+    <p class="admin-aide">Un clic publie aussitôt le changement sur le site (visible par tous en 1 à 2 minutes). Recliquer sur un statut actif le retire.
+      « Vendu » retire le bien des annonces et l'ajoute à « Mes dernières ventes » sur l'accueil. « À la une » : dès qu'un bien est coché, l'accueil n'affiche que les biens cochés (sinon, les plus récents). Les biens qui disparaissent de 3G disparaissent aussi du site.</p>
+    <div class="admin-biens-list" id="adminList"></div>
+    <div id="adminVendusWrap" hidden>
+      <h3 class="admin-titre" style="margin-top:2.5rem;">Mes dernières ventes</h3>
+      <div class="admin-biens-list" id="adminVendus"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ===== FOOTER ===== -->
 <footer id="site-footer">
   <div class="ft-logo"><img class="ft-logo-full" src="logo-angevin-blanc.png" alt="L'Immobilier Angevin — achat, vente, estimation" width="800" height="523" loading="lazy"></div>
@@ -6011,6 +6084,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
         <a onclick="showLegal('rgpd')">Protection des données</a>
         <a onclick="showLegal('cgu')">CGU</a>
         <a onclick="showLegal('cookies-info')">Cookies</a>
+        <a onclick="ouvrirEspacePro()" role="button" tabindex="0" onkeypress="if(event.key==='Enter'){ouvrirEspacePro()}">Espace pro</a>
       </div>
     </div>
     <a class="ft-credit" href="https://www.creationsiteimmobilier.fr/" target="_blank" rel="noopener">Site créé par creationsiteimmobilier</a>
@@ -6255,6 +6329,7 @@ var AGENCE = {
     tiktok: 'https://www.tiktok.com/@charles.morel3gimmo'
   },
   web3formsKey: '',     // clé gratuite sur web3forms.com : les formulaires arrivent par e-mail
+  statutProxyUrl: '',   // adresse du relais Cloudflare de l'espace pro (ex. https://immobilier-angevin.galfomorel.workers.dev/)
   parrainagePrime: '400 €'
 };
 function _telIntl(t) { var d = String(t || '').replace(/[^0-9+]/g, ''); if (!d) return ''; if (d.charAt(0) === '0') d = '+33' + d.slice(1); return d; }
@@ -6462,6 +6537,7 @@ let previousPage = 'biens';
 function showPage(id) {
   var _ALIAS = { estimer: 'estimation', 'me-connaitre': 'apropos', connaitre: 'apropos', agence: 'apropos', parrainer: 'parrainage' };
   if (_ALIAS[id]) id = _ALIAS[id];
+  if (id === 'admin' && !_adminPwd) { ouvrirEspacePro(); return; }
   if (id === 'louer' && !AGENCE.location) id = 'acheter';
   if (id === 'acheter' || id === 'louer') { setTransaction(id === 'louer' ? 'location' : 'vente'); id = 'biens'; }
   var _navId = (id === 'biens') ? (filterTransaction === 'location' ? 'louer' : 'acheter') : id;
@@ -6484,6 +6560,7 @@ function showPage(id) {
   if (id === 'biens') { renderBiensGrid(); refreshVilleSelects(); }
   if (id === 'estimation') refreshVilleSelects();
   if (id === 'favoris') renderFavoris();
+  if (id === 'admin') renderAdmin();
   document.querySelectorAll('.nav-links a[data-nav]').forEach(function(a){ a.classList.toggle('is-active', a.getAttribute('data-nav') === _navId); });
   if (typeof favMajUI === 'function') favMajUI();
 
@@ -7581,8 +7658,10 @@ function renderVendusCarousel() {
   }
 
   var html = tous.map(function(v){ return buildCard(v, false); }).join('');
+  var _boucle = tous.length >= 4;
+  track.classList.toggle('vendus-static', !_boucle);
   // Doubler pour le défilement en boucle
-  html += tous.map(function(v){ return buildCard(v, true); }).join('');
+  if (_boucle) html += tous.map(function(v){ return buildCard(v, true); }).join('');
 
   track.innerHTML = html;
 }
@@ -10253,7 +10332,7 @@ async function autoRefreshData() {
   if (document.hidden) return;
   try {
     var rb = await fetch(AGENCE.flux3G + '?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; });
-    var rv = null;
+    var rv = await fetch('data/ventes.json?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; });
     var tb = (rb && rb.ok) ? await rb.text() : '';
     var tv = (rv && rv.ok) ? await rv.text() : '';
     if (!tb) return; // fetch raté → on ne touche à rien (on garde l'affichage actuel)
@@ -10381,7 +10460,7 @@ async function loadBiens() {
       fetch(AGENCE.flux3G + '?t=' + Date.now(), { cache: 'no-cache' })
         .then(function (r) { if (!r.ok) throw new Error('flux'); return r; })
         .catch(function () { return fetch('data/biens.json?t=' + Date.now(), { cache: 'no-cache' }); }),
-      null,  // (data/ventes.json : non utilisé)
+      fetch('data/ventes.json?t=' + Date.now(), { cache: 'no-cache' }).catch(function(){ return null; }),
       null   // (data/vendus-auto.json : non utilisé)
     ]);
     var bRes = results[0], vRes = results[1], vaRes = results[2];
@@ -10516,6 +10595,174 @@ function _normalizeBien(b) {
   if (!b.gesConso && b.gesVal) b.gesConso = b.gesVal;
   return b;
 }
+
+// =====================================================================
+// ESPACE PRO — pilotage des statuts (même principe que cotepresquile.com)
+// Le mot de passe n'est PAS dans le site : il est vérifié par le relais Cloudflare
+// (AGENCE.statutProxyUrl), qui enregistre data/ventes.json dans le dépôt GitHub.
+// =====================================================================
+var _adminPwd = '';
+var _adminAttempts = 0, _adminLockedUntil = 0, _adminBusy = false;
+
+function ouvrirEspacePro() {
+  if (_adminPwd) { showPage('admin'); return; }
+  var e = document.getElementById('adminError'); if (e) e.style.display = 'none';
+  openModal('modal-admin');
+  setTimeout(function () { var i = document.getElementById('adminPwd'); if (i) i.focus(); }, 150);
+}
+
+async function checkAdmin() {
+  if (Date.now() < _adminLockedUntil) {
+    showToast('Trop de tentatives. Réessayez dans ' + Math.ceil((_adminLockedUntil - Date.now()) / 1000) + ' s.', 'error');
+    return;
+  }
+  var pwd = ((document.getElementById('adminPwd') || {}).value || '');
+  if (!pwd) { showToast('Mot de passe requis', 'error'); return; }
+  if (!AGENCE.statutProxyUrl) { showToast("L'espace pro n'est pas encore activé : le serveur des statuts reste à brancher.", 'warning', 7000); return; }
+  var btn = document.getElementById('adminLoginBtn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Vérification…'; }
+  var status = 0;
+  try {
+    var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pwd, check: true }) });
+    status = r.status;
+  } catch (e) { status = -1; }
+  if (btn) { btn.disabled = false; btn.textContent = 'Accéder'; }
+  if (status === -1) { showToast('Connexion au serveur impossible. Réessayez dans un instant.', 'error', 6000); return; }
+  if (status === 200) {
+    _adminAttempts = 0; _adminPwd = pwd;
+    if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
+      try { navigator.credentials.store(new PasswordCredential({ id: 'espace-pro-angevin', name: "Espace pro — L'Immobilier Angevin", password: pwd })).catch(function () {}); } catch (e) {}
+    }
+    closeModal('modal-admin');
+    document.getElementById('adminPwd').value = '';
+    document.getElementById('adminError').style.display = 'none';
+    document.body.classList.add('admin-mode');
+    showPage('admin');
+    return;
+  }
+  if (status !== 401) { showToast('Le serveur des statuts ne répond pas correctement (' + status + ').', 'error', 6000); return; }
+  _adminAttempts++;
+  if (_adminAttempts >= 5) { _adminLockedUntil = Date.now() + 60000; _adminAttempts = 0; showToast('Trop de tentatives — verrouillé 60 secondes.', 'error', 6000); }
+  document.getElementById('adminError').style.display = 'block';
+}
+
+function adminDeconnexion() {
+  _adminPwd = '';
+  document.body.classList.remove('admin-mode');
+  showPage('home');
+  showToast("Vous êtes déconnecté de l'espace pro.", 'info', 3000);
+}
+
+function _adminEtiquettes(b) {
+  return {
+    nouveau: (b.nouveaute !== undefined) ? !!b.nouveaute : !!(b.createdAt && (Date.now() - new Date(b.createdAt).getTime()) < 21 * 86400000),
+    baisse: (b.baisse !== undefined) ? !!b.baisse : !!b.baisseDePrix
+  };
+}
+
+function _adminLigne(b) {
+  var statut = b.statut || 'en_vente', et = _adminEtiquettes(b), dis = _adminBusy ? ' disabled' : '';
+  var badge = statut === 'sous_compromis' ? '<span class="admin-statut-badge admin-statut-compromis">Sous compromis</span>'
+    : statut === 'offre_en_cours' ? '<span class="admin-statut-badge admin-statut-offre">Offre en cours</span>'
+    : statut === 'vendu' ? '<span class="admin-statut-badge admin-statut-vendu">Vendu</span>' : '';
+  var ref = b.ref && String(b.ref).trim() ? String(b.ref).trim() : genRef(b.id);
+  var actions = (statut === 'vendu')
+    ? '<button class="btn-statut btn-vendu active"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'vendu\')" title="Retirer le statut « Vendu »">Vendu ✓ — remettre en vente</button>'
+    : '<button class="btn-statut btn-une ' + (b.alaune ? 'active' : '') + '"' + dis + ' onclick="adminSetUne(' + b.id + ')" title="Afficher / retirer des « Biens à la une » (accueil)">★ À la une</button>' +
+      '<button class="btn-statut btn-new ' + (et.nouveau ? 'active' : '') + '"' + dis + ' onclick="adminSetNouveaute(' + b.id + ')" title="Étiquette « Nouveauté »">Nouveauté</button>' +
+      '<button class="btn-statut btn-baisse ' + (et.baisse ? 'active' : '') + '"' + dis + ' onclick="adminSetBaisse(' + b.id + ')" title="Étiquette « Baisse de prix »">Baisse de prix</button>' +
+      '<button class="btn-statut btn-exclu ' + (b.exclusif ? 'active' : '') + '"' + dis + ' onclick="adminSetExclusif(' + b.id + ')" title="Exclusivité">Exclusivité</button>' +
+      '<button class="btn-statut btn-offre ' + (statut === 'offre_en_cours' ? 'active' : '') + '"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'offre_en_cours\')" title="Offre en cours">Offre</button>' +
+      '<button class="btn-statut btn-compromis ' + (statut === 'sous_compromis' ? 'active' : '') + '"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'sous_compromis\')" title="Sous compromis">Compromis</button>' +
+      '<button class="btn-statut btn-vendu"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'vendu\')" title="Vendu → Mes dernières ventes">Vendu</button>';
+  return '<div class="admin-bien-row">' +
+      '<img class="admin-bien-img" src="' + _esc(b.img ? imgOpt(b.img, 300) : PLACEHOLDER_IMG) + '" alt="">' +
+      '<div class="admin-bien-info"><h4>' + _esc(b.titre || b.type || 'Bien') + ' ' + badge + '</h4>' +
+        '<p>' + _esc(b.ville || '') + ' · ' + _esc(b.type || '') + ' · ' + _esc(formatPrixPublic(b)) + '</p>' +
+        '<p class="admin-src">Réf. ' + _esc(ref) + (statut !== 'vendu' ? ' · <a href="#" onclick="showFiche(' + b.id + ');return false;" style="text-decoration:underline;">voir l\'annonce</a>' : '') + '</p></div>' +
+      '<div class="admin-bien-actions">' + actions + '</div>' +
+    '</div>';
+}
+
+function renderAdmin() {
+  var list = document.getElementById('adminList'); if (!list) return;
+  var actifs = biens.filter(function (b) { return b.statut !== 'vendu'; }).sort(function (a, b) { return (parseInt(b.id) || 0) - (parseInt(a.id) || 0); });
+  var vendus = biens.filter(function (b) { return b.statut === 'vendu'; }).sort(function (a, b) { return new Date(b.dateVente || 0) - new Date(a.dateVente || 0); });
+  list.innerHTML = actifs.length ? actifs.map(_adminLigne).join('') : '<p class="admin-aide">Aucun bien en ligne pour le moment.</p>';
+  var w = document.getElementById('adminVendusWrap'), v = document.getElementById('adminVendus');
+  if (w) w.hidden = vendus.length === 0;
+  if (v) v.innerHTML = vendus.map(_adminLigne).join('');
+}
+
+async function _chargerOverlay() {
+  try { var r = await fetch('data/ventes.json?t=' + Date.now(), { cache: 'no-cache' }); if (r.ok) { var j = await r.json(); return Array.isArray(j.ventes) ? j.ventes : []; } } catch (e) {}
+  return [];
+}
+
+async function _publierStatuts(ventes) {
+  if (!AGENCE.statutProxyUrl) { showToast('Serveur des statuts non configuré.', 'error', 7000); return false; }
+  if (!_adminPwd) { showToast("Reconnectez-vous à l'espace pro.", 'error', 6000); return false; }
+  try {
+    var res = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: _adminPwd, ventes: ventes }) });
+    if (res.status === 401) { showToast('Mot de passe refusé par le serveur.', 'error', 6000); return false; }
+    if (res.status === 502) { showToast('Publication impossible : la clé GitHub du serveur a sans doute expiré.', 'error', 9000); return false; }
+    if (!res.ok) { showToast('Échec de publication (' + res.status + ').', 'error', 6000); return false; }
+    return true;
+  } catch (e) { showToast('Connexion au serveur impossible.', 'error', 6000); return false; }
+}
+
+async function _adminMajBadge(id, changes) {
+  if (_adminBusy) return;
+  var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); });
+  if (!b) return;
+  _adminBusy = true; renderAdmin();
+  try {
+    var overlay = await _chargerOverlay();
+    // GitHub Pages met ~1 min à servir le fichier publié : on part de la dernière version publiée d'ici.
+    try { var pend = JSON.parse(localStorage.getItem('ia_overlay_pending') || 'null'); if (pend && (Date.now() - pend.ts) < 300000 && Array.isArray(pend.ventes)) overlay = pend.ventes; } catch (e) {}
+    var i = overlay.findIndex(function (v) { return parseInt(v.id) === parseInt(id); });
+    var e = (i >= 0) ? overlay[i] : { id: parseInt(id) };
+    if (changes.statut !== undefined) { e.statut = changes.statut; e.dateVente = (changes.statut === 'vendu') ? new Date().toISOString() : null; e.override = true; }
+    if (changes.exclusif !== undefined) { e.exclusif = !!changes.exclusif; e.override = true; }
+    if (changes.alaune !== undefined) e.alaune = !!changes.alaune;
+    if (changes.nouveaute !== undefined) e.nouveaute = !!changes.nouveaute;
+    if (changes.baisse !== undefined) e.baisse = !!changes.baisse;
+    e.titre = b.titre || ''; e.type = b.type || 'Bien'; e.ville = b.ville || ''; e.cp = b.cp || ''; e.img = b.img || ''; e.prix = b.prix || 0;
+    if (i >= 0) overlay[i] = e; else overlay.unshift(e);
+    overlay = overlay.filter(function (v) {
+      return v.override || v.alaune || v.exclusif || (typeof v.nouveaute !== 'undefined') || (typeof v.baisse !== 'undefined') || (v.statut && v.statut !== 'en_vente');
+    });
+    var ok = await _publierStatuts(overlay);
+    if (!ok) return;
+    try { localStorage.setItem('ia_overlay_pending', JSON.stringify({ ts: Date.now(), ventes: overlay })); } catch (err) {}
+    if (changes.statut !== undefined) { b.statut = changes.statut; b.dateVente = e.dateVente || null; }
+    if (changes.exclusif !== undefined) b.exclusif = !!changes.exclusif;
+    if (changes.alaune !== undefined) b.alaune = !!changes.alaune;
+    if (changes.nouveaute !== undefined) b.nouveaute = !!changes.nouveaute;
+    if (changes.baisse !== undefined) b.baisse = !!changes.baisse;
+    try { localStorage.setItem('ia_biens', JSON.stringify(biens)); } catch (err) {}
+    renderHomeGrid();
+    if (typeof renderBiensGrid === 'function') renderBiensGrid();
+    renderVendusCarousel();
+    showToast("Publié sur le site (visible par tous d'ici 1 à 2 minutes)", 'success', 5000);
+  } finally {
+    _adminBusy = false; renderAdmin();
+  }
+}
+
+async function adminSetStatut(id, statut) {
+  var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }); if (!b) return;
+  var cible = (b.statut === statut) ? 'en_vente' : statut;
+  var labels = { sous_compromis: 'Sous compromis', offre_en_cours: 'Offre en cours', vendu: 'Vendu' };
+  var msg = (cible === 'en_vente') ? 'Retirer ce statut et remettre le bien « en vente » sur le site ?' : 'Marquer ce bien « ' + (labels[statut] || statut) + ' » sur le site ?';
+  var ok = await showConfirm(msg, { title: 'Espace pro', okText: 'Publier', cancelText: 'Annuler' });
+  if (!ok) return;
+  await _adminMajBadge(id, { statut: cible });
+}
+async function adminSetExclusif(id) { var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }) || {}; await _adminMajBadge(id, { exclusif: !b.exclusif }); }
+async function adminSetUne(id) { var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }) || {}; await _adminMajBadge(id, { alaune: !b.alaune }); }
+async function adminSetNouveaute(id) { var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }) || {}; await _adminMajBadge(id, { nouveaute: !_adminEtiquettes(b).nouveau }); }
+async function adminSetBaisse(id) { var b = biens.find(function (x) { return parseInt(x.id) === parseInt(id); }) || {}; await _adminMajBadge(id, { baisse: !_adminEtiquettes(b).baisse }); }
 
 // Cookies
 function initCookieBanner() {
