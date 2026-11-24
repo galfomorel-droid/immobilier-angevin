@@ -5394,6 +5394,15 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
   #page-home .equipe .equipe-tel { font-size: .95rem; }
 }
 
+/* ===================== PRIORITÉ 2 : DUO SUR LA PAGE CONTACT (24/11/2026) ===================== */
+.contact-duo .cd-g { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+.contact-duo .cd-c { text-align: center; }
+.contact-duo .cd-c img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; box-shadow: 0 6px 18px rgba(2,20,48,.14); }
+.contact-duo .cd-n { font-weight: 700; color: var(--marine); margin: 0; font-size: .98rem; }
+.contact-duo .cd-r { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #5B6475; margin: 2px 0 6px; }
+.contact-duo .cd-t { font-weight: 700; color: var(--rouge-fonce, #B50519); text-decoration: none; white-space: nowrap; }
+.contact-duo .cd-t:hover { text-decoration: underline; }
+
 </style>
 </head>
 <body>
@@ -6346,9 +6355,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
   <section class="cb-section" style="padding-top:clamp(40px,5vw,64px);">
     <div class="cb-wrap cb-split split-contact">
       <div>
-        <div class="cb-card" style="margin-bottom:18px;">
-          <span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><h3 class="cb-h3">Téléphone</h3><p><a data-tel href="#contact" style="font-weight:600;">Numéro communiqué prochainement</a></p>
-        </div>
+        <div class="cb-card contact-duo" style="margin-bottom:18px;"><h3 class="cb-h3">Vos interlocuteurs</h3><div class="cd-g"><div class="cd-c"><img src="img/charles-morel-avatar.jpg" alt="" width="72" height="72" loading="lazy"><p class="cd-n">Charles MOREL</p><p class="cd-r">Cofondateur</p><a class="cd-t" href="tel:+33638555355">06 38 55 53 55</a></div><div class="cd-c"><img src="img/equipe-antoine-hery-avatar.webp" alt="" width="72" height="72" loading="lazy"><p class="cd-n">Antoine HERY</p><p class="cd-r">Cofondateur</p><a class="cd-t" href="tel:+33682873331">06 82 87 33 31</a></div></div></div>
         <div class="cb-card" style="margin-bottom:18px;">
           <span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><h3 class="cb-h3">E-mail</h3><p><a data-email href="#contact" style="font-weight:600;">Via le formulaire de cette page</a></p>
         </div>
@@ -6990,9 +6997,10 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
     </div>
     <div>
       <h3 class="ft-titre">Nous contacter</h3>
-      <span>Charles MOREL · L'Immobilier Angevin</span>
+      <span>Charles MOREL et Antoine HERY</span>
       <span data-adresse>Angers (49)</span>
-      <a data-tel href="#contact" onclick="if(this.getAttribute('href')==='#contact'){showPage('contact');return false;}">Nous appeler</a>
+      <a href="tel:+33638555355">Charles · 06 38 55 53 55</a>
+      <a href="tel:+33682873331">Antoine · 06 82 87 33 31</a>
       <a data-email href="#contact" onclick="if(this.getAttribute('href')==='#contact'){showPage('contact');return false;}">Nous écrire</a>
       <span data-horaires>Du lundi au samedi, sur rendez-vous</span>
     </div>
