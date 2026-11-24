@@ -4,6 +4,7 @@ Lu par le carrousel « Nos dernières ventes » du site. Si la page ne répond p
 le fichier existant est conservé tel quel."""
 import os, re, io, json, html, datetime, urllib.request
 from PIL import Image
+from zoneinfo import ZoneInfo
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SORTIE = os.path.join(RACINE, "data", "vendus-3g.json")
@@ -71,16 +72,22 @@ def main():
         if m:
             ville, cp = m.group(1), m.group(2)
         ventes.append({
-            "id": ref, "date": datetime.date.fromtimestamp(int(t)).isoformat(),
+            "id": ref, "date": datetime.datetime.fromtimestamp(int(t), ZoneInfo("Europe/Paris")).date().isoformat(),
             "type": types[-1] if types else "Bien", "ville": ville_propre(ville), "cp": cp,
             "img": recadrer(img.group(1).replace("/get_file_id_mini/", "/get_file_id/"), ref) if img else "",
         })
     if not ventes:
         print("Aucune vente trouvée sur", PAGE, ": fichier inchangé"); return
     ventes.sort(key=lambda v: v["date"], reverse=True)
+    try:   # rien de neuf : on ne réécrit pas le fichier (évite un commit quotidien pour la seule date)
+        with open(SORTIE, encoding="utf-8") as f:
+            if json.load(f).get("vendus") == ventes:
+                print("Aucune nouvelle vente : fichier inchangé"); return
+    except (OSError, ValueError):
+        pass
     os.makedirs(os.path.dirname(SORTIE), exist_ok=True)
     with open(SORTIE, "w", encoding="utf-8") as f:
-        json.dump({"source": PAGE, "maj": datetime.date.today().isoformat(), "vendus": ventes}, f, ensure_ascii=False, indent=1)
+        json.dump({"source": PAGE, "vendus": ventes}, f, ensure_ascii=False, indent=1)
         f.write("\n")
     print(len(ventes), "ventes écrites dans", SORTIE)
 

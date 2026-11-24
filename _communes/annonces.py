@@ -270,7 +270,15 @@ def main():
         p = os.path.join(dossier, nom)
         if os.path.isdir(p) and nom not in garder:
             shutil.rmtree(p); print("  retirée :", nom)
-    faits.append(G.ecrire("sitemap.xml", G.sitemap(COMMUNES)))
+    # sitemap : réécrit seulement si la liste des adresses change (sinon seule la date du jour changerait)
+    nouveau = G.sitemap(COMMUNES)
+    try:
+        with open(os.path.join(RACINE, "sitemap.xml"), encoding="utf-8") as f:
+            ancien = f.read()
+    except OSError:
+        ancien = ""
+    if re.findall(r"<loc>([^<]+)</loc>", ancien) != re.findall(r"<loc>([^<]+)</loc>", nouveau):
+        faits.append(G.ecrire("sitemap.xml", nouveau))
     print(f"{len(annonces)} annonces, {len(faits)} fichiers écrits")
 
 
