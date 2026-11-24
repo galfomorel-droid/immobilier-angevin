@@ -4790,6 +4790,16 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 #biens-home, #cta, .vendus-section, .seo-section { padding-top: clamp(56px, 8vw, 104px); padding-bottom: clamp(56px, 8vw, 104px); }
 #avis { padding-bottom: clamp(56px, 8vw, 104px); }
 
+/* ===== Notre équipe (binôme, refonte 24/11/2026) ===== */
+.equipe-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px); max-width: 980px; margin: 40px auto 8px; }
+.equipe-carte { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.equipe-photo { width: clamp(150px, 18vw, 200px); height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 30px rgba(2,20,48,.14); margin-bottom: 20px; }
+.equipe-nom { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 800; color: var(--marine); margin: 0; }
+.equipe-nom span { color: var(--rouge, #DC071D); }
+.equipe-role { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: #5b6475; margin: 6px 0 14px; }
+.equipe-txt { color: #3a4252; line-height: 1.7; max-width: 44ch; margin: 0 auto; }
+@media (max-width: 700px) { .equipe-grid { grid-template-columns: 1fr; gap: 44px; } }
+
 </style>
 </head>
 <body>
@@ -4913,23 +4923,32 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
     </div>
   </section>
 
-  <!-- L'AGENCE (aperçu) -->
-  <section id="agence-apercu">
-    <div class="cb-wrap cb-split">
-      <div class="cb-photo"><img src="img/charles-morel.jpg" alt="Charles MOREL, conseiller immobilier à Angers · L'Immobilier Angevin" loading="lazy" decoding="async"></div>
-      <div>
-        <span class="cb-kicker">Votre conseiller</span>
-        <h2 class="cb-h2">Charles MOREL, votre conseiller immobilier à Angers.</h2>
-        <p class="cb-lead">Achat, vente, estimation : avec L'Immobilier Angevin, j'accompagne avec écoute et rigueur celles et ceux qui ont un projet immobilier à <strong>Angers</strong> et dans les communes voisines, de la Doutre aux bords de Loire.</p>
-        <div class="cb-chips">
-          <span class="cb-chip">Achat · Vente · Estimation</span>
-          <span class="cb-chip">Estimation offerte sous 24 h</span>
-          <span class="cb-chip">Un interlocuteur unique</span>
-        </div>
-        <div class="cb-actions"><button class="cb-btn accent" onclick="showPage('apropos')">En savoir plus</button></div>
+  <!-- NOTRE ÉQUIPE (binôme ; même gabarit pour les deux associés) -->
+  <section class="cb-section cb-center equipe" aria-labelledby="equipeTitre">
+    <div class="cb-wrap">
+      <span class="cb-kicker">Notre équipe</span>
+      <h2 class="cb-h2" id="equipeTitre">Charles MOREL et Antoine HERY</h2>
+      <div class="equipe-grid">
+        <article class="equipe-carte">
+          <img class="equipe-photo" src="img/equipe-charles-morel.webp" alt="Charles Morel, conseiller immobilier" width="640" height="640" loading="lazy" decoding="async">
+          <h3 class="equipe-nom">Charles <span>MOREL</span></h3>
+          <p class="equipe-role">Conseiller immobilier</p>
+          <p class="equipe-txt">Conseiller immobilier indépendant du réseau 3G IMMO, Charles accompagne particuliers et investisseurs dans l'achat, la vente et l'estimation de biens à Angers et dans l'agglomération.</p>
+        </article>
+        <article class="equipe-carte">
+          <img class="equipe-photo" src="img/equipe-antoine-hery.webp" alt="Antoine Hery, associé" width="640" height="640" loading="lazy" decoding="async">
+          <h3 class="equipe-nom">Antoine <span>HERY</span></h3>
+          <p class="equipe-role">Associé</p>
+          <p class="equipe-txt">Antoine compte dix ans d'expérience dans l'immobilier, dont sept ans à Angers. Il a ensuite passé trois ans comme commercial Grand Ouest pour une agence parisienne, où il gérait des biens de prestige dans l'ouest de la France et à Paris. Fort de ce parcours, il revient aujourd'hui à Angers pour s'associer avec Charles Morel et ouvrir son agence, en gardant le meilleur de ses dix années d'expérience.</p>
+        </article>
+      </div>
+      <div class="cb-actions" style="justify-content:center;">
+        <button class="cb-btn" onclick="showPage('contact')">Nous contacter</button>
+        <a class="cb-btn ghost" data-tel href="#contact">Nous appeler</a>
       </div>
     </div>
   </section>
+
 
   <!-- BIENS À LA UNE -->
   <section id="biens-home">
@@ -5430,6 +5449,33 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
       </div>
     </div>
   </section>
+
+  <!-- NOTRE ÉQUIPE (binôme ; même gabarit pour les deux associés) -->
+  <section class="cb-section cb-center equipe" aria-labelledby="equipeTitreAgence">
+    <div class="cb-wrap">
+      <span class="cb-kicker">Notre équipe</span>
+      <h2 class="cb-h2" id="equipeTitreAgence">Charles MOREL et Antoine HERY</h2>
+      <div class="equipe-grid">
+        <article class="equipe-carte">
+          <img class="equipe-photo" src="img/equipe-charles-morel.webp" alt="Charles Morel, conseiller immobilier" width="640" height="640" loading="lazy" decoding="async">
+          <h3 class="equipe-nom">Charles <span>MOREL</span></h3>
+          <p class="equipe-role">Conseiller immobilier</p>
+          <p class="equipe-txt">Conseiller immobilier indépendant du réseau 3G IMMO, Charles accompagne particuliers et investisseurs dans l'achat, la vente et l'estimation de biens à Angers et dans l'agglomération.</p>
+        </article>
+        <article class="equipe-carte">
+          <img class="equipe-photo" src="img/equipe-antoine-hery.webp" alt="Antoine Hery, associé" width="640" height="640" loading="lazy" decoding="async">
+          <h3 class="equipe-nom">Antoine <span>HERY</span></h3>
+          <p class="equipe-role">Associé</p>
+          <p class="equipe-txt">Antoine compte dix ans d'expérience dans l'immobilier, dont sept ans à Angers. Il a ensuite passé trois ans comme commercial Grand Ouest pour une agence parisienne, où il gérait des biens de prestige dans l'ouest de la France et à Paris. Fort de ce parcours, il revient aujourd'hui à Angers pour s'associer avec Charles Morel et ouvrir son agence, en gardant le meilleur de ses dix années d'expérience.</p>
+        </article>
+      </div>
+      <div class="cb-actions" style="justify-content:center;">
+        <button class="cb-btn" onclick="showPage('contact')">Nous contacter</button>
+        <a class="cb-btn ghost" data-tel href="#contact">Nous appeler</a>
+      </div>
+    </div>
+  </section>
+
 
   <section class="cb-section">
     <div class="cb-wrap cb-split" style="align-items:start;">
