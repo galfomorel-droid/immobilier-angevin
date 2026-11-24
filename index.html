@@ -4673,9 +4673,70 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 .btn-statut.btn-reafficher { background: var(--marine); color: #fff; border-color: var(--marine); }
 #adminMasques .admin-bien-row { opacity: .75; }
 
+/* Fiche : calculette de mensualités */
+.fiche-calc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 14px; }
+.fiche-calc-grid label { display: flex; flex-direction: column; gap: 6px; font-size: .78rem; font-weight: 500; color: var(--marine); }
+.fiche-calc-grid input, .fiche-calc-grid select { font: inherit; font-size: .95rem; font-weight: 400; padding: .65rem .8rem; border: 1px solid var(--line-c); border-radius: 10px; background: #fff; color: var(--marine); }
+.fiche-calc-grid input:focus, .fiche-calc-grid select:focus { outline: 2px solid var(--rouge); outline-offset: 1px; }
+.fiche-calc-res { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 16px 18px; border-radius: 14px; background: var(--light-bg); }
+.fiche-calc-res span { font-size: .8rem; color: var(--gris); }
+.fiche-calc-res strong { font-size: 1.5rem; font-weight: 800; color: var(--marine); }
+.fiche-calc-res small { flex-basis: 100%; font-size: .78rem; color: var(--gris); }
+@media (max-width: 600px) { .fiche-calc-grid { grid-template-columns: 1fr; } }
+/* Fiche : commodités à proximité */
+.fiche-poi { margin-top: 14px; }
+.fiche-poi-titre { font-size: .82rem; font-weight: 600; color: var(--marine); margin-bottom: 8px; }
+.fiche-poi-titre span { font-weight: 400; color: var(--gris); }
+.fiche-poi-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.poi-chip { display: inline-flex; align-items: center; gap: 7px; font: inherit; font-size: .8rem; color: var(--marine); background: #fff; border: 1px solid var(--line-c); border-radius: 999px; padding: .5rem .9rem; cursor: pointer; transition: border-color .3s, background .3s; }
+.poi-chip i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.poi-chip b { font-weight: 700; }
+.poi-chip[aria-pressed="true"] { background: var(--marine); color: #fff; border-color: var(--marine); }
+
+/* Recherche : bouton « Réinitialiser les filtres » */
+.biens-reset { font: inherit; font-size: .8rem; font-weight: 500; color: var(--rouge-fonce); background: none; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: .4rem .2rem; }
+.biens-reset:hover { color: var(--marine); }
+
+/* Téléphone toujours visible dans l'en-tête (audit La Cabane) */
+.nav-tel { display: inline-flex; align-items: center; gap: 8px; margin-left: clamp(10px, 1.5vw, 22px); padding: .55rem 1rem; border-radius: 999px;
+  background: var(--marine); color: #fff !important; font-size: .82rem; font-weight: 600; white-space: nowrap; text-decoration: none; transition: background .3s; }
+.nav-tel:hover { background: var(--rouge); }
+.nav-tel svg { width: 16px; height: 16px; flex: 0 0 16px; }
+@media (max-width: 1360px) and (min-width: 1161px) { .nav-tel span { display: none; } .nav-tel { padding: .6rem; } }
+@media (max-width: 1160px) { .nav-tel { margin-left: auto; margin-right: 12px; } }
+@media (max-width: 480px) { .nav-tel span { display: none; } .nav-tel { width: 42px; height: 42px; padding: 0; justify-content: center; } }
+
+/* Avis clients */
+.avis2 { background: #fff; }
+.avis2-note { margin: -6px 0 30px; font-size: .95rem; color: var(--gris); }
+.avis2-note strong { color: var(--marine); font-weight: 800; }
+.avis2-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; max-width: 920px; margin: 0 auto; text-align: left; }
+.avis2-card { margin: 0; padding: 28px 28px 24px; border: 1px solid var(--line-c); border-radius: 16px; background: var(--light-bg); display: flex; flex-direction: column; gap: 14px; }
+.avis2-stars { color: #E0A21B; font-size: 1.1rem; letter-spacing: 2px; }
+.avis2-stars .off { color: #D6DBE5; }
+.avis2-card blockquote { margin: 0; font-size: 1rem; line-height: 1.7; color: var(--marine); font-weight: 300; }
+.avis2-card figcaption { font-size: .85rem; color: var(--gris); margin-top: auto; }
+.avis2-card figcaption strong { color: var(--marine); font-weight: 600; }
+@media (max-width: 700px) { .avis2-grid { grid-template-columns: 1fr; } }
+
+/* Accessibilité : lien d'évitement, focus visible, tailles de texte minimales */
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 10000; background: var(--marine); color: #fff; padding: .7rem 1.1rem; border-radius: 999px; font-size: .85rem; font-weight: 600; transition: top .2s; }
+.skip-link:focus { top: 12px; }
+#contenu:focus { outline: none; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
+.cb-kicker, .section-tag { font-size: .75rem; }
+.bien-vg { font-size: .7rem; }
+.bien-card-ref, .bien-card-discover { font-size: .78rem; }
+.cb-map-credit { font-size: .75rem; }
+.rs3-cta { font-size: .75rem; }
+@media (max-width: 720px) {
+  .ft-bottom, .ft-bottom span, .ft-legal a, .ft-credit, #site-footer a { font-size: .82rem; }
+}
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#contenu" onclick="var m=document.getElementById('contenu'); if(m){m.focus(); window.scrollTo(0,0);} return false;">Aller au contenu</a>
 
 <!-- NAVIGATION -->
 <nav id="nav">
@@ -4693,6 +4754,10 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
     <li><a href="#contact" data-nav="contact" onclick="showPage('contact');return false;">Contact</a></li>
     <li><a href="#favoris" class="nav-fav" data-nav="favoris" onclick="showPage('favoris');return false;" aria-label="Mes favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg><span class="fav-count" data-n="0"></span></a></li>
   </ul>
+  <a class="nav-tel" href="tel:+33638555355" aria-label="Appeler Charles MOREL au 06 38 55 53 55">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span>06 38 55 53 55</span>
+  </a>
   <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -4710,6 +4775,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
   <a href="#favoris" onclick="showPage('favoris');closeMobileMenu();return false;">Mes favoris <span class="fav-count" data-n="0"></span></a>
 </div>
 
+<main id="contenu" tabindex="-1">
 <!-- ===== PAGE ACCUEIL ===== -->
 <div id="page-home" class="page active">
 
@@ -4902,6 +4968,31 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
     <div class="vendus-marquee"><div class="vendus-track"></div></div>
   </section>
 
+  <!-- AVIS CLIENTS (avis vérifiés Immodvisor, repris du site L'Immobilier Sabolien — ne jamais en inventer) -->
+  <section class="cb-section cb-center avis2" id="avis">
+    <div class="cb-wrap">
+      <span class="cb-kicker">Avis clients</span>
+      <h2 class="cb-h2">Ce que disent mes clients</h2>
+      <p class="avis2-note"><strong>4,5 / 5</strong> · 2 avis vérifiés Immodvisor</p>
+      <div class="avis2-grid">
+        <figure class="avis2-card">
+          <div class="avis2-stars" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div>
+          <blockquote>« Charles a été d'une disponibilité et d'un professionnalisme remarquables tout au long de notre projet. Sa parfaite connaissance du marché local nous a permis de vendre rapidement et au juste prix. »</blockquote>
+          <figcaption><strong>Client vérifié</strong> · Vendeur · Sarthe</figcaption>
+        </figure>
+        <figure class="avis2-card">
+          <div class="avis2-stars" role="img" aria-label="4 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true" class="off">★</span></div>
+          <blockquote>« Un conseiller à l'écoute, qui prend le temps de comprendre les besoins et qui sait se rendre disponible. Je recommande vivement Charles MOREL pour vos projets immobiliers. »</blockquote>
+          <figcaption><strong>Client vérifié</strong> · Acquéreur · Mayenne</figcaption>
+        </figure>
+      </div>
+      <div class="cb-actions" style="justify-content:center;">
+        <button class="cb-btn" onclick="showPage('estimation')">Estimer mon bien</button>
+        <button class="cb-btn ghost" onclick="showPage('contact')">Me contacter</button>
+      </div>
+    </div>
+  </section>
+
   <!-- RÉSEAUX SOCIAUX (masqué tant qu'aucun réseau n'est renseigné dans AGENCE.reseaux) -->
   <section id="reseaux" class="rs3" hidden>
     <div class="cb-wrap">
@@ -5027,21 +5118,30 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
         <button type="button" class="search-field ms-toggle" onclick="toggleVilleMenu(event)"><span id="biensVilleLabel">Toutes les villes</span></button>
         <div id="biensVillePanel" class="ms-panel"></div>
       </div>
-      <select id="biensType" class="search-field" onchange="setFiltre('type', this.value)">
+      <select id="biensType" class="search-field" aria-label="Type de bien" onchange="setFiltre('type', this.value)">
         <option value="">Type de bien</option>
         <option value="Maison">Maison</option>
         <option value="Appartement">Appartement</option>
         <option value="Terrain">Terrain</option>
       </select>
-      <select id="biensBudget" class="search-field" onchange="setFiltre('budget', this.value)">
-        <option value="">Budget</option>
+      <select id="biensBudgetMin" class="search-field" aria-label="Budget minimum" onchange="setFiltre('budgetmin', this.value)">
+        <option value="">Budget min</option>
+        <option value="50000">Dès 50 000 €</option>
+        <option value="100000">Dès 100 000 €</option>
+        <option value="150000">Dès 150 000 €</option>
+        <option value="200000">Dès 200 000 €</option>
+        <option value="300000">Dès 300 000 €</option>
+        <option value="400000">Dès 400 000 €</option>
+      </select>
+      <select id="biensBudget" class="search-field" aria-label="Budget maximum" onchange="setFiltre('budget', this.value)">
+        <option value="">Budget max</option>
         <option value="150000">Jusqu'à 150 000 €</option>
         <option value="250000">Jusqu'à 250 000 €</option>
         <option value="350000">Jusqu'à 350 000 €</option>
         <option value="500000">Jusqu'à 500 000 €</option>
         <option value="800000">Jusqu'à 800 000 €</option>
       </select>
-      <select id="biensSurface" class="search-field" onchange="setFiltre('surface', this.value)">
+      <select id="biensSurface" class="search-field" aria-label="Surface minimum" onchange="setFiltre('surface', this.value)">
         <option value="">Surface</option>
         <option value="20">≥ 20 m²</option>
         <option value="40">≥ 40 m²</option>
@@ -5050,7 +5150,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
         <option value="150">≥ 150 m²</option>
         <option value="200">≥ 200 m²</option>
       </select>
-      <select id="biensChambres" class="search-field" onchange="setFiltre('chambres', this.value)">
+      <select id="biensChambres" class="search-field" aria-label="Chambres minimum" onchange="setFiltre('chambres', this.value)">
         <option value="">Chambres</option>
         <option value="1">1 et +</option>
         <option value="2">2 et +</option>
@@ -5058,11 +5158,20 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
         <option value="4">4 et +</option>
         <option value="5">5 et +</option>
       </select>
-      <input id="biensRef" class="search-field search-ref" type="text" placeholder="Réf" oninput="setFiltre('ref', this.value)">
+      <select id="biensTerrain" class="search-field" aria-label="Terrain minimum" onchange="setFiltre('terrain', this.value)">
+        <option value="">Terrain</option>
+        <option value="200">≥ 200 m²</option>
+        <option value="500">≥ 500 m²</option>
+        <option value="1000">≥ 1 000 m²</option>
+        <option value="2000">≥ 2 000 m²</option>
+        <option value="5000">≥ 5 000 m²</option>
+      </select>
+      <input id="biensRef" class="search-field search-ref" type="text" placeholder="Réf" aria-label="Référence de l'annonce" oninput="setFiltre('ref', this.value)">
     </div>
     <div class="feat-chips" id="featChips" aria-label="Critères de recherche"></div>
     <div class="biens-resultbar">
-      <span id="biensCount" class="biens-count">— résultats</span>
+      <span id="biensCount" class="biens-count" aria-live="polite">— résultats</span>
+      <button type="button" class="biens-reset" id="biensReset" onclick="reinitialiserFiltres()" hidden>Réinitialiser les filtres</button>
       <button class="biens-alerte" onclick="creerAlerte()">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         Créer une alerte
@@ -5965,7 +6074,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 
 <div class="modal-overlay" id="modal-contact">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('modal-contact')">✕</button>
+    <button class="modal-close" onclick="closeModal('modal-contact')" aria-label="Fermer">✕</button>
     <h2 class="modal-title">Parlons de votre projet</h2>
     <p class="modal-sub">Réponse garantie sous 24h. Premier échange toujours gratuit.</p>
     <form id="contactFormWrap" onsubmit="submitModal(event); return false;">
@@ -6011,11 +6120,11 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 <!-- ===== ESPACE PRO : connexion ===== -->
 <div class="modal-overlay" id="modal-admin">
   <div class="modal" style="max-width:380px;">
-    <button class="modal-close" onclick="closeModal('modal-admin')">✕</button>
+    <button class="modal-close" onclick="closeModal('modal-admin')" aria-label="Fermer">✕</button>
     <h2 class="modal-title">Espace pro</h2>
     <p class="modal-sub" id="adminModalSub">Accès réservé à Charles MOREL.</p>
     <form id="adminSetupForm" hidden onsubmit="event.preventDefault();creerMotDePasseAdmin();" autocomplete="on" method="post" action="#">
-      <input type="text" name="username" value="espace-pro-angevin" autocomplete="username" style="position:absolute;opacity:0;pointer-events:none;height:0;width:0;" readonly tabindex="-1">
+      <input type="text" name="username" value="espace-pro-angevin" autocomplete="username" aria-hidden="true" aria-label="Identifiant" style="position:absolute;opacity:0;pointer-events:none;height:0;width:0;" readonly tabindex="-1">
       <div class="form-row">
         <label class="form-label" for="adminPwdNew">Nouveau mot de passe</label>
         <input type="password" class="form-input" id="adminPwdNew" autocomplete="new-password" minlength="8" placeholder="8 caractères minimum">
@@ -6027,7 +6136,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
       <button type="submit" class="form-submit" id="adminSetupBtn">Créer mon mot de passe</button>
     </form>
     <form id="adminLoginForm" onsubmit="event.preventDefault();checkAdmin();" autocomplete="on" method="post" action="#">
-      <input type="text" name="username" id="adminUser" value="espace-pro-angevin" autocomplete="username" style="position:absolute;opacity:0;pointer-events:none;height:0;width:0;" readonly tabindex="-1">
+      <input type="text" name="username" id="adminUser" value="espace-pro-angevin" autocomplete="username" aria-hidden="true" aria-label="Identifiant" style="position:absolute;opacity:0;pointer-events:none;height:0;width:0;" readonly tabindex="-1">
       <div class="form-row">
         <label class="form-label" for="adminPwd">Mot de passe</label>
         <input type="password" class="form-input" id="adminPwd" name="password" autocomplete="current-password" placeholder="••••••••">
@@ -6064,6 +6173,8 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
     </div>
   </div>
 </div>
+
+</main>
 
 <!-- ===== FOOTER ===== -->
 <footer id="site-footer">
@@ -6449,7 +6560,9 @@ function _from3G(x) {
     description: x.desc || '', img: photos[0] || '', photos: photos,
     dpe: x.dpe || null, dpeClasse: x.dpe || null, gesClasse: x.ges || null,
     honoraires: /vendeur/i.test(String(x.honoraires || '')) ? 'vendeur' : 'acquéreur',
-    createdAt: x.createdAt || null, publicUrl: x.publicUrl || ''
+    createdAt: x.createdAt || null, publicUrl: x.publicUrl || '',
+    taxeFonciere: x.taxeFonciere || null, surfaceUtile: x.surfaceUtile || null, chauffage: x.heating || null,
+    garages: x.garages || 0, parkings: x.parkings || 0, exposition: x.exposition || null, etat: x.etat || null, niveaux: x.niveaux || null
   };
 }
 // Liste des annonces affichables, quel que soit le format reçu (flux 3G ou data/biens.json)
@@ -6468,7 +6581,7 @@ var BUDGETS = { vente: [150000, 250000, 350000, 500000, 800000], location: [500,
 function _majBudgetOptions(selId, tx, prefixe) {
   var sel = document.getElementById(selId); if (!sel) return;
   var cur = sel.value, loc = tx === 'location';
-  sel.innerHTML = '<option value="">' + (loc ? 'Loyer max' : 'Budget') + '</option>' + BUDGETS[tx].map(function (v) {
+  sel.innerHTML = '<option value="">' + (loc ? 'Loyer max' : 'Budget max') + '</option>' + BUDGETS[tx].map(function (v) {
     return '<option value="' + v + '">' + prefixe + v.toLocaleString('fr-FR') + ' €' + (loc ? ' / mois' : '') + '</option>';
   }).join('');
   if (cur && BUDGETS[tx].indexOf(parseInt(cur)) !== -1) sel.value = cur;
@@ -6553,6 +6666,8 @@ let filterBudgetMax = 0;   // 0 = sans limite
 let filterSurfaceMin = 0;
 let filterChambresMin = 0;
 let filterRef = '';
+let filterBudgetMin = 0;
+let filterTerrainMin = 0;
 let sortBiens = 'recent';  // recent | prix_asc | prix_desc | surface_desc
 let previousPage = 'biens';
 
@@ -7481,6 +7596,8 @@ function getBiensFiltres() {
   if (filterVilles.length) f = f.filter(b => filterVilles.indexOf(b.ville) !== -1);
   if (filterBudgetMax > 0) f = f.filter(b => (parseInt(b.prix) || 0) <= filterBudgetMax);
   if (filterSurfaceMin > 0) f = f.filter(b => (parseInt(b.surface) || 0) >= filterSurfaceMin);
+  if (filterBudgetMin > 0) f = f.filter(b => (parseInt(b.prix) || 0) >= filterBudgetMin);
+  if (filterTerrainMin > 0) f = f.filter(b => (parseInt(b.terrain) || 0) >= filterTerrainMin);
   if (filterChambresMin > 0) f = f.filter(b => (parseInt(b.chambres) || 0) >= filterChambresMin);
   if (filterRef) { var q = filterRef.toLowerCase().trim(); f = f.filter(b => String(b.ref || '').toLowerCase().indexOf(q) !== -1); }
   if (typeof filterFeatures !== 'undefined' && filterFeatures.length) f = f.filter(function(b){ var k = bienFeatures(b); return filterFeatures.every(function(x){ return k.indexOf(x) !== -1; }); });
@@ -7497,6 +7614,8 @@ function renderBiensGrid() {
   if (!grid) return;
   if (typeof renderFeatChips === 'function') renderFeatChips();
   var filtered = getBiensFiltres();
+  var _rs = document.getElementById('biensReset');
+  if (_rs) _rs.hidden = !(filterType !== 'all' || filterVilles.length || filterBudgetMax || filterBudgetMin || filterSurfaceMin || filterTerrainMin || filterChambresMin || filterRef || (typeof filterFeatures !== 'undefined' && filterFeatures.length));
   var countEl = document.getElementById('biensCount');
   if (countEl) countEl.textContent = filtered.length + ' résultat' + (filtered.length > 1 ? 's' : '');
   grid.innerHTML = '';
@@ -7581,12 +7700,21 @@ function renderBiensMap() {
   setTimeout(function(){ _leafletMap.invalidateSize(); if (bounds.length) _leafletMap.fitBounds(bounds, { padding: [40,40], maxZoom: 13 }); }, 120);
 }
 // Applique une valeur de filtre depuis les <select> et re-rend
+function reinitialiserFiltres() {
+  filterType = 'all'; filterVilles = []; filterBudgetMax = 0; filterBudgetMin = 0; filterSurfaceMin = 0;
+  filterTerrainMin = 0; filterChambresMin = 0; filterRef = '';
+  if (typeof filterFeatures !== 'undefined') filterFeatures = [];
+  syncFiltresBiens();
+  renderBiensGrid();
+}
 function setFiltre(champ, valeur) {
   if (champ === 'type') filterType = valeur || 'all';
   else if (champ === 'budget') filterBudgetMax = parseInt(valeur) || 0;
   else if (champ === 'surface') filterSurfaceMin = parseInt(valeur) || 0;
   else if (champ === 'chambres') filterChambresMin = parseInt(valeur) || 0;
   else if (champ === 'ref') filterRef = valeur || '';
+  else if (champ === 'budgetmin') filterBudgetMin = parseInt(valeur) || 0;
+  else if (champ === 'terrain') filterTerrainMin = parseInt(valeur) || 0;
   else if (champ === 'tri') sortBiens = valeur || 'recent';
   renderBiensGrid();
 }
@@ -7610,7 +7738,8 @@ function lancerRechercheHero() {
 function syncFiltresBiens() {
   var map = { biensType: filterType === 'all' ? '' : filterType,
     biensBudget: filterBudgetMax || '', biensSurface: filterSurfaceMin || '',
-    biensChambres: filterChambresMin || '', biensTri: sortBiens };
+    biensChambres: filterChambresMin || '', biensTri: sortBiens,
+    biensBudgetMin: filterBudgetMin || '', biensTerrain: filterTerrainMin || '', biensRef: filterRef || '' };
   Object.keys(map).forEach(function(id){ var e = document.getElementById(id); if (e) e.value = String(map[id]); });
   syncVilleMultiselect();
 }
@@ -7742,6 +7871,9 @@ function showFiche(id) {
   tableRows += buildRow('Surface', b.surface ? b.surface + ' m²' : '—', '', '');
   if (b.terrain) tableRows += buildRow('Terrain', b.terrain + ' m²', '', '');
   if (b.annee) tableRows += buildRow('Année de construction', b.annee, '', '');
+  if (b.taxeFonciere || b.chauffage) tableRows += buildRow('Taxe foncière', b.taxeFonciere ? _eur(b.taxeFonciere) + ' / an' : '—', 'Chauffage', b.chauffage || '—');
+  if (b.garages || b.parkings || b.exposition) tableRows += buildRow('Garage / parking', [b.garages ? b.garages + ' garage' + (b.garages > 1 ? 's' : '') : '', b.parkings ? b.parkings + ' place' + (b.parkings > 1 ? 's' : '') : ''].filter(Boolean).join(' · ') || '—', 'Exposition', b.exposition || '—');
+  if (b.surfaceUtile && b.surfaceUtile != b.surface) tableRows += buildRow('Surface utile', b.surfaceUtile + ' m²', 'État', b.etat || '—');
   // Prix masqué si bien sous compromis / offre / vendu
   if (_estLocation(b)) {
     tableRows += buildRow('Loyer charges comprises', b.prix ? _eur(b.prix) + ' / mois' : '—', 'Dont charges', b.charges ? _eur(b.charges) + ' / mois' : '—');
@@ -9333,6 +9465,77 @@ function toggleFeature(k) {
 
 // ===== Fiche : points clés, carte du secteur, Géorisques, boutons, barre mobile =====
 var _ficheMap = null;
+// ===== Fiche annonce : calculette de mensualités + commodités à proximité (audit La Cabane) =====
+var _calcPrix = 0;
+function _ficheCalculetteHTML(prix) {
+  _calcPrix = prix;
+  var apport = Math.round(prix * 0.1 / 1000) * 1000;
+  return '<div class="fiche-bloc fiche-calc"><h3>Calculez vos mensualités</h3>' +
+    '<div class="fiche-calc-grid">' +
+      '<label>Apport personnel (€)<input type="number" id="calcApport" min="0" step="1000" value="' + apport + '" oninput="_ficheCalculer()"></label>' +
+      '<label>Durée du prêt<select id="calcDuree" onchange="_ficheCalculer()"><option value="15">15 ans</option><option value="20">20 ans</option><option value="25" selected>25 ans</option></select></label>' +
+      '<label>Taux du prêt (%)<input type="number" id="calcTaux" min="0" max="10" step="0.05" value="3.5" oninput="_ficheCalculer()"></label>' +
+    '</div>' +
+    '<div class="fiche-calc-res" aria-live="polite"><span>Mensualité estimée</span><strong id="calcMens">—</strong><small id="calcDetail"></small></div>' +
+    '<p class="fiche-note">Estimation indicative, hors assurance emprunteur : frais de notaire d\'un bien ancien estimés à 7,5 % et financés. Ajustez le taux selon votre banque. ' +
+    '<a href="#outils" onclick="showPage(\'outils\');return false;">Simulation détaillée</a></p></div>';
+}
+function _ficheCalculer() {
+  var a = document.getElementById('calcApport'); if (!a || !_calcPrix) return;
+  var apport = Math.max(0, parseFloat(a.value) || 0);
+  var n = (parseInt(document.getElementById('calcDuree').value) || 25) * 12;
+  var t = Math.max(0, parseFloat(document.getElementById('calcTaux').value) || 0) / 100 / 12;
+  var notaire = Math.round(_calcPrix * 0.075);
+  var capital = Math.max(0, _calcPrix + notaire - apport);
+  var m = capital ? (t > 0 ? capital * t / (1 - Math.pow(1 + t, -n)) : capital / n) : 0;
+  document.getElementById('calcMens').textContent = Math.round(m).toLocaleString('fr-FR') + ' € / mois';
+  document.getElementById('calcDetail').textContent = 'Montant emprunté : ' + Math.round(capital).toLocaleString('fr-FR') + ' € (dont ≈ ' + notaire.toLocaleString('fr-FR') + ' € de frais de notaire)';
+}
+
+var _poiData = null, _poiCouches = {};
+var POI_CATS = [
+  { k: 'ecoles', l: 'Écoles', c: '#2E6FBA' },
+  { k: 'commerces', l: 'Commerces', c: '#B8731E' },
+  { k: 'sante', l: 'Santé', c: '#1B7A3E' },
+  { k: 'transports', l: 'Transports', c: '#021430' },
+  { k: 'loisirs', l: 'Parcs et loisirs', c: '#DC071D' }
+];
+// Commodités pré-calculées par _parts/poi.py (data/poi.json, © contributeurs OpenStreetMap)
+function _fichePoi(c, map, ville) {
+  var box = document.getElementById('fichePoi'), chips = document.getElementById('fichePoiChips');
+  if (!box || !chips) return;
+  _poiCouches = {};
+  var afficher = function () {
+    var d = _poiData && _poiData[ville];
+    if (!d || map !== _ficheMap || !document.getElementById('fichePoi')) return;
+    var html = '';
+    POI_CATS.forEach(function (cat) {
+      var pts = d[cat.k] || [];
+      if (!pts.length) return;
+      var couche = L.layerGroup();
+      pts.forEach(function (p) {
+        L.circleMarker([p[0], p[1]], { radius: 5, color: '#fff', weight: 1.5, fillColor: cat.c, fillOpacity: .95 })
+          .bindTooltip(_esc(p[2] || cat.l)).addTo(couche);
+      });
+      _poiCouches[cat.k] = couche;
+      html += '<button type="button" class="poi-chip" aria-pressed="false" data-k="' + cat.k + '" onclick="_ficheTogglePoi(this)"><i style="background:' + cat.c + '"></i>' + cat.l + ' <b>' + pts.length + '</b></button>';
+    });
+    if (!html) return;
+    chips.innerHTML = html; box.hidden = false;
+  };
+  if (_poiData) { afficher(); return; }
+  fetch('data/poi.json', { cache: 'force-cache' })
+    .then(function (r) { if (!r.ok) throw new Error('poi'); return r.json(); })
+    .then(function (j) { _poiData = j; afficher(); })
+    .catch(function () { _poiData = {}; });
+}
+function _ficheTogglePoi(btn) {
+  var k = btn.getAttribute('data-k'), couche = _poiCouches[k]; if (!couche || !_ficheMap) return;
+  var on = btn.getAttribute('aria-pressed') !== 'true';
+  btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  if (on) { couche.addTo(_ficheMap); _ficheMap.setZoom(14); } else { _ficheMap.removeLayer(couche); }
+}
+
 function renderFicheExtras(b) {
   var prixNum = parseInt(b.prixFAI || b.prix) || 0, surf = parseFloat(b.surface) || 0;
   var masque = (typeof isPrixMasque === 'function') && isPrixMasque(b);
@@ -9361,10 +9564,12 @@ function renderFicheExtras(b) {
         (AGENCE.email ? '<a class="cb-btn ghost" href="mailto:' + AGENCE.email + '?subject=' + mailSubj + '">E-mail</a>' : '') +
         (AGENCE.telephone ? '<a class="cb-btn ghost" href="tel:' + _telIntl(AGENCE.telephone) + '">Appeler</a>' : '') +
       '</div>' +
+      ((!masque && prixNum && !_estLocation(b)) ? _ficheCalculetteHTML(prixNum) : '') +
       '<div class="fiche-bloc">' +
         '<h3>Localisation</h3>' +
         '<div id="ficheMap" class="fiche-map" role="img" aria-label="Secteur approximatif du bien à ' + _esc(ville) + '"></div>' +
         '<p class="fiche-note">Secteur approximatif : ' + _esc(ville) + '. L\'adresse exacte vous est communiquée lors de la visite.</p>' +
+        '<div class="fiche-poi" id="fichePoi" hidden><p class="fiche-poi-titre">Autour du centre de ' + _esc(ville) + ' <span>(1,5 km)</span></p><div class="fiche-poi-chips" id="fichePoiChips"></div></div>' +
       '</div>' +
       '<div class="fiche-bloc">' +
         '<h3>Risques</h3>' +
@@ -9376,13 +9581,15 @@ function renderFicheExtras(b) {
     _chargerLeaflet(function () {
       var el = document.getElementById('ficheMap'); if (!el || !window.L) return;
       if (_ficheMap) { try { _ficheMap.remove(); } catch (e) {} _ficheMap = null; }
-      var c = (typeof VILLE_COORDS !== 'undefined' && VILLE_COORDS[b.ville]) || [47.29, -2.40];
+      var c = (typeof VILLE_COORDS !== 'undefined' && VILLE_COORDS[b.ville]) || _coordVille(b.ville, b.id);
       _ficheMap = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView(c, 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap', maxZoom: 17, subdomains: 'abc' }).addTo(_ficheMap);
       L.circle(c, { radius: 900, color: '#021430', weight: 2, fillColor: '#DC071D', fillOpacity: .25 }).addTo(_ficheMap);
       setTimeout(function () { if (_ficheMap) _ficheMap.invalidateSize(); }, 300);
+      _fichePoi(c, _ficheMap, b.ville);
     });
   }
+  _ficheCalculer();
   var mb = document.getElementById('ficheMobilePrix');
   if (mb) mb.textContent = (typeof formatPrixPublic === 'function') ? formatPrixPublic(b) : '';
 }
