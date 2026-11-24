@@ -11058,12 +11058,6 @@ function renderFicheExtras(b) {
   var ex = document.getElementById('ficheExtras');
   if (ex) {
     ex.innerHTML =
-      '<div class="fiche-actions">' +
-        '<button type="button" class="cb-btn" onclick="ficheVisiter()">' + (_estLocation(b) ? 'Demander une visite' : 'Organiser une visite') + '</button>' +
-        (AGENCE.whatsapp ? '<a class="cb-btn ghost" href="https://wa.me/' + AGENCE.whatsapp + '?text=' + waTxt + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
-        (AGENCE.email ? '<a class="cb-btn ghost" href="mailto:' + AGENCE.email + '?subject=' + mailSubj + '">E-mail</a>' : '') +
-        (AGENCE.telephone ? '<a class="cb-btn ghost" href="tel:' + _telIntl(AGENCE.telephone) + '">Appeler</a>' : '') +
-      '</div>' +
       ((!masque && prixNum && !_estLocation(b)) ? _ficheCalculetteHTML(prixNum) : '') +
       '<div class="fiche-bloc">' +
         '<h3>Localisation</h3>' +
@@ -11075,11 +11069,7 @@ function renderFicheExtras(b) {
         '<div class="fja-grille sans-liste" id="fjaGrille"><div id="ficheMap" class="fiche-map" role="img" aria-label="Secteur approximatif du bien à ' + _esc(ville) + '"></div><ul class="fja-liste" id="fjaListe" aria-live="polite"></ul></div>' +
         '<p class="fiche-note fja-note">Distances à vol d’oiseau depuis le centre du secteur. Lieux : © contributeurs OpenStreetMap.</p>' +
       '</div>' +
-      '<div class="fiche-bloc">' +
-        '<h3>Risques</h3>' +
-        '<p class="fiche-note">Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques : ' +
-        '<a href="https://www.georisques.gouv.fr" target="_blank" rel="noopener">www.georisques.gouv.fr</a></p>' +
-      '</div>';
+      '';
   }
   if (typeof _chargerLeaflet === 'function') {
     _chargerLeaflet(function () {
