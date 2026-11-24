@@ -5465,6 +5465,20 @@ body { font-weight: 400; }
 a.cb-card:hover, button.cb-card:hover { box-shadow: 0 12px 30px rgba(2,20,48,.10); }
 .cb-form, .est-card { border-radius: 22px; box-shadow: 0 10px 30px rgba(2,20,48,.08); }
 
+/* --- Chiffres clés en grand (comme La Cabane : gros chiffres côte à côte) --- */
+#page-home .chiffres-grid { max-width: 1040px; display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; gap: 0;
+  background: #EEF1F7; border-radius: 24px; padding: clamp(28px, 4vw, 48px) clamp(12px, 3vw, 32px); }
+#page-home .chiffre { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 0 clamp(8px, 2vw, 24px); }
+#page-home .chiffre + .chiffre:not([hidden]) { border-left: 1px solid #D6DBE5; }
+#page-home .chiffre-ico { width: 56px; height: 56px; box-shadow: 0 6px 16px rgba(2,20,48,.08); }
+#page-home .chiffre-n { font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: -.02em; }
+#page-home .chiffre-l { font-size: clamp(.82rem, 1.6vw, 1rem); font-weight: 600; color: var(--marine); }
+@media (max-width: 520px) {
+  #page-home .chiffre-ico { width: 40px; height: 40px; }
+  #page-home .chiffre-ico svg { width: 19px; height: 19px; }
+  #page-home .chiffre { padding: 0 6px; gap: 6px; }
+}
+
 </style>
 </head>
 <body>
