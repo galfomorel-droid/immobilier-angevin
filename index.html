@@ -5104,6 +5104,20 @@ a.cb-card:hover, button.cb-card:hover, .avis2-card:hover { transform: translateY
 .rs3-bar .rs3-item.rs3-linkedin::before { background: #0A66C2; }
 .rs3-bar .rs3-item.rs3-tiktok::before { background: #111; }
 
+/* ===== Sites partenaires : bandeau de portails qui défile ===== */
+.partenaires { background: var(--light-bg); overflow: hidden; }
+.prt-defile { display: flex; gap: 16px; margin-top: 30px; width: 100%; overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+.prt-piste { display: flex; gap: 16px; list-style: none; margin: 0; padding: 4px 0; flex: 0 0 auto; animation: prtDefile 45s linear infinite; }
+.prt-defile:hover .prt-piste { animation-play-state: paused; }
+@keyframes prtDefile { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 16px)); } }
+.prt-logo { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; min-width: 170px; height: 64px; padding: 0 24px; background: #fff;
+  border: 1px solid var(--line-c); border-radius: 14px; box-shadow: 0 8px 22px rgba(2,20,48,.05); font-size: 1.05rem; white-space: nowrap; }
+html.sans-anim .prt-piste { animation: none; }
+html.sans-anim .prt-defile { flex-wrap: wrap; justify-content: center; mask-image: none; -webkit-mask-image: none; padding: 0 20px; }
+html.sans-anim .prt-piste[aria-hidden="true"] { display: none; }
+html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
+
 </style>
 </head>
 <body>
@@ -5409,6 +5423,19 @@ a.cb-card:hover, button.cb-card:hover, .avis2-card:hover { transform: translateY
       <p class="vendus-subtitle">Un aperçu des biens récemment vendus, d'Angers à Sablé-sur-Sarthe.</p>
     </div>
     <div class="vendus-marquee"><div class="vendus-track"></div></div>
+  </section>
+
+  <!-- SITES PARTENAIRES (liste de la page Vendre ; à confirmer avec 3G) -->
+  <section class="cb-section cb-center partenaires" id="partenaires">
+    <div class="cb-wrap">
+      <span class="cb-kicker">Diffusion</span>
+      <h2 class="cb-h2">Nos sites <span class="cb-accent">partenaires</span></h2>
+      <p class="cb-lead">Votre annonce est présentée sur notre site et sur les portails les plus adaptés à votre bien.</p>
+    </div>
+    <div class="prt-defile" aria-label="Portails de diffusion">
+      <ul class="prt-piste"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#FF6E14;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#12A5A0;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#2E9E7E;">Tous Voisins</span></li></ul>
+      <ul class="prt-piste" aria-hidden="true"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#FF6E14;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#12A5A0;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#2E9E7E;">Tous Voisins</span></li></ul>
+    </div>
   </section>
 
   <!-- VALEURS (textes de la page L'agence) -->
