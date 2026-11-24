@@ -5484,6 +5484,9 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 12px 30px rgba(2,20,48,.10
 /* ===================== TECHNIQUE (priorité 4 de l'audit, 24/11/2026) ===================== */
 /* Couleur d'attente : un cadre gris-bleu plutôt qu'un trou blanc pendant le chargement des photos */
 .cb-photo, .pres-photo, .bien-card-img, .bc-slide, .fiche-gallery-main, .fj-vig, .equipe-photo, .vendus-track img { background-color: #E9EDF3; }
+/* Page Nos biens : place réservée pour la grille pendant le chargement du flux (évite que la suite de la page saute) */
+#page-biens #biensGrid:empty { min-height: 1200px; }
+@media (max-width: 760px) { #page-biens #biensGrid:empty { min-height: 1400px; } }
 
 </style>
 </head>
@@ -7480,7 +7483,8 @@ function setTransaction(tx) {
   var loc = tx === 'location';
   var set = function (id, t) { var e = document.getElementById(id); if (e) e.textContent = t; };
   set('biensKicker', loc ? 'Louer' : 'Acheter');
-  var _bt = document.getElementById('biensTitre'); if (_bt) _bt.innerHTML = loc ? 'Nos biens <span class="cb-accent">à louer</span>' : 'Nos biens <span class="cb-accent">à vendre</span>';
+  var _bt = document.getElementById('biensTitre'), _btH = loc ? 'Nos biens <span class="cb-accent">à louer</span>' : 'Nos biens <span class="cb-accent">à vendre</span>';
+  if (_bt && _bt.innerHTML !== _btH) _bt.innerHTML = _btH;
   set('biensIntro', loc ? "Studios, appartements et maisons à louer à Angers et dans l'agglomération, vides ou meublés."
                         : "Maisons, appartements et terrains à vendre à Angers, à Sablé-sur-Sarthe et alentours, visités et sélectionnés par nos soins.");
   document.querySelectorAll('.tx-tabs button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-tx') === tx); });
