@@ -4854,6 +4854,14 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 }
 @media print { .tabbar { display: none !important; } }
 
+/* ===== Page annonces : recherche allégée (refonte binôme) ===== */
+.search-bar .search-plus { display: none; }
+.search-bar.plus-ouvert .search-plus { display: block; }
+.feat-toggle { display: inline-flex; align-items: center; border: 1px dashed var(--noir); background: #fff; color: var(--noir); border-radius: 999px;
+  padding: 8px 16px; font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer; }
+#featChips:not(.is-open) .feat-chip:not(.on), #featChips:not(.is-open) .feat-reset { display: none; }
+.feat-chip:disabled { display: none; }
+
 </style>
 </head>
 <body>
@@ -5273,7 +5281,7 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
         <option value="Appartement">Appartement</option>
         <option value="Terrain">Terrain</option>
       </select>
-      <select id="biensBudgetMin" class="search-field" aria-label="Budget minimum" onchange="setFiltre('budgetmin', this.value)">
+      <select id="biensBudgetMin" class="search-field search-plus" aria-label="Budget minimum" onchange="setFiltre('budgetmin', this.value)">
         <option value="">Budget min</option>
         <option value="50000">Dès 50 000 €</option>
         <option value="100000">Dès 100 000 €</option>
@@ -5290,7 +5298,7 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
         <option value="500000">Jusqu'à 500 000 €</option>
         <option value="800000">Jusqu'à 800 000 €</option>
       </select>
-      <select id="biensSurface" class="search-field" aria-label="Surface minimum" onchange="setFiltre('surface', this.value)">
+      <select id="biensSurface" class="search-field search-plus" aria-label="Surface minimum" onchange="setFiltre('surface', this.value)">
         <option value="">Surface</option>
         <option value="20">≥ 20 m²</option>
         <option value="40">≥ 40 m²</option>
@@ -5299,7 +5307,7 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
         <option value="150">≥ 150 m²</option>
         <option value="200">≥ 200 m²</option>
       </select>
-      <select id="biensChambres" class="search-field" aria-label="Chambres minimum" onchange="setFiltre('chambres', this.value)">
+      <select id="biensChambres" class="search-field search-plus" aria-label="Chambres minimum" onchange="setFiltre('chambres', this.value)">
         <option value="">Chambres</option>
         <option value="1">1 et +</option>
         <option value="2">2 et +</option>
@@ -5307,7 +5315,7 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
         <option value="4">4 et +</option>
         <option value="5">5 et +</option>
       </select>
-      <select id="biensTerrain" class="search-field" aria-label="Terrain minimum" onchange="setFiltre('terrain', this.value)">
+      <select id="biensTerrain" class="search-field search-plus" aria-label="Terrain minimum" onchange="setFiltre('terrain', this.value)">
         <option value="">Terrain</option>
         <option value="200">≥ 200 m²</option>
         <option value="500">≥ 500 m²</option>
@@ -5315,7 +5323,7 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
         <option value="2000">≥ 2 000 m²</option>
         <option value="5000">≥ 5 000 m²</option>
       </select>
-      <input id="biensRef" class="search-field search-ref" type="text" placeholder="Réf" aria-label="Référence de l'annonce" oninput="setFiltre('ref', this.value)">
+      <input id="biensRef" class="search-field search-ref search-plus" type="text" placeholder="Réf" aria-label="Référence de l'annonce" oninput="setFiltre('ref', this.value)">
     </div>
     <div class="feat-chips" id="featChips" aria-label="Critères de recherche"></div>
     <div class="biens-resultbar">
@@ -9784,6 +9792,8 @@ function renderFeatChips() {
   var box = document.getElementById('featChips'); if (!box || typeof biens === 'undefined') return;
   var actifs = biens.filter(function (b) { return b.statut !== 'vendu'; });
   box.classList.toggle('is-open', !!window._featOpen);
+  var _sb = document.querySelector('#page-biens .search-bar');
+  if (_sb) _sb.classList.toggle('plus-ouvert', !!window._featOpen || !!(filterBudgetMin || filterSurfaceMin || filterChambresMin || filterTerrainMin || filterRef));
   var nbOn = filterFeatures.length;
   var toggle = '<button type="button" class="feat-toggle" onclick="window._featOpen=!window._featOpen;renderFeatChips();" aria-expanded="' + !!window._featOpen + '">' +
     (window._featOpen ? 'Masquer les critères' : '+ Plus de critères' + (nbOn ? ' (' + nbOn + ' choisi' + (nbOn > 1 ? 's' : '') + ')' : '')) + '</button>';
