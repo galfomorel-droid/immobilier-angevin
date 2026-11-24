@@ -1047,7 +1047,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
 .vg-exclu     { background: var(--or); color: #021430; } /* exclusivité — sel doré */
 .vg-compromis { background: #B8731E; }              /* sous compromis */
 .vg-offre     { background: #C24D0C; }              /* offre d'achat en cours */
-.vg-baisse    { background: #D7281C; }              /* baisse de prix */
+.vg-baisse    { background: #DC071D; }              /* baisse de prix */
 
 /* Corps de carte — plus généreux */
 .bien-card-body {
@@ -3164,7 +3164,7 @@ textarea.form-input { resize: vertical; min-height: 80px; font-family: var(--san
 .btn-new.active { background: #B50519; color: #fff; border-color: #B50519; }
 .btn-baisse { background: #FBE9E7; color: #B5271C; border: 1px solid #F0C6C1; }
 .btn-baisse:hover { background: #F7D8D4; }
-.btn-baisse.active { background: #D7281C; color: #fff; border-color: #D7281C; }
+.btn-baisse.active { background: #DC071D; color: #fff; border-color: #DC071D; }
 
 /* Badges statut dans le titre admin */
 .admin-statut-badge {
@@ -3928,7 +3928,7 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 14px 34px rgba(2,20,48,.10
 }
 .fav-btn:hover { transform: scale(1.08); }
 .fav-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
-.fav-btn.on { color: #D7281C; }
+.fav-btn.on { color: #DC071D; }
 .fav-btn.on svg { fill: currentColor; }
 
 /* Page Biens : bandeau marine aligné à gauche */
@@ -4472,7 +4472,7 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 [hidden] { display: none !important; }
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .fiche-share-wrap { display: flex; gap: 10px; align-items: center; }
-.fiche-fav.on { color: #D7281C; border-color: #D7281C; }
+.fiche-fav.on { color: #DC071D; border-color: #DC071D; }
 .fiche-fav.on svg { fill: currentColor; }
 @media print {
   nav, .mobile-menu, footer, .wa-float, .fiche-toolbar, .fiche-contact-form, #ficheSimilaires, .fiche-agency-link, .toast-stack { display: none !important; }
@@ -5276,7 +5276,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 /* Photo : badge arrondi, cœur dans un rond blanc, flèches blanches visibles, points à droite */
 .bien-card .bien-vignettes { top: 14px; left: 14px; gap: 6px; }
 .bien-card .bien-vg { border-radius: 10px; padding: 7px 14px; font-size: .82rem; font-weight: 800; letter-spacing: 0; text-transform: none; box-shadow: 0 4px 12px rgba(2,20,48,.16); }
-.bien-card .bien-vg.vg-new { background: #6D8CC4; color: #fff; }
+.bien-card .bien-vg.vg-new { background: #4F6FA8; color: #fff; }
 .bien-card .fav-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.95); box-shadow: 0 4px 14px rgba(2,20,48,.18); }
 .bien-card .bc-arrow { opacity: 1 !important; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.95); color: var(--marine); box-shadow: 0 4px 12px rgba(2,20,48,.2); }
 .bien-card .bc-dots { left: auto; right: 14px; justify-content: flex-end; gap: 5px; bottom: 14px; }
@@ -5297,7 +5297,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .fja-onglets, .fja-filtres { display: flex; flex-wrap: wrap; gap: 12px; }
 .fja-filtres { margin-top: 14px; }
 .fja-onglets button { font: inherit; font-size: 1.12rem; font-weight: 800; padding: 13px 28px; border-radius: 14px; border: 2px solid var(--marine); background: #fff; color: var(--marine); cursor: pointer; transition: background .2s, color .2s; }
-.fja-onglets button[aria-pressed="true"] { background: #6D8CC4; border-color: #6D8CC4; color: #fff; }
+.fja-onglets button[aria-pressed="true"] { background: #4F6FA8; border-color: #4F6FA8; color: #fff; }
 .fja-filtres button { font: inherit; font-size: 1rem; padding: 11px 22px; border-radius: 12px; border: 2px solid var(--marine); background: #fff; color: var(--marine); cursor: pointer; transition: background .2s, color .2s; }
 .fja-filtres button[aria-pressed="true"] { background: var(--marine); color: #fff; }
 .fja-onglets button:hover, .fja-filtres button:hover { box-shadow: 0 4px 14px rgba(2,20,48,.12); }
@@ -5747,8 +5747,8 @@ body { font-weight: 400; }
       <p class="cb-lead">Votre annonce est présentée sur notre site et sur les portails les plus adaptés à votre bien.</p>
     </div>
     <div class="prt-defile" aria-label="Portails de diffusion">
-      <ul class="prt-piste"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#FF6E14;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#12A5A0;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#2E9E7E;">Tous Voisins</span></li></ul>
-      <ul class="prt-piste" aria-hidden="true"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#FF6E14;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#12A5A0;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#2E9E7E;">Tous Voisins</span></li></ul>
+      <ul class="prt-piste"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#B94E0D;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#0D7F7C;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#258267;">Tous Voisins</span></li></ul>
+      <ul class="prt-piste" aria-hidden="true"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#B94E0D;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#0D7F7C;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#258267;">Tous Voisins</span></li></ul>
     </div>
   </section>
 
@@ -6504,9 +6504,9 @@ body { font-weight: 400; }
       <span class="cb-kicker">Diffusion</span>
       <h2 class="cb-h2">Une diffusion ciblée sur les grands portails</h2>
       <p class="cb-lead">Maison, appartement, local commercial ou terrain : votre annonce est présentée sur notre site, sur les portails les plus adaptés à votre bien, puis à notre fichier d'acquéreurs.</p>
-      <div class="vd-group"><p class="vd-gt">Habitation</p><div class="vd-portals"><span style="color:#E2001A;font-weight:800">SeLoger</span><span style="color:#FF6E14;font-weight:700">leboncoin</span><span style="color:#12A5A0;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span><span style="color:#192D56;">Le Figaro Immobilier</span><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span><span style="color:#2D3A8C;">Properstar</span><span style="color:#16324F;font-weight:700">Jinka</span><span style="color:#1F4538;">Gens de Confiance</span><span style="color:#192D56;">Meilleurs Agents</span><span style="color:#2E9E7E;">Tous Voisins</span></div></div>
-      <div class="vd-group"><p class="vd-gt">Commerce &amp; professionnel</p><div class="vd-portals"><span style="color:#E2001A;font-weight:700">SeLoger Bureaux &amp; Commerces</span><span style="color:#0E2A47;font-weight:700">Webimm</span><span style="color:#C0392B;font-style:italic;font-weight:700">Commerce en direct</span><span style="color:#192D56;">Hôtel Restau</span><span style="color:#E5399A;">octissimo</span><span style="color:#192D56;">DOM immo</span></div></div>
-      <div class="vd-group"><p class="vd-gt">Terrain</p><div class="vd-portals"><span style="color:#192D56;">Terrain Construction</span><span style="color:#5BA82E;">les-terrains</span><span style="color:#192D56;">Superimmo</span></div></div>
+      <div class="vd-group"><p class="vd-gt">Habitation</p><div class="vd-portals"><span style="color:#E2001A;font-weight:800">SeLoger</span><span style="color:#B94E0D;font-weight:700">leboncoin</span><span style="color:#0D7F7C;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span><span style="color:#192D56;">Le Figaro Immobilier</span><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span><span style="color:#2D3A8C;">Properstar</span><span style="color:#16324F;font-weight:700">Jinka</span><span style="color:#1F4538;">Gens de Confiance</span><span style="color:#192D56;">Meilleurs Agents</span><span style="color:#258267;">Tous Voisins</span></div></div>
+      <div class="vd-group"><p class="vd-gt">Commerce &amp; professionnel</p><div class="vd-portals"><span style="color:#E2001A;font-weight:700">SeLoger Bureaux &amp; Commerces</span><span style="color:#0E2A47;font-weight:700">Webimm</span><span style="color:#C0392B;font-style:italic;font-weight:700">Commerce en direct</span><span style="color:#192D56;">Hôtel Restau</span><span style="color:#CA3187;">octissimo</span><span style="color:#192D56;">DOM immo</span></div></div>
+      <div class="vd-group"><p class="vd-gt">Terrain</p><div class="vd-portals"><span style="color:#192D56;">Terrain Construction</span><span style="color:#458122;">les-terrains</span><span style="color:#192D56;">Superimmo</span></div></div>
     </div>
   </section>
 
@@ -7110,7 +7110,7 @@ body { font-weight: 400; }
   border-left: 4px solid var(--or, #DC071D);
 }
 .toast.success { border-left-color: #1B7A3E; }
-.toast.error   { border-left-color: #D9372C; }
+.toast.error   { border-left-color: #DC071D; }
 .toast.warning { border-left-color: #C24D0C; }
 .toast.info    { border-left-color: var(--or, #DC071D); }
 .toast .toast-icon {
@@ -7123,7 +7123,7 @@ body { font-weight: 400; }
   background: rgba(255,255,255,0.15);
 }
 .toast.success .toast-icon { background: #1B7A3E; }
-.toast.error   .toast-icon { background: #D9372C; }
+.toast.error   .toast-icon { background: #DC071D; }
 .toast.warning .toast-icon { background: #C24D0C; }
 .toast.info    .toast-icon { background: var(--or, #DC071D); color: #111; }
 .toast.fade-out { animation: toast-out 0.3s forwards; }
@@ -7201,7 +7201,7 @@ body { font-weight: 400; }
 .confirm-btn-cancel:hover { background: #f5f5f5; }
 .confirm-btn-ok { background: var(--noir, #111); color: #fff; }
 .confirm-btn-ok:hover { background: var(--or, #DC071D); }
-.confirm-btn-danger { background: #D9372C; color: #fff; }
+.confirm-btn-danger { background: #DC071D; color: #fff; }
 .confirm-btn-danger:hover { background: #B82A20; }
 </style>
 <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
@@ -9735,7 +9735,7 @@ function buildRow(l1, v1, l2, v2) {
 // active AGRANDIE et bordée de noir, + estimation des coûts annuels. Reproduit le
 // format réglementaire (comme le diagnostic papier).
 function buildDPEHtml(b) {
-  var dpeColors = {A:'#319834',B:'#52b153',C:'#9bc83c',D:'#f8cc05',E:'#f09c29',F:'#e8671c',G:'#d7281c'};
+  var dpeColors = {A:'#319834',B:'#52b153',C:'#9bc83c',D:'#f8cc05',E:'#f09c29',F:'#e8671c',G:'#DC071D'};
   var gesColors = {A:'#c8e8f5',B:'#9dcde8',C:'#7ab0d4',D:'#6090bb',E:'#4f6fa0',F:'#3a4f80',G:'#1e2d5a'};
   var classes = ['A','B','C','D','E','F','G'];
 
@@ -9777,7 +9777,7 @@ function buildDPEHtml(b) {
   html += '<div>';
   html += '<div style="' + lab + 'color:#1F6B22;margin-bottom:.7rem;">Logement extrêmement performant</div>';
   html += reglette(b.dpeClasse, dpeColors, false);
-  html += '<div style="' + lab + 'color:#d7281c;margin-top:.7rem;">Logement extrêmement consommateur d\'énergie</div>';
+  html += '<div style="' + lab + 'color:#DC071D;margin-top:.7rem;">Logement extrêmement consommateur d\'énergie</div>';
   if (b.dpeConso) html += '<div style="margin-top:.6rem;font-size:.8rem;color:var(--gris);"><strong style="color:var(--noir);font-size:1.05rem;">' + b.dpeConso + '</strong> kWh/m².an</div>';
   html += '</div>';
 
