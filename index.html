@@ -2,6 +2,7 @@
 <html lang="fr-FR">
 <head>
 <meta charset="UTF-8">
+<script>try{var _m=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;document.documentElement.classList.add(_m?"sans-anim":"anim");if(_m||sessionStorage.getItem("introVue"))document.documentElement.classList.add("sans-intro");sessionStorage.setItem("introVue","1")}catch(e){document.documentElement.classList.add("sans-intro")}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ============================================
@@ -4899,9 +4900,78 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
   .cb-hero .cb-photo.arch.duo img { object-position: 50% 20%; }
 }
 
+/* ===================== ANIMATIONS DE L'ACCUEIL (24/11/2026) =====================
+   Longues durées écrites en propriétés détaillées (transition-duration…) : elles ne sont pas
+   plafonnées par finitions.py, qui ne vise que les raccourcis « transition: ». */
+/* Écran d'accueil : logo sur fond marine, s'efface tout seul (une fois par visite) */
+#intro-logo { position: fixed; inset: 0; z-index: 100000; background: var(--marine); display: flex; align-items: center; justify-content: center;
+  animation: introOut .55s ease .85s forwards; pointer-events: none; }
+#intro-logo img { width: min(300px, 62vw); height: auto; animation: introLogo .9s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes introLogo { from { transform: translateY(14px) scale(.94); } to { transform: none; } }
+@keyframes introOut { to { opacity: 0; visibility: hidden; } }
+html.sans-intro #intro-logo, html.sans-anim #intro-logo { display: none; }
+
+/* Haut de page : diaporama + lent zoom */
+#heroBg { overflow: hidden; }
+html.anim .hero-bg { animation: heroZoom 18s ease-in-out infinite alternate; }
+@keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
+.hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0;
+  transition-property: opacity; transition-duration: 1.8s; transition-timing-function: ease; }
+.hero-slide.on { opacity: 1; }
+html.anim #heroContent .hero-brand { animation: heroIn 1s cubic-bezier(.2,.7,.2,1) .15s both; }
+html.anim #heroContent .hero-search { animation: heroIn 1s cubic-bezier(.2,.7,.2,1) .35s both; }
+html.anim:not(.sans-intro) #heroContent .hero-brand { animation-delay: 1.1s; }
+html.anim:not(.sans-intro) #heroContent .hero-search { animation-delay: 1.3s; }
+@keyframes heroIn { from { transform: translateY(26px); } to { transform: none; } }
+html.anim #heroContent .hero-search { transform-origin: center; }
+@media (min-width: 901px) { html.anim #heroContent .hero-search { animation-name: heroInCentre; } }
+@keyframes heroInCentre { from { transform: translate(-50%, 26px); } to { transform: translateX(-50%); } }
+
+/* Apparition au défilement */
+html.anim .rv { opacity: 0; transform: translateY(28px); transition-property: opacity, transform; transition-duration: .8s; transition-timing-function: cubic-bezier(.2,.7,.2,1); }
+html.anim .rv.vu { opacity: 1; transform: none; }
+
+/* Carte du secteur : zoom d'entrée puis communes une à une */
+html.anim #secteur .cb-map svg { opacity: 0; transform: scale(.88); transform-origin: 50% 60%;
+  transition-property: opacity, transform; transition-duration: 1.3s; transition-timing-function: cubic-bezier(.2,.7,.2,1); }
+html.anim #secteur.carte-vue .cb-map svg { opacity: 1; transform: none; }
+html.anim #secteur .city { opacity: 0; transition-property: opacity; transition-duration: .6s; transition-delay: var(--d, 0ms); }
+html.anim #secteur.carte-vue .city { opacity: 1; }
+#secteur .city circle { transform-box: fill-box; transform-origin: center; transition-property: transform; transition-duration: .3s; }
+#secteur .city:hover circle { transform: scale(1.5); }
+
+/* Silhouette de maison fixe en fond (sections claires du milieu de page) */
+.fond-maison { position: fixed; z-index: 0; left: 50%; top: 16vh; width: min(620px, 70vw); aspect-ratio: 1 / 1.02; transform: translateX(-50%);
+  background: #EEF1F7; clip-path: polygon(50% 0, 100% 34%, 100% 100%, 0 100%, 0 34%); opacity: 0; pointer-events: none;
+  transition-property: opacity; transition-duration: .7s; }
+.fond-maison.on { opacity: 1; }
+#page-home:not(.active) .fond-maison { display: none; }
+#page-home #chiffres, #page-home .equipe, #page-home #services { position: relative; z-index: 1; background: transparent; }
+#page-home .chiffres-grid { background: rgba(244,246,249,.92); }
+html.sans-anim .fond-maison { display: none; }
+
+/* Survol : les cartes se soulèvent, les photos zooment */
+.bien-card { transition-property: transform, box-shadow; transition-duration: .35s; transition-timing-function: cubic-bezier(.2,.7,.2,1); }
+.bien-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,20,48,.16); }
+.bien-card-img img, .vendus-img-wrap img { transition-property: transform; transition-duration: .7s; transition-timing-function: cubic-bezier(.2,.7,.2,1); }
+.bien-card:hover .bien-card-img img, .vendus-card:hover .vendus-img-wrap img { transform: scale(1.06); }
+a.cb-card, button.cb-card, .avis2-card, .equipe-photo { transition-property: transform, box-shadow; transition-duration: .35s; transition-timing-function: cubic-bezier(.2,.7,.2,1); }
+a.cb-card:hover, button.cb-card:hover, .avis2-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(2,20,48,.12); }
+.equipe-carte:hover .equipe-photo { transform: scale(1.04); box-shadow: 0 16px 36px rgba(2,20,48,.2); }
+.une-cta, .cb-btn { transition-property: background-color, color, border-color, transform, box-shadow; transition-duration: .25s; }
+.une-cta:hover, .cb-btn:hover { transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bien-card:hover, a.cb-card:hover, button.cb-card:hover, .avis2-card:hover, .une-cta:hover, .cb-btn:hover { transform: none; }
+  .bien-card:hover .bien-card-img img, .vendus-card:hover .vendus-img-wrap img, .equipe-carte:hover .equipe-photo { transform: none; }
+}
+/* La silhouette reste derrière toutes les sections : seules les sections transparentes la laissent voir */
+#page-home > section { position: relative; z-index: 1; }
+
 </style>
 </head>
 <body>
+<div id="intro-logo" aria-hidden="true"><img src="logo-angevin-blanc-400.webp" alt="" width="400" height="262"></div>
 <a class="skip-link" href="#contenu" onclick="var m=document.getElementById('contenu'); if(m){m.focus(); window.scrollTo(0,0);} return false;">Aller au contenu</a>
 
 <!-- NAVIGATION -->
@@ -4951,10 +5021,14 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 <main id="contenu" tabindex="-1">
 <!-- ===== PAGE ACCUEIL ===== -->
 <div id="page-home" class="page active">
+  <div class="fond-maison" aria-hidden="true"></div>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-bg" id="heroBg">
+      <div class="hero-slide" data-img="img/angers-4-1600.webp" data-img-mobile="img/angers-4-900.webp"></div>
+      <div class="hero-slide" data-img="img/angers-2-1600.webp" data-img-mobile="img/angers-2-900.webp"></div>
+    </div>
     <div class="hero-content" id="heroContent">
       <h1 class="sr-only">L'Immobilier Angevin, agence immobilière à Angers : achat, vente et estimation de maisons et d'appartements à Angers et dans l'agglomération angevine</h1>
       <div class="hero-brand" aria-hidden="true">
@@ -8031,7 +8105,10 @@ function majChiffres(nbVendus) {
     lignes.forEach(function (l) {
       var n = document.getElementById(l[0]), bloc = document.getElementById(l[0] + 'Bloc');
       if (!n || !bloc) return;
-      n.textContent = l[1];
+      n.setAttribute('data-cible', l[1]);
+      var ch = document.getElementById('chiffres');
+      n.textContent = (ch && ch.getAttribute('data-compte') !== '1' && document.documentElement.classList.contains('anim')) ? 0 : l[1];
+      if (ch && ch.getAttribute('data-compte') === '1' && typeof _compter === 'function') _compter(n);
       bloc.hidden = !(l[1] > 0);
     });
   } catch (e) {}
@@ -8129,6 +8206,98 @@ function _adminConseillerSelect(b, dis) {
     '</select></label>';
 }
 function adminSetConseiller(id, v) { return _adminMajBadge(id, { conseiller: v }); }
+
+// ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
+// Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
+var _ANIM = document.documentElement.classList.contains('anim');
+
+// 1. Diaporama du haut de page : fondu entre les photos d'Angers + lent zoom (CSS)
+function _heroDiaporama() {
+  var slides = [].slice.call(document.querySelectorAll('#heroBg .hero-slide'));
+  if (!slides.length || !_ANIM) return;
+  var mobile = window.matchMedia('(max-width: 900px)').matches;
+  slides.forEach(function (s) {
+    var src = mobile ? s.getAttribute('data-img-mobile') : s.getAttribute('data-img');
+    s.style.backgroundImage = 'linear-gradient(to bottom, rgba(2,20,48,.34) 0%, rgba(2,20,48,.22) 42%, rgba(2,20,48,.58) 100%), url("' + src + '")';
+  });
+  var i = -1;
+  setInterval(function () {
+    if (document.hidden) return;
+    slides.forEach(function (s) { s.classList.remove('on'); });
+    i = (i + 1) % (slides.length + 1);           // la photo d'origine (sous les calques) compte comme une étape
+    if (i < slides.length) slides[i].classList.add('on');
+  }, 6500);
+}
+
+// 2. Chiffres clés qui défilent jusqu'à leur valeur
+function _compter(el) {
+  var cible = parseInt(el.getAttribute('data-cible') || el.textContent, 10) || 0;
+  if (!_ANIM || cible <= 0) { el.textContent = cible; return; }
+  var t0 = null, d = 1400;
+  function pas(t) {
+    if (!t0) t0 = t;
+    var p = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(cible * e);
+    if (p < 1) requestAnimationFrame(pas);
+  }
+  requestAnimationFrame(pas);
+}
+
+// 3. Apparition au défilement (titres, cartes, blocs) + carte du secteur + silhouette de maison
+function _animerAccueil() {
+  if (!_ANIM || !('IntersectionObserver' in window)) return;
+  var home = document.getElementById('page-home'); if (!home) return;
+  var cibles = home.querySelectorAll('.cb-kicker, .section-tag, .cb-h2, .section-title, .cb-lead, .une-desc, .une-cta, .une-arrows, ' +
+    '.cb-card, .equipe-carte, .avis2-card, .avis2-note, .chiffres-grid, .rs3-item, .seo-title, .cta-title, .cta-sub, .cb-actions, #homeGrid, .cb-map');
+  [].forEach.call(cibles, function (el) {
+    if (el.closest('#hero')) return;
+    el.classList.add('rv');
+    var freres = [].filter.call(el.parentElement.children, function (x) { return x.classList.contains('rv'); });
+    var rang = freres.indexOf(el);
+    if (/cb-card|equipe-carte|avis2-card|rs3-item/.test(el.className)) el.style.transitionDelay = Math.min(rang, 5) * 110 + 'ms';
+  });
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  [].forEach.call(home.querySelectorAll('.rv'), function (el) { io.observe(el); });
+
+  // Carte : les communes apparaissent une à une
+  var sect = document.getElementById('secteur');
+  if (sect) {
+    [].forEach.call(sect.querySelectorAll('.city'), function (g, k) { g.style.setProperty('--d', (300 + k * 90) + 'ms'); });
+    var ioC = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { sect.classList.add('carte-vue'); ioC.disconnect(); } }, { threshold: 0.25 });
+    ioC.observe(sect);
+  }
+  // Chiffres : défilent quand la bande arrive à l'écran
+  var ch = document.getElementById('chiffres');
+  if (ch) {
+    [].forEach.call(ch.querySelectorAll('.chiffre-n'), function (n) { if (!n.hasAttribute('data-cible')) { n.setAttribute('data-cible', n.textContent); n.textContent = '0'; } });
+    var ioN = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      [].forEach.call(ch.querySelectorAll('.chiffre-n'), function (n) { if (n.offsetParent) _compter(n); });
+      ch.setAttribute('data-compte', '1'); ioN.disconnect();
+    }, { threshold: 0.5 });
+    ioN.observe(ch);
+  }
+  // Silhouette de maison fixe en fond, visible pendant les sections claires du milieu de page
+  var fond = home.querySelector('.fond-maison');
+  if (fond) {
+    var vues = new Set();
+    var ioF = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) vues.add(e.target); else vues.delete(e.target); });
+      fond.classList.toggle('on', vues.size > 0 && home.classList.contains('active'));
+    }, { threshold: 0.15 });
+    [].forEach.call(home.querySelectorAll('#chiffres, .equipe, #services'), function (s) { ioF.observe(s); });
+  }
+}
+
+// Le diaporama attend la fin du chargement (+ 2 s) : ses photos ne ralentissent pas l'affichage de la page
+window.addEventListener('load', function () { setTimeout(_heroDiaporama, 2000); });
+document.addEventListener('DOMContentLoaded', function () {
+  _animerAccueil();
+  var intro = document.getElementById('intro-logo');
+  if (intro) setTimeout(function () { intro.remove(); }, 1600);
+});
 
 function renderVendusCarousel() {
   var track = document.querySelector('.vendus-track');
