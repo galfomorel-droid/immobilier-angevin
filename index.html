@@ -5117,6 +5117,7 @@ html.sans-anim .prt-piste { animation: none; }
 html.sans-anim .prt-defile { flex-wrap: wrap; justify-content: center; mask-image: none; -webkit-mask-image: none; padding: 0 20px; }
 html.sans-anim .prt-piste[aria-hidden="true"] { display: none; }
 html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
+.bien-vg.vg-partenaire { background: #fff; color: var(--marine); border: 1px solid rgba(2,20,48,.15); }
 
 </style>
 </head>
@@ -8032,6 +8033,7 @@ function bienCardHTML(b) {
   var estBaisse = (b.baisse !== undefined) ? !!b.baisse : !!b.baisseDePrix;
   if (estNouveau) vgs.push('<span class="bien-vg vg-new">Nouveauté</span>');
   if (b.exclusif) vgs.push('<span class="bien-vg vg-exclu">Exclusivité</span>');
+  if (b.partenaire) vgs.push('<span class="bien-vg vg-partenaire">En partenariat</span>');
   if (b.statut === 'sous_compromis') vgs.push('<span class="bien-vg vg-compromis">Sous compromis</span>');
   if (b.statut === 'offre_en_cours') vgs.push('<span class="bien-vg vg-offre">Offre en cours</span>');
   if (estBaisse) vgs.push('<span class="bien-vg vg-baisse">Baisse de prix</span>');
@@ -8407,6 +8409,24 @@ function _adminConseillerSelect(b, dis) {
 }
 function adminSetConseiller(id, v) { return _adminMajBadge(id, { conseiller: v }); }
 
+// ===== Biens en partenariat (data/biens-partenaires.json) : ajoutés aux biens du flux, hors filtre de secteur =====
+async function _biensPartenaires() {
+  try {
+    var r = await fetch('data/biens-partenaires.json?t=' + Date.now(), { cache: 'no-cache' });
+    if (!r.ok) return [];
+    var j = await r.json();
+    return (j.biens || []).map(function (b) { return _normalizeBien(b); });
+  } catch (e) { return []; }
+}
+function _mentionPartenaire(b) {
+  var p = b.partenaire || {};
+  return '<p style="margin-bottom:.8rem;">Bien proposé en partenariat avec <strong style="color:var(--noir);font-weight:600;">' + _esc(p.nom) + '</strong>' +
+    (p.adresse ? ' (' + _esc(p.adresse) + ')' : '') + ', agence titulaire du mandat (réf. ' + _esc(b.ref) + '). Votre interlocuteur : ' + _esc(conseillerDe(b).nom) + '.' +
+    (p.honoraires ? ' Honoraires : ' + _esc(p.honoraires) + '.' : '') +
+    (p.energie ? ' Dépenses annuelles d’énergie estimées : ' + _esc(p.energie) + '.' : '') +
+    (p.url ? ' <a href="' + _esc(p.url) + '" target="_blank" rel="noopener" style="color:var(--or-fonce);border-bottom:1px solid currentColor;">Voir l’annonce d’origine</a>' : '') + '</p>';
+}
+
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
 var _ANIM = document.documentElement.classList.contains('anim');
@@ -8741,9 +8761,9 @@ function showFiche(id) {
   if (legalSection) {
     legalSection.innerHTML =
       '<div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--beige);font-size:.8rem;line-height:1.7;color:var(--gris);">' +
-        '<p style="margin-bottom:.8rem;">Votre agent commercial 3G IMMO : <strong style="color:var(--noir);font-weight:600;">Charles MOREL</strong>, ' +
+        (b.partenaire ? _mentionPartenaire(b) : ('<p style="margin-bottom:.8rem;">Votre agent commercial 3G IMMO : <strong style="color:var(--noir);font-weight:600;">Charles MOREL</strong>, ' +
           'entrepreneur individuel inscrit au RSAC de Le Mans n° <strong style="color:var(--noir);font-weight:500;">900 233 800</strong>. ' +
-          'Carte professionnelle « Transactions sur immeubles et fonds de commerce » du réseau 3G IMMO, délivrée par la CCI de Haute-Savoie.</p>' +
+          'Carte professionnelle « Transactions sur immeubles et fonds de commerce » du réseau 3G IMMO, délivrée par la CCI de Haute-Savoie.</p>')) +
         (_estLocation(b)
           ? '<p style="margin-bottom:.8rem;">Honoraires de location fixés dans la limite des plafonds prévus par le décret n° 2014-890 du 1er août 2014. Barème complet disponible sur la page <a href="#honoraires" onclick="showLegal(\'honoraires\');return false;" style="color:var(--or-fonce);">Honoraires</a>.</p>'
           : '<p style="margin-bottom:.8rem;">Selon l\'article L.561-5 du Code monétaire et financier, une pièce d\'identité vous sera demandée pour l\'organisation de la visite.</p>') +
@@ -11593,6 +11613,10 @@ async function loadBiens() {
     if (bRes && bRes.ok) {
       var bj = await bRes.json();
       actifs = _listeAnnonces(bj);
+    }
+    {
+      var _ids = {}; actifs.forEach(function (b) { _ids[b.id] = 1; });
+      actifs = actifs.concat((await _biensPartenaires()).filter(function (b) { return !_ids[b.id]; }));
     }
 
     var ventes = [];
