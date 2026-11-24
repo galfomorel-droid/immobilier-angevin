@@ -5412,6 +5412,25 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
   .wa-float svg { width: 24px; height: 24px; }
 }
 
+/* ===================== PRIORITÉ 2 : FAVORIS VIDE ET ESTIMER (24/11/2026) ===================== */
+.fav-empty { text-align: center; padding: 20px 0 10px; }
+.fav-empty-ico { width: 76px; height: 76px; border-radius: 50%; background: #fff; color: var(--rouge); display: inline-grid; place-items: center; box-shadow: 0 10px 30px rgba(2,20,48,.08); margin-bottom: 18px; }
+.fav-empty-ico svg { width: 34px; height: 34px; }
+.fav-empty-t { font-size: 1.3rem; font-weight: 800; color: var(--marine); margin: 0 0 6px; }
+.fav-empty-s { color: #5B6475; margin: 0 0 18px; }
+.fav-suggest { margin-top: clamp(40px, 6vw, 72px); text-align: left; }
+.fav-suggest-t { text-align: center; margin-bottom: 24px; }
+.fav-suggest-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.est-confiance { max-width: 860px; margin: 28px auto 0; display: grid; grid-template-columns: repeat(3, 1fr) 1.6fr; gap: 14px; align-items: stretch; }
+.est-confiance > div { background: #fff; border-radius: 16px; padding: 16px 18px; box-shadow: 0 6px 20px rgba(2,20,48,.06); display: flex; flex-direction: column; justify-content: center; }
+.est-confiance strong { font-size: 1.35rem; font-weight: 800; color: var(--marine); line-height: 1.1; }
+.est-confiance span { font-size: .85rem; color: #5B6475; }
+.est-confiance .est-duo { flex-direction: row; align-items: center; gap: 10px; }
+.est-confiance .est-duo img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(2,20,48,.15); }
+.est-confiance .est-duo img + img { margin-left: -18px; }
+.est-confiance .est-duo span { color: var(--marine); font-weight: 600; font-size: .88rem; line-height: 1.35; }
+@media (max-width: 760px) { .est-confiance { grid-template-columns: repeat(3, 1fr); } .est-confiance .est-duo { grid-column: 1 / -1; justify-content: center; } .est-confiance > div { padding: 12px; text-align: center; } .est-confiance strong { font-size: 1.1rem; } }
+
 </style>
 </head>
 <body>
@@ -6346,6 +6365,12 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
           <button type="button" class="cb-btn" id="estNext" onclick="estSuivant()">Continuer →</button>
         </div>
       </div>
+    <div class="est-confiance">
+      <div><strong>4,8/5</strong><span>24 avis clients</span></div>
+      <div><strong id="estVendus">193</strong><span>biens vendus</span></div>
+      <div><strong>Gratuit</strong><span>et sans engagement</span></div>
+      <div class="est-duo"><img src="img/charles-morel-avatar.jpg" alt="" width="44" height="44" loading="lazy"><img src="img/equipe-antoine-hery-avatar.webp" alt="" width="44" height="44" loading="lazy"><span>Charles et Antoine étudient chaque demande</span></div>
+    </div>
     </div>
   </section>
 </div>
@@ -6843,8 +6868,11 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
     <div class="cb-wrap">
       <div id="favGrid"></div>
       <div class="fav-empty" id="favEmpty">
-        <p class="cb-lead" style="margin:0 auto;">Vous n'avez pas encore de favori.</p>
+        <span class="fav-empty-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+        <p class="fav-empty-t">Vous n'avez pas encore de favori.</p>
+        <p class="fav-empty-s">Cliquez sur le cœur d'une annonce pour la retrouver ici.</p>
         <div class="cb-actions" style="justify-content:center;"><button class="cb-btn" onclick="showPage('acheter')">Voir les biens à vendre</button></div>
+        <div class="fav-suggest" id="favSuggest" hidden><h2 class="cb-h2 fav-suggest-t">Nos derniers biens</h2><div class="fav-suggest-g" id="favSuggestG"></div></div>
       </div>
       <div class="cb-actions" id="favActions" hidden style="justify-content:center;">
         <button class="cb-btn" onclick="favDemanderInfos()">Demander des infos sur mes favoris</button>
@@ -8576,6 +8604,8 @@ function majChiffres(nbVendus) {
   try {
     var nbVente = (biens || []).filter(function (b) { return b.statut !== 'vendu' && (b.transaction || 'vente') === 'vente'; }).length;
     var lignes = [['chiffreVente', nbVente], ['chiffreVendus', nbVendus || 0]];
+    var _ev = document.getElementById('estVendus'); if (_ev && nbVendus) _ev.textContent = nbVendus;
+    if (typeof renderFavoris === 'function' && document.querySelector('#page-favoris.active')) renderFavoris();   // biens chargés après l'arrivée directe sur #favoris
     lignes.forEach(function (l) {
       var n = document.getElementById(l[0]), bloc = document.getElementById(l[0] + 'Bloc');
       if (!n || !bloc) return;
@@ -10280,6 +10310,12 @@ function renderFavoris() {
   var vide = document.getElementById('favEmpty'), act = document.getElementById('favActions');
   if (vide) vide.hidden = liste.length > 0;
   if (act) act.hidden = liste.length === 0;
+  var sug = document.getElementById('favSuggest'), sugG = document.getElementById('favSuggestG');
+  if (sug && sugG) {
+    var dispo = (typeof biens !== 'undefined' ? biens : []).filter(function (b) { return b.statut !== 'vendu'; }).slice(0, 3);
+    sugG.innerHTML = ''; dispo.forEach(function (b) { sugG.appendChild(bienCardHTML(b)); });
+    sug.hidden = liste.length > 0 || !dispo.length;
+  }
   favMajUI();
 }
 function favDemanderInfos() {
