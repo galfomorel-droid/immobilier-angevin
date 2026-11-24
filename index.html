@@ -4879,6 +4879,7 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 @media (max-width: 480px) { .caracs { grid-template-columns: 1fr 1fr; padding: 12px; gap: 4px; } .carac-ico { flex-basis: 32px; height: 32px; } }
 @media print { .caracs { background: none; padding: 0; } }
 .ft-cols h3.ft-titre { font-size: 1rem; font-weight: 700; color: #fff; margin: 0 0 18px; letter-spacing: 0; text-transform: none; }
+#ficheBadge .bien-card-exclusive { background: var(--rouge-fonce); color: #fff; }
 
 </style>
 </head>
@@ -8207,7 +8208,7 @@ function showFiche(id) {
     if (b.montantHonoraires) tableRows += buildRow('Honoraires acquéreur', b.montantHonoraires.toLocaleString('fr-FR') + ' €', '', '');
   }
 
-  document.getElementById('ficheSpecs').innerHTML = '<h3 class="caracs-titre">Caractéristiques</h3><div class="caracs">' + tableRows + '</div>';
+  document.getElementById('ficheSpecs').innerHTML = '<h2 class="caracs-titre">Caractéristiques</h2><div class="caracs">' + tableRows + '</div>';
 
   document.getElementById('ficheDesc').innerHTML = formatDescription(b.description || b.desc || '', b);
 
@@ -8307,7 +8308,7 @@ function showFiche(id) {
 
   // Construction de la galerie selon le nombre de photos
   var galleryHtml = '<div class="fiche-gallery-main">' +
-      '<img src="' + (photo1 ? imgOpt(photo1, 1600) : PLACEHOLDER_IMG) + '" data-orig="' + (photo1 || '') + '" alt="' + altBase.replace(/"/g,'&quot;') + '" loading="eager" fetchpriority="high" decoding="async" onclick="openLightbox(0)" onerror="imgRepli(this)">' +
+      '<img src="' + (photo1 ? imgOpt(photo1, 1600) : PLACEHOLDER_IMG) + '"' + (photo1 ? ' srcset="' + imgOpt(photo1, 800) + ' 800w, ' + imgOpt(photo1, 1600) + ' 1600w" sizes="(max-width: 760px) 100vw, 62vw"' : '') + ' data-orig="' + (photo1 || '') + '" alt="' + altBase.replace(/"/g,'&quot;') + '" loading="eager" fetchpriority="high" decoding="async" onclick="openLightbox(0)" onerror="imgRepli(this)">' +
       photoBtnHtml +
     '</div>';
 
@@ -8627,7 +8628,7 @@ function buildDPEHtml(b) {
 
   // ---- Colonne ÉNERGIE ----
   html += '<div>';
-  html += '<div style="' + lab + 'color:#319834;margin-bottom:.7rem;">Logement extrêmement performant</div>';
+  html += '<div style="' + lab + 'color:#1F6B22;margin-bottom:.7rem;">Logement extrêmement performant</div>';
   html += reglette(b.dpeClasse, dpeColors, false);
   html += '<div style="' + lab + 'color:#d7281c;margin-top:.7rem;">Logement extrêmement consommateur d\'énergie</div>';
   if (b.dpeConso) html += '<div style="margin-top:.6rem;font-size:.8rem;color:var(--gris);"><strong style="color:var(--noir);font-size:1.05rem;">' + b.dpeConso + '</strong> kWh/m².an</div>';
@@ -8636,7 +8637,7 @@ function buildDPEHtml(b) {
   // ---- Colonne ÉMISSIONS (GES) ----
   html += '<div>';
   html += '<div style="' + lab + 'color:var(--gris);margin-bottom:.2rem;">* Dont émissions de gaz à effet de serre</div>';
-  html += '<div style="' + lab + 'color:#319834;margin-bottom:.7rem;">peu d\'émissions de CO₂</div>';
+  html += '<div style="' + lab + 'color:#1F6B22;margin-bottom:.7rem;">peu d\'émissions de CO₂</div>';
   if (b.gesClasse) {
     html += reglette(b.gesClasse, gesColors, true);
     html += '<div style="' + lab + 'color:#1e2d5a;margin-top:.7rem;">émissions de CO₂ très importantes</div>';
