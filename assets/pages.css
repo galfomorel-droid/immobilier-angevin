@@ -60,7 +60,7 @@ strong{font-weight:600}
 
 /* Boutons pilule */
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:.75rem 1.5rem;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid transparent;transition:background .25s,color .25s,border-color .25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.75rem 1.6rem;border-radius:999px;font-size:.95rem;font-weight:600;letter-spacing:0;text-transform:none;text-decoration:none;border:1.5px solid transparent;transition:background .25s,color .25s,border-color .25s}
 .btn-rouge{background:var(--rouge);color:#fff}
 .btn-rouge:hover{background:var(--rouge-t)}
 .btn-marine{background:var(--marine);color:#fff}
@@ -69,6 +69,8 @@ strong{font-weight:600}
 .btn-blanc:hover{background:var(--gris)}
 .btn-ligne{border-color:rgba(255,255,255,.7);color:#fff}
 .btn-ligne:hover{background:rgba(255,255,255,.12)}
+.btn-contour{border-color:var(--marine);color:var(--marine);background:#fff}
+.btn-contour:hover{background:var(--gris)}
 .btn-ligne-marine{border-color:var(--marine);color:var(--marine)}
 .btn-ligne-marine:hover{background:var(--marine);color:#fff}
 @media(max-width:480px){.intro .btn,.cta .btn{flex:1 1 100%}}
