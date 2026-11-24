@@ -1,5 +1,6 @@
 _parts/
 .DS_Store
 .claude/
-_communes/
 audit/
+__pycache__/
+node_modules/

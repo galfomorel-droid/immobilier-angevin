@@ -1,0 +1,71 @@
+# Met à jour automatiquement les pages d'annonces (annonce/<bien>/, sitemap) et les biens vendus repris de 3G.
+# Tourne toutes les 3 heures et à la demande (onglet Actions › « Mise à jour des annonces » › Run workflow).
+# Ne publie un commit que si quelque chose a changé.
+name: Mise à jour des annonces
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["_communes/**", ".github/workflows/mise-a-jour-annonces.yml"]
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: mise-a-jour-annonces
+  cancel-in-progress: false
+
+jobs:
+  annonces:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Outils (Pillow, Playwright + Chromium)
+        run: |
+          pip install --quiet pillow
+          npm install --no-save --silent playwright@1.49.1
+          npx playwright install --with-deps chromium
+
+      - name: Biens vendus (page 3G de Charles)
+        run: python3 _communes/vendus_3g.py || echo "Page 3G indisponible : biens vendus inchangés"
+
+      - name: Pages d'annonces et sitemap
+        env:
+          PLAYWRIGHT: ${{ github.workspace }}/node_modules/playwright
+        run: python3 _communes/annonces.py
+
+      - name: Publier si quelque chose a changé
+        id: publier
+        run: |
+          git add annonce sitemap.xml assets/annonce.css data/vendus-3g.json img/vendus
+          if git diff --cached --quiet; then
+            echo "Aucun changement."
+            echo "change=non" >> "$GITHUB_OUTPUT"
+          else
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "Annonces mises à jour automatiquement"
+            git push
+            echo "change=oui" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Reconstruire le site GitHub Pages
+        if: steps.publier.outputs.change == 'oui'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -sS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" || true

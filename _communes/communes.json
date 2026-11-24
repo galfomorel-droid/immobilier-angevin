@@ -1,0 +1,775 @@
+{
+  "_lisezmoi": "Contenu des pages /immobilier/<slug>/. Modifier ici puis relancer : python3 _communes/generer.py. N'écrire que des faits sûrs : pas de prix au m², pas de chiffres de population, pas de statistiques de marché, pas de location.",
+  "secteurs": {
+    "angers": {
+      "nom": "Secteur d'Angers",
+      "intro": "Angers et les communes de son agglomération, de part et d'autre de la Maine et jusqu'aux bords de Loire.",
+      "autres": "Écouflant, Montreuil-Juigné, Sainte-Gemmes-sur-Loire, Mûrs-Érigné, Verrières-en-Anjou, Loire-Authion et toute l'agglomération angevine",
+      "alentours": [
+        "Angers",
+        "Avrillé",
+        "Beaucouzé",
+        "Bouchemaine",
+        "Briollay",
+        "Béhuard",
+        "Cantenay-Épinard",
+        "Feneu",
+        "Le Plessis-Grammoire",
+        "Les Ponts-de-Cé",
+        "Loire-Authion",
+        "Longuenée-en-Anjou",
+        "Montreuil-Juigné",
+        "Mûrs-Érigné",
+        "Rives-du-Loir-en-Anjou",
+        "Saint-Barthélemy-d'Anjou",
+        "Saint-Clément-de-la-Place",
+        "Saint-Lambert-la-Potherie",
+        "Saint-Léger-de-Linières",
+        "Saint-Martin-du-Fouilloux",
+        "Sainte-Gemmes-sur-Loire",
+        "Sarrigné",
+        "Savennières",
+        "Soulaines-sur-Aubance",
+        "Soulaire-et-Bourg",
+        "Trélazé",
+        "Verrières-en-Anjou",
+        "Écouflant",
+        "Écuillé",
+        "Saint-Sylvain-d'Anjou",
+        "Pellouailles-les-Vignes",
+        "Andard",
+        "Bauné",
+        "Brain-sur-l'Authion",
+        "Corné",
+        "La Bohalle",
+        "La Daguenière",
+        "Saint-Mathurin-sur-Loire",
+        "Villevêque",
+        "Soucelles",
+        "La Meignanne",
+        "La Membrolle-sur-Longuenée",
+        "Le Plessis-Macé",
+        "Pruillé",
+        "Saint-Jean-de-Linières"
+      ]
+    },
+    "sable": {
+      "nom": "Secteur de Sablé-sur-Sarthe",
+      "intro": "Sablé-sur-Sarthe et les communes de la vallée de la Sarthe et de la campagne alentour.",
+      "autres": "Juigné-sur-Sarthe, Louailles, Vion, Morannes-sur-Sarthe, Bouère, Ballée, Saint-Denis-d'Anjou et leurs alentours",
+      "alentours": [
+        "Sablé-sur-Sarthe",
+        "Solesmes",
+        "Juigné-sur-Sarthe",
+        "Précigné",
+        "Parcé-sur-Sarthe",
+        "Noyen-sur-Sarthe",
+        "Louailles",
+        "Vion",
+        "Morannes-sur-Sarthe",
+        "Bouère",
+        "Ballée",
+        "Saint-Denis-d'Anjou",
+        "Saint-Loup-du-Dorat",
+        "Avoise",
+        "Asnières-sur-Vègre",
+        "Auvers-le-Hamon",
+        "Courtillers",
+        "Notre-Dame-du-Pé",
+        "Pincé",
+        "Le Bailleul",
+        "Malicorne-sur-Sarthe"
+      ]
+    }
+  },
+  "communes": [
+    {
+      "slug": "angers",
+      "nom": "Angers",
+      "a": "à Angers",
+      "cp": [
+        "49000",
+        "49100"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "angers",
+      "geo": [
+        47.4675,
+        -0.5616
+      ],
+      "teaser": "Le château, la Doutre, les bords de Maine et le tramway : une ville aux quartiers très différents.",
+      "meta": "Acheter, vendre ou faire estimer un bien à Angers avec Charles MOREL et Antoine HÉRY : estimation gratuite et suivi personnel jusqu'à l'acte.",
+      "intro": "Du centre historique aux quartiers résidentiels, Angers change de visage d'une rue à l'autre. Nous accompagnons vendeurs et acquéreurs dans la préfecture du Maine-et-Loire, avec un suivi personnel du premier rendez-vous jusqu'à la signature chez le notaire.",
+      "vivre": [
+        "Angers s'est construite de part et d'autre de la Maine, la rivière formée juste au nord de la ville par la rencontre de la Mayenne et de la Sarthe, et qui rejoint la Loire quelques kilomètres plus au sud. Sur la rive gauche, le château et ses dix-sept tours veillent sur la vieille ville ; il abrite la Tenture de l'Apocalypse, joyau du patrimoine angevin. Un peu plus loin, la cathédrale Saint-Maurice domine la montée du même nom. Sur l'autre rive, la Doutre a gardé ses maisons à pans de bois et ses rues paisibles.",
+        "Au quotidien, la ville se vit facilement sans voiture : le tramway relie le centre à de nombreux quartiers, les bords de Maine se parcourent à pied ou à vélo, et le lac de Maine offre un grand espace de verdure et de loisirs à l'ouest. L'université et les nombreuses écoles font vivre le centre toute l'année.",
+        "Pour les trajets plus longs, la gare Saint-Laud est desservie par le TGV vers Paris, et l'autoroute A11, entre Paris et Nantes, passe aux portes de la ville."
+      ],
+      "reperes": [
+        "Château et Tenture de l'Apocalypse",
+        "Cathédrale Saint-Maurice",
+        "Quartier de la Doutre",
+        "Lac de Maine",
+        "Tramway",
+        "Gare TGV Saint-Laud"
+      ],
+      "vendre": "À Angers, deux biens d'apparence proche peuvent avoir des valeurs très différentes selon le quartier, l'étage, l'exposition, le stationnement ou la proximité du tram. Notre estimation part de votre bien tel qu'il est, visité en détail, et des ventes comparables récentes : un prix juste dès la mise en vente attire les bons acquéreurs. Pour un appartement en copropriété, nous vous aidons aussi à réunir les documents à fournir : règlement de copropriété, procès-verbaux d'assemblée générale, diagnostics.",
+      "acheter": [
+        "Appartement ancien en centre-ville, maison de ville avec petit jardin, logement récent près d'une station de tram ou maison familiale dans un quartier plus résidentiel : à Angers, une recherche se joue souvent sur le choix du quartier. Nous vous aidons à le définir selon votre rythme de vie, vos trajets et votre budget.",
+        "Nous vous transmettons les biens qui correspondent vraiment à votre projet, nous vous accompagnons aux visites et nous vous aidons à préparer une offre solide."
+      ],
+      "faq": [
+        {
+          "q": "Où voir vos biens à vendre à Angers ?",
+          "a": "Tous nos biens sont sur la page Acheter du site, mise à jour automatiquement depuis notre logiciel 3G IMMO. Si aucun ne correspond à votre recherche aujourd'hui, confiez-la-nous : nous vous prévenons dès qu'un bien adapté se présente."
+        },
+        {
+          "q": "L'estimation de mon appartement à Angers est-elle payante ?",
+          "a": "Non. L'estimation est gratuite et sans engagement : nous visitons votre bien, nous étudions les ventes comparables du quartier et nous vous présentons un prix argumenté."
+        },
+        {
+          "q": "Le quartier change-t-il vraiment la valeur d'un bien à Angers ?",
+          "a": "Oui, souvent beaucoup. La proximité du centre ou du tram, le calme de la rue, l'étage, l'ascenseur ou le stationnement pèsent dans le prix. C'est pour cela que nous visitons toujours le bien avant de donner une estimation."
+        },
+        {
+          "q": "Quels sont vos honoraires de vente ?",
+          "a": "Ils sont à la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        },
+        {
+          "q": "Proposez-vous des locations à Angers ?",
+          "a": "Non, nous nous consacrons à l'achat, à la vente et à l'estimation de biens immobiliers."
+        }
+      ],
+      "voisins": [
+        "avrille",
+        "trelaze",
+        "les-ponts-de-ce",
+        "saint-barthelemy-d-anjou"
+      ]
+    },
+    {
+      "slug": "avrille",
+      "nom": "Avrillé",
+      "a": "à Avrillé",
+      "cp": [
+        "49240"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "angers",
+      "geo": [
+        47.502,
+        -0.5963
+      ],
+      "teaser": "Aux portes nord-ouest d'Angers, des quartiers résidentiels reliés au centre par la ligne A du tram.",
+      "meta": "Immobilier à Avrillé : estimation gratuite, vente et achat de maisons et d'appartements avec Charles MOREL et Antoine HÉRY sur l'agglomération d'Angers.",
+      "intro": "Aux portes nord-ouest d'Angers, Avrillé séduit ceux qui cherchent le calme d'une commune résidentielle sans renoncer à la ville. Nous y accompagnons vendeurs et acquéreurs, de l'estimation à la signature.",
+      "vivre": [
+        "Avrillé est reliée directement au centre d'Angers par la ligne A du tramway, dont elle accueille le terminus nord. On rejoint ainsi le cœur de la ville sans prendre la voiture, un atout précieux au quotidien pour aller travailler, étudier ou sortir.",
+        "La commune se compose surtout de quartiers résidentiels : maisons individuelles avec jardin, ensembles plus récents et appartements proches des commerces et des équipements. Écoles, équipements sportifs et espaces verts sont sur place, ce qui en fait une adresse appréciée des familles.",
+        "Entre ville et campagne, Avrillé profite de la proximité immédiate d'Angers tout en gardant des rues tranquilles et des quartiers à taille humaine."
+      ],
+      "reperes": [
+        "Ligne A du tramway",
+        "Quartiers résidentiels",
+        "Aux portes d'Angers"
+      ],
+      "vendre": "À Avrillé, la distance à pied jusqu'au tram, la taille et l'exposition du jardin, le calme de la rue et l'état général pèsent beaucoup dans la valeur d'une maison. Nous visitons votre bien en détail avant de vous proposer un prix argumenté, appuyé sur des ventes comparables dans la commune et dans les quartiers voisins d'Angers.",
+      "acheter": [
+        "Beaucoup d'acquéreurs regardent Avrillé après avoir cherché à Angers : la commune permet de viser une maison avec jardin tout en gardant le tram à proximité. Nous vous aidons à comparer les différents secteurs selon vos priorités : écoles, trajets, tranquillité, travaux acceptables.",
+        "Dès qu'un bien correspondant à votre recherche entre en vente, nous vous le proposons avec les informations utiles pour décider sereinement."
+      ],
+      "faq": [
+        {
+          "q": "Avrillé est-elle desservie par le tramway ?",
+          "a": "Oui. La ligne A du tramway a son terminus nord à Avrillé et relie la commune au centre d'Angers."
+        },
+        {
+          "q": "Combien coûte l'estimation de ma maison à Avrillé ?",
+          "a": "Rien. L'estimation est gratuite et sans engagement. Nous nous déplaçons, nous visitons votre maison et nous vous expliquons comment nous arrivons au prix proposé."
+        },
+        {
+          "q": "Je vends à Avrillé pour acheter ailleurs : pouvez-vous m'aider ?",
+          "a": "Oui. Nous vous aidons à organiser les deux projets pour que les calendriers s'enchaînent au mieux, que votre futur achat soit dans l'agglomération d'Angers ou dans le secteur de Sablé-sur-Sarthe."
+        },
+        {
+          "q": "Qui paie vos honoraires ?",
+          "a": "L'acquéreur. Notre barème : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "angers",
+        "beaucouze",
+        "bouchemaine"
+      ]
+    },
+    {
+      "slug": "trelaze",
+      "nom": "Trélazé",
+      "a": "à Trélazé",
+      "cp": [
+        "49800"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "angers",
+      "geo": [
+        47.4484,
+        -0.4864
+      ],
+      "teaser": "La ville de l'ardoise, à l'est d'Angers, entre maisons de ville, pavillons et logements récents.",
+      "meta": "Vendre, acheter ou faire estimer une maison à Trélazé : Charles MOREL et Antoine HÉRY vous accompagnent de l'estimation gratuite jusqu'à l'acte.",
+      "intro": "Juste à l'est d'Angers, Trélazé allie une identité forte, héritée de l'ardoise, et la proximité immédiate de la ville. Nous y accompagnons vos projets de vente, d'achat et d'estimation.",
+      "vivre": [
+        "Le nom de Trélazé reste attaché à l'ardoise : ses ardoisières ont longtemps couvert les toits de l'Anjou et bien au-delà. Les chevalements et les anciens sites d'extraction rappellent encore ce passé, que le musée de l'Ardoise fait découvrir aux habitants comme aux visiteurs.",
+        "Aujourd'hui, la commune offre un cadre résidentiel varié : maisons de ville, pavillons avec jardin, logements plus récents. Commerces, écoles et équipements sont sur place, et le centre d'Angers n'est qu'à quelques minutes.",
+        "Au sud, les bords de Loire sont tout proches pour les balades du week-end."
+      ],
+      "reperes": [
+        "Patrimoine ardoisier",
+        "Musée de l'Ardoise",
+        "Porte est d'Angers",
+        "Bords de Loire à proximité"
+      ],
+      "vendre": "À Trélazé, l'offre va de la maison de ville à rénover au pavillon récent : chaque bien demande une approche différente. Nous vous aidons à fixer un prix cohérent avec son état et son emplacement, puis à le présenter en faisant ressortir ses vrais points forts : terrain, rangements, possibilités d'agrandissement, calme de la rue.",
+      "acheter": [
+        "Trélazé intéresse souvent les acquéreurs qui veulent une maison avec un extérieur près d'Angers, sans s'éloigner de leur travail. Une maison à rafraîchir peut aussi permettre d'étaler les travaux dans le temps.",
+        "Nous vous transmettons les biens adaptés à votre projet, nous vous accompagnons aux visites et nous vous aidons à repérer ce qui compte vraiment : toiture, isolation, chauffage, résultats des diagnostics."
+      ],
+      "faq": [
+        {
+          "q": "Que reste-t-il du passé ardoisier de Trélazé ?",
+          "a": "Des chevalements, d'anciens sites d'extraction et le musée de l'Ardoise, qui retrace l'histoire des ardoisiers et de leur métier."
+        },
+        {
+          "q": "Peut-on vendre une maison à rénover à Trélazé ?",
+          "a": "Bien sûr. L'essentiel est un prix qui tient compte des travaux à prévoir et une présentation honnête du bien. Nous vous aidons à rassembler les éléments qui rassurent les acquéreurs : diagnostics, factures, devis éventuels."
+        },
+        {
+          "q": "Quels diagnostics faut-il pour vendre ?",
+          "a": "Selon le bien : DPE, état des risques, et selon l'âge du logement et de ses installations, amiante, plomb, électricité, gaz, ainsi que l'assainissement si la maison n'est pas raccordée au tout-à-l'égout. Nous vous indiquons précisément ceux qui concernent votre maison."
+        },
+        {
+          "q": "Quels sont vos honoraires ?",
+          "a": "À la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà. L'estimation, elle, est gratuite."
+        }
+      ],
+      "voisins": [
+        "angers",
+        "saint-barthelemy-d-anjou",
+        "les-ponts-de-ce"
+      ]
+    },
+    {
+      "slug": "les-ponts-de-ce",
+      "nom": "Les Ponts-de-Cé",
+      "a": "aux Ponts-de-Cé",
+      "cp": [
+        "49130"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "angers",
+      "geo": [
+        47.4293,
+        -0.522
+      ],
+      "teaser": "Au sud d'Angers, une ville posée sur la Loire, ses bras et ses îles.",
+      "meta": "Immobilier aux Ponts-de-Cé : estimation gratuite, vente et achat de maisons au bord de Loire avec Charles MOREL et Antoine HÉRY.",
+      "intro": "Au sud d'Angers, Les Ponts-de-Cé vit au rythme de la Loire. Nous y accompagnons vendeurs et acquéreurs qui cherchent la nature à deux pas de la ville.",
+      "vivre": [
+        "La commune doit son nom à la succession de ponts qui franchissent la Loire et ses bras, en reliant les îles sur lesquelles une partie de la ville s'est installée. Le château, au bord du fleuve, en est le monument emblématique.",
+        "Le fleuve façonne le paysage : chemins de bord de Loire, prairies, bras d'eau. L'itinéraire de la Loire à Vélo traverse la commune, et l'on profite d'un vrai cadre de nature avec Angers à quelques minutes au nord.",
+        "Les quartiers sont variés, entre le centre ancien proche de l'eau, des secteurs pavillonnaires et des ensembles plus récents."
+      ],
+      "reperes": [
+        "La Loire et ses bras",
+        "Château des Ponts-de-Cé",
+        "Loire à Vélo",
+        "Aux portes d'Angers"
+      ],
+      "vendre": "Une vue sur la Loire, un terrain près des bords du fleuve, une maison ancienne du centre : aux Ponts-de-Cé, certains atouts ne se mesurent pas qu'en mètres carrés. Nous les prenons en compte dans notre estimation, tout comme les contraintes éventuelles d'urbanisme ou de zone inondable, pour arriver à un prix juste et défendable face aux acquéreurs.",
+      "acheter": [
+        "Les Ponts-de-Cé attire ceux qui veulent la Loire au bout de la rue sans renoncer à la proximité d'Angers. Nous vous aidons à cibler les secteurs qui correspondent à vos envies : près de l'eau, au calme d'un quartier pavillonnaire ou proche des commerces.",
+        "Près du fleuve, certains secteurs sont concernés par le risque d'inondation. L'état des risques, joint obligatoirement à chaque vente, permet de savoir précisément ce qu'il en est pour une adresse donnée : nous le passons en revue avec vous avant toute offre."
+      ],
+      "faq": [
+        {
+          "q": "Les Ponts-de-Cé, est-ce loin d'Angers ?",
+          "a": "Non, la commune touche Angers par le sud. On rejoint le centre-ville en quelques minutes."
+        },
+        {
+          "q": "Comment savoir si une maison est en zone inondable ?",
+          "a": "L'état des risques, obligatoire dans chaque vente, l'indique pour l'adresse du bien. Vous pouvez aussi consulter le site Géorisques ou le plan de prévention des risques en mairie. Nous vous aidons à lire ces documents."
+        },
+        {
+          "q": "Mon estimation sera-t-elle vraiment gratuite ?",
+          "a": "Oui, gratuite et sans engagement. Nous visitons votre bien et nous vous présentons un prix argumenté, en tenant compte de ses atouts comme de ses contraintes."
+        },
+        {
+          "q": "Quels sont vos honoraires de vente ?",
+          "a": "Ils sont payés par l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "angers",
+        "trelaze",
+        "bouchemaine",
+        "saint-barthelemy-d-anjou"
+      ]
+    },
+    {
+      "slug": "saint-barthelemy-d-anjou",
+      "nom": "Saint-Barthélemy-d'Anjou",
+      "a": "à Saint-Barthélemy-d'Anjou",
+      "cp": [
+        "49124"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "angers",
+      "geo": [
+        47.4723,
+        -0.4902
+      ],
+      "teaser": "À l'est d'Angers, le parc de Pignerolle, des quartiers résidentiels et des zones d'activité.",
+      "meta": "Immobilier à Saint-Barthélemy-d'Anjou : vendre, acheter ou faire estimer gratuitement votre maison avec Charles MOREL et Antoine HÉRY.",
+      "intro": "À l'est d'Angers, Saint-Barthélemy-d'Anjou associe quartiers résidentiels, grands espaces verts et activité économique. Nous vous y accompagnons pour vendre, acheter ou faire estimer votre bien.",
+      "vivre": [
+        "La commune est connue pour le parc et le château de Pignerolle, un vaste domaine boisé ouvert à la promenade, apprécié des familles de toute l'agglomération. C'est aussi à Saint-Barthélemy-d'Anjou que la maison Cointreau, célèbre liqueur angevine, est installée.",
+        "Les zones d'activité de la commune permettent à beaucoup d'habitants de travailler tout près de chez eux. Les quartiers résidentiels mêlent maisons avec jardin et petits immeubles, avec écoles et commerces sur place.",
+        "Angers est immédiatement voisine : le centre-ville et les grands axes de l'agglomération sont rapidement accessibles."
+      ],
+      "reperes": [
+        "Parc et château de Pignerolle",
+        "Maison Cointreau",
+        "Zones d'activité",
+        "Porte est d'Angers"
+      ],
+      "vendre": "À Saint-Barthélemy-d'Anjou, les acquéreurs regardent de près la proximité d'Angers et des zones d'activité, la tranquillité de la rue et la qualité de l'extérieur. Nous estimons votre bien après l'avoir visité, à partir de ventes comparables, puis nous mettons en avant ces points forts dans l'annonce et lors des visites.",
+      "acheter": [
+        "Vous travaillez à l'est de l'agglomération ou vous cherchez une maison avec jardin près d'Angers ? Saint-Barthélemy-d'Anjou mérite d'être regardée. Nous vous aidons à comparer ses quartiers avec ceux des communes voisines pour trouver le bon compromis entre budget, surface et trajets.",
+        "Nous vous accompagnons de la première visite jusqu'à la signature : analyse des diagnostics, préparation de l'offre, lien avec le notaire."
+      ],
+      "faq": [
+        {
+          "q": "Où se promener à Saint-Barthélemy-d'Anjou ?",
+          "a": "Le parc de Pignerolle, autour de son château, est le grand poumon vert de la commune et l'un des lieux de promenade préférés de l'agglomération."
+        },
+        {
+          "q": "Combien de temps dure une vente, de l'offre à l'acte ?",
+          "a": "Après l'accord sur le prix, on signe un avant-contrat (compromis ou promesse). L'acquéreur dispose alors d'un délai de rétractation de dix jours. L'acte définitif est signé chez le notaire quelques semaines à quelques mois plus tard, le temps notamment d'obtenir le prêt."
+        },
+        {
+          "q": "Estimez-vous aussi les appartements ?",
+          "a": "Oui, maisons, appartements et terrains. L'estimation est gratuite et sans engagement."
+        },
+        {
+          "q": "Quels sont vos honoraires ?",
+          "a": "À la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "angers",
+        "trelaze",
+        "les-ponts-de-ce"
+      ]
+    },
+    {
+      "slug": "beaucouze",
+      "nom": "Beaucouzé",
+      "a": "à Beaucouzé",
+      "cp": [
+        "49070"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "angers",
+      "geo": [
+        47.4741,
+        -0.6289
+      ],
+      "teaser": "À l'ouest d'Angers, un bourg résidentiel voisin du campus de Belle-Beille et de grands pôles d'activité.",
+      "meta": "Immobilier à Beaucouzé : maisons à vendre, estimation gratuite et accompagnement à l'achat avec Charles MOREL et Antoine HÉRY à l'ouest d'Angers.",
+      "intro": "À l'ouest d'Angers, Beaucouzé conjugue quartiers résidentiels, campagne proche et pôles d'activité. Nous y accompagnons vos projets de vente, d'achat et d'estimation.",
+      "vivre": [
+        "Beaucouzé est connue dans toute l'agglomération pour ses zones commerciales et d'activité, dont le centre commercial de l'Atoll, et pour son accès rapide vers la route de Nantes. Le bourg, lui, a gardé une ambiance de commune à taille humaine.",
+        "Les quartiers résidentiels se composent surtout de maisons avec jardin, organisées autour du centre-bourg et de ses équipements. À l'ouest, la campagne commence vite, avec ses chemins et ses haies.",
+        "Côté Angers, la commune est voisine du quartier de Belle-Beille et de son campus universitaire : un emplacement pratique pour les étudiants comme pour les enseignants et les familles."
+      ],
+      "reperes": [
+        "Centre commercial de l'Atoll",
+        "Campus de Belle-Beille à proximité",
+        "Campagne à l'ouest",
+        "Route de Nantes"
+      ],
+      "vendre": "À Beaucouzé, les acquéreurs recherchent souvent une maison familiale avec un jardin bien exposé, au calme mais proche des commerces et d'Angers. Nous visitons votre bien, nous le comparons aux ventes récentes de la commune et nous vous proposons un prix réaliste, puis nous soignons sa présentation pour qu'il se distingue dès la mise en ligne.",
+      "acheter": [
+        "Pour une famille qui veut de l'espace sans s'éloigner d'Angers, Beaucouzé est une piste sérieuse : le centre d'Angers, le campus et les zones d'emploi de l'ouest de l'agglomération sont proches.",
+        "Nous vous transmettons les maisons et terrains qui correspondent à votre recherche, nous vous accompagnons aux visites et nous vous aidons à monter une offre que le vendeur pourra accepter en confiance."
+      ],
+      "faq": [
+        {
+          "q": "Beaucouzé est-elle proche du campus de Belle-Beille ?",
+          "a": "Oui, la commune est voisine du quartier de Belle-Beille, à l'ouest d'Angers, où se trouve un important campus de l'université."
+        },
+        {
+          "q": "Comment se déroule une estimation ?",
+          "a": "Nous venons visiter votre bien, nous notons ses points forts et ses points à améliorer, puis nous le comparons aux ventes récentes de biens similaires. Nous vous présentons ensuite un prix argumenté. C'est gratuit et sans engagement."
+        },
+        {
+          "q": "Faut-il faire des travaux avant de vendre ?",
+          "a": "Pas forcément. Souvent, un bon rangement, un peu de lumière et de petites réparations suffisent à mieux présenter une maison. Nous vous conseillons au cas par cas, sans dépenses inutiles."
+        },
+        {
+          "q": "Quels sont vos honoraires de vente ?",
+          "a": "Ils sont à la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "angers",
+        "avrille",
+        "bouchemaine"
+      ]
+    },
+    {
+      "slug": "bouchemaine",
+      "nom": "Bouchemaine",
+      "a": "à Bouchemaine",
+      "cp": [
+        "49080"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "angers",
+      "geo": [
+        47.4291,
+        -0.6133
+      ],
+      "teaser": "Là où la Maine rejoint la Loire : la Pointe, les coteaux et un cadre de rivières.",
+      "meta": "Immobilier à Bouchemaine, au confluent de la Maine et de la Loire : estimation gratuite, vente et achat avec Charles MOREL et Antoine HÉRY.",
+      "intro": "Au sud-ouest d'Angers, Bouchemaine s'étend là où la Maine rejoint la Loire. Nous y accompagnons vendeurs et acquéreurs attachés à ce cadre de rivières et de coteaux.",
+      "vivre": [
+        "La Pointe, ancien village de mariniers au confluent de la Maine et de la Loire, est le lieu emblématique de Bouchemaine : ses quais, ses maisons anciennes et la vue sur l'eau en font un lieu de promenade très apprécié.",
+        "La commune réunit plusieurs visages : le bord de l'eau, des quartiers résidentiels sur les hauteurs et une partie plus campagnarde. Les coteaux voisins sont couverts de vignes, notamment du côté de Savennières, réputée pour ses vins blancs.",
+        "L'itinéraire de la Loire à Vélo longe la commune, et Angers reste tout proche pour le travail, les études et les commerces."
+      ],
+      "reperes": [
+        "La Pointe",
+        "Confluent Maine et Loire",
+        "Coteaux et vignes",
+        "Loire à Vélo"
+      ],
+      "vendre": "À Bouchemaine, une vue sur l'eau, un jardin en coteau ou une maison ancienne près de la Pointe ont une vraie valeur, mais demandent une estimation fine : chaque bien est presque unique. Nous visitons le vôtre, nous tenons compte de ses atouts comme de ses contraintes (accès, zone inondable, servitudes) et nous vous proposons un prix que nous saurons défendre auprès des acquéreurs.",
+      "acheter": [
+        "On choisit souvent Bouchemaine pour son cadre : l'eau, les coteaux, le calme, avec Angers à proximité. Nous vous aidons à cibler le secteur qui vous ressemble, du bord de rivière aux quartiers résidentiels plus récents.",
+        "Pour un bien proche de l'eau, nous passons en revue avec vous l'état des risques joint à la vente, afin que vous achetiez en toute connaissance de cause."
+      ],
+      "faq": [
+        {
+          "q": "Les maisons au bord de l'eau sont-elles en zone inondable ?",
+          "a": "Cela dépend de l'adresse exacte. L'état des risques, obligatoire dans chaque vente, l'indique précisément ; vous pouvez aussi consulter le site Géorisques ou le plan de prévention en mairie."
+        },
+        {
+          "q": "Bouchemaine est-elle loin d'Angers ?",
+          "a": "Non, la commune est voisine d'Angers, au sud-ouest. On rejoint la ville en quelques minutes."
+        },
+        {
+          "q": "Comment estimer une maison atypique ?",
+          "a": "En la visitant en détail et en la comparant aux ventes de biens réellement comparables, même s'ils sont peu nombreux. L'estimation est gratuite et sans engagement."
+        },
+        {
+          "q": "Qui paie vos honoraires ?",
+          "a": "L'acquéreur, selon notre barème : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "angers",
+        "beaucouze",
+        "les-ponts-de-ce",
+        "avrille"
+      ]
+    },
+    {
+      "slug": "sable-sur-sarthe",
+      "nom": "Sablé-sur-Sarthe",
+      "a": "à Sablé-sur-Sarthe",
+      "cp": [
+        "72300"
+      ],
+      "dep": "Sarthe",
+      "secteur": "sable",
+      "geo": [
+        47.8392,
+        -0.3387
+      ],
+      "teaser": "Une ville à taille humaine sur la Sarthe, son château et sa gare desservie par le TGV.",
+      "meta": "Immobilier à Sablé-sur-Sarthe : estimation gratuite, vente et achat de maisons avec Charles MOREL et Antoine HÉRY présents au quotidien dans le Sabolien.",
+      "intro": "Dans le sud-ouest de la Sarthe, Sablé-sur-Sarthe est une ville à taille humaine posée sur la rivière, où nous sommes sur le terrain au quotidien. Nous y accompagnons vendeurs et acquéreurs, de l'estimation à la signature.",
+      "vivre": [
+        "La ville s'est développée de part et d'autre de la Sarthe, au pied de son château qui domine la rivière. Le château abrite aujourd'hui un centre de la Bibliothèque nationale de France consacré à la conservation et à la restauration des documents.",
+        "Le centre-ville rassemble commerces et services ; autour, des quartiers résidentiels et des hameaux offrent maisons de ville, pavillons et propriétés avec du terrain. Les bords de la Sarthe, rivière navigable, invitent à la promenade.",
+        "Sablé est bien reliée : la gare est desservie par des TGV vers Paris et par des TER vers Le Mans et Angers. La ville se trouve aussi tout près des limites de la Mayenne et du Maine-et-Loire."
+      ],
+      "reperes": [
+        "La Sarthe",
+        "Château de Sablé",
+        "Gare TGV et TER",
+        "Entre Le Mans, Laval et Angers"
+      ],
+      "vendre": "À Sablé, l'écart de valeur peut être important entre une maison de centre-ville, un pavillon de quartier et une longère avec du terrain dans les hameaux. Nous connaissons ces différents types de biens : nous visitons le vôtre, nous analysons les ventes comparables et nous vous remettons une estimation argumentée, puis nous construisons avec vous une mise en vente adaptée.",
+      "acheter": [
+        "Habitants du secteur, actifs qui travaillent au Mans, à Laval ou à Angers, acquéreurs venus de plus loin attirés par la liaison TGV : chacun cherche quelque chose de différent à Sablé. Nous vous aidons à préciser votre projet, du quartier à la surface, en passant par les travaux acceptables.",
+        "Nous vous proposons les biens qui correspondent à votre recherche, nous vous accompagnons aux visites et nous vous aidons à préparer votre offre jusqu'à la signature chez le notaire."
+      ],
+      "faq": [
+        {
+          "q": "La gare de Sablé est-elle desservie par le TGV ?",
+          "a": "Oui, des TGV desservent Sablé-sur-Sarthe vers Paris, en plus des TER vers Le Mans et Angers. Les horaires sont à consulter auprès de la SNCF."
+        },
+        {
+          "q": "Intervenez-vous autour de Sablé ?",
+          "a": "Oui : Solesmes, Juigné-sur-Sarthe, Précigné, Parcé-sur-Sarthe, Noyen-sur-Sarthe, Louailles, Vion, Morannes-sur-Sarthe, Bouère, Ballée, Saint-Denis-d'Anjou et leurs alentours."
+        },
+        {
+          "q": "Combien coûte une estimation à Sablé-sur-Sarthe ?",
+          "a": "Rien : l'estimation est gratuite et sans engagement. Nous nous déplaçons pour visiter votre bien avant de vous donner un prix."
+        },
+        {
+          "q": "Quels sont vos honoraires ?",
+          "a": "À la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        },
+        {
+          "q": "Faites-vous de la location ?",
+          "a": "Non, nous nous consacrons à l'achat, à la vente et à l'estimation."
+        }
+      ],
+      "voisins": [
+        "solesmes",
+        "precigne",
+        "parce-sur-sarthe",
+        "noyen-sur-sarthe"
+      ]
+    },
+    {
+      "slug": "solesmes",
+      "nom": "Solesmes",
+      "a": "à Solesmes",
+      "cp": [
+        "72300"
+      ],
+      "dep": "Sarthe",
+      "secteur": "sable",
+      "geo": [
+        47.8457,
+        -0.3003
+      ],
+      "teaser": "Voisine de Sablé, au bord de la Sarthe, connue pour son abbaye et le chant grégorien.",
+      "meta": "Immobilier à Solesmes, voisine de Sablé-sur-Sarthe : maisons à vendre, estimation gratuite et accompagnement avec Charles MOREL et Antoine HÉRY.",
+      "intro": "Voisine immédiate de Sablé, un peu en amont sur la Sarthe, Solesmes est connue bien au-delà de la région pour son abbaye. Nous y accompagnons vos projets de vente, d'achat et d'estimation.",
+      "vivre": [
+        "L'abbaye Saint-Pierre de Solesmes, communauté bénédictine installée au bord de la Sarthe, est réputée pour le chant grégorien. Son imposante silhouette domine la rivière, et l'église abbatiale abrite les « saints de Solesmes », remarquables ensembles sculptés. La commune accueille aussi l'abbaye Sainte-Cécile, communauté de moniales.",
+        "Le bourg, paisible, offre des maisons anciennes et des pavillons, dans un environnement où la rivière et la campagne ne sont jamais loin.",
+        "Sablé-sur-Sarthe, avec ses commerces, ses services et sa gare, est à quelques minutes : on profite du calme d'un village sans être isolé."
+      ],
+      "reperes": [
+        "Abbaye Saint-Pierre",
+        "Abbaye Sainte-Cécile",
+        "Bords de Sarthe",
+        "Aux portes de Sablé"
+      ],
+      "vendre": "À Solesmes, le charme d'une maison ancienne, la vue sur la rivière ou la tranquillité d'une rue comptent autant que la surface. Nous visitons votre bien pour en saisir les atouts, nous l'estimons à partir de ventes comparables du secteur sablésien et nous le présentons avec soin pour toucher les acquéreurs sensibles à ce cadre.",
+      "acheter": [
+        "Solesmes attire ceux qui veulent un cadre calme et chargé d'histoire, tout en restant à côté des services de Sablé. Nous vous aidons à évaluer chaque bien avec objectivité : état, travaux à prévoir, environnement immédiat.",
+        "Dès qu'un bien correspondant à votre recherche se présente à Solesmes ou alentour, nous vous le proposons."
+      ],
+      "faq": [
+        {
+          "q": "Solesmes est-elle loin de Sablé-sur-Sarthe ?",
+          "a": "Non, les deux communes sont voisines : le centre de Sablé, ses commerces et sa gare sont à quelques minutes."
+        },
+        {
+          "q": "Comment vendre une maison ancienne au juste prix ?",
+          "a": "En tenant compte à la fois de son caractère et de son état réel : toiture, menuiseries, chauffage, isolation. Nous vous aidons à rassembler les diagnostics et les factures de travaux qui rassurent les acquéreurs."
+        },
+        {
+          "q": "L'estimation est-elle gratuite ?",
+          "a": "Oui, gratuite et sans engagement, après une visite de votre bien."
+        },
+        {
+          "q": "Qui paie vos honoraires ?",
+          "a": "L'acquéreur, selon notre barème : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "sable-sur-sarthe",
+        "parce-sur-sarthe",
+        "precigne",
+        "noyen-sur-sarthe"
+      ]
+    },
+    {
+      "slug": "precigne",
+      "nom": "Précigné",
+      "a": "à Précigné",
+      "cp": [
+        "72300"
+      ],
+      "dep": "Sarthe",
+      "secteur": "sable",
+      "geo": [
+        47.7633,
+        -0.3152
+      ],
+      "teaser": "Au sud de Sablé, une commune de campagne avec son bourg, ses hameaux et ses maisons avec terrain.",
+      "meta": "Immobilier à Précigné, au sud de Sablé-sur-Sarthe : maisons de campagne à vendre, estimation gratuite et accompagnement avec Charles MOREL et Antoine HÉRY.",
+      "intro": "À une dizaine de kilomètres au sud de Sablé-sur-Sarthe, Précigné offre un cadre de campagne autour d'un bourg vivant. Nous y accompagnons vendeurs et acquéreurs.",
+      "vivre": [
+        "Précigné est une commune rurale où alternent champs, bocage et hameaux, avec un bourg qui regroupe l'essentiel de la vie locale autour de son église.",
+        "On y trouve des longères et maisons de campagne avec du terrain, des maisons de bourg et des pavillons : de quoi convenir aux familles qui veulent de l'espace comme aux personnes en quête de calme.",
+        "Sablé-sur-Sarthe, sa gare et ses services sont proches, et l'on rejoint facilement les routes vers Angers et Le Mans."
+      ],
+      "reperes": [
+        "Bourg et hameaux",
+        "Campagne et bocage",
+        "Proche de Sablé-sur-Sarthe"
+      ],
+      "vendre": "Un grand terrain, des dépendances, une grange à aménager : à Précigné, ces éléments comptent autant que la maison elle-même. Nous les prenons en compte dans l'estimation, nous vous aidons à organiser les diagnostics obligatoires, y compris le contrôle de l'assainissement lorsque la maison n'est pas raccordée au tout-à-l'égout, et nous présentons votre bien de façon à toucher les acquéreurs qui recherchent ce mode de vie.",
+      "acheter": [
+        "Vous rêvez d'une maison avec du terrain, d'un jardin potager ou d'une longère à remettre à votre goût ? Précigné fait partie des communes à regarder autour de Sablé. Nous vous aidons à évaluer chaque bien : état du bâti, chauffage, assainissement, travaux à prévoir.",
+        "Nous vous accompagnons aux visites et jusqu'à la signature, en restant votre interlocuteur unique."
+      ],
+      "faq": [
+        {
+          "q": "Que faut-il pour vendre une maison non raccordée au tout-à-l'égout ?",
+          "a": "Un diagnostic de l'assainissement non collectif, réalisé par le service public compétent (SPANC) et datant de moins de trois ans au moment de la vente. Nous vous aidons à l'obtenir à temps."
+        },
+        {
+          "q": "Précigné est-elle loin de Sablé-sur-Sarthe ?",
+          "a": "La commune se trouve à une dizaine de kilomètres au sud de Sablé, où l'on trouve gare, commerces et services."
+        },
+        {
+          "q": "Estimez-vous aussi les terrains et les dépendances ?",
+          "a": "Oui, l'estimation porte sur l'ensemble de la propriété. Elle est gratuite et sans engagement."
+        },
+        {
+          "q": "Quels sont vos honoraires ?",
+          "a": "À la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "sable-sur-sarthe",
+        "solesmes",
+        "parce-sur-sarthe",
+        "noyen-sur-sarthe"
+      ]
+    },
+    {
+      "slug": "parce-sur-sarthe",
+      "nom": "Parcé-sur-Sarthe",
+      "a": "à Parcé-sur-Sarthe",
+      "cp": [
+        "72300"
+      ],
+      "dep": "Sarthe",
+      "secteur": "sable",
+      "geo": [
+        47.8349,
+        -0.1984
+      ],
+      "teaser": "Un village ancien au bord de la Sarthe, en amont de Sablé.",
+      "meta": "Immobilier à Parcé-sur-Sarthe : maisons de bourg et de campagne à vendre, estimation gratuite et accompagnement avec Charles MOREL et Antoine HÉRY.",
+      "intro": "En amont de Sablé, Parcé-sur-Sarthe est un village au charme ancien installé au bord de la rivière. Nous y accompagnons vos projets de vente, d'achat et d'estimation.",
+      "vivre": [
+        "Parcé-sur-Sarthe s'est construit au bord de la Sarthe. Son bourg ancien, ses maisons de pierre et ses berges lui donnent un charme apprécié des habitants comme des promeneurs.",
+        "Autour du bourg, la campagne alterne champs, bois et hameaux, où l'on trouve longères et maisons avec du terrain.",
+        "Sablé-sur-Sarthe est à une douzaine de kilomètres pour les commerces, les services et la gare, et Noyen-sur-Sarthe est toute proche, un peu plus en amont sur la rivière."
+      ],
+      "reperes": [
+        "Bourg ancien",
+        "Bords de Sarthe",
+        "Campagne et hameaux",
+        "Entre Sablé et Noyen"
+      ],
+      "vendre": "À Parcé, une maison de bourg ancienne, une maison à rénover et une propriété avec terrain n'attirent pas les mêmes acquéreurs. Nous adaptons le prix, l'annonce et l'organisation des visites à chaque bien, en soignant les photos et la description pour mettre en valeur le caractère des lieux.",
+      "acheter": [
+        "Parcé-sur-Sarthe convient à ceux qui cherchent le charme d'un village de bord de rivière, à distance raisonnable de Sablé. Nous vous aidons à évaluer chaque bien sans complaisance.",
+        "Pour une maison à rénover, nous anticipons avec vous : diagnostics, état de la toiture, de la charpente et de l'assainissement, devis à demander avant de faire une offre."
+      ],
+      "faq": [
+        {
+          "q": "Trouve-t-on des maisons à rénover à Parcé-sur-Sarthe ?",
+          "a": "Les maisons anciennes à rafraîchir ou à rénover font partie des biens que l'on rencontre dans le bourg et les hameaux. Confiez-nous votre recherche pour être prévenu dès qu'un bien adapté se présente."
+        },
+        {
+          "q": "Parcé-sur-Sarthe est-elle loin de Sablé ?",
+          "a": "Elle se trouve à une douzaine de kilomètres de Sablé-sur-Sarthe, en amont sur la rivière."
+        },
+        {
+          "q": "L'estimation de ma maison est-elle gratuite ?",
+          "a": "Oui, gratuite et sans engagement. Nous visitons votre maison et nous vous expliquons le prix proposé."
+        },
+        {
+          "q": "Qui paie vos honoraires ?",
+          "a": "L'acquéreur, selon notre barème : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "noyen-sur-sarthe",
+        "sable-sur-sarthe",
+        "solesmes",
+        "precigne"
+      ]
+    },
+    {
+      "slug": "noyen-sur-sarthe",
+      "nom": "Noyen-sur-Sarthe",
+      "a": "à Noyen-sur-Sarthe",
+      "cp": [
+        "72430"
+      ],
+      "dep": "Sarthe",
+      "secteur": "sable",
+      "geo": [
+        47.8616,
+        -0.0974
+      ],
+      "teaser": "Un bourg au bord de la Sarthe, non loin de Malicorne, entre Sablé et Le Mans.",
+      "meta": "Immobilier à Noyen-sur-Sarthe : maisons à vendre, estimation gratuite et accompagnement à l'achat avec Charles MOREL et Antoine HÉRY dans la vallée de la Sarthe.",
+      "intro": "Dans la vallée de la Sarthe, entre Sablé et Le Mans, Noyen-sur-Sarthe allie vie de bourg et grands espaces. Nous y accompagnons vendeurs et acquéreurs.",
+      "vivre": [
+        "Le bourg s'est installé sur les rives de la Sarthe, rivière navigable dont les berges se prêtent à de belles balades.",
+        "La commune offre des maisons de bourg, des pavillons et, dans la campagne alentour, des longères et maisons avec terrain. Malicorne-sur-Sarthe, connue pour sa faïence, est toute proche.",
+        "On rejoint Sablé-sur-Sarthe d'un côté et l'agglomération du Mans de l'autre, ce qui fait de Noyen un point de chute intéressant pour ceux qui travaillent dans l'une ou l'autre."
+      ],
+      "reperes": [
+        "Bords de Sarthe",
+        "Malicorne-sur-Sarthe à proximité",
+        "Entre Sablé et Le Mans"
+      ],
+      "vendre": "À Noyen, les acquéreurs viennent aussi bien du secteur de Sablé que de l'agglomération mancelle. Nous prenons en compte cette double attractivité dans l'estimation et dans la diffusion de votre annonce, après une visite détaillée de votre bien et l'étude des ventes comparables.",
+      "acheter": [
+        "Vous travaillez au Mans ou à Sablé et vous cherchez plus d'espace ? Noyen-sur-Sarthe mérite d'être regardée. Nous vous aidons à comparer les biens du bourg et de la campagne selon vos trajets et votre budget.",
+        "Nous vous transmettons les biens qui correspondent à votre recherche et nous vous accompagnons jusqu'à la signature chez le notaire."
+      ],
+      "faq": [
+        {
+          "q": "Pourquoi passer par un conseiller du secteur pour vendre à Noyen ?",
+          "a": "Parce qu'il connaît les biens comparables vendus autour de chez vous, les attentes des acquéreurs et les spécificités des maisons de la vallée. C'est ce qui permet de fixer un prix juste dès le départ."
+        },
+        {
+          "q": "Quels documents préparer pour vendre ?",
+          "a": "Le titre de propriété, la dernière taxe foncière, les diagnostics obligatoires et, si vous en avez, les factures des travaux réalisés. Nous vous accompagnons pour réunir l'ensemble."
+        },
+        {
+          "q": "L'estimation est-elle gratuite ?",
+          "a": "Oui, gratuite et sans engagement, après une visite de votre bien."
+        },
+        {
+          "q": "Quels sont vos honoraires ?",
+          "a": "À la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "parce-sur-sarthe",
+        "sable-sur-sarthe",
+        "solesmes",
+        "precigne"
+      ]
+    }
+  ]
+}
