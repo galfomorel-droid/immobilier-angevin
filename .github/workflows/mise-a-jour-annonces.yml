@@ -41,7 +41,8 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Biens vendus (page 3G de Charles)
-        run: python3 _communes/vendus_3g.py || echo "Page 3G indisponible : biens vendus inchangés"
+        run: |
+          python3 _communes/vendus_3g.py || echo "Page 3G indisponible, biens vendus inchangés"
 
       - name: Pages d'annonces et sitemap
         env:
