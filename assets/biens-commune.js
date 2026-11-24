@@ -75,10 +75,14 @@
     });
   }
 
-  fetch(el.getAttribute('data-flux'))
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (d) {
-      var brut = Array.isArray(d) ? d : (d.properties || []);
+  // Flux 3G + statuts de l'espace pro (lecture seule) : les biens masqués ou vendus ne sont pas proposés
+  var statuts = fetch('https://immobilier-angevin.galfomorel.workers.dev/statuts')
+    .then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
+  Promise.all([fetch(el.getAttribute('data-flux')).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }), statuts])
+    .then(function (res) {
+      var d = res[0], hors = {};
+      ((res[1] && res[1].ventes) || []).forEach(function (v) { if (v.masque || v.statut === 'vendu') hors[String(v.id)] = 1; });
+      var brut = (Array.isArray(d) ? d : (d.properties || [])).filter(function (x) { return !hors[String(x.id)]; });
       var tous = brut.map(conv).filter(function (b) { return b.ville && !b.location; });
       var ici = tous.filter(function (b) { return cle(b.ville) === cleCommune; });
       var autour = tous.filter(function (b) { return cle(b.ville) !== cleCommune && clesSecteur[cle(b.ville)] === 1; });
@@ -97,6 +101,11 @@
       }
       if (autour.length) {
         afficher(autour.slice(0, 6), 'Pas de bien ' + txt(aCommune) + ' en ce moment\u202f: voici nos biens dans les communes voisines. ' +
+          '<a class="lien" href="' + root + '#contact">Confiez-nous votre recherche</a>.');
+        return;
+      }
+      if (tous.length) {   // ni dans la commune ni autour : nos biens du moment, d'Angers à Sablé-sur-Sarthe
+        afficher(tous.slice(0, 6), 'Pas de bien ' + txt(aCommune) + ' en ce moment\u202f: voici nos biens du moment, d\u2019Angers à Sablé-sur-Sarthe. ' +
           '<a class="lien" href="' + root + '#contact">Confiez-nous votre recherche</a>.');
         return;
       }
