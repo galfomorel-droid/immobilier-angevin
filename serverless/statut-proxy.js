@@ -14,7 +14,16 @@
  *   POST { action: 'setup', password }   → crée le mot de passe (une seule fois)
  *   POST { password, check: true }       → vérifie le mot de passe
  *   POST { password, ventes: [...] }     → enregistre les statuts
+ *
+ * Demandes et alertes e-mail (serverless/demandes.js) :
+ *   POST { action: 'estimation', demande }          → enregistre une demande d'estimation (+ e-mail à Charles)
+ *   POST { action: 'alerte', email, criteres, consentement: true } → crée une alerte (e-mail de confirmation)
+ *   GET  /alerte?confirmer=… | ?arreter=…           → pages de confirmation / d'arrêt d'une alerte
+ *   POST { password, action: 'demandes' }           → demandes + alertes, pour l'espace pro
+ *   POST { password, action: 'supprimer', cle }     → efface une demande ou une alerte
+ *   Tous les jours à 8 h (cron) : e-mail aux abonnés pour chaque nouveau bien ou baisse de prix.
  */
+import { alertesActives, recevoirEstimation, creerAlerte, pageAlerte, demandesPourAdmin, supprimerPourAdmin, tourneeAlertes } from './demandes.js';
 
 const ORIGINES = ['https://galfomorel-droid.github.io', 'https://limmobilierangevin.fr', 'https://www.limmobilierangevin.fr'];
 const ITERATIONS = 100000;
@@ -62,6 +71,9 @@ export default {
 
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors(request) });
 
+    const url = new URL(request.url);
+    if (url.pathname === '/alerte' && (request.method === 'GET' || request.method === 'POST')) return pageAlerte(request, env);
+
     if (request.method === 'GET') {
       const ventes = (await env.STATUTS.get('ventes', 'json')) || [];
       return json({ ventes }, 200, { 'Cache-Control': 'no-store' });
@@ -72,8 +84,10 @@ export default {
     try { body = await request.json(); } catch { return json({ error: 'JSON invalide' }, 400); }
 
     if (body.action === 'etat') {
-      return json({ configure: !!(await env.STATUTS.get('motdepasse')) }, 200);
+      return json({ configure: !!(await env.STATUTS.get('motdepasse')), alertes: alertesActives(env) }, 200);
     }
+    if (body.action === 'estimation') { const r = await recevoirEstimation(body, request, env); return json(r.corps, r.status); }
+    if (body.action === 'alerte') { const r = await creerAlerte(body, request, env, url.origin + '/'); return json(r.corps, r.status); }
 
     if (body.action === 'setup') {
       if (await env.STATUTS.get('motdepasse')) return json({ error: 'Mot de passe déjà défini' }, 409);
@@ -86,10 +100,17 @@ export default {
 
     if (!(await verifier(env, body.password))) return refus();
     if (body.check) return json({ ok: true }, 200);
+    if (body.action === 'demandes') return json(await demandesPourAdmin(env), 200, { 'Cache-Control': 'no-store' });
+    if (body.action === 'supprimer') return (await supprimerPourAdmin(env, body.cle)) ? json({ ok: true }, 200) : json({ error: 'Clé invalide' }, 400);
 
     if (!Array.isArray(body.ventes)) return json({ error: 'Champ « ventes » manquant' }, 400);
     if (body.ventes.length > 500) return json({ error: 'Trop d\'entrées' }, 400);
     await env.STATUTS.put('ventes', JSON.stringify(body.ventes));
     return json({ ok: true, count: body.ventes.length }, 200);
+  },
+
+  // Tournée quotidienne des alertes e-mail (déclencheur « crons » de wrangler.toml)
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(tourneeAlertes(env).then((r) => console.log('alertes', JSON.stringify(r))).catch((e) => console.error('alertes', e.message)));
   },
 };

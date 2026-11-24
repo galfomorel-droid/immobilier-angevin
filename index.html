@@ -4736,6 +4736,59 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 /* Pied de page : 4 colonnes (avec « Mes secteurs ») */
 @media (min-width: 900px) { #site-footer .ft-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1100px; } }
 
+/* ===== Estimation en ligne : résultat (prix réels DVF) ===== */
+.hp-field { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.est-card.est-fini .est-step, .est-card.est-fini .est-nav { display: none !important; }
+.est-res { outline: none; }
+.est-res .cb-kicker { display: inline-block; margin-bottom: .6rem; }
+.est-res-fourchette { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1rem; margin: 1rem 0 .4rem; }
+.est-res-fourchette strong { font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.1; color: var(--marine); font-weight: 700; letter-spacing: -.01em; }
+.est-res-fourchette span { font-size: 1rem; color: #5b6475; }
+.est-res-centre { font-size: 1.02rem; color: #3a4252; margin: 0 0 1.4rem; }
+.est-res-centre b { color: var(--rouge); }
+.est-res-base { background: #f4f6fa; border-left: 4px solid var(--rouge); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin: 0 0 1.6rem; }
+.est-res-base p { margin: 0 0 .7rem; font-size: .93rem; line-height: 1.65; color: #3a4252; }
+.est-res-base p:last-child { margin-bottom: 0; }
+.est-res-warn { background: #fff4f4; border: 1px solid #f3c4c8; color: #8a1220; border-radius: 10px; padding: .8rem 1rem; font-size: .93rem; margin: 0 0 1.2rem; }
+.est-res-actions { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
+.est-res-actions .est-back { margin-left: auto; }
+@media (max-width: 620px) { .est-res-actions .cb-btn { width: 100%; justify-content: center; text-align: center; } .est-res-actions .est-back { margin: 0 auto; } }
+
+/* ===== Alerte e-mail (page des biens) ===== */
+.alerte-box { width: 88%; max-width: 1232px; margin: 2.5rem auto 0; box-sizing: border-box; background: var(--marine); border-radius: 16px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 1.2rem 2.5rem; align-items: center; padding: 2rem 2.2rem; }
+.alerte-box[hidden] { display: none; }
+.alerte-box > * { min-width: 0; }
+.alerte-txt { color: #fff; }
+.alerte-ok { grid-column: 1 / -1; color: #fff; outline: none; }
+.alerte-ok strong { display: block; font-size: 1.15rem; margin-bottom: .4rem; }
+.alerte-ok p { margin: 0; color: rgba(255,255,255,.85); line-height: 1.6; }
+.alerte-txt .cb-kicker { color: #ff8a95; }
+.alerte-txt h2 { font-size: clamp(1.35rem, 2.6vw, 1.75rem); margin: .35rem 0 .6rem; color: #fff; }
+.alerte-txt p { margin: 0; color: rgba(255,255,255,.82); line-height: 1.6; font-size: .95rem; }
+.alerte-txt strong { color: #fff; }
+.alerte-ligne { display: flex; gap: .6rem; }
+.alerte-ligne .form-input { flex: 1; min-width: 0; margin: 0; background: #fff; }
+.alerte-ligne .cb-btn { white-space: nowrap; background: var(--rouge); border-color: var(--rouge); color: #fff; }
+.alerte-ligne .cb-btn:hover { background: var(--rouge-fonce); }
+.alerte-consent { display: flex; gap: .55rem; align-items: flex-start; margin-top: .8rem; font-size: .8rem; line-height: 1.5; color: rgba(255,255,255,.78); cursor: pointer; }
+.alerte-consent input { margin-top: .2rem; accent-color: var(--rouge); flex: none; }
+.alerte-consent a { color: #fff; text-decoration: underline; }
+@media (max-width: 860px) {
+  .alerte-box { grid-template-columns: 1fr; width: auto; margin: 2rem 16px 0; padding: 1.5rem 1.3rem; }
+  .alerte-ligne { flex-direction: column; }
+}
+
+/* ===== Espace pro : demandes et alertes ===== */
+.admin-demandes-tete { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.admin-demandes { display: grid; gap: .8rem; }
+.admin-demande { background: #fff; border: 1px solid #e4e7ee; border-radius: 10px; padding: 1rem 1.3rem; }
+.admin-demande p { margin: .3rem 0; font-size: .92rem; line-height: 1.5; }
+.admin-demande a { color: var(--marine); text-decoration: underline; }
+.admin-demande-tete { display: flex; justify-content: space-between; gap: .6rem 1rem; flex-wrap: wrap; margin-bottom: .2rem; }
+.admin-demande-tete span { font-size: .8rem; color: #5b6475; }
+.admin-demande-msg { font-style: italic; color: #3a4252; }
+.admin-demande .admin-bien-actions { margin-top: .6rem; }
+
 </style>
 </head>
 <body>
@@ -5196,6 +5249,22 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   </div>
 
   <div class="biens-page-grid" id="biensGrid"></div>
+  <section class="alerte-box" id="alerteBox" hidden aria-labelledby="alerteTitre">
+    <div class="alerte-txt">
+      <span class="cb-kicker">Alerte e-mail</span>
+      <h2 id="alerteTitre">Soyez prévenu en premier</h2>
+      <p>Recevez par e-mail les nouveaux biens et les baisses de prix pour votre recherche : <strong id="alerteResume">tous types de biens</strong>. Ajustez les filtres ci-dessus pour la préciser.</p>
+    </div>
+    <form class="alerte-form" onsubmit="creerAlerteEmail(event)" novalidate>
+      <div class="alerte-ligne">
+        <label class="sr-only" for="alerteEmail">Votre e-mail</label>
+        <input type="email" id="alerteEmail" class="form-input" placeholder="votre@email.fr" autocomplete="email" maxlength="120" required>
+        <button type="submit" id="alerteBtn" class="cb-btn">Créer mon alerte</button>
+      </div>
+      <input type="text" id="alerteSite" name="site" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="alerte-consent"><input type="checkbox" id="alerteConsent"><span>J'accepte de recevoir ces e-mails. Un lien dans chaque e-mail permet d'arrêter l'alerte (voir <a href="#" onclick="showLegal('rgpd');return false;">protection des données</a>).</span></label>
+    </form>
+  </section>
   <div id="biensMap" style="display:none;"></div>
 
   <!-- Acheter -->
@@ -5432,7 +5501,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
     <div class="cb-wrap">
       <span class="cb-kicker">Estimation gratuite</span>
       <h1 class="cb-h1">Combien vaut <span class="cb-accent">votre bien</span> ?</h1>
-      <p class="cb-lead">Décrivez votre bien en 2 minutes : nous vous répondons sous 24 h avec une première estimation, puis nous vous proposons une visite pour l'affiner, gratuitement et sans engagement.</p>
+      <p class="cb-lead">Décrivez votre bien en 2 minutes : vous obtenez aussitôt une fourchette de prix calculée sur les ventes réelles de votre commune, puis nous vous proposons une visite pour l'affiner, gratuitement et sans engagement.</p>
       <div class="est-progress" id="estProgress" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span></div>
     </div>
   </section>
@@ -5474,10 +5543,9 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
             <label class="form-label" for="estimVille">Commune *</label>
             <select id="estimVille" class="form-select" required>
               <option value="">— Choisir —</option>
-              <option>Angers</option><option>Avrillé</option><option>Trélazé</option><option>Les Ponts-de-Cé</option>
-              <option>Saint-Barthélemy-d'Anjou</option><option>Beaucouzé</option><option>Bouchemaine</option><option>Écouflant</option>
-              <option>Mûrs-Érigné</option><option>Sainte-Gemmes-sur-Loire</option><option>Montreuil-Juigné</option><option>Verrières-en-Anjou</option>
-              <option>Autre</option>
+              <optgroup label="Secteur d'Angers"><option>Angers</option><option>Avrillé</option><option>Baracé</option><option>Beaucouzé</option><option>Beaulieu-sur-Layon</option><option>Bécon-les-Granits</option><option>Béhuard</option><option>Bellevigne-en-Layon</option><option>Blaison-Saint-Sulpice</option><option>Bouchemaine</option><option>Briollay</option><option>Brissac Loire Aubance</option><option>Cantenay-Épinard</option><option>Chalonnes-sur-Loire</option><option>Champtocé-sur-Loire</option><option>Chaudefonds-sur-Layon</option><option>Cheffes</option><option>Chenillé-Champteussé</option><option>Cornillé-les-Caves</option><option>Corzé</option><option>Denée</option><option>Écouflant</option><option>Écuillé</option><option>Erdre-en-Anjou</option><option>Étriché</option><option>Feneu</option><option>Grez-Neuville</option><option>Jarzé Villages</option><option>Juvardeil</option><option>La Chapelle-Saint-Laud</option><option>La Ménitré</option><option>La Possonnière</option><option>Le Lion-d&#x27;Angers</option><option>Le Plessis-Grammoire</option><option>Les Garennes sur Loire</option><option>Les Hauts-d&#x27;Anjou</option><option>Les Ponts-de-Cé</option><option>Loire-Authion</option><option>Longuenée-en-Anjou</option><option>Marcé</option><option>Mazé-Milon</option><option>Montreuil-Juigné</option><option>Montreuil-sur-Loir</option><option>Montreuil-sur-Maine</option><option>Mozé-sur-Louet</option><option>Mûrs-Erigné</option><option>Rives-du-Loir-en-Anjou</option><option>Rochefort-sur-Loire</option><option>Saint-Augustin-des-Bois</option><option>Saint-Barthélemy-d&#x27;Anjou</option><option>Saint-Clément-de-la-Place</option><option>Saint-Georges-sur-Loire</option><option>Saint-Germain-des-Prés</option><option>Saint-Jean-de-la-Croix</option><option>Saint-Lambert-la-Potherie</option><option>Saint-Léger-de-Linières</option><option>Saint-Martin-du-Fouilloux</option><option>Saint-Melaine-sur-Aubance</option><option>Sainte-Gemmes-sur-Loire</option><option>Sarrigné</option><option>Savennières</option><option>Sceaux-d&#x27;Anjou</option><option>Seiches-sur-le-Loir</option><option>Soulaines-sur-Aubance</option><option>Soulaire-et-Bourg</option><option>Thorigné-d&#x27;Anjou</option><option>Tiercé</option><option>Trélazé</option><option>Val-du-Layon</option><option>Verrières-en-Anjou</option></optgroup>
+              <optgroup label="Secteur de Sablé-sur-Sarthe"><option>Arthezé</option><option>Asnières-sur-Vègre</option><option>Auvers-le-Hamon</option><option>Avessé</option><option>Avoise</option><option>Bannes</option><option>Beaumont-Pied-de-Bœuf</option><option>Bierné-les-Villages</option><option>Bouère</option><option>Bouessay</option><option>Brûlon</option><option>Chantenay-Villedieu</option><option>Châtelain</option><option>Chémeré-le-Roi</option><option>Chevillé</option><option>Cossé-en-Champagne</option><option>Courtillers</option><option>Crosmières</option><option>Dureil</option><option>Durtal</option><option>Fontenay-sur-Vègre</option><option>Grez-en-Bouère</option><option>Juigné-sur-Sarthe</option><option>La Chapelle-d&#x27;Aligné</option><option>La Cropte</option><option>Le Bailleul</option><option>Le Buret</option><option>Louailles</option><option>Malicorne-sur-Sarthe</option><option>Miré</option><option>Morannes sur Sarthe-Daumeray</option><option>Notre-Dame-du-Pé</option><option>Noyen-sur-Sarthe</option><option>Parcé-sur-Sarthe</option><option>Pincé</option><option>Pirmil</option><option>Poillé-sur-Vègre</option><option>Préaux</option><option>Précigné</option><option>Sablé-sur-Sarthe</option><option>Saint-Brice</option><option>Saint-Charles-la-Forêt</option><option>Saint-Christophe-en-Champagne</option><option>Saint-Denis-d&#x27;Anjou</option><option>Saint-Loup-du-Dorat</option><option>Saint-Ouen-en-Champagne</option><option>Saint-Pierre-des-Bois</option><option>Saint-Pierre-sur-Erve</option><option>Saulges</option><option>Solesmes</option><option>Souvigné-sur-Sarthe</option><option>Tassé</option><option>Thorigné-en-Charnie</option><option>Val-du-Maine</option><option>Villaines-sous-Malicorne</option><option>Vion</option><option>Viré-en-Champagne</option></optgroup>
+              <option value="Autre">Autre commune</option>
             </select>
           </div>
         </div>
@@ -5544,7 +5612,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
         <div class="est-step" data-step="5">
           <div class="est-num">— Étape 5 sur 5</div>
           <h2 class="est-q">Vos coordonnées</h2>
-          <p class="est-help">Nous vous recontactons sous 24 h avec votre estimation.</p>
+          <p class="est-help">Votre estimation s'affiche dès que vous validez. Nous vous recontactons ensuite pour l'affiner.</p>
           <div class="form-row-2">
             <div class="form-row"><label class="form-label" for="estimPrenom">Prénom *</label><input type="text" id="estimPrenom" class="form-input" placeholder="Votre prénom" required></div>
             <div class="form-row"><label class="form-label" for="estimNom">Nom *</label><input type="text" id="estimNom" class="form-input" placeholder="Votre nom" required></div>
@@ -5554,7 +5622,8 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
             <div class="form-row"><label class="form-label" for="estimTel">Téléphone *</label><input type="tel" id="estimTel" class="form-input" placeholder="06 00 00 00 00" required pattern="[0-9 .+\-()]{8,20}" maxlength="20"></div>
           </div>
           <p class="form-consent">Vos données sont utilisées uniquement pour répondre à votre demande d'estimation (voir <a href="#" onclick="showLegal('rgpd');return false;" style="text-decoration:underline;">protection des données</a>).</p>
-          <button class="form-submit" onclick="submitEstimation()">Recevoir mon estimation</button>
+          <input type="text" id="estimSite" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="form-submit" onclick="submitEstimation()">Voir mon estimation</button>
         </div>
 
         <div class="est-nav">
@@ -6160,7 +6229,18 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
     </div>
   </div>
   <div class="admin-body">
-    <div class="section-tag">Pilotage de mes biens</div>
+    <div class="section-tag">Mes contacts</div>
+    <div class="admin-demandes-tete">
+      <h3 class="admin-titre">Demandes d'estimation</h3>
+      <button type="button" class="btn-statut" onclick="_adminChargerDemandes(true)">↻ Actualiser</button>
+    </div>
+    <p class="admin-aide" id="adminDemandesInfo">Chargement…</p>
+    <div class="admin-demandes" id="adminDemandes"></div>
+    <h3 class="admin-titre" style="margin-top:2.5rem;">Alertes e-mail des acheteurs</h3>
+    <p class="admin-aide" id="adminAlertesInfo"></p>
+    <div class="admin-demandes" id="adminAlertes"></div>
+
+    <div class="section-tag" style="margin-top:3.5rem;">Pilotage de mes biens</div>
     <h3 class="admin-titre">Mes biens en ligne</h3>
     <p class="admin-aide">Un clic publie aussitôt le changement sur le site, pour tous les visiteurs. Recliquer sur un statut actif le retire.
       « Vendu » retire le bien des annonces et l'ajoute à « Mes dernières ventes » sur l'accueil. « Supprimer » retire le bien du site (il reste dans 3G) ; vous pouvez le réafficher plus bas. « À la une » : dès qu'un bien est coché, l'accueil n'affiche que les biens cochés (sinon, les plus récents). Les biens qui disparaissent de 3G disparaissent aussi du site.</p>
@@ -6834,9 +6914,11 @@ var legalPages = {
     '<div class="legal-section"><h3>Responsable du traitement</h3>' +
       '<p>Charles MOREL — L\'Immobilier Angevin, entrepreneur individuel, agent commercial du réseau 3G IMMO — charles.morel@3gimmobilier.com.</p></div>' +
     '<div class="legal-section"><h3>Données collectées et finalités</h3>' +
-      '<p>Les données saisies dans les formulaires (nom, prénom, téléphone, e-mail, informations sur votre bien ou votre recherche) sont utilisées uniquement pour répondre à votre demande : prise de contact, estimation, visite, recherche de bien, parrainage. Base légale : votre consentement et les mesures précontractuelles prises à votre demande.</p></div>' +
+      '<p>Les données saisies dans les formulaires (nom, prénom, téléphone, e-mail, informations sur votre bien ou votre recherche) sont utilisées uniquement pour répondre à votre demande : prise de contact, estimation, visite, recherche de bien, parrainage. Base légale : votre consentement et les mesures précontractuelles prises à votre demande.</p>' +
+      '<p><b>Estimation en ligne.</b> La fourchette de prix est calculée dans votre navigateur à partir des données publiques DVF (ventes immobilières publiées par l\'administration fiscale) ; c\'est une estimation indicative, qui ne remplace pas un avis de valeur. Votre demande est transmise à Charles MOREL pour qu\'il vous recontacte.</p>' +
+      '<p><b>Alertes e-mail.</b> Si vous créez une alerte, votre adresse e-mail et vos critères de recherche servent uniquement à vous envoyer les nouveaux biens correspondants. L\'alerte ne démarre qu\'après votre clic de confirmation, et chaque e-mail contient un lien pour l\'arrêter : l\'adresse est alors effacée. Une alerte non confirmée est effacée au bout de 7 jours.</p></div>' +
     '<div class="legal-section"><h3>Destinataires et durée de conservation</h3>' +
-      '<p>Les données sont destinées exclusivement à Charles MOREL et, pour le suivi des mandats, au réseau 3G IMMO. Elles ne sont ni vendues ni cédées, et sont conservées 3 ans à compter du dernier contact. Les formulaires transitent par le service d\'envoi Web3Forms.</p></div>' +
+      '<p>Les données sont destinées exclusivement à Charles MOREL et, pour le suivi des mandats, au réseau 3G IMMO. Elles ne sont ni vendues ni cédées, et sont conservées 3 ans à compter du dernier contact. Les demandes d\'estimation et les alertes sont stockées chez Cloudflare (hébergement du serveur du site) et les e-mails sont envoyés par le service Resend ; les autres formulaires transitent par le service d\'envoi Web3Forms. Ces prestataires agissent comme sous-traitants et peuvent héberger des données hors de l\'Union européenne, avec les garanties prévues par le RGPD (clauses contractuelles types).</p></div>' +
     '<div class="legal-section"><h3>Vos droits</h3>' +
       '<p>Vous disposez d\'un droit d\'accès, de rectification, d\'effacement, de limitation, d\'opposition et de portabilité de vos données. Pour les exercer : charles.morel@3gimmobilier.com. Vous pouvez également introduire une réclamation auprès de la CNIL (www.cnil.fr).</p></div>',
 
@@ -7630,6 +7712,7 @@ function renderBiensGrid() {
   if (_rs) _rs.hidden = !(filterType !== 'all' || filterVilles.length || filterBudgetMax || filterBudgetMin || filterSurfaceMin || filterTerrainMin || filterChambresMin || filterRef || (typeof filterFeatures !== 'undefined' && filterFeatures.length));
   var countEl = document.getElementById('biensCount');
   if (countEl) countEl.textContent = filtered.length + ' résultat' + (filtered.length > 1 ? 's' : '');
+  if (typeof renderAlerteBox === 'function') renderAlerteBox();
   grid.innerHTML = '';
   if (filtered.length) {
     filtered.forEach(function(b) { grid.appendChild(bienCardHTML(b)); });
@@ -7757,6 +7840,12 @@ function syncFiltresBiens() {
 }
 // « Créer une alerte » : ouvre le formulaire de contact pré-rempli avec la recherche
 function creerAlerte() {
+  var _bx = document.getElementById('alerteBox');
+  if (_alertesOuvertes && _bx && !_bx.hidden) {
+    _bx.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var _em = document.getElementById('alerteEmail'); if (_em) setTimeout(function () { _em.focus({ preventScroll: true }); }, 400);
+    return;
+  }
   ouvrirCriteres({
     type: filterType !== 'all' ? filterType : '',
     villes: filterVilles.join(', '),
@@ -8477,7 +8566,7 @@ function refreshVilleSelects() {
     }
   }
   // Estimation
-  const estimSel = document.getElementById('estimVille');
+  const estimSel = null;   // liste figée des communes (prix DVF), voir build.py
   if (estimSel) {
     estimSel.innerHTML = '';
     villes.forEach(v => {
@@ -8582,96 +8671,185 @@ async function submitModal(e) {
   }, 3000);
 }
 
-async function submitEstimation() {
-  var v = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
-  var prenom    = v('estimPrenom');
-  var nom       = v('estimNom');
-  var email     = v('estimEmail');
-  var tel       = v('estimTel');
-  var type      = v('estimType');
-  var ville     = v('estimVille');
-  var adresse   = v('estimAdresse');
-  var surface   = v('estimSurface');
-  var terrain   = v('estimTerrain');
-  var pieces    = v('estimPieces');
-  var chambres  = v('estimChambres');
-  var sdb       = v('estimSdb');
-  var annee     = v('estimAnnee');
-  var etage     = v('estimEtage');
-  var etat      = v('estimEtat');
-  var projet    = v('estimProjet');
-  var dpe       = v('estimDpe');
-  var message   = v('estimMessage');
+// =====================================================================
+// ESTIMATION EN LIGNE (prix réels DVF) + ALERTES E-MAIL « nouveaux biens »
+// Les demandes partent vers le relais Cloudflare (AGENCE.statutProxyUrl, serverless/demandes.js) :
+// elles sont enregistrées et visibles dans l'espace pro, et envoyées par e-mail à Charles si l'envoi est branché.
+// =====================================================================
+var _prixDvf = null;
+function _chargerPrixDvf() {
+  if (_prixDvf) return Promise.resolve(_prixDvf);
+  return fetch('data/prix.json', { cache: 'force-cache' })
+    .then(function (r) { if (!r.ok) throw new Error('prix'); return r.json(); })
+    .then(function (j) { _prixDvf = j; return j; })
+    .catch(function () { return null; });
+}
+function _arrondiPrix(v) { var pas = v >= 300000 ? 5000 : 1000; return Math.round(v / pas) * pas; }
 
-  // Cases prestations
-  var prestations = [];
-  document.querySelectorAll('#estimPrestations input[type=checkbox]:checked').forEach(function(cb){
-    prestations.push(cb.value);
-  });
+// Fourchette indicative à partir du prix médian au m² des ventes de la commune (ou du secteur)
+function _estCalculer(d, dvf) {
+  var k = /^(Maison|Villa|Maison de ville)$/.test(d.type) ? 'm' : (d.type === 'Appartement' ? 'a' : null);
+  var surface = parseFloat(String(d.surface).replace(',', '.')) || 0;
+  if (!k || !dvf || surface < 10 || surface > 1000) return null;
+  var commune = null, nom = '';
+  Object.keys(dvf.communes).some(function (n) { if (_cleVille(n) === _cleVille(d.ville)) { commune = dvf.communes[n]; nom = n; return true; } return false; });
+  if (!commune) return null;
+  var st = commune[k], secteur = false;
+  if (!st) { st = (dvf.secteurs[commune.s] || {})[k]; secteur = true; }
+  if (!st) return null;
+  var coef = 1, ajust = [];
+  var etats = { 'Neuf / récent': 1.08, 'Très bon état': 1.04, 'Bon état': 1, 'À rafraîchir': 0.92, 'Travaux importants à prévoir': 0.82 };
+  if (etats[d.etat] && etats[d.etat] !== 1) { coef *= etats[d.etat]; ajust.push('l\'état du bien'); }
+  var dpes = { A: 1.04, B: 1.03, C: 1.01, E: 0.98, F: 0.94, G: 0.9 };
+  if (dpes[d.dpe]) { coef *= dpes[d.dpe]; ajust.push('le DPE'); }
+  if (d.type === 'Villa') { coef *= 1.05; ajust.push('le standing'); }
+  var p = d.prestations || [], plus = 1;
+  if (p.indexOf('Piscine') !== -1) plus *= 1.03;
+  if (p.indexOf('Vue dégagée') !== -1) plus *= 1.02;
+  if (k === 'a' && (p.indexOf('Terrasse') !== -1 || p.indexOf('Balcon') !== -1)) plus *= 1.02;
+  if (k === 'a' && (p.indexOf('Garage') !== -1 || p.indexOf('Parking') !== -1)) plus *= 1.02;
+  if (plus > 1) { coef *= plus; ajust.push('les prestations'); }
+  coef = Math.max(0.75, Math.min(1.2, coef));
+  var centre = st.p50 * coef * surface;
+  var ecart = Math.max(0.06, Math.min(0.12, (st.p75 - st.p25) / (2 * st.p50) * 0.5)) + (secteur ? 0.03 : 0);
+  return {
+    bas: _arrondiPrix(centre * (1 - ecart)), haut: _arrondiPrix(centre * (1 + ecart)), centre: _arrondiPrix(centre),
+    pm2: st.p50, n: st.n, lieu: secteur ? (commune.s === 'sable' ? 'le secteur de Sablé-sur-Sarthe' : 'l\'agglomération d\'Angers') : nom,
+    secteur: secteur, k: k, ajust: ajust,
+    periode: dvf.periode ? dvf.periode[0] + '–' + String(dvf.periode[1]).slice(0, 4) : ''
+  };
+}
 
-  // Validation : champs obligatoires + formats
-  if (!prenom || !nom) { showToast('Merci de renseigner vos prénom et nom.', 'error'); return; }
-  if (!email)          { showToast('Merci de renseigner votre email.', 'error'); return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Email invalide.', 'error'); return; }
-  if (!tel)            { showToast('Merci de renseigner votre téléphone.', 'error'); return; }
-  if (!/^[0-9 .+\-()]{8,20}$/.test(tel)) { showToast('Numéro de téléphone invalide.', 'error'); return; }
-  if (!type)           { showToast('Merci de sélectionner le type de bien.', 'error'); return; }
-  if (!ville)          { showToast('Merci de sélectionner la ville.', 'error'); return; }
-  if (!surface)        { showToast('Merci d\'indiquer la surface habitable.', 'error'); return; }
-
-  var fullName = prenom + ' ' + nom;
-  if (!formsActifs()) return;
-  var btn = document.querySelector('#page-estimation .form-submit');
-  if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours...'; }
-
-  try {
-    var res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        access_key: AGENCE.web3formsKey,
-        subject: 'Demande estimation depuis votre site - ' + fullName,
-        name: fullName,
-        email: email,
-        phone: tel,
-        type_bien: type,
-        ville: ville,
-        adresse: adresse || '—',
-        surface_habitable: surface ? surface + ' m²' : '—',
-        surface_terrain: terrain ? terrain + ' m²' : '—',
-        nb_pieces: pieces || '—',
-        nb_chambres: chambres || '—',
-        salles_de_bain: sdb || '—',
-        annee_construction: annee || '—',
-        etage: etage || '—',
-        etat_general: etat || '—',
-        prestations: prestations.length ? prestations.join(', ') : '—',
-        projet: projet || '—',
-        dpe: dpe || '—',
-        message: message || '—'
-      })
-    });
-    var data = await res.json();
-    if (data.success) {
-      showToast('✅ Demande envoyée ! Nous vous recontactons sous 24 h avec votre estimation.', 'success', 6000);
-      ['estimPrenom','estimNom','estimEmail','estimTel','estimAdresse','estimSurface','estimTerrain',
-       'estimPieces','estimChambres','estimSdb','estimAnnee','estimEtage','estimMessage'].forEach(function(id){
-        var el = document.getElementById(id); if(el) el.value = '';
-      });
-      ['estimType','estimVille','estimEtat','estimProjet','estimDpe'].forEach(function(id){
-        var el = document.getElementById(id); if(el) el.selectedIndex = 0;
-      });
-      document.querySelectorAll('#estimPrestations input[type=checkbox]').forEach(function(cb){ cb.checked = false; });
-      document.querySelectorAll('.est-type').forEach(function(b){ b.classList.remove('on'); });
-      if (typeof estGo === 'function') estGo(1);
-    } else {
-      showToast("Erreur d'envoi." + contactDirect(), 'error', 6000);
-    }
-  } catch(e) {
-    showToast('Erreur réseau.' + contactDirect(), 'error', 6000);
-  } finally {
-    if (btn) { btn.disabled = false; btn.textContent = 'Recevoir mon estimation'; }
+function _estResultatHTML(est, prenom, envoye) {
+  var tel = AGENCE.telephone || '', wa = AGENCE.whatsapp || '';
+  var actions = '<div class="est-res-actions">' +
+    (tel ? '<a class="cb-btn" href="tel:' + _telIntl(tel) + '">Appeler Charles · ' + _esc(tel) + '</a>' : '') +
+    (wa ? '<a class="cb-btn ghost" href="https://wa.me/' + _esc(wa) + '" target="_blank" rel="noopener">Écrire sur WhatsApp</a>' : '') +
+    '<button type="button" class="est-back" onclick="estRecommencer()">Faire une autre estimation</button></div>';
+  var alerte = envoye ? '' : '<p class="est-res-warn" role="alert">Votre demande n\'a pas pu être transmise automatiquement : appelez-nous ou écrivez-nous pour que nous l\'affinions avec vous.</p>';
+  if (!est) {
+    return '<div class="est-res" tabindex="-1" id="estRes"><span class="cb-kicker">Demande reçue</span>' +
+      '<h2 class="est-q">Merci ' + _esc(prenom) + ', nous nous occupons de votre estimation</h2>' + alerte +
+      '<p class="est-help">Pour ce type de bien ou cette commune, une estimation automatique ne serait pas fiable : nous vous recontactons sous 24 h pour vous donner un avis de valeur argumenté, après une visite si besoin. C\'est gratuit et sans engagement.</p>' + actions + '</div>';
   }
+  var typeTxt = est.k === 'm' ? 'maisons vendues' : 'appartements vendus';
+  return '<div class="est-res" tabindex="-1" id="estRes"><span class="cb-kicker">Votre estimation indicative</span>' +
+    '<h2 class="est-q">Merci ' + _esc(prenom) + ', votre bien est estimé entre</h2>' +
+    '<p class="est-res-fourchette"><strong>' + _eur(est.bas) + '</strong><span>et</span><strong>' + _eur(est.haut) + '</strong></p>' +
+    '<p class="est-res-centre">Valeur centrale : <b>' + _eur(est.centre) + '</b></p>' + alerte +
+    '<div class="est-res-base"><p><b>Comment ce chiffre est calculé.</b> Prix médian des ' + typeTxt + (est.secteur ? ' dans ' : ' à ') + _esc(est.lieu) + ' : <b>' + est.pm2.toLocaleString('fr-FR') + ' €/m²</b>, sur ' + est.n.toLocaleString('fr-FR') + ' ventes réelles (' + _esc(est.periode) + ', données publiques DVF de l\'administration fiscale)' +
+      (est.ajust.length ? ', ajusté selon ' + est.ajust.join(', ').replace(/, ([^,]*)$/, ' et $1') : '') + '.' +
+      (est.secteur ? ' Il y a trop peu de ventes dans votre commune : le calcul utilise tout le secteur, la fourchette est donc plus large.' : '') + '</p>' +
+      '<p>Un calcul automatique ne voit ni la rue, ni la vue, ni la luminosité, ni la qualité des travaux. <b>Nous vous recontactons sous 24 h</b> pour affiner ce prix lors d\'une visite, gratuitement et sans engagement.</p></div>' +
+    actions + '</div>';
+}
+
+async function submitEstimation() {
+  var v = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  var d = {
+    prenom: v('estimPrenom'), nom: v('estimNom'), email: v('estimEmail'), tel: v('estimTel'), type: v('estimType'), ville: v('estimVille'),
+    adresse: v('estimAdresse'), surface: v('estimSurface'), terrain: v('estimTerrain'), pieces: v('estimPieces'), chambres: v('estimChambres'),
+    sdb: v('estimSdb'), annee: v('estimAnnee'), etage: v('estimEtage'), etat: v('estimEtat'), projet: v('estimProjet'), dpe: v('estimDpe'), message: v('estimMessage')
+  };
+  var prest = [];
+  document.querySelectorAll('#estimPrestations input[type=checkbox]:checked').forEach(function (cb) { prest.push(cb.value); });
+  if (!d.prenom || !d.nom) { showToast('Merci de renseigner vos prénom et nom.', 'error'); return; }
+  if (!d.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { showToast('Merci d\'indiquer un e-mail valide.', 'error'); return; }
+  if (!/^[0-9 .+\-()]{8,20}$/.test(d.tel)) { showToast('Merci d\'indiquer un numéro de téléphone valide.', 'error'); return; }
+  if (!d.type) { showToast('Merci de sélectionner le type de bien.', 'error'); estGo(1); return; }
+  if (!d.ville) { showToast('Merci de sélectionner la commune.', 'error'); estGo(2); return; }
+  if (!d.surface) { showToast('Merci d\'indiquer la surface habitable.', 'error'); estGo(3); return; }
+  var btn = document.querySelector('#page-estimation .form-submit');
+  if (btn) { btn.disabled = true; btn.textContent = 'Calcul en cours…'; }
+  var est = _estCalculer({ type: d.type, ville: d.ville, surface: d.surface, etat: d.etat, dpe: d.dpe, prestations: prest }, await _chargerPrixDvf());
+  var demande = Object.assign({}, d, { prestations: prest.join(', '), estimation: est ? _eur(est.bas) + ' – ' + _eur(est.haut) + ' (médiane ' + est.pm2 + ' €/m², ' + est.lieu + ')' : '' });
+  var envoye = false;
+  if (AGENCE.statutProxyUrl) {
+    try {
+      var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'estimation', demande: demande, site: v('estimSite') }) });
+      envoye = r.ok;
+    } catch (e) { envoye = false; }
+  }
+  if (btn) { btn.disabled = false; btn.textContent = 'Voir mon estimation'; }
+  var card = document.getElementById('estCard');
+  if (!card) return;
+  card.classList.add('est-fini');
+  var box = document.getElementById('estResultat');
+  if (!box) { box = document.createElement('div'); box.id = 'estResultat'; card.appendChild(box); }
+  box.innerHTML = _estResultatHTML(est, d.prenom, envoye);
+  document.querySelectorAll('#estProgress span').forEach(function (s) { s.classList.add('on'); });
+  var top = card.getBoundingClientRect().top + window.scrollY - 110;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+  var res = document.getElementById('estRes'); if (res) setTimeout(function () { res.focus({ preventScroll: true }); }, 300);
+}
+function estRecommencer() {
+  var card = document.getElementById('estCard'); if (card) card.classList.remove('est-fini');
+  var box = document.getElementById('estResultat'); if (box) box.innerHTML = '';
+  ['estimAdresse', 'estimSurface', 'estimTerrain', 'estimPieces', 'estimChambres', 'estimSdb', 'estimAnnee', 'estimEtage', 'estimMessage'].forEach(function (id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  ['estimType', 'estimEtat', 'estimDpe'].forEach(function (id) { var el = document.getElementById(id); if (el) el.selectedIndex = 0; });
+  document.querySelectorAll('#estimPrestations input[type=checkbox]').forEach(function (cb) { cb.checked = false; });
+  document.querySelectorAll('.est-type').forEach(function (b) { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); });
+  estGo(1);
+}
+
+// ----------------------------------------------------------------- alertes e-mail (page des biens)
+var _alertesOuvertes = null;
+function _alertesEtat() {
+  if (_alertesOuvertes !== null || !AGENCE.statutProxyUrl) return Promise.resolve(!!_alertesOuvertes);
+  return fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'etat' }) })
+    .then(function (r) { return r.json(); }).then(function (j) { _alertesOuvertes = !!j.alertes; return _alertesOuvertes; })
+    .catch(function () { _alertesOuvertes = false; return false; });
+}
+function _criteresAlerte() {
+  return {
+    type: filterType !== 'all' ? filterType : '', villes: filterVilles.slice(0, 10),
+    budgetMin: filterBudgetMin || 0, budgetMax: filterBudgetMax || 0, surfaceMin: filterSurfaceMin || 0,
+    chambresMin: filterChambresMin || 0, terrainMin: filterTerrainMin || 0
+  };
+}
+function _resumeAlerte(c) {
+  var p = [c.type ? c.type.toLowerCase() : 'tous types de biens'];
+  if (c.villes.length) p.push('à ' + c.villes.join(', '));
+  if (c.budgetMin && c.budgetMax) p.push('de ' + _eur(c.budgetMin) + ' à ' + _eur(c.budgetMax));
+  else if (c.budgetMax) p.push('jusqu\'à ' + _eur(c.budgetMax));
+  else if (c.budgetMin) p.push('à partir de ' + _eur(c.budgetMin));
+  if (c.surfaceMin) p.push(c.surfaceMin + ' m² minimum');
+  if (c.chambresMin) p.push(c.chambresMin + ' chambre' + (c.chambresMin > 1 ? 's' : '') + ' minimum');
+  if (c.terrainMin) p.push('terrain de ' + c.terrainMin.toLocaleString('fr-FR') + ' m² minimum');
+  if (!c.villes.length) p.push('dans tous les secteurs');
+  return p.join(', ');
+}
+function renderAlerteBox() {
+  var box = document.getElementById('alerteBox'); if (!box) return;
+  _alertesEtat().then(function (ok) {
+    box.hidden = !ok;
+    if (!ok || box.getAttribute('data-envoye') === '1') return;
+    var r = document.getElementById('alerteResume'); if (r) r.textContent = _resumeAlerte(_criteresAlerte());
+  });
+}
+async function creerAlerteEmail(ev) {
+  if (ev) ev.preventDefault();
+  var email = ((document.getElementById('alerteEmail') || {}).value || '').trim();
+  var ok = (document.getElementById('alerteConsent') || {}).checked;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Merci d\'indiquer un e-mail valide.', 'error'); return; }
+  if (!ok) { showToast('Merci de cocher la case d\'accord pour recevoir les alertes.', 'error'); return; }
+  var btn = document.getElementById('alerteBtn'); if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+  var status = 0, err = '';
+  try {
+    var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'alerte', email: email, criteres: _criteresAlerte(), consentement: true, site: ((document.getElementById('alerteSite') || {}).value || '') }) });
+    status = r.status; try { err = (await r.json()).error || ''; } catch (e) {}
+  } catch (e) { status = -1; }
+  if (btn) { btn.disabled = false; btn.textContent = 'Créer mon alerte'; }
+  if (status !== 200) { showToast(err ? err + '.' : 'Impossible de créer l\'alerte pour le moment.' + contactDirect(), 'error', 7000); return; }
+  var box = document.getElementById('alerteBox');
+  box.setAttribute('data-envoye', '1');
+  box.innerHTML = '<div class="alerte-ok" role="status" tabindex="-1" id="alerteOk"><strong>Plus qu\'une étape : vérifiez votre boîte mail.</strong>' +
+    '<p>Nous venons d\'envoyer un e-mail à ' + _esc(email) + '. Cliquez sur « Activer mon alerte » pour recevoir les nouveaux biens. Pensez à regarder dans les indésirables.</p></div>';
+  var o = document.getElementById('alerteOk'); if (o) o.focus();
 }
 
 async function submitContact() {
@@ -8829,7 +9007,7 @@ function estAdresseSaisie(q) {
 }
 function estChercherAdresse(q) {
   var seq = ++_estAddrSeq;
-  var params = 'q=' + encodeURIComponent(q) + '&limit=5&lat=47.29&lon=-2.42';
+  var params = 'q=' + encodeURIComponent(q) + '&limit=5&lat=47.6&lon=-0.47';
   var urls = ['https://data.geopf.fr/geocodage/search?' + params, 'https://api-adresse.data.gouv.fr/search/?' + params];
   (function essai(i) {
     if (i >= urls.length) return;
@@ -10934,7 +11112,7 @@ async function checkAdmin() {
 }
 
 function adminDeconnexion() {
-  _adminPwd = '';
+  _adminPwd = ''; _adminDemandesChargees = false;
   document.body.classList.remove('admin-mode');
   showPage('home');
   showToast("Vous êtes déconnecté de l'espace pro.", 'info', 3000);
@@ -10984,6 +11162,60 @@ function renderAdmin() {
   var mw = document.getElementById('adminMasquesWrap'), m = document.getElementById('adminMasques');
   if (mw) mw.hidden = biensMasques.length === 0;
   if (m) m.innerHTML = biensMasques.map(_adminLigne).join('');
+  if (!_adminDemandesChargees) _adminChargerDemandes(false);
+}
+
+// ----- Demandes d'estimation et alertes e-mail (relais Cloudflare, serverless/demandes.js)
+var _adminDemandesChargees = false;
+function _adminDate(iso) { try { return new Date(iso).toLocaleString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch (e) { return iso || ''; } }
+async function _adminChargerDemandes(force) {
+  if (!_adminPwd || !AGENCE.statutProxyUrl) return;
+  _adminDemandesChargees = true;
+  var info = document.getElementById('adminDemandesInfo'), liste = document.getElementById('adminDemandes');
+  var ainfo = document.getElementById('adminAlertesInfo'), aliste = document.getElementById('adminAlertes');
+  if (!info || !liste) return;
+  if (force) info.textContent = 'Chargement…';
+  var j = null;
+  try {
+    var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: _adminPwd, action: 'demandes' }) });
+    if (r.ok) j = await r.json();
+  } catch (e) {}
+  if (!j) { info.textContent = 'Impossible de charger les demandes pour le moment.'; _adminDemandesChargees = false; return; }
+  var d = j.demandes || [], a = j.alertes || [];
+  info.textContent = (d.length ? d.length + ' demande' + (d.length > 1 ? 's' : '') + ', la plus récente en premier.' : 'Aucune demande pour le moment.') +
+    (j.emails ? ' Chaque nouvelle demande vous est aussi envoyée par e-mail.' : ' L\'envoi par e-mail n\'est pas encore branché : consultez vos demandes ici.') +
+    ' Elles sont effacées automatiquement après 3 ans.';
+  liste.innerHTML = d.map(function (x) {
+    var bien = [x.type, x.surface ? x.surface + ' m²' : '', x.terrain ? 'terrain ' + x.terrain + ' m²' : '', x.pieces ? x.pieces + ' p.' : ''].filter(Boolean).join(' · ');
+    var plus = [x.etat, x.dpe ? 'DPE ' + x.dpe : '', x.annee ? 'construit en ' + x.annee : '', x.prestations, x.projet].filter(Boolean).join(' · ');
+    return '<div class="admin-demande">' +
+      '<div class="admin-demande-tete"><strong>' + _esc(x.prenom + ' ' + x.nom) + '</strong><span>' + _esc(_adminDate(x.recu)) + '</span></div>' +
+      '<p><a href="tel:' + _esc(String(x.tel || '').replace(/[^0-9+]/g, '')) + '">' + _esc(x.tel) + '</a> · <a href="mailto:' + _esc(x.email) + '">' + _esc(x.email) + '</a></p>' +
+      '<p><b>' + _esc(bien) + '</b> à ' + _esc((x.adresse ? x.adresse + ', ' : '') + x.ville) + '</p>' +
+      (plus ? '<p class="admin-src">' + _esc(plus) + '</p>' : '') +
+      (x.estimation ? '<p>Estimation affichée : <b>' + _esc(x.estimation) + '</b></p>' : '<p class="admin-src">Pas d\'estimation automatique (type de bien ou commune sans données).</p>') +
+      (x.message ? '<p class="admin-demande-msg">« ' + _esc(x.message) + ' »</p>' : '') +
+      '<div class="admin-bien-actions"><button class="btn-statut btn-supprimer" onclick="adminSupprimerDemande(\'' + _esc(x.cle) + '\')">Supprimer</button></div>' +
+    '</div>';
+  }).join('');
+  if (ainfo) ainfo.textContent = !j.alertesActives
+    ? 'Les alertes ne sont pas encore proposées aux visiteurs : elles s\'ouvriront dès que l\'envoi d\'e-mails sera branché sur votre nom de domaine.'
+    : (a.length ? a.length + ' alerte' + (a.length > 1 ? 's' : '') + '. Les abonnés reçoivent un e-mail chaque matin s\'il y a un nouveau bien ou une baisse de prix pour leur recherche.' : 'Aucune alerte pour le moment.');
+  if (aliste) aliste.innerHTML = a.map(function (x) {
+    return '<div class="admin-demande"><div class="admin-demande-tete"><strong>' + _esc(x.email) + '</strong><span>' + (x.confirme ? 'Active' : 'En attente de confirmation') + ' · ' + _esc(_adminDate(x.cree)) + '</span></div>' +
+      '<p>' + _esc(x.criteres) + '</p>' +
+      '<div class="admin-bien-actions"><button class="btn-statut btn-supprimer" onclick="adminSupprimerDemande(\'' + _esc(x.cle) + '\')">Supprimer</button></div></div>';
+  }).join('');
+}
+async function adminSupprimerDemande(cle) {
+  var ok = await showConfirm(/^alerte:/.test(cle) ? 'Supprimer cette alerte ? L\'abonné ne recevra plus d\'e-mails.' : 'Supprimer définitivement cette demande ?', { title: 'Espace pro', okText: 'Supprimer', cancelText: 'Annuler', danger: true });
+  if (!ok) return;
+  try {
+    var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: _adminPwd, action: 'supprimer', cle: cle }) });
+    if (!r.ok) throw new Error();
+    showToast('Supprimé.', 'success', 3000);
+  } catch (e) { showToast('Suppression impossible pour le moment.', 'error', 5000); }
+  _adminChargerDemandes(true);
 }
 
 async function _chargerOverlay() {
