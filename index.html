@@ -4968,6 +4968,55 @@ a.cb-card:hover, button.cb-card:hover, .avis2-card:hover { transform: translateY
 /* La silhouette reste derrière toutes les sections : seules les sections transparentes la laissent voir */
 #page-home > section { position: relative; z-index: 1; }
 
+/* ===================== AVIS CLIENTS (façon La Cabane, 24/11/2026) ===================== */
+.avis3 { background: var(--light-bg); }
+.avis3-tete { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; margin-bottom: 28px; }
+.avis3-satisf .avis3-pct { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 800; line-height: 1; color: var(--rouge); margin: 0; }
+.avis3-satisf p:last-child { margin: 4px 0 0; font-weight: 700; color: var(--marine); font-size: 1.05rem; }
+.avis3-titres { text-align: center; }
+.avis3-note { text-align: right; color: var(--marine); }
+.avis3-note p { margin: 0; }
+.avis3-note p:first-child { font-size: 1.05rem; } .avis3-note p:first-child strong { font-size: 2rem; font-weight: 800; }
+.avis3-moy strong { font-size: 1.6rem; font-weight: 800; }
+.avis3-srcs { font-size: .78rem; color: #5b6475; margin-top: 2px !important; }
+.avis3-etoiles { color: #E0A21B; letter-spacing: 2px; }
+.avis3-etoiles .off { color: #D6DBE5; }
+.avis3-onglets { display: flex; justify-content: center; gap: 6px; background: #fff; border: 1px solid var(--line-c); border-radius: 999px; padding: 5px; width: max-content; max-width: 100%; margin: 0 auto 24px; }
+.avis3-onglets button { font: inherit; font-size: .85rem; font-weight: 600; color: var(--marine); background: transparent; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer;
+  transition-property: background-color, color; transition-duration: .25s; }
+.avis3-onglets button span { font-weight: 500; opacity: .6; margin-left: 4px; }
+.avis3-onglets button.on { background: var(--marine); color: #fff; }
+.avis3-carrousel { position: relative; display: flex; align-items: center; gap: 10px; }
+.avis3-piste { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 4px 16px; scrollbar-width: none; flex: 1; min-width: 0; }
+.avis3-piste::-webkit-scrollbar { display: none; }
+.avis3-carte { flex: 0 0 290px; scroll-snap-align: start; background: #fff; border: 1px solid var(--line-c); border-radius: 16px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 10px; text-align: left;
+  transition-property: transform, box-shadow; transition-duration: .35s; }
+.avis3-carte[hidden] { display: none; }
+.avis3-carte:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(2,20,48,.1); }
+.avis3-carte-tete { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.avis3-pour { display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; font-weight: 600; color: var(--marine); }
+.avis3-pour img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+.avis3-titre { margin: 0; font-weight: 700; color: var(--marine); font-size: .95rem; }
+.avis3-txt { margin: 0; color: #3a4252; font-size: .9rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.avis3-carte.ouvert .avis3-txt { -webkit-line-clamp: unset; display: block; }
+.avis3-plus { align-self: flex-start; font: inherit; font-size: .8rem; font-weight: 700; color: var(--rouge); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.avis3-carte footer { margin-top: auto; display: flex; flex-direction: column; gap: 2px; padding-top: 10px; border-top: 1px solid var(--line-c); }
+.avis3-carte footer strong { color: var(--marine); font-size: .88rem; }
+.avis3-carte footer span { color: #5b6475; font-size: .75rem; }
+.avis3-fleche { flex: 0 0 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line-c); background: #fff; color: var(--marine); font-size: 1.4rem; line-height: 1; cursor: pointer;
+  transition-property: background-color, color; transition-duration: .25s; }
+.avis3-fleche:hover { background: var(--marine); color: #fff; }
+.avis3-mention { text-align: center; font-size: .75rem; color: #5b6475; margin: 18px auto 0; max-width: 640px; }
+@media (max-width: 860px) {
+  .avis3-tete { grid-template-columns: 1fr 1fr; }
+  .avis3-titres { grid-column: 1 / -1; grid-row: 1; }
+  .avis3-fleche { display: none; }
+  .avis3-carte { flex-basis: 82%; }
+}
+/* Le bas des cartes d'avis ne doit pas hériter du style du pied de page du site */
+.avis3-carte footer { background: none !important; color: inherit; padding: 10px 0 0 !important; margin: auto 0 0; min-height: 0; border-radius: 0; text-align: left; box-shadow: none; }
+.avis3-carte footer::before, .avis3-carte footer::after { content: none !important; }
+
 </style>
 </head>
 <body>
@@ -5223,30 +5272,32 @@ a.cb-card:hover, button.cb-card:hover, .avis2-card:hover { transform: translateY
     </div>
   </section>
 
-  <!-- AVIS CLIENTS (avis vérifiés Immodvisor, repris du site L'Immobilier Sabolien — ne jamais en inventer) -->
-  <section class="cb-section cb-center avis2" id="avis">
+  <!-- AVIS CLIENTS (avis réels Google et Immodvisor, générés depuis _parts/avis.json ; ne jamais en inventer) -->
+  <section class="cb-section avis3" id="avis" aria-labelledby="avisTitre">
     <div class="cb-wrap">
-      <span class="cb-kicker">Avis clients</span>
-      <h2 class="cb-h2">Ce que disent nos clients</h2>
-      <p class="avis2-note"><strong>4,5 / 5</strong> · 2 avis vérifiés Immodvisor</p>
-      <div class="avis2-grid">
-        <figure class="avis2-card">
-          <div class="avis2-stars" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div>
-          <blockquote>« Charles a été d'une disponibilité et d'un professionnalisme remarquables tout au long de notre projet. Sa parfaite connaissance du marché local nous a permis de vendre rapidement et au juste prix. »</blockquote>
-          <figcaption><strong>Client vérifié</strong> · Vendeur · Sarthe</figcaption>
-        </figure>
-        <figure class="avis2-card">
-          <div class="avis2-stars" role="img" aria-label="4 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true" class="off">★</span></div>
-          <blockquote>« Un conseiller à l'écoute, qui prend le temps de comprendre les besoins et qui sait se rendre disponible. Je recommande vivement Charles MOREL pour vos projets immobiliers. »</blockquote>
-          <figcaption><strong>Client vérifié</strong> · Acquéreur · Mayenne</figcaption>
-        </figure>
+      <div class="avis3-tete">
+        <div class="avis3-satisf"><p class="avis3-pct"><strong class="avis3-n" data-cible="100">100</strong>&nbsp;%</p><p>de clients satisfaits</p></div>
+        <div class="avis3-titres"><span class="cb-kicker">Avis clients</span><h2 class="cb-h2" id="avisTitre">Ce que disent nos clients</h2></div>
+        <div class="avis3-note"><p><strong>24</strong> avis</p><p class="avis3-moy"><strong>4,8</strong>/5 <span class="avis3-etoiles" aria-hidden="true">★★★★★</span></p><p class="avis3-srcs">Google et Immodvisor</p></div>
+      </div>
+      <div class="avis3-onglets" role="group" aria-label="Filtrer les avis">
+        <button type="button" class="on" data-f="tous" aria-pressed="true">Tous les avis <span>24</span></button>
+        <button type="button" data-f="charles" aria-pressed="false">Charles <span>19</span></button>
+        <button type="button" data-f="antoine" aria-pressed="false">Antoine <span>5</span></button>
+      </div>
+      <div class="avis3-carrousel">
+        <button type="button" class="avis3-fleche prec" aria-label="Avis précédents">‹</button>
+        <div class="avis3-piste" tabindex="0" aria-label="Avis clients"><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><blockquote class="avis3-txt">« Merci à Charles pour ton écoute attentive et ton professionnalisme sans failles dans la vente de mon bien; Rares sont les personnes de ton acabit, Et rares, encore plus, l’intelligence du cœur dont tu fais preuve, dans ce milieu de requins! Nonobstant tes compétences immobilières indéniables dans l’accompagnement et le conseil Merci Charles pour tout »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Gael S.</strong><span>Google · 2026</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><blockquote class="avis3-txt">« Merci à Charles Morel pour son professionnalisme et son efficacité ! Il a su m’accompagner du début à la fin avec écoute, conseils et réactivité. Mon bien a été vendu rapidement et dans les meilleures conditions. Je recommande sans hésiter ! Un agent sérieux et disponible ! »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Victoria R.</strong><span>Google · 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><blockquote class="avis3-txt">« Professionnel, écoute, réactivité. Monsieur Morel a réalisé un travail de qualité et a très bien accompagné nos réflexions sur notre projet immobilier. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Stéphane M.</strong><span>Google · 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><blockquote class="avis3-txt">« Je suis très satisfaite, Mr Morel est très professionnel, très à l&#x27;écoute. Je recommande vivement. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Annick D.</strong><span>Google · 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><blockquote class="avis3-txt">« Très bonne expérience, Mr Morel est très investi, très à la écoute et extrêmement gentil. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Fabienne B.</strong><span>Google · 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><blockquote class="avis3-txt">« Très agréable et réactif, je recommande ! »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Samuel L.</strong><span>Google · 2026</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><blockquote class="avis3-txt">« Très belle échange avec cet personne, de bon conseil. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Florina C.</strong><span>Google · 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Entièrement satisfaite du service proposé</p><blockquote class="avis3-txt">« Professionnalisme, disponibilité et écoute attentive. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Aurore</strong><span>Immodvisor · juillet 2026</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Rapidité de la vente</p><blockquote class="avis3-txt">« Suite à une activité inexistante d&#x27;agences immobilières, en consentant une baisse de prix, ma maison à été vendue très rapidement. Merci »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Pat</strong><span>Immodvisor · janvier 2026</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Très bonne qualité de service</p><blockquote class="avis3-txt">« Charle a été de très bon conseille, il m’a aider dans mes démarches et m’a trouvé un bon courtier, je recommande ! »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Samuel L.</strong><span>Immodvisor · janvier 2026</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="4 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true" class="off">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Satisfaction</p><blockquote class="avis3-txt">« Très professionnel, à l écoute et très arrangeant. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Annickd</strong><span>Immodvisor · janvier 2026</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Bon suivi de dossier</p><blockquote class="avis3-txt">« Parfait sauf manque de communication entre le notaire et l’agent sur la date de signature où il était absent car pas informé »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Bibigoup</strong><span>Immodvisor · juillet 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">très bonne qualité de service</p><blockquote class="avis3-txt">« accompagnement conseil et démarches conformes aux attentes »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Myle</strong><span>Immodvisor · juillet 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Agent très compétent</p><blockquote class="avis3-txt">« Charles a été très sympathique tout au long de nos échanges, il a su trouver des acheteurs qui correspond à notre bien tout en respectant nos attentes. Merci infiniment, grâce à lui notre nouveau départ pour attend. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>JujuF</strong><span>Immodvisor · juin 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="4 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true" class="off">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Très bonne qualité et service</p><blockquote class="avis3-txt">« Très pros et assez réactif je recommande fortement Merci pour votre confiance et votre reactivité »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>FMOUAZÉ</strong><span>Immodvisor · juin 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Très bon Professionnel</p><blockquote class="avis3-txt">« Cadre mise en vente d&#x27;une maison, l&#x27;agent immobilier a su répondre à nos interrogations et se rendre disponible facilement malgré nos contraintes. Dans une période pas forcément favorable à la vente immobilière, il a su montrer son professionnalisme afin que la vente se passe dans les meilleures conditions. A recommander »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Manu</strong><span>Immodvisor · mai 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Très bonne expérience</p><blockquote class="avis3-txt">« Mr Morel est un très bon agent immobilier, très gentil et très à l écoute. Je le recommande sans hésitation. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Fabienne B.</strong><span>Immodvisor · mars 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="4 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true" class="off">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Avis très favorable</p><blockquote class="avis3-txt">« Très bon professionnalisme et très bon relationnel. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Annickd</strong><span>Immodvisor · mars 2025</span></footer></article><article class="avis3-carte" data-c="charles"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Charles"><img src="img/charles-morel-avatar.jpg" alt="" width="26" height="26" loading="lazy">Charles</span></div><p class="avis3-titre">Estimation maison</p><blockquote class="avis3-txt">« Très bon conseil , personne qui connait bien son travail d une gentillesse, si besoin je recontacterai sans problème. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Flo</strong><span>Immodvisor · février 2025</span></footer></article><article class="avis3-carte" data-c="antoine"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Antoine"><img src="img/equipe-antoine-hery-avatar.webp" alt="" width="26" height="26" loading="lazy">Antoine</span></div><blockquote class="avis3-txt">« Action / Réaction. Visite le 2 janvier, signature de l&#x27;acte le 2 Avril. Monsieur Antoine HERY a été d&#x27;une grande efficacité dans son suivi pour notre premier achat immobilier. Très réactif et à l&#x27;écoute. Nous sommes très satisfaits de son accompagnement et le recommandons les yeux fermés. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Alexandre et Amandine</strong><span>Google · Dynagest · 2026</span></footer></article><article class="avis3-carte" data-c="antoine"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Antoine"><img src="img/equipe-antoine-hery-avatar.webp" alt="" width="26" height="26" loading="lazy">Antoine</span></div><blockquote class="avis3-txt">« à ANGERS Antoine est tres disponible et de bons conseils, il sait générer le compromis entre le vendeur et l&#x27;acheteur pour finaliser les échanges. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Gérald D.</strong><span>Google · Dynagest · 2026</span></footer></article><article class="avis3-carte" data-c="antoine"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="4 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true" class="off">★</span></span><span class="avis3-pour" title="Avis sur Antoine"><img src="img/equipe-antoine-hery-avatar.webp" alt="" width="26" height="26" loading="lazy">Antoine</span></div><blockquote class="avis3-txt">« J&#x27;ai beaucoup apprécié la qualité de nos échanges avec la MAISON ANGEVINE ! Merci particulièrement à Antoine pour son professionnalisme, son écoute, sa réactivité et ses conseils. La gestion de mon achat immobilier étant assuré par Mélanie, nous consoliderons cette relation avec votre agence et son équipe. Je vous recommande à 100% l&#x27;agence MAISON ANGEVINE. Visité en mars et acheté en juin 2022. »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Brigitte S.</strong><span>Google · La Maison Angevine · 2022</span></footer></article><article class="avis3-carte" data-c="antoine"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Antoine"><img src="img/equipe-antoine-hery-avatar.webp" alt="" width="26" height="26" loading="lazy">Antoine</span></div><blockquote class="avis3-txt">« Un grand merci à Antoine pour son accompagnement dans l’acquisition de notre appartement sur Angers. Sa réactivité, sa disponibilité et ses bons conseils nous ont permis d’être sereins pour notre premier achat. Merci La Maison Angevine ✨ »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Valentine C.</strong><span>Google · La Maison Angevine · 2022</span></footer></article><article class="avis3-carte" data-c="antoine"><div class="avis3-carte-tete"><span class="avis3-etoiles" role="img" aria-label="5 étoiles sur 5"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></span><span class="avis3-pour" title="Avis sur Antoine"><img src="img/equipe-antoine-hery-avatar.webp" alt="" width="26" height="26" loading="lazy">Antoine</span></div><blockquote class="avis3-txt">« Pro et réactif. C&#x27;est tout ce que l&#x27;on demande et ils font très bien ! Merci à Antoine »</blockquote><button type="button" class="avis3-plus" hidden>Lire la suite</button><footer><strong>Jean-François S.</strong><span>Google · La Maison Angevine · 2021</span></footer></article></div>
+        <button type="button" class="avis3-fleche suiv" aria-label="Avis suivants">›</button>
       </div>
       <div class="cb-actions" style="justify-content:center;">
-        <button class="cb-btn" onclick="showPage('estimation')">Estimer mon bien</button>
-        <button class="cb-btn ghost" onclick="showPage('contact')">Nous contacter</button>
+        <a class="cb-btn" href="https://www.google.com/maps/place/Charles+Morel+3G+IMMOBILIER/@47.8408201,-0.3336595,17z/data=!4m8!3m7!1s0x6c677999aa68d8e3:0xa26da4ce9e52696e!8m2!3d47.8408201!4d-0.3336595!9m1!1b1" target="_blank" rel="noopener">★ Laisser un avis</a>
+        <button class="cb-btn ghost" onclick="showPage('estimation')">Estimer mon bien</button>
       </div>
+      <p class="avis3-mention">Avis publiés sur Google et Immodvisor, reproduits sans modification. Avis sur Antoine : laissés sur les fiches Google de Dynagest et de La Maison Angevine, ses précédentes agences.</p>
     </div>
   </section>
+
 
   <!-- MES DERNIÈRES VENTES (biens marqués « Vendu » dans l'espace pro ; masquée s'il n'y en a aucun) -->
   <section class="vendus-section" style="display:none;">
@@ -8251,7 +8302,7 @@ function _animerAccueil() {
   if (!_ANIM || !('IntersectionObserver' in window)) return;
   var home = document.getElementById('page-home'); if (!home) return;
   var cibles = home.querySelectorAll('.cb-kicker, .section-tag, .cb-h2, .section-title, .cb-lead, .une-desc, .une-cta, .une-arrows, ' +
-    '.cb-card, .equipe-carte, .avis2-card, .avis2-note, .chiffres-grid, .rs3-item, .seo-title, .cta-title, .cta-sub, .cb-actions, #homeGrid, .cb-map');
+    '.cb-card, .equipe-carte, .avis3-tete, .avis3-onglets, .avis3-carrousel, .chiffres-grid, .rs3-item, .seo-title, .cta-title, .cta-sub, .cb-actions, #homeGrid, .cb-map');
   [].forEach.call(cibles, function (el) {
     if (el.closest('#hero')) return;
     el.classList.add('rv');
@@ -8301,6 +8352,58 @@ document.addEventListener('DOMContentLoaded', function () {
   var intro = document.getElementById('intro-logo');
   if (intro) setTimeout(function () { intro.remove(); }, 1600);
 });
+
+// ===== Avis clients : onglets, carrousel, « Lire la suite », défilement automatique =====
+function initAvis() {
+  var sec = document.getElementById('avis'); if (!sec || !sec.classList.contains('avis3')) return;
+  var piste = sec.querySelector('.avis3-piste');
+  var cartes = [].slice.call(sec.querySelectorAll('.avis3-carte'));
+  function majPlus() {
+    cartes.forEach(function (c) {
+      var t = c.querySelector('.avis3-txt'), b = c.querySelector('.avis3-plus');
+      if (c.classList.contains('ouvert')) { b.hidden = false; return; }
+      b.hidden = !(t.scrollHeight > t.clientHeight + 2);
+    });
+  }
+  cartes.forEach(function (c) {
+    c.querySelector('.avis3-plus').addEventListener('click', function () {
+      var o = c.classList.toggle('ouvert'); this.textContent = o ? 'Réduire' : 'Lire la suite';
+    });
+  });
+  [].forEach.call(sec.querySelectorAll('.avis3-onglets button'), function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-f');
+      [].forEach.call(sec.querySelectorAll('.avis3-onglets button'), function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+      cartes.forEach(function (c) { c.hidden = !(f === 'tous' || c.getAttribute('data-c') === f); });
+      piste.scrollTo({ left: 0 }); majPlus();
+    });
+  });
+  function pas() { var c = cartes.find(function (x) { return !x.hidden; }); return c ? c.getBoundingClientRect().width + 20 : 320; }
+  function aller(dir) {
+    var fin = piste.scrollLeft + piste.clientWidth >= piste.scrollWidth - 4;
+    if (dir > 0 && fin) piste.scrollTo({ left: 0, behavior: 'smooth' });
+    else piste.scrollBy({ left: dir * pas(), behavior: 'smooth' });
+  }
+  sec.querySelector('.avis3-fleche.prec').addEventListener('click', function () { aller(-1); });
+  sec.querySelector('.avis3-fleche.suiv').addEventListener('click', function () { aller(1); });
+  // Défilement automatique (pause au survol, au toucher et hors écran)
+  if (_ANIM) {
+    var pause = false, visible = false;
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { sec.addEventListener(ev, function () { pause = true; }, { passive: true }); });
+    ['mouseleave', 'focusout'].forEach(function (ev) { sec.addEventListener(ev, function () { pause = false; }); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0.3 }).observe(sec);
+    setInterval(function () { if (visible && !pause && !document.hidden && document.getElementById('page-home').classList.contains('active')) aller(1); }, 4500);
+    // « 100 % » qui défile
+    var n = sec.querySelector('.avis3-n');
+    if (n && 'IntersectionObserver' in window) {
+      n.textContent = '0';
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { _compter(n); io.disconnect(); } }, { threshold: 0.6 });
+      io.observe(n);
+    }
+  }
+  majPlus(); window.addEventListener('resize', majPlus);
+}
+document.addEventListener('DOMContentLoaded', initAvis);
 
 function renderVendusCarousel() {
   var track = document.querySelector('.vendus-track');
