@@ -5403,6 +5403,15 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .contact-duo .cd-t { font-weight: 700; color: var(--rouge-fonce, #B50519); text-decoration: none; white-space: nowrap; }
 .contact-duo .cd-t:hover { text-decoration: underline; }
 
+/* ===================== PRIORITÉ 2 : BOUTON WHATSAPP SUR MOBILE (24/11/2026) ===================== */
+@media (max-width: 900px) {
+  /* Fiche : la barre du bas (prix, Appeler, Visiter) suffit, le bouton flottant recouvrait le contenu */
+  body:has(#page-fiche.active) .wa-float { display: none !important; }
+  /* Ailleurs : plus discret, au-dessus de la barre d'onglets, sans masquer le texte */
+  .wa-float { width: 50px; height: 50px; right: 14px; bottom: calc(84px + env(safe-area-inset-bottom)); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+  .wa-float svg { width: 24px; height: 24px; }
+}
+
 </style>
 </head>
 <body>
