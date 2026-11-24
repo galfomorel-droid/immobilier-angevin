@@ -153,7 +153,7 @@ export async function recevoirEstimation(body, request, env) {
 
   // Prévenir Charles (si l'envoi d'e-mails est branché)
   const lignes = [['Bien', dem.type + (dem.surface ? ', ' + dem.surface + ' m²' : '') + (dem.terrain ? ', terrain ' + dem.terrain + ' m²' : '')],
-    ['Adresse', (dem.adresse ? dem.adresse + ' — ' : '') + dem.ville], ['Pièces / chambres', (dem.pieces || '—') + ' / ' + (dem.chambres || '—')],
+    ['Adresse', (dem.adresse ? dem.adresse + ', ' : '') + dem.ville], ['Pièces / chambres', (dem.pieces || '—') + ' / ' + (dem.chambres || '—')],
     ['État', dem.etat || '—'], ['DPE', dem.dpe || '—'], ['Prestations', dem.prestations || '—'], ['Projet', dem.projet || '—'],
     ['Estimation affichée', dem.estimation || 'aucune (pas assez de ventes comparables)'], ['Message', dem.message || '—'],
     ['Téléphone', dem.tel], ['E-mail', dem.email]];
@@ -297,7 +297,7 @@ ${b.img ? `<tr><td><a href="${esc(url)}"><img src="${esc(b.img)}" alt="" width="
             `<p style="font-size:14px;line-height:1.6;margin:0 0 18px;color:#5b6475;">Votre recherche : ${esc(resumeCriteres(a.criteres))}</p>${cartes}
 <p style="font-size:14px;line-height:1.6;margin:0;">Une question, une visite ? Répondez simplement à cet e-mail ou appelez-moi.</p>`,
             `Vous recevez cet e-mail car vous avez créé une alerte sur le site. <a href="${esc(stop)}" style="color:#5b6475;">Arrêter cette alerte</a>`),
-          text: pour.map(({ b }) => b.type + ' à ' + b.ville + ' — ' + eur(b.prix) + ' — ' + site + '#bien/' + slug(b)).join('\n') + '\n\nArrêter cette alerte : ' + stop,
+          text: pour.map(({ b }) => b.type + ' à ' + b.ville + ' · ' + eur(b.prix) + ' · ' + site + '#bien/' + slug(b)).join('\n') + '\n\nArrêter cette alerte : ' + stop,
         });
         if (res.ok) rapport.emails++; else rapport.erreurs++;
         await new Promise((r) => setTimeout(r, 600));   // Resend : 2 envois par seconde maximum

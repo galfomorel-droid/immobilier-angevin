@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ============================================
-     SEO — L'Immobilier Angevin, Angers (49)
+     SEO · L'Immobilier Angevin, Angers (49)
      Adresse en ligne : https://galfomorel-droid.github.io/immobilier-angevin/ (à remplacer partout si un nom de domaine est pris)
      ============================================ -->
-<title>L'Immobilier Angevin — Agence immobilière à Angers : achat, vente, estimation</title>
+<title>L'Immobilier Angevin · Agence immobilière à Angers : achat, vente, estimation</title>
 <meta name="description" content="L'Immobilier Angevin, agence immobilière à Angers : maisons, appartements et terrains à vendre à Angers, à Sablé-sur-Sarthe et alentours. Estimation gratuite.">
 <meta name="keywords" content="agence immobilière Angers, immobilier Angers, maison à vendre Angers, appartement à vendre Angers, estimation immobilière Angers, L'Immobilier Angevin">
-<meta name="author" content="Charles MOREL — L'Immobilier Angevin">
+<meta name="author" content="Charles MOREL · L'Immobilier Angevin">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
 <!-- Géolocalisation Angers (49) -->
@@ -24,19 +24,19 @@
 
 <!-- Open Graph -->
 <meta property="og:site_name" content="L'Immobilier Angevin">
-<meta property="og:title" content="L'Immobilier Angevin — Agence immobilière à Angers">
+<meta property="og:title" content="L'Immobilier Angevin · Agence immobilière à Angers">
 <meta property="og:description" content="Achat et vente de maisons et d'appartements à Angers, à Sablé-sur-Sarthe et alentours. Estimation gratuite.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://galfomorel-droid.github.io/immobilier-angevin/">
 <meta property="og:image" content="https://galfomorel-droid.github.io/immobilier-angevin/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="L'Immobilier Angevin — achat, vente, estimation">
+<meta property="og:image:alt" content="L'Immobilier Angevin · achat, vente, estimation">
 <meta property="og:locale" content="fr_FR">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="L'Immobilier Angevin — Agence immobilière à Angers">
+<meta name="twitter:title" content="L'Immobilier Angevin · Agence immobilière à Angers">
 <meta name="twitter:description" content="Achat, vente et estimation à Angers, Sablé-sur-Sarthe et alentours.">
 <meta name="twitter:image" content="https://galfomorel-droid.github.io/immobilier-angevin/og-image.jpg">
 
@@ -110,7 +110,7 @@
   --serif: 'Montserrat', system-ui, -apple-system, sans-serif;  /* charte : Montserrat partout */
   --sans: 'Montserrat', system-ui, -apple-system, sans-serif;
   /* Mouvement — courbe unique */
-  --transition: 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  --transition: .25s cubic-bezier(0.22, 1, 0.36, 1);
   /* Ombres en double couche, teintées ardoise (lumière clé rapprochée + diffusion ambiante).
      Donne une profondeur feutrée et réaliste plutôt qu'un halo unique. */
   --shadow-sm: 0 1px 2px rgba(2,20,48,0.04), 0 5px 18px rgba(2,20,48,0.05);
@@ -167,19 +167,6 @@ a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-track { background: var(--blanc); }
 ::-webkit-scrollbar-thumb { background: var(--or); }
 
-/* ===== GRAIN « LIN » — texture papier très discrète sur tout le site ===== */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 2147483640;
-  pointer-events: none;
-  opacity: 0.04;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
-}
-@media (prefers-reduced-motion: reduce) { body::before { display: none; } }
 
 
 
@@ -192,8 +179,7 @@ nav {
   transition: background var(--transition), backdrop-filter var(--transition), padding var(--transition);
 }
 nav.scrolled {
-  background: rgba(248,247,245,0.95);
-  backdrop-filter: blur(20px);
+  background: #F8F7F5;
   padding: 1rem 4%;
   box-shadow: 0 1px 0 rgba(2,20,48,0.08);
 }
@@ -281,7 +267,7 @@ nav.scrolled .hamburger span { background: var(--noir); }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2rem;
   transform: translateX(100%);
-  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform .25s cubic-bezier(0.76, 0, 0.24, 1);
 }
 .mobile-menu.open { transform: translateX(0); }
 .mobile-menu a {
@@ -383,7 +369,6 @@ nav.scrolled .hamburger span { background: var(--noir); }
   position: relative; left: 50%; transform: translateX(-50%);
   width: min(1080px, 92vw); max-width: none; margin: 0 0 1.8rem;
   background: rgba(30,28,25,0.32);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.22);
   box-shadow: 0 18px 50px rgba(2,20,48,0.28);
 }
@@ -888,7 +873,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
 .bien-card {
   background: var(--white);
   cursor: pointer;
-  transition: box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.55s ease;
+  transition: box-shadow .25s cubic-bezier(0.22, 1, 0.36, 1), border-color .25s ease;
   overflow: hidden;
   border: 1px solid var(--beige-dark);
   border-radius: var(--radius-card);
@@ -914,7 +899,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
 .bien-card-img img {
   width: 100%; height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform .25s cubic-bezier(0.22, 1, 0.36, 1);
   display: block;
 }
 .bien-card:hover .bien-card-img img { transform: scale(1.06); }
@@ -1315,7 +1300,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
   border: 1px solid var(--beige);
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform .25s ease, box-shadow .25s ease;
   cursor: default;
   user-select: none;
 }
@@ -1335,7 +1320,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform .25s ease;
 }
 .vendus-card:hover .vendus-img-wrap img {
   transform: scale(1.05);
@@ -1410,7 +1395,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
   display: flex;
   flex-direction: column;
   min-height: 280px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform .25s ease, box-shadow .25s ease;
   cursor: default;
 }
 .avis-marquee .avis-card:hover {
@@ -1799,7 +1784,6 @@ footer .footer-admin-block-wrap {
 .modal-overlay {
   position: fixed; inset: 0;
   background: rgba(2,20,48,0.85);
-  backdrop-filter: blur(8px);
   z-index: 5000;
   display: flex; align-items: center; justify-content: center;
   padding: 2rem;
@@ -3201,7 +3185,6 @@ textarea.form-input { resize: vertical; min-height: 80px; font-family: var(--san
 #modal-edit-bien {
   position: fixed; inset: 0;
   background: rgba(2,20,48,0.85);
-  backdrop-filter: blur(8px);
   z-index: 6000;
   display: none;
   align-items: center;
@@ -3297,7 +3280,7 @@ textarea.form-input { resize: vertical; min-height: 80px; font-family: var(--san
   color: var(--gris);
   cursor: pointer;
   margin-bottom: 2rem;
-  transition: color .3s;
+  transition: color .25s;
 }
 .legal-back:hover { color: var(--or); }
 
@@ -3865,7 +3848,7 @@ select.hero-search-field {
 .cb-card {
   display: block; background: #fff; color: var(--noir); text-align: left;
   border: 1px solid var(--line-c); border-radius: 14px; padding: 34px 28px;
-  transition: box-shadow .35s ease, transform .35s ease, border-color .35s ease;
+  transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
 }
 a.cb-card, button.cb-card { cursor: pointer; font: inherit; width: 100%; }
 a.cb-card:hover, button.cb-card:hover { box-shadow: 0 14px 34px rgba(2,20,48,.10); transform: translateY(-3px); border-color: #C3CEE3; }
@@ -3884,7 +3867,7 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 14px 34px rgba(2,20,48,.10
   background: var(--noir); color: #fff; border: 1px solid var(--noir); border-radius: 999px;
   padding: 14px 32px; font-family: var(--sans); font-size: .8rem; font-weight: 500;
   letter-spacing: .12em; text-transform: uppercase; cursor: pointer; text-decoration: none;
-  transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
 .cb-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(2,20,48,.22); }
 .cb-btn.ghost { background: #fff; color: var(--noir); }
@@ -3954,7 +3937,7 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 14px 34px rgba(2,20,48,.10
 
 /* ---------- Estimation en 5 étapes ---------- */
 .est-progress { display: flex; gap: 10px; justify-content: center; margin-top: 34px; }
-.est-progress span { width: 76px; height: 4px; border-radius: 4px; background: #DCE3EF; transition: background .3s; }
+.est-progress span { width: 76px; height: 4px; border-radius: 4px; background: #DCE3EF; transition: background .25s; }
 .est-progress span.on { background: var(--accent-b); }
 .est-card { max-width: 860px; margin: 0 auto; background: #fff; border: 1px solid var(--line-c); border-radius: 18px; padding: clamp(26px, 4vw, 46px); }
 .est-step { display: none; }
@@ -4072,7 +4055,7 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 #page-outils .outils-acc { display: flex; flex-direction: column; gap: 16px; }
 #page-outils .outils-item {
   background: #fff; border: 1px solid #D6DBE5; border-radius: 14px;
-  transition: box-shadow .3s ease, border-color .3s ease;
+  transition: box-shadow .25s ease, border-color .25s ease;
 }
 #page-outils .outils-item.is-open { border-color: #C3CDE2; box-shadow: 0 14px 40px -18px rgba(2,20,48,.28); }
 #page-outils .outils-item-h {
@@ -4090,7 +4073,7 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 #page-outils .outils-ico {
   flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%;
   background: #EEF2F9; color: #DC071D; display: flex; align-items: center; justify-content: center;
-  transition: background .3s ease, color .3s ease;
+  transition: background .25s ease, color .25s ease;
 }
 #page-outils .outils-ico svg { width: 22px; height: 22px; }
 #page-outils .outils-item.is-open .outils-ico { background: #021430; color: #fff; }
@@ -4099,12 +4082,12 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 #page-outils .outils-trigger-sub { display: block; margin-top: 4px; font-size: 13.5px; font-weight: 300; line-height: 1.5; color: #4E5A72; }
 #page-outils .outils-pm {
   position: relative; flex: 0 0 36px; width: 36px; height: 36px; border-radius: 50%;
-  border: 1px solid #D6DBE5; background: #fff; transition: background .3s ease, border-color .3s ease;
+  border: 1px solid #D6DBE5; background: #fff; transition: background .25s ease, border-color .25s ease;
 }
 #page-outils .outils-pm::before,
 #page-outils .outils-pm::after {
   content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; border-radius: 1px;
-  background: #021430; transform: translate(-50%, -50%); transition: transform .3s ease, background .3s ease;
+  background: #021430; transform: translate(-50%, -50%); transition: transform .25s ease, background .25s ease;
 }
 #page-outils .outils-pm::after { transform: translate(-50%, -50%) rotate(90deg); }
 #page-outils .outils-trigger:hover .outils-pm { border-color: #DC071D; }
@@ -4116,11 +4099,11 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 /* Panneau repliable (animation de hauteur sans JS ; visibility = non focusable une fois fermé) */
 #page-outils .outils-panel {
   display: grid; grid-template-rows: 0fr; visibility: hidden;
-  transition: grid-template-rows .35s ease, visibility 0s linear .35s;
+  transition: grid-template-rows .25s ease, visibility 0s linear .25s;
 }
 #page-outils .outils-item.is-open > .outils-panel {
   grid-template-rows: 1fr; visibility: visible;
-  transition: grid-template-rows .35s ease, visibility 0s linear 0s;
+  transition: grid-template-rows .25s ease, visibility 0s linear 0s;
 }
 #page-outils .outils-panel-in { overflow: hidden; min-height: 0; }
 #page-outils .outils-body {
@@ -4300,7 +4283,7 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 @media print { .fiche-mobile-bar, .fiche-actions, .fiche-share-wrap { display: none !important; } }
 
 /* ---------- Cartes : mini-diaporama ---------- */
-.bc-track { display: flex; width: 100%; height: 100%; transition: transform .45s cubic-bezier(.22,1,.36,1); will-change: transform; }
+.bc-track { display: flex; width: 100%; height: 100%; transition: transform .25s cubic-bezier(.22,1,.36,1); will-change: transform; }
 .bc-slide { flex: 0 0 100%; height: 100%; overflow: hidden; }
 .bien-card-img { touch-action: pan-y; }
 .une-carousel .bien-card-img { touch-action: auto; }
@@ -4537,7 +4520,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 .tx-tabs button {
   font-family: var(--sans); font-size: .76rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
   color: #fff; background: transparent; border: 0; border-radius: 999px; padding: .62rem 1.5rem; cursor: pointer;
-  transition: background .3s ease, color .3s ease;
+  transition: background .25s ease, color .25s ease;
 }
 .tx-tabs button.on { background: #fff; color: var(--marine); }
 .tx-tabs button:not(.on):hover { background: rgba(255,255,255,.14); }
@@ -4596,16 +4579,16 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 .rs3-bar { display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border: 1px solid var(--line-c); border-radius: 20px; overflow: hidden; box-shadow: 0 18px 44px rgba(2,20,48,.06); }
 .rs3-item {
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 34px 20px 30px;
-  color: var(--marine); text-decoration: none; position: relative; transition: background .4s;
+  color: var(--marine); text-decoration: none; position: relative; transition: background .25s;
 }
 .rs3-item + .rs3-item::before { content: ''; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: var(--line-c); }
-.rs3-item::after { content: ''; position: absolute; left: 50%; bottom: 0; width: 0; height: 3px; background: var(--rouge); transition: width .45s cubic-bezier(.22,1,.36,1), left .45s cubic-bezier(.22,1,.36,1); }
+.rs3-item::after { content: ''; position: absolute; left: 50%; bottom: 0; width: 0; height: 3px; background: var(--rouge); transition: width .25s cubic-bezier(.22,1,.36,1), left .25s cubic-bezier(.22,1,.36,1); }
 .rs3-item:hover { background: #FBFBFD; }
 .rs3-item:hover::after { width: 60%; left: 20%; }
 .rs3-ico {
   width: 58px; height: 58px; border-radius: 50%; margin-bottom: 14px; background: var(--light-bg); color: var(--marine);
   border: 1px solid var(--line-c); display: flex; align-items: center; justify-content: center;
-  transition: background .4s, color .4s, border-color .4s, transform .4s cubic-bezier(.22,1,.36,1);
+  transition: background .25s, color .25s, border-color .25s, transform .25s cubic-bezier(.22,1,.36,1);
 }
 .rs3-ico svg { width: 24px; height: 24px; fill: currentColor; }
 .rs3-item:hover .rs3-ico { color: #fff; border-color: transparent; transform: translateY(-3px); }
@@ -4617,7 +4600,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 .rs3-handle { font-size: .82rem; font-weight: 500; color: var(--rouge-fonce); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rs3-desc { font-size: .8rem; font-weight: 300; color: var(--gris); margin-top: 4px; }
 .rs3-cta { margin-top: 16px; font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--marine); }
-.rs3-cta span { display: inline-block; transition: transform .4s; }
+.rs3-cta span { display: inline-block; transition: transform .25s; }
 .rs3-item:hover .rs3-cta span { transform: translateX(4px); }
 @media (max-width: 860px) {
   .rs3-bar { grid-template-columns: 1fr 1fr; }
@@ -4688,7 +4671,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 .fiche-poi-titre { font-size: .82rem; font-weight: 600; color: var(--marine); margin-bottom: 8px; }
 .fiche-poi-titre span { font-weight: 400; color: var(--gris); }
 .fiche-poi-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.poi-chip { display: inline-flex; align-items: center; gap: 7px; font: inherit; font-size: .8rem; color: var(--marine); background: #fff; border: 1px solid var(--line-c); border-radius: 999px; padding: .5rem .9rem; cursor: pointer; transition: border-color .3s, background .3s; }
+.poi-chip { display: inline-flex; align-items: center; gap: 7px; font: inherit; font-size: .8rem; color: var(--marine); background: #fff; border: 1px solid var(--line-c); border-radius: 999px; padding: .5rem .9rem; cursor: pointer; transition: border-color .25s, background .25s; }
 .poi-chip i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .poi-chip b { font-weight: 700; }
 .poi-chip[aria-pressed="true"] { background: var(--marine); color: #fff; border-color: var(--marine); }
@@ -4699,7 +4682,7 @@ select.hero-search-tx:focus { outline: 2px solid var(--rouge); outline-offset: 2
 
 /* Téléphone toujours visible dans l'en-tête (audit La Cabane) */
 .nav-tel { display: inline-flex; align-items: center; gap: 8px; margin-left: clamp(10px, 1.5vw, 22px); padding: .55rem 1rem; border-radius: 999px;
-  background: var(--marine); color: #fff !important; font-size: .82rem; font-weight: 600; white-space: nowrap; text-decoration: none; transition: background .3s; }
+  background: var(--marine); color: #fff !important; font-size: .82rem; font-weight: 600; white-space: nowrap; text-decoration: none; transition: background .25s; }
 .nav-tel:hover { background: var(--rouge); }
 .nav-tel svg { width: 16px; height: 16px; flex: 0 0 16px; }
 @media (max-width: 1360px) and (min-width: 1161px) { .nav-tel span { display: none; } .nav-tel { padding: .6rem; } }
@@ -4789,6 +4772,24 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .admin-demande-msg { font-style: italic; color: #3a4252; }
 .admin-demande .admin-bien-actions { margin-top: .6rem; }
 
+/* ===== Finitions anti-vibecode (24/11/2026) ===== */
+/* Animations d'interface courtes (≤ 250 ms) */
+:root { --transition: .2s cubic-bezier(0.22, 1, 0.36, 1); }
+.mobile-menu { transition: transform .25s cubic-bezier(0.76, 0, 0.24, 1); }
+.rs3-item, .rs3-ico, .rs3-cta span { transition-duration: .2s; }
+/* Survol : la couleur change, rien ne bouge ni ne grossit */
+.btn-gold:hover, .btn-outline:hover, .form-submit:hover, .fiche-submit-btn:hover, .une-cta:hover, .cb-btn:hover,
+a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .reseau-avatar-photo, .reseau-card:hover .reseau-feed span,
+.biens-link:hover, .vendus-card:hover, .vendus-card:hover .vendus-img-wrap img, .avis-marquee .avis-card:hover,
+.bien-card:hover .bien-card-img img, .footer-social:hover, .footer-admin-block:hover, .footer-admin-block:focus-visible,
+.fiche-photos-btn:hover, .desc-feature-card:hover, .fav-btn:hover, .wa-float:hover,
+.rs3-item:hover .rs3-ico, .rs3-item:hover .rs3-cta span { transform: none; }
+.bc-arrow:hover { transform: translateY(-50%); }
+.bien-card-img img, .vendus-img-wrap img { transition: none; }
+/* Un seul rythme vertical pour les sections de l'accueil (comme .cb-section) */
+#biens-home, #cta, .vendus-section, .seo-section { padding-top: clamp(56px, 8vw, 104px); padding-bottom: clamp(56px, 8vw, 104px); }
+#avis { padding-bottom: clamp(56px, 8vw, 104px); }
+
 </style>
 </head>
 <body>
@@ -4796,11 +4797,11 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 <!-- NAVIGATION -->
 <nav id="nav">
-  <a href="#" class="nav-logo" onclick="showPage('home');return false;" aria-label="L'Immobilier Angevin — retour à l'accueil">
-    <img class="nav-logo-word" src="logo-angevin-h-marine.png" alt="L'Immobilier Angevin — achat, vente, estimation" width="900" height="144">
+  <a href="./" class="nav-logo" onclick="showPage(\'home\');return false;" aria-label="L'Immobilier Angevin · retour à l'accueil">
+    <img class="nav-logo-word" src="logo-angevin-h-marine.png" alt="L'Immobilier Angevin · achat, vente, estimation" width="900" height="144">
   </a>
   <ul class="nav-links">
-    <li><a href="#" data-nav="home" onclick="showPage('home');return false;">Accueil</a></li>
+    <li><a href="./" data-nav="home" onclick="showPage(\'home\');return false;">Accueil</a></li>
     <li><a href="#acheter" data-nav="acheter" onclick="showPage('acheter');return false;">Acheter</a></li>
     <li><a href="#vendre" data-nav="vendre" onclick="showPage('vendre');return false;">Vendre</a></li>
     <li><a href="#estimation" data-nav="estimation" onclick="showPage('estimation');return false;">Estimer</a></li>
@@ -4820,7 +4821,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 </nav>
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#" onclick="showPage('home');closeMobileMenu();return false;">Accueil</a>
+  <a href="./" onclick="showPage(\'home\');closeMobileMenu();return false;">Accueil</a>
   <a href="#acheter" onclick="showPage('acheter');closeMobileMenu();return false;">Acheter</a>
   <a href="#vendre" onclick="showPage('vendre');closeMobileMenu();return false;">Vendre</a>
   <a href="#estimation" onclick="showPage('estimation');closeMobileMenu();return false;">Estimer</a>
@@ -4839,7 +4840,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   <section id="hero">
     <div class="hero-bg" id="heroBg"></div>
     <div class="hero-content" id="heroContent">
-      <h1 class="sr-only">L'Immobilier Angevin — agence immobilière à Angers : achat, vente et estimation de maisons et d'appartements à Angers et dans l'agglomération angevine</h1>
+      <h1 class="sr-only">L'Immobilier Angevin, agence immobilière à Angers : achat, vente et estimation de maisons et d'appartements à Angers et dans l'agglomération angevine</h1>
       <div class="hero-brand" aria-hidden="true">
         <img class="hero-brand-logo" src="logo-angevin-blanc.png" alt="" width="800" height="523" fetchpriority="high">
       </div>
@@ -4915,7 +4916,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   <!-- L'AGENCE (aperçu) -->
   <section id="agence-apercu">
     <div class="cb-wrap cb-split">
-      <div class="cb-photo"><img src="img/charles-morel.jpg" alt="Charles MOREL, conseiller immobilier à Angers — L'Immobilier Angevin" loading="lazy" decoding="async"></div>
+      <div class="cb-photo"><img src="img/charles-morel.jpg" alt="Charles MOREL, conseiller immobilier à Angers · L'Immobilier Angevin" loading="lazy" decoding="async"></div>
       <div>
         <span class="cb-kicker">Votre conseiller</span>
         <h2 class="cb-h2">Charles MOREL, votre conseiller immobilier à Angers.</h2>
@@ -5058,28 +5059,28 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
         <p class="cb-lead">Nouveaux biens, visites en images et conseils : suivez mon actualité immobilière, d'Angers à Sablé-sur-Sarthe.</p>
       </div>
       <div class="rs3-bar">
-        <a class="rs3-item rs3-facebook" data-reseau="facebook" href="#" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur Facebook">
+        <a class="rs3-item rs3-facebook" data-reseau="facebook" href="https://www.facebook.com/profile.php?id=61566342466588" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur Facebook">
           <span class="rs3-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></span>
           <strong class="rs3-name">Facebook</strong>
           <span class="rs3-handle">Charles MOREL</span>
           <span class="rs3-desc">Actualités et nouveaux biens</span>
           <span class="rs3-cta">Suivre <span aria-hidden="true">→</span></span>
         </a>
-        <a class="rs3-item rs3-instagram" data-reseau="instagram" href="#" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur Instagram">
+        <a class="rs3-item rs3-instagram" data-reseau="instagram" href="https://www.instagram.com/limmobilier_sabolien/" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur Instagram">
           <span class="rs3-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></span>
           <strong class="rs3-name">Instagram</strong>
           <span class="rs3-handle">@limmobilier_sabolien</span>
           <span class="rs3-desc">Photos et visites en images</span>
           <span class="rs3-cta">Suivre <span aria-hidden="true">→</span></span>
         </a>
-        <a class="rs3-item rs3-linkedin" data-reseau="linkedin" href="#" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur LinkedIn">
+        <a class="rs3-item rs3-linkedin" data-reseau="linkedin" href="https://www.linkedin.com/in/charles-morel44/" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur LinkedIn">
           <span class="rs3-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></span>
           <strong class="rs3-name">LinkedIn</strong>
           <span class="rs3-handle">Charles MOREL</span>
           <span class="rs3-desc">Parcours et réseau pro</span>
           <span class="rs3-cta">Suivre <span aria-hidden="true">→</span></span>
         </a>
-        <a class="rs3-item rs3-tiktok" data-reseau="tiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur TikTok">
+        <a class="rs3-item rs3-tiktok" data-reseau="tiktok" href="https://www.tiktok.com/@charles.morel3gimmo" target="_blank" rel="noopener noreferrer" aria-label="Suivre Charles MOREL sur TikTok">
           <span class="rs3-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
           <strong class="rs3-name">TikTok</strong>
           <span class="rs3-handle">@charles.morel3gimmo</span>
@@ -5262,7 +5263,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
         <button type="submit" id="alerteBtn" class="cb-btn">Créer mon alerte</button>
       </div>
       <input type="text" id="alerteSite" name="site" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <label class="alerte-consent"><input type="checkbox" id="alerteConsent"><span>J'accepte de recevoir ces e-mails. Un lien dans chaque e-mail permet d'arrêter l'alerte (voir <a href="#" onclick="showLegal('rgpd');return false;">protection des données</a>).</span></label>
+      <label class="alerte-consent"><input type="checkbox" id="alerteConsent"><span>J'accepte de recevoir ces e-mails. Un lien dans chaque e-mail permet d'arrêter l'alerte (voir <a href="#confidentialite" onclick="showLegal('rgpd');return false;">protection des données</a>).</span></label>
     </form>
   </section>
   <div id="biensMap" style="display:none;"></div>
@@ -5375,14 +5376,14 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
             <a data-tel data-keep-label href="#contact" class="fiche-agent-icon" aria-label="Téléphone" title="Nous appeler">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </a>
-            <a data-wa href="#" target="_blank" rel="noopener" class="fiche-agent-icon" hidden aria-label="WhatsApp" title="WhatsApp">
+            <a data-wa href="https://wa.me/33638555355" target="_blank" rel="noopener" class="fiche-agent-icon" hidden aria-label="WhatsApp" title="WhatsApp">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
             </a>
           </div>
           <div style="font-size:.75rem;color:var(--gris);line-height:1.55;margin-top:.9rem;">Un seul interlocuteur, de la première visite à la signature : toute mon attention sur votre projet.</div>
         </div>
       </div>
-      <a class="fiche-agency-link" href="#" onclick="showPage('apropos');window.scrollTo(0,0);return false;">Découvrir l'agence</a>
+      <a class="fiche-agency-link" href="#apropos" onclick="showPage(\'apropos\');window.scrollTo(0,0);return false;">Découvrir l'agence</a>
 
       <!-- Formulaire de contact -->
       <form class="fiche-contact-form" onsubmit="submitFicheContact(event)">
@@ -5419,7 +5420,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 <div id="page-apropos" class="page">
   <section class="cb-hero is-light">
     <div class="cb-wrap cb-split">
-      <div class="cb-photo arch"><img src="img/charles-morel.jpg" alt="Charles MOREL, conseiller immobilier — L'Immobilier Angevin" loading="lazy" decoding="async"></div>
+      <div class="cb-photo arch"><img src="img/charles-morel.jpg" alt="Charles MOREL, conseiller immobilier · L'Immobilier Angevin" loading="lazy" decoding="async"></div>
       <div>
         <span class="cb-kicker">L'agence</span>
         <h1 class="cb-h1">Angevins de cœur, <span class="cb-accent">dédiés à vos projets</span></h1>
@@ -5510,7 +5511,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
       <div class="est-card" id="estCard">
 
         <div class="est-step active" data-step="1">
-          <div class="est-num">— Étape 1 sur 5</div>
+          <div class="est-num">Étape 1 sur 5</div>
           <h2 class="est-q">Quel type de bien souhaitez-vous estimer ?</h2>
           <p class="est-help">Choisissez la catégorie qui correspond à votre bien.</p>
           <div class="est-types">
@@ -5524,14 +5525,14 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
           <button type="button" class="est-type" data-type="Autre" onclick="estChoisirType(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Autre</button>
           </div>
           <select id="estimType" class="form-select" hidden aria-hidden="true" tabindex="-1">
-            <option value="">— Choisir —</option>
+            <option value="">Choisir…</option>
             <option>Maison</option><option>Villa</option><option>Appartement</option><option>Maison de ville</option>
             <option>Terrain</option><option>Immeuble</option><option>Local commercial</option><option>Autre</option>
           </select>
         </div>
 
         <div class="est-step" data-step="2">
-          <div class="est-num">— Étape 2 sur 5</div>
+          <div class="est-num">Étape 2 sur 5</div>
           <h2 class="est-q">Où se situe votre bien ?</h2>
           <p class="est-help">Commencez à taper l'adresse : nous vous proposons les adresses correspondantes.</p>
           <div class="form-row est-addr">
@@ -5542,7 +5543,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
           <div class="form-row">
             <label class="form-label" for="estimVille">Commune *</label>
             <select id="estimVille" class="form-select" required>
-              <option value="">— Choisir —</option>
+              <option value="">Choisir…</option>
               <optgroup label="Secteur d'Angers"><option>Angers</option><option>Avrillé</option><option>Baracé</option><option>Beaucouzé</option><option>Beaulieu-sur-Layon</option><option>Bécon-les-Granits</option><option>Béhuard</option><option>Bellevigne-en-Layon</option><option>Blaison-Saint-Sulpice</option><option>Bouchemaine</option><option>Briollay</option><option>Brissac Loire Aubance</option><option>Cantenay-Épinard</option><option>Chalonnes-sur-Loire</option><option>Champtocé-sur-Loire</option><option>Chaudefonds-sur-Layon</option><option>Cheffes</option><option>Chenillé-Champteussé</option><option>Cornillé-les-Caves</option><option>Corzé</option><option>Denée</option><option>Écouflant</option><option>Écuillé</option><option>Erdre-en-Anjou</option><option>Étriché</option><option>Feneu</option><option>Grez-Neuville</option><option>Jarzé Villages</option><option>Juvardeil</option><option>La Chapelle-Saint-Laud</option><option>La Ménitré</option><option>La Possonnière</option><option>Le Lion-d&#x27;Angers</option><option>Le Plessis-Grammoire</option><option>Les Garennes sur Loire</option><option>Les Hauts-d&#x27;Anjou</option><option>Les Ponts-de-Cé</option><option>Loire-Authion</option><option>Longuenée-en-Anjou</option><option>Marcé</option><option>Mazé-Milon</option><option>Montreuil-Juigné</option><option>Montreuil-sur-Loir</option><option>Montreuil-sur-Maine</option><option>Mozé-sur-Louet</option><option>Mûrs-Erigné</option><option>Rives-du-Loir-en-Anjou</option><option>Rochefort-sur-Loire</option><option>Saint-Augustin-des-Bois</option><option>Saint-Barthélemy-d&#x27;Anjou</option><option>Saint-Clément-de-la-Place</option><option>Saint-Georges-sur-Loire</option><option>Saint-Germain-des-Prés</option><option>Saint-Jean-de-la-Croix</option><option>Saint-Lambert-la-Potherie</option><option>Saint-Léger-de-Linières</option><option>Saint-Martin-du-Fouilloux</option><option>Saint-Melaine-sur-Aubance</option><option>Sainte-Gemmes-sur-Loire</option><option>Sarrigné</option><option>Savennières</option><option>Sceaux-d&#x27;Anjou</option><option>Seiches-sur-le-Loir</option><option>Soulaines-sur-Aubance</option><option>Soulaire-et-Bourg</option><option>Thorigné-d&#x27;Anjou</option><option>Tiercé</option><option>Trélazé</option><option>Val-du-Layon</option><option>Verrières-en-Anjou</option></optgroup>
               <optgroup label="Secteur de Sablé-sur-Sarthe"><option>Arthezé</option><option>Asnières-sur-Vègre</option><option>Auvers-le-Hamon</option><option>Avessé</option><option>Avoise</option><option>Bannes</option><option>Beaumont-Pied-de-Bœuf</option><option>Bierné-les-Villages</option><option>Bouère</option><option>Bouessay</option><option>Brûlon</option><option>Chantenay-Villedieu</option><option>Châtelain</option><option>Chémeré-le-Roi</option><option>Chevillé</option><option>Cossé-en-Champagne</option><option>Courtillers</option><option>Crosmières</option><option>Dureil</option><option>Durtal</option><option>Fontenay-sur-Vègre</option><option>Grez-en-Bouère</option><option>Juigné-sur-Sarthe</option><option>La Chapelle-d&#x27;Aligné</option><option>La Cropte</option><option>Le Bailleul</option><option>Le Buret</option><option>Louailles</option><option>Malicorne-sur-Sarthe</option><option>Miré</option><option>Morannes sur Sarthe-Daumeray</option><option>Notre-Dame-du-Pé</option><option>Noyen-sur-Sarthe</option><option>Parcé-sur-Sarthe</option><option>Pincé</option><option>Pirmil</option><option>Poillé-sur-Vègre</option><option>Préaux</option><option>Précigné</option><option>Sablé-sur-Sarthe</option><option>Saint-Brice</option><option>Saint-Charles-la-Forêt</option><option>Saint-Christophe-en-Champagne</option><option>Saint-Denis-d&#x27;Anjou</option><option>Saint-Loup-du-Dorat</option><option>Saint-Ouen-en-Champagne</option><option>Saint-Pierre-des-Bois</option><option>Saint-Pierre-sur-Erve</option><option>Saulges</option><option>Solesmes</option><option>Souvigné-sur-Sarthe</option><option>Tassé</option><option>Thorigné-en-Charnie</option><option>Val-du-Maine</option><option>Villaines-sous-Malicorne</option><option>Vion</option><option>Viré-en-Champagne</option></optgroup>
               <option value="Autre">Autre commune</option>
@@ -5551,7 +5552,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
         </div>
 
         <div class="est-step" data-step="3">
-          <div class="est-num">— Étape 3 sur 5</div>
+          <div class="est-num">Étape 3 sur 5</div>
           <h2 class="est-q">Ses caractéristiques</h2>
           <p class="est-help">Quelques chiffres suffisent ; laissez vide ce que vous ne connaissez pas.</p>
           <div class="form-row-2">
@@ -5570,23 +5571,23 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
             <div class="form-row"><label class="form-label" for="estimEtage">Étage (si appartement)</label><input type="text" id="estimEtage" class="form-input" placeholder="Ex : 2e sur 4"></div>
             <div class="form-row"><label class="form-label" for="estimEtat">État général</label>
               <select id="estimEtat" class="form-select">
-                <option value="">— Choisir —</option><option>Neuf / récent</option><option>Très bon état</option><option>Bon état</option><option>À rafraîchir</option><option>Travaux importants à prévoir</option>
+                <option value="">Choisir…</option><option>Neuf / récent</option><option>Très bon état</option><option>Bon état</option><option>À rafraîchir</option><option>Travaux importants à prévoir</option>
               </select></div>
           </div>
         </div>
 
         <div class="est-step" data-step="4">
-          <div class="est-num">— Étape 4 sur 5</div>
+          <div class="est-num">Étape 4 sur 5</div>
           <h2 class="est-q">Votre projet</h2>
           <p class="est-help">Pour vous proposer l'accompagnement le plus adapté.</p>
           <div class="form-row-2">
             <div class="form-row"><label class="form-label" for="estimProjet">Votre projet</label>
               <select id="estimProjet" class="form-select">
-                <option value="">— Choisir —</option><option>Vente à court terme (&lt; 3 mois)</option><option>Vente à moyen terme (3–12 mois)</option><option>Simple curiosité / valorisation patrimoine</option><option>Succession / donation</option><option>Autre</option>
+                <option value="">Choisir…</option><option>Vente à court terme (&lt; 3 mois)</option><option>Vente à moyen terme (3–12 mois)</option><option>Simple curiosité / valorisation patrimoine</option><option>Succession / donation</option><option>Autre</option>
               </select></div>
             <div class="form-row"><label class="form-label" for="estimDpe">DPE (si connu)</label>
               <select id="estimDpe" class="form-select">
-                <option value="">— Non connu —</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option>
+                <option value="">Non connu</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option>
               </select></div>
           </div>
           <div class="form-row">
@@ -5610,7 +5611,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
         </div>
 
         <div class="est-step" data-step="5">
-          <div class="est-num">— Étape 5 sur 5</div>
+          <div class="est-num">Étape 5 sur 5</div>
           <h2 class="est-q">Vos coordonnées</h2>
           <p class="est-help">Votre estimation s'affiche dès que vous validez. Nous vous recontactons ensuite pour l'affiner.</p>
           <div class="form-row-2">
@@ -5621,7 +5622,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
             <div class="form-row"><label class="form-label" for="estimEmail">E-mail *</label><input type="email" id="estimEmail" class="form-input" placeholder="votre@email.fr" required maxlength="120"></div>
             <div class="form-row"><label class="form-label" for="estimTel">Téléphone *</label><input type="tel" id="estimTel" class="form-input" placeholder="06 00 00 00 00" required pattern="[0-9 .+\-()]{8,20}" maxlength="20"></div>
           </div>
-          <p class="form-consent">Vos données sont utilisées uniquement pour répondre à votre demande d'estimation (voir <a href="#" onclick="showLegal('rgpd');return false;" style="text-decoration:underline;">protection des données</a>).</p>
+          <p class="form-consent">Vos données sont utilisées uniquement pour répondre à votre demande d'estimation (voir <a href="#confidentialite" onclick="showLegal('rgpd');return false;" style="text-decoration:underline;">protection des données</a>).</p>
           <input type="text" id="estimSite" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="form-submit" onclick="submitEstimation()">Voir mon estimation</button>
         </div>
@@ -5669,7 +5670,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
         <div class="form-row"><label class="form-label" for="contactEmail">E-mail *</label><input type="email" class="form-input" id="contactEmail" placeholder="votre@email.fr" required maxlength="120"></div>
         <div class="form-row"><label class="form-label" for="contactObjet">Vous souhaitez</label>
           <select id="contactObjet" class="form-select" onchange="contactObjetChange()">
-            <option value="">— Sélectionnez —</option>
+            <option value="">Sélectionnez…</option>
             <option value="acheter">Acheter un bien</option>
             <option value="criteres">Définir mes critères d'achat (alerte)</option>
             <option value="vendre">Vendre un bien</option>
@@ -5703,7 +5704,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
             </div></div>
         </div>
         <div class="form-row"><label class="form-label" for="contactMessage">Votre message *</label><textarea class="form-textarea" id="contactMessage" placeholder="Décrivez votre projet…" maxlength="2000"></textarea></div>
-        <label class="form-consent"><input type="checkbox" id="contactConsent"> <span>J'accepte que mes données soient utilisées pour répondre à ma demande (<a href="#" onclick="showLegal('rgpd');return false;" style="text-decoration:underline;">protection des données</a>).</span></label>
+        <label class="form-consent"><input type="checkbox" id="contactConsent"> <span>J'accepte que mes données soient utilisées pour répondre à ma demande (<a href="#confidentialite" onclick="showLegal('rgpd');return false;" style="text-decoration:underline;">protection des données</a>).</span></label>
         <button class="form-submit" id="contactSubmitBtn" onclick="submitContact()">Envoyer ma demande</button>
       </div>
     </div>
@@ -5846,7 +5847,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
           </div>
           <div class="form-row-2">
             <div class="form-row"><label class="form-label" for="proVille">Commune du bien</label><input type="text" id="proVille" class="form-input" placeholder="Ex : Angers"></div>
-            <div class="form-row"><label class="form-label" for="proType">Type de bien</label><select id="proType" class="form-select"><option value="">— Choisir —</option><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Immeuble</option><option>Autre</option></select></div>
+            <div class="form-row"><label class="form-label" for="proType">Type de bien</label><select id="proType" class="form-select"><option value="">Choisir…</option><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Immeuble</option><option>Autre</option></select></div>
           </div>
           <div class="form-row"><label class="form-label" for="parMessage">Quelques mots sur le projet</label><textarea id="parMessage" class="form-textarea" maxlength="1500" placeholder="Délais, type de bien, contexte…"></textarea></div>
         </fieldset>
@@ -5976,7 +5977,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
                   <div class="outils-field is-full" id="outils-not-primo-wrap">
                     <label class="outils-check" for="outils-not-primo">
                       <input type="checkbox" id="outils-not-primo">
-                      <span class="outils-check-txt">Je suis primo-accédant(e) — résidence principale
+                      <span class="outils-check-txt">Je suis primo-accédant(e), résidence principale
                         <small>Pas propriétaire de votre résidence principale ces deux dernières années : la hausse de 0,5&nbsp;point des droits départementaux ne s'applique pas.</small>
                       </span>
                     </label>
@@ -6097,7 +6098,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
       </div>
 
-      <p class="outils-note">Simulations indicatives, non contractuelles — rapprochez-vous de votre banque ou de votre notaire pour un calcul précis.</p>
+      <p class="outils-note">Simulations indicatives, non contractuelles : rapprochez-vous de votre banque ou de votre notaire pour un calcul précis.</p>
     </div>
   </section>
 
@@ -6261,7 +6262,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 <!-- ===== FOOTER ===== -->
 <footer id="site-footer">
-  <div class="ft-logo"><img class="ft-logo-full" src="logo-angevin-blanc.png" alt="L'Immobilier Angevin — achat, vente, estimation" width="800" height="523" loading="lazy"></div>
+  <div class="ft-logo"><img class="ft-logo-full" src="logo-angevin-blanc.png" alt="L'Immobilier Angevin · achat, vente, estimation" width="800" height="523" loading="lazy"></div>
   <div class="ft-cols">
     <div>
       <h4>Nos services</h4>
@@ -6274,14 +6275,14 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
     <div>
       <h4>L'agence</h4>
       <div class="ft-social" id="ftSocial" hidden>
-        <a data-reseau="facebook" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a data-reseau="instagram" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
-        <a data-reseau="linkedin" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
-        <a data-reseau="tiktok" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+        <a data-reseau="facebook" href="https://www.facebook.com/profile.php?id=61566342466588" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a data-reseau="instagram" href="https://www.instagram.com/limmobilier_sabolien/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+        <a data-reseau="linkedin" href="https://www.linkedin.com/in/charles-morel44/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
+        <a data-reseau="tiktok" href="https://www.tiktok.com/@charles.morel3gimmo" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
       </div>
       <a href="#agence" onclick="showPage('apropos');return false;">Qui sommes-nous ?</a>
       <a href="#favoris" onclick="showPage('favoris');return false;">Mes favoris</a>
-      <a href="#" onclick="showLegal('honoraires');return false;">Nos honoraires</a>
+      <a href="#honoraires" onclick="showLegal('honoraires');return false;">Nos honoraires</a>
     </div>
     <div>
       <h4>Mes secteurs</h4>
@@ -6294,7 +6295,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
     </div>
     <div>
       <h4>Nous contacter</h4>
-      <span>Charles MOREL — L'Immobilier Angevin</span>
+      <span>Charles MOREL · L'Immobilier Angevin</span>
       <span data-adresse>Angers (49)</span>
       <a data-tel href="#contact" onclick="if(this.getAttribute('href')==='#contact'){showPage('contact');return false;}">Nous appeler</a>
       <a data-email href="#contact" onclick="if(this.getAttribute('href')==='#contact'){showPage('contact');return false;}">Nous écrire</a>
@@ -6303,7 +6304,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   </div>
   <div class="ft-bottom">
     <div class="ft-bottom-left">
-      <span>© <span id="ftYear">2026</span> L'Immobilier Angevin — Charles MOREL, conseiller immobilier 3G IMMO · RSAC Le Mans 900 233 800</span>
+      <span>© <span id="ftYear">2026</span> L'Immobilier Angevin · Charles MOREL, conseiller immobilier 3G IMMO · RSAC Le Mans 900 233 800</span>
       <div class="ft-legal">
         <a onclick="showLegal('mentions')">Mentions légales</a>
         <a onclick="showLegal('honoraires')">Honoraires</a>
@@ -6316,7 +6317,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
     <a class="ft-credit" href="https://www.creationsiteimmobilier.fr/" target="_blank" rel="noopener">Site créé par creationsiteimmobilier</a>
   </div>
 </footer>
-<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+<a class="wa-float" id="waFloat" href="https://wa.me/33638555355" target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
 
 
 
@@ -6394,7 +6395,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .confirm-overlay {
   position: fixed; inset: 0;
   background: rgba(2,20,48,0.7);
-  backdrop-filter: blur(4px);
   z-index: 99998;
   display: none;
   align-items: center; justify-content: center;
@@ -6808,43 +6808,43 @@ function _updateSeoForPage(id) {
   if (typeof _setOrUpdateMeta !== 'function') return;
   var seoByPage = {
     'home': {
-      title: "L'Immobilier Angevin — Agence immobilière à Angers : achat, vente, estimation",
+      title: "L'Immobilier Angevin · Agence immobilière à Angers : achat, vente, estimation",
       desc: "L'Immobilier Angevin, agence immobilière à Angers : maisons, appartements et terrains à vendre à Angers, à Sablé-sur-Sarthe et alentours. Estimation gratuite."
     },
     'acheter': {
-      title: "Biens à vendre à Angers, Sablé-sur-Sarthe et alentours — L'Immobilier Angevin",
+      title: "Biens à vendre à Angers, Sablé-sur-Sarthe et alentours · L'Immobilier Angevin",
       desc: "Maisons, appartements et terrains à vendre à Angers et dans son agglomération, à Sablé-sur-Sarthe et dans ses alentours."
     },
     'louer': {
-      title: "Locations à Angers : appartements et maisons à louer — L'Immobilier Angevin",
+      title: "Locations à Angers : appartements et maisons à louer · L'Immobilier Angevin",
       desc: "Studios, appartements et maisons à louer à Angers et dans l'agglomération, vides ou meublés. Visites rapides, dossier simple."
     },
     'apropos': {
-      title: "L'agence — L'Immobilier Angevin, agence immobilière à Angers",
+      title: "L'agence · L'Immobilier Angevin, agence immobilière à Angers",
       desc: "Découvrez L'Immobilier Angevin : une agence à taille humaine qui vous accompagne pour acheter, vendre ou estimer votre bien à Angers et alentours."
     },
     'estimation': {
-      title: "Estimation immobilière gratuite à Angers — L'Immobilier Angevin",
+      title: "Estimation immobilière gratuite à Angers · L'Immobilier Angevin",
       desc: "Estimation gratuite et personnalisée de votre maison ou de votre appartement à Angers et dans l'agglomération. Réponse sous 24 h."
     },
     'vendre': {
-      title: "Vendre son bien à Angers — L'Immobilier Angevin",
+      title: "Vendre son bien à Angers · L'Immobilier Angevin",
       desc: "Vendre au bon prix à Angers : estimation offerte, mise en valeur, diffusion sur les grands portails, visites qualifiées et suivi jusqu'à l'acte."
     },
     'parrainage': {
-      title: "Parrainage — recommandez un vendeur à L'Immobilier Angevin",
+      title: "Parrainage : recommandez un vendeur à L'Immobilier Angevin",
       desc: "Un proche souhaite vendre à Angers ou dans l'agglomération ? Présentez-le à L'Immobilier Angevin : une prime de remerciement si la vente se conclut."
     },
     'outils': {
-      title: "Simulateurs immobiliers : capacité d'emprunt, frais de notaire, mensualité — L'Immobilier Angevin",
+      title: "Simulateurs immobiliers : capacité d'emprunt, frais de notaire, mensualité · L'Immobilier Angevin",
       desc: "Calculez votre capacité d'emprunt, vos frais de notaire, votre mensualité et la durée de votre prêt. Simulations indicatives et gratuites."
     },
     'favoris': {
-      title: "Mes favoris — L'Immobilier Angevin",
+      title: "Mes favoris · L'Immobilier Angevin",
       desc: "Retrouvez les biens que vous avez ajoutés à vos favoris."
     },
     'contact': {
-      title: "Contact — L'Immobilier Angevin, agence immobilière à Angers",
+      title: "Contact · L'Immobilier Angevin, agence immobilière à Angers",
       desc: "Contactez L'Immobilier Angevin pour acheter, vendre ou faire estimer votre bien à Angers. Réponse sous 24 h, premier échange gratuit."
     }
   };
@@ -6874,23 +6874,23 @@ var legalPages = {
     '<div class="legal-title">Mentions légales</div>' +
     '<div class="legal-date">Dernière mise à jour : novembre 2026</div>' +
     '<div class="legal-section"><h3>Éditeur du site</h3>' +
-      '<p><strong>L\'Immobilier Angevin</strong> — nom commercial de <strong>Charles MOREL</strong>, conseiller immobilier<br>' +
-      'Entrepreneur individuel (EI) — agent commercial, inscrit au RSAC de Le Mans sous le numéro 900 233 800<br>' +
-      'Téléphone : 06 38 55 53 55 — E-mail : charles.morel@3gimmobilier.com</p>' +
+      '<p><strong>L\'Immobilier Angevin</strong>, nom commercial de <strong>Charles MOREL</strong>, conseiller immobilier<br>' +
+      'Entrepreneur individuel (EI), agent commercial, inscrit au RSAC de Le Mans sous le numéro 900 233 800<br>' +
+      'Téléphone : 06 38 55 53 55 · E-mail : charles.morel@3gimmobilier.com</p>' +
       '<p>Directeur de la publication : Charles MOREL</p></div>' +
     '<div class="legal-section"><h3>Réseau de rattachement</h3>' +
-      '<p>3G IMMO — réseau national de mandataires immobiliers indépendants<br>' +
-      'Siège social : 4 bis avenue d\'Aléry — 74000 Annecy — RCS Annecy 491 726 915 — Téléphone : 04 50 45 82 47</p></div>' +
+      '<p>3G IMMO, réseau national de mandataires immobiliers indépendants<br>' +
+      'Siège social : 4 bis avenue d\'Aléry, 74000 Annecy · RCS Annecy 491 726 915 · Téléphone : 04 50 45 82 47</p></div>' +
     '<div class="legal-section"><h3>Carte professionnelle et garanties</h3>' +
       '<p>Charles MOREL exerce sous le réseau 3G IMMO, titulaire de la carte professionnelle « Transactions sur immeubles et fonds de commerce » délivrée par la CCI de Haute-Savoie. ' +
       'Garantie financière et assurance responsabilité civile professionnelle souscrites par le réseau 3G IMMO, conformément à la loi Hoguet du 2 janvier 1970 et à son décret d\'application du 20 juillet 1972. ' +
       'Charles MOREL ne perçoit aucun fonds, effet ou valeur au sens de l\'article 3 alinéa 2 de la loi Hoguet.</p></div>' +
     '<div class="legal-section"><h3>Médiateur de la consommation</h3>' +
-      '<p>Conformément aux articles L.611-1 et suivants du Code de la consommation, en cas de litige non résolu directement avec Charles MOREL, vous pouvez recourir gratuitement au médiateur de la consommation : MEDICYS — 73 boulevard de Clichy, 75009 Paris — app.medicys-consommation.fr.</p></div>' +
+      '<p>Conformément aux articles L.611-1 et suivants du Code de la consommation, en cas de litige non résolu directement avec Charles MOREL, vous pouvez recourir gratuitement au médiateur de la consommation : MEDICYS, 73 boulevard de Clichy, 75009 Paris (app.medicys-consommation.fr).</p></div>' +
     '<div class="legal-section"><h3>Hébergement</h3>' +
-      '<p>Site hébergé par GitHub Pages — GitHub Inc., 88 Colin P. Kelly Jr Street, San Francisco, CA 94107, États-Unis (github.com).</p></div>' +
+      '<p>Site hébergé par GitHub Pages : GitHub Inc., 88 Colin P. Kelly Jr Street, San Francisco, CA 94107, États-Unis (github.com).</p></div>' +
     '<div class="legal-section"><h3>Propriété intellectuelle et crédits</h3>' +
-      '<p>Le logo, la charte graphique et les textes du site sont la propriété de Charles MOREL — L\'Immobilier Angevin. Toute reproduction sans autorisation est interdite. ' +
+      '<p>Le logo, la charte graphique et les textes du site sont la propriété de Charles MOREL · L\'Immobilier Angevin. Toute reproduction sans autorisation est interdite. ' +
       'Photographies d\'ambiance d\'Angers : Unsplash (licence Unsplash). Carte du secteur : cours d\'eau et contours © contributeurs OpenStreetMap (ODbL).</p></div>' +
     '<div class="legal-section"><h3>Annonces</h3>' +
       '<p>Les annonces sont fournies à titre indicatif et ne constituent pas une offre contractuelle. Les caractéristiques des biens (surfaces, prix, diagnostics) sont communiquées par les propriétaires. Les prix de vente s\'entendent honoraires inclus. Toute transaction donne lieu à un mandat écrit conforme à la loi Hoguet.</p></div>',
@@ -6912,7 +6912,7 @@ var legalPages = {
     '<div class="legal-title">Protection des données personnelles</div>' +
     '<div class="legal-date">Dernière mise à jour : novembre 2026</div>' +
     '<div class="legal-section"><h3>Responsable du traitement</h3>' +
-      '<p>Charles MOREL — L\'Immobilier Angevin, entrepreneur individuel, agent commercial du réseau 3G IMMO — charles.morel@3gimmobilier.com.</p></div>' +
+      '<p>Charles MOREL · L\'Immobilier Angevin, entrepreneur individuel, agent commercial du réseau 3G IMMO, charles.morel@3gimmobilier.com.</p></div>' +
     '<div class="legal-section"><h3>Données collectées et finalités</h3>' +
       '<p>Les données saisies dans les formulaires (nom, prénom, téléphone, e-mail, informations sur votre bien ou votre recherche) sont utilisées uniquement pour répondre à votre demande : prise de contact, estimation, visite, recherche de bien, parrainage. Base légale : votre consentement et les mesures précontractuelles prises à votre demande.</p>' +
       '<p><b>Estimation en ligne.</b> La fourchette de prix est calculée dans votre navigateur à partir des données publiques DVF (ventes immobilières publiées par l\'administration fiscale) ; c\'est une estimation indicative, qui ne remplace pas un avis de valeur. Votre demande est transmise à Charles MOREL pour qu\'il vous recontacte.</p>' +
@@ -6971,7 +6971,7 @@ window._bienAffiche = null;
 
 function _bienShareData(b) {
   if (!b) {
-    return { url: window.location.href, titre: "Bien immobilier — L'Immobilier Angevin", texte: "Découvrez ce bien sur le site de L'Immobilier Angevin." };
+    return { url: window.location.href, titre: "Bien immobilier · L'Immobilier Angevin", texte: "Découvrez ce bien sur le site de L'Immobilier Angevin." };
   }
   var url = window.location.href.split('#')[0] + '#bien/' + (b.id || '');
   var titre = (b.type || 'Bien') + (_estLocation(b) ? ' à louer' : ' à vendre');
@@ -7718,7 +7718,7 @@ function renderBiensGrid() {
     filtered.forEach(function(b) { grid.appendChild(bienCardHTML(b)); });
   } else {
     grid.innerHTML = '<p style="padding:3rem;color:var(--gris);grid-column:1/-1">Aucun bien ne correspond pour le moment à votre recherche. ' +
-      '<a href="#" onclick="creerAlerte();return false;" style="color:var(--or-fonce);text-decoration:underline;">Confiez-nous votre recherche</a> : nous vous prévenons dès qu\'un bien correspond.</p>';
+      '<a href="#alerteBox" onclick="creerAlerte();return false;" style="color:var(--or-fonce);text-decoration:underline;">Confiez-nous votre recherche</a> : nous vous prévenons dès qu\'un bien correspond.</p>';
   }
   observeFadeIns();
   if (_carteVisible) renderBiensMap();  // maj carte si ouverte
@@ -8045,11 +8045,11 @@ function showFiche(id) {
   if (legalSection) {
     legalSection.innerHTML =
       '<div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--beige);font-size:.8rem;line-height:1.7;color:var(--gris);">' +
-        '<p style="margin-bottom:.8rem;">Votre agent commercial 3G IMMO — <strong style="color:var(--noir);font-weight:600;">Charles MOREL</strong>, ' +
+        '<p style="margin-bottom:.8rem;">Votre agent commercial 3G IMMO : <strong style="color:var(--noir);font-weight:600;">Charles MOREL</strong>, ' +
           'entrepreneur individuel inscrit au RSAC de Le Mans n° <strong style="color:var(--noir);font-weight:500;">900 233 800</strong>. ' +
           'Carte professionnelle « Transactions sur immeubles et fonds de commerce » du réseau 3G IMMO, délivrée par la CCI de Haute-Savoie.</p>' +
         (_estLocation(b)
-          ? '<p style="margin-bottom:.8rem;">Honoraires de location fixés dans la limite des plafonds prévus par le décret n° 2014-890 du 1er août 2014. Barème complet disponible sur la page <a href="#" onclick="showLegal(\'honoraires\');return false;" style="color:var(--or-fonce);">Honoraires</a>.</p>'
+          ? '<p style="margin-bottom:.8rem;">Honoraires de location fixés dans la limite des plafonds prévus par le décret n° 2014-890 du 1er août 2014. Barème complet disponible sur la page <a href="#honoraires" onclick="showLegal(\'honoraires\');return false;" style="color:var(--or-fonce);">Honoraires</a>.</p>'
           : '<p style="margin-bottom:.8rem;">Selon l\'article L.561-5 du Code monétaire et financier, une pièce d\'identité vous sera demandée pour l\'organisation de la visite.</p>') +
         '<p style="margin-bottom:.8rem;">Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques : ' +
           '<a href="https://www.georisques.gouv.fr" target="_blank" rel="noopener" style="color:var(--or-fonce);border-bottom:1px solid currentColor;">www.georisques.gouv.fr</a></p>' +
@@ -8209,7 +8209,7 @@ function updateSeoForBien(b) {
       {
         "@type": ["Residence", "Accommodation", residenceType],
         "@id": window.location.href + '#residence',
-        "name": typeB + (pieces ? ' ' + pieces : '') + ' — ' + villePretty,
+        "name": typeB + (pieces ? ' ' + pieces : '') + ' à ' + villePretty,
         "description": (b.description || '').substring(0, 500).replace(/\s+/g, ' '),
         "image": photos,
         "numberOfRooms": b.pieces || undefined,
@@ -8260,9 +8260,9 @@ function _setOrUpdateLdJson(id, data) {
 
 // Réinitialiser le SEO quand on quitte la fiche
 function resetSeoToHome() {
-  document.title = "L'Immobilier Angevin — Agence immobilière à Angers : achat, vente, estimation";
+  document.title = "L'Immobilier Angevin · Agence immobilière à Angers : achat, vente, estimation";
   _setOrUpdateMeta('description', "L'Immobilier Angevin, agence immobilière à Angers : maisons, appartements et terrains à vendre à Angers, à Sablé-sur-Sarthe et alentours. Estimation gratuite.");
-  _setOrUpdateMeta('og:title', "L'Immobilier Angevin — Agence immobilière à Angers", 'property');
+  _setOrUpdateMeta('og:title', "L'Immobilier Angevin · Agence immobilière à Angers", 'property');
   _setOrUpdateMeta('og:description', "Achat et vente de maisons et d'appartements à Angers, à Sablé-sur-Sarthe et alentours.", 'property');
   _setOrUpdateMeta('og:type', 'website', 'property');
   _setOrUpdateMeta('og:url', window.location.origin + window.location.pathname, 'property');
@@ -8526,7 +8526,7 @@ function refreshVilleSelects() {
     // Garder les options existantes + ajouter nouvelles villes + option ajout
     adminSel.innerHTML = '';
     const defaultOpt = document.createElement('option');
-    defaultOpt.value = ''; defaultOpt.textContent = '— Sélectionner une ville —';
+    defaultOpt.value = ''; defaultOpt.textContent = 'Sélectionner une ville…';
     defaultOpt.disabled = true;
     adminSel.appendChild(defaultOpt);
     villes.forEach(v => {
@@ -8549,7 +8549,7 @@ function refreshVilleSelects() {
     const currentVal = editSel.value;
     editSel.innerHTML = '';
     const defaultOpt = document.createElement('option');
-    defaultOpt.value = ''; defaultOpt.textContent = '— Sélectionner une ville —';
+    defaultOpt.value = ''; defaultOpt.textContent = 'Sélectionner une ville…';
     editSel.appendChild(defaultOpt);
     villes.forEach(v => {
       const opt = document.createElement('option');
@@ -9476,7 +9476,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
     var hint = s.months + NBSP + 'mensualités';
-    if (s.months > 300) hint += ' — au-delà de 25 ans, les banques prêtent rarement pour une résidence principale.';
+    if (s.months > 300) hint += ' : au-delà de 25 ans, les banques prêtent rarement pour une résidence principale.';
     setWarn('outils-res-duree', s.months > 300);
     setText('dur-main', durationLabel(s.months));
     setText('dur-hint', hint);
@@ -9743,7 +9743,7 @@ function renderFicheExtras(b) {
   var ref = b.ref && String(b.ref).trim() ? String(b.ref).trim() : (typeof genRef === 'function' ? genRef(b.id) : b.id);
   var url = location.origin + location.pathname + '#bien/' + (typeof _slugifyBien === 'function' ? _slugifyBien(b) : ('ref-' + b.id));
   var waTxt = encodeURIComponent('Bonjour, je suis intéressé(e) par le bien réf. ' + ref + ' (' + (b.type || 'bien') + ' à ' + (b.ville || '') + ') : ' + url);
-  var mailSubj = encodeURIComponent('Bien réf. ' + ref + ' — ' + (b.type || 'Bien') + ' à ' + (b.ville || ''));
+  var mailSubj = encodeURIComponent('Bien réf. ' + ref + ' · ' + (b.type || 'Bien') + ' à ' + (b.ville || ''));
   var ville = b.ville || 'Angers';
   var ex = document.getElementById('ficheExtras');
   if (ex) {
@@ -9840,13 +9840,13 @@ function lightboxFullscreen() {
 
   var AGENT = {
     nom: 'Charles MOREL',
-    role: "Conseiller immobilier — L'Immobilier Angevin",
+    role: "Conseiller immobilier · L'Immobilier Angevin",
     tel: AGENCE.telephone || '', telHref: AGENCE.telephone ? 'tel:' + _telIntl(AGENCE.telephone) : '',
     mail: AGENCE.email || '',
     site: location.hostname && !/^(localhost|127\.)/.test(location.hostname) ? location.hostname : '',
     avatar: 'img/charles-morel-avatar.jpg'
   };
-  var FOOTER_TXT = "L'Immobilier Angevin — Charles MOREL, agent commercial du réseau 3G IMMO, EI inscrit au RSAC de Le Mans n° 900 233 800, " +
+  var FOOTER_TXT = "L'Immobilier Angevin · Charles MOREL, agent commercial du réseau 3G IMMO, EI inscrit au RSAC de Le Mans n° 900 233 800, " +
     "carte professionnelle de la société 3G IMMO (CCI de Haute-Savoie). Document non contractuel, informations données à titre indicatif.";
 
   // ---- Charte ----
@@ -10099,8 +10099,8 @@ function lightboxFullscreen() {
     var imgs = (assets && assets.imgs) || [];
 
     doc.setProperties({
-      title: san('Fiche ' + titre + ' — Réf. ' + ref),
-      subject: san('Fiche descriptive — ' + titre),
+      title: san('Fiche ' + titre + ' · Réf. ' + ref),
+      subject: san('Fiche descriptive : ' + titre),
       author: san(AGENT.nom),
       keywords: san([b.type, b.ville, 'immobilier', 'Angers', "L'Immobilier Angevin"].filter(Boolean).join(', ')),
       creator: "L'Immobilier Angevin"
@@ -10163,7 +10163,7 @@ function lightboxFullscreen() {
     fill(NAVY); doc.rect(0, 0, PW, 22, 'F');
     fill(ACCENT); doc.rect(0, 22, PW, 0.8, 'F');
     font('bold', 17); color(WHITE); txt("L'Immobilier Angevin", M, 11.2);
-    font('bold', 6.6); color(SUBTLE); txt('ACHAT  ·  VENTE  ·  ESTIMATION  —  ANGERS', M, 16.6, { cs: 0.45 });
+    font('bold', 6.6); color(SUBTLE); txt('ACHAT  ·  VENTE  ·  ESTIMATION  ·  ANGERS', M, 16.6, { cs: 0.45 });
     font('bold', 11); color(WHITE); txt('Réf. ' + ref, PW - M, 11.2, { align: 'right' });
     font('bold', 6.6); color(SUBTLE); txt('FICHE DESCRIPTIVE', PW - M, 16.6, { align: 'right', cs: 0.45 });
 
@@ -10221,7 +10221,7 @@ function lightboxFullscreen() {
       var phH = photosBottom - y;
       fill(LIGHT); doc.roundedRect(M, y, CW, phH, 2, 2, 'F');
       font('bold', 15); color(NAVY); txt("L'Immobilier Angevin", PW / 2, y + phH / 2 - 2, { align: 'center' });
-      font('normal', 9); color(GREY); txt('Photos et visite sur demande' + (AGENT.tel ? ' — ' + AGENT.tel : ''), PW / 2, y + phH / 2 + 5, { align: 'center' });
+      font('normal', 9); color(GREY); txt('Photos et visite sur demande' + (AGENT.tel ? ' : ' + AGENT.tel : ''), PW / 2, y + phH / 2 + 5, { align: 'center' });
       fill(ACCENT); doc.rect(PW / 2 - 6, y + phH / 2 + 9, 12, 0.7, 'F');
       if (badges.length) drawBadges(M + 4, y + 4);
     }
@@ -10582,7 +10582,7 @@ function bcSlides(b, alt) {
   var ph = bcPhotos(b);
   return '<div class="bc-track" data-n="' + ph.length + '">' + ph.map(function (u, i) {
     // seule la 1re photo est chargée tout de suite ; les autres à la demande (data-src)
-    return '<div class="bc-slide"><img ' + (i === 0 ? 'src' : 'data-src') + '="' + _esc(imgOpt(u, 800)) + '" data-orig="' + _esc(u) + '" alt="' + _esc(alt + (i ? ' — photo ' + (i + 1) : '')) +
+    return '<div class="bc-slide"><img ' + (i === 0 ? 'src' : 'data-src') + '="' + _esc(imgOpt(u, 800)) + '" data-orig="' + _esc(u) + '" alt="' + _esc(alt + (i ? ', photo ' + (i + 1) : '')) +
            '" loading="lazy" decoding="async" onerror="imgRepli(this)"></div>';
   }).join('') + '</div>';
 }
@@ -10795,7 +10795,10 @@ function _routeFromHash() {
   var validPages = ['home','biens','acheter','louer','apropos','estimation','contact','fiche','vendre','parrainage','outils','favoris'];
   if (validPages.indexOf(hash) !== -1) {
     if (typeof showPage === 'function') showPage(hash);
+    return;
   }
+  var _legal = { 'mentions-legales': 'mentions', confidentialite: 'rgpd', honoraires: 'honoraires', cgu: 'cgu' };
+  if (_legal[hash] && typeof showLegal === 'function') showLegal(_legal[hash]);
 }
 
 // ===== LIGHTBOX =====
@@ -11068,7 +11071,7 @@ async function creerMotDePasseAdmin() {
   document.getElementById('adminPwdNew').value = ''; document.getElementById('adminPwdNew2').value = '';
   _adminPwd = p1;
   if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
-    try { navigator.credentials.store(new PasswordCredential({ id: 'espace-pro-angevin', name: "Espace pro — L'Immobilier Angevin", password: p1 })).catch(function () {}); } catch (err) {}
+    try { navigator.credentials.store(new PasswordCredential({ id: 'espace-pro-angevin', name: "Espace pro · L'Immobilier Angevin", password: p1 })).catch(function () {}); } catch (err) {}
   }
   closeModal('modal-admin');
   document.body.classList.add('admin-mode');
@@ -11096,7 +11099,7 @@ async function checkAdmin() {
   if (status === 200) {
     _adminAttempts = 0; _adminPwd = pwd;
     if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
-      try { navigator.credentials.store(new PasswordCredential({ id: 'espace-pro-angevin', name: "Espace pro — L'Immobilier Angevin", password: pwd })).catch(function () {}); } catch (e) {}
+      try { navigator.credentials.store(new PasswordCredential({ id: 'espace-pro-angevin', name: "Espace pro · L'Immobilier Angevin", password: pwd })).catch(function () {}); } catch (e) {}
     }
     closeModal('modal-admin');
     document.getElementById('adminPwd').value = '';
@@ -11107,7 +11110,7 @@ async function checkAdmin() {
   }
   if (status !== 401) { showToast('Le serveur des statuts ne répond pas correctement (' + status + ').', 'error', 6000); return; }
   _adminAttempts++;
-  if (_adminAttempts >= 5) { _adminLockedUntil = Date.now() + 60000; _adminAttempts = 0; showToast('Trop de tentatives — verrouillé 60 secondes.', 'error', 6000); }
+  if (_adminAttempts >= 5) { _adminLockedUntil = Date.now() + 60000; _adminAttempts = 0; showToast('Trop de tentatives : verrouillé 60 secondes.', 'error', 6000); }
   document.getElementById('adminError').style.display = 'block';
 }
 
@@ -11132,7 +11135,7 @@ function _adminLigne(b) {
     : statut === 'vendu' ? '<span class="admin-statut-badge admin-statut-vendu">Vendu</span>' : '';
   var ref = b.ref && String(b.ref).trim() ? String(b.ref).trim() : genRef(b.id);
   var actions = (statut === 'vendu')
-    ? '<button class="btn-statut btn-vendu active"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'vendu\')" title="Retirer le statut « Vendu »">Vendu ✓ — remettre en vente</button>'
+    ? '<button class="btn-statut btn-vendu active"' + dis + ' onclick="adminSetStatut(' + b.id + ', \'vendu\')" title="Retirer le statut « Vendu »">Vendu ✓ · remettre en vente</button>'
     : '<button class="btn-statut btn-une ' + (b.alaune ? 'active' : '') + '"' + dis + ' onclick="adminSetUne(' + b.id + ')" title="Afficher / retirer des « Biens à la une » (accueil)">★ À la une</button>' +
       '<button class="btn-statut btn-new ' + (et.nouveau ? 'active' : '') + '"' + dis + ' onclick="adminSetNouveaute(' + b.id + ')" title="Étiquette « Nouveauté »">Nouveauté</button>' +
       '<button class="btn-statut btn-baisse ' + (et.baisse ? 'active' : '') + '"' + dis + ' onclick="adminSetBaisse(' + b.id + ')" title="Étiquette « Baisse de prix »">Baisse de prix</button>' +
