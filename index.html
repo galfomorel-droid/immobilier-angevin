@@ -4881,6 +4881,18 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 .ft-cols h3.ft-titre { font-size: 1rem; font-weight: 700; color: #fff; margin: 0 0 18px; letter-spacing: 0; text-transform: none; }
 #ficheBadge .bien-card-exclusive { background: var(--rouge-fonce); color: #fff; }
 
+/* ===== Conseiller du bien (vignette ronde sur la photo, comme La Cabane) ===== */
+.bien-card-agent { position: absolute; left: 12px; bottom: 12px; z-index: 3; width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+  border: 2px solid #fff; box-shadow: 0 4px 14px rgba(2,20,48,.28); background: #fff; pointer-events: none; }
+.bien-card-agent img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 480px) { .bien-card-agent { width: 38px; height: 38px; left: 10px; bottom: 10px; } }
+/* Page L'agence : photo du duo (format paysage) */
+.cb-photo.arch.duo { aspect-ratio: 6 / 5; border-radius: 999px 999px 18px 18px / 38% 38% 18px 18px; }
+.cb-photo.arch.duo img { object-position: center 30%; }
+@media (max-width: 860px) { .cb-photo.arch.duo { aspect-ratio: 6 / 5; max-width: 100%; } }
+.admin-conseiller { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; color: #3a4252; margin-right: 6px; }
+.admin-conseiller select { font: inherit; font-size: .8rem; padding: 6px 8px; border: 1px solid var(--line-c); border-radius: 8px; background: #fff; color: var(--marine); }
+
 </style>
 </head>
 <body>
@@ -5539,11 +5551,11 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 <div id="page-apropos" class="page">
   <section class="cb-hero is-light">
     <div class="cb-wrap cb-split">
-      <div class="cb-photo arch"><img src="img/charles-morel-800.webp" width="800" height="1067" alt="Charles MOREL, conseiller immobilier · L'Immobilier Angevin" loading="lazy" decoding="async"></div>
+      <div class="cb-photo arch duo"><img src="img/charles-antoine-1200.webp" srcset="img/charles-antoine-700.webp 700w, img/charles-antoine-1200.webp 1200w" sizes="(max-width: 860px) 92vw, 560px" width="1200" height="1024" alt="Charles Morel et Antoine Hery, L'Immobilier Angevin" decoding="async"></div>
       <div>
         <span class="cb-kicker">L'agence</span>
         <h1 class="cb-h1">Angevins de cœur, <span class="cb-accent">dédiés à vos projets</span></h1>
-        <p class="cb-lead">Derrière L'Immobilier Angevin, <strong>Charles MOREL</strong>, conseiller immobilier indépendant du réseau 3G IMMO, accompagne particuliers et investisseurs dans l'achat, la vente et l'estimation de biens à Angers et dans l'agglomération.</p>
+        <p class="cb-lead">Derrière L'Immobilier Angevin, <strong>Charles MOREL</strong>, conseiller immobilier indépendant du réseau 3G IMMO, et <strong>Antoine HERY</strong>, son associé, accompagnent particuliers et investisseurs dans l'achat, la vente et l'estimation de biens à Angers et dans l'agglomération.</p>
         <p class="cb-lead" style="margin-top:14px;">Notre conviction : un projet immobilier réussi repose sur un prix juste, une information claire et un interlocuteur réellement disponible.</p>
         <div class="cb-actions"><button class="cb-btn" onclick="showPage('contact')">Nous contacter</button><button class="cb-btn ghost" onclick="showPage('estimation')">Estimer mon bien</button></div>
       </div>
@@ -7758,7 +7770,7 @@ function bienCardHTML(b) {
   div.innerHTML =
     '<div class="bien-card-img">' +
       bcSlides(b, altTxt) +
-      vignettes + favBouton(b.id) +
+      vignettes + favBouton(b.id) + _agentAvatar(b) +
       '<span class="bien-card-discover">Découvrir ce bien →</span>' +
       bcControls(b) +
     '</div>' +
@@ -8002,6 +8014,8 @@ function creerAlerte() {
 }
 
 // Rendre dynamiquement le carrousel des biens vendus (combine les biens "vendus" de l'admin + ceux de 3gimmo)
+var CONSEILLERS = {"charles": {"prenom": "Charles", "nomFamille": "MOREL", "nom": "Charles MOREL", "role": "Conseiller immobilier", "vignette": "img/charles-morel-avatar.jpg", "tel": "06 38 55 53 55", "email": "charles.morel@3gimmobilier.com"}, "antoine": {"prenom": "Antoine", "nomFamille": "HERY", "nom": "Antoine HERY", "role": "Associé", "vignette": "img/equipe-antoine-hery-avatar.webp", "tel": "", "email": ""}};
+var CONSEILLER_DEFAUT = 'charles';
 // ===== REFONTE BINÔME (24/11/2026) — chiffres clés de l'accueil =====
 // Biens en vente = annonces publiées sur le site (hors vendus) ; biens vendus = cartes du bandeau « dernières ventes ».
 function majChiffres(nbVendus) {
@@ -8076,6 +8090,39 @@ function _carac(l, v) {
   if (!l || v === undefined || v === null || v === '' || v === '—') return '';
   return '<div class="carac"><span class="carac-ico">' + _caracIco(l) + '</span><span class="carac-txt"><span class="carac-l">' + l + '</span><span class="carac-v">' + v + '</span></span></div>';
 }
+
+// ===== Conseiller de chaque bien (« qui s'occupe de ce bien », comme La Cabane) =====
+// CONSEILLERS est injecté par refonte.py (source unique, aussi utilisée pour la section équipe).
+// Un bien porte `conseiller: 'antoine'` ; sans ce champ (flux 3G), c'est Charles.
+function conseillerDe(b) { return (b && CONSEILLERS[b.conseiller]) || CONSEILLERS[CONSEILLER_DEFAUT]; }
+function _agentAvatar(b) {
+  var c = conseillerDe(b);
+  return '<span class="bien-card-agent" title="' + _esc(c.nom) + ' s’occupe de ce bien"><img src="' + c.vignette + '" alt="Conseiller : ' + _esc(c.nom) + '" width="44" height="44" loading="lazy" decoding="async"></span>';
+}
+function majConseillerFiche(b) {
+  var c = conseillerDe(b);
+  var ph = document.getElementById('ficheAgentPhoto');
+  if (ph) { ph.src = c.vignette; ph.alt = c.nom + ', ' + c.role.toLowerCase(); }
+  var nm = document.querySelector('.fiche-agent-card .fiche-agent-name');
+  if (nm) nm.innerHTML = _esc(c.prenom) + '<br>' + _esc(c.nomFamille);
+  // Téléphone : celui du conseiller s'il est renseigné, sinon celui de l'agence (déjà posé au chargement)
+  if (c.tel) {
+    var href = 'tel:+33' + c.tel.replace(/\D/g, '').replace(/^0/, '');
+    document.querySelectorAll('.fiche-agent-card [data-tel], .fiche-mobile-bar [data-tel]').forEach(function (a) {
+      a.href = href;
+      if (!a.hasAttribute('data-keep-label')) a.textContent = c.tel;
+    });
+  }
+}
+
+// Espace pro : choisir le conseiller de chaque bien (enregistré avec les statuts, comme « Exclusivité »)
+function _adminConseillerSelect(b, dis) {
+  var cur = b.conseiller && CONSEILLERS[b.conseiller] ? b.conseiller : CONSEILLER_DEFAUT;
+  return '<label class="admin-conseiller">Conseiller <select' + dis + ' onchange="adminSetConseiller(' + b.id + ', this.value)">' +
+    Object.keys(CONSEILLERS).map(function (k) { return '<option value="' + k + '"' + (k === cur ? ' selected' : '') + '>' + _esc(CONSEILLERS[k].nom) + '</option>'; }).join('') +
+    '</select></label>';
+}
+function adminSetConseiller(id, v) { return _adminMajBadge(id, { conseiller: v }); }
 
 function renderVendusCarousel() {
   var track = document.querySelector('.vendus-track');
@@ -8163,6 +8210,7 @@ function showFiche(id) {
   if (!b) return;
   // Mémorise le bien affiché pour le bouton "Partager"
   window._bienAffiche = b;
+  majConseillerFiche(b);
   previousPage = document.querySelector('.page.active').id.replace('page-','');
   
   // H1 SEO-friendly : type + ville + caractéristiques clés
@@ -11171,6 +11219,7 @@ async function loadBiens() {
           if (ov.nouveaute !== undefined) b.nouveaute = !!ov.nouveaute;
           if (ov.baisse !== undefined) b.baisse = !!ov.baisse;
           if (ov.masque !== undefined) b.masque = !!ov.masque;
+          if (ov.conseiller) b.conseiller = ov.conseiller;
         }
         if (b.statut === 'vendu') b.statut = 'en_vente';  // sécurité (le vendu vient de soldMap)
       });
@@ -11374,7 +11423,7 @@ function _adminLigne(b) {
       '<div class="admin-bien-info"><h4>' + _esc(b.titre || b.type || 'Bien') + ' ' + badge + '</h4>' +
         '<p>' + _esc(b.ville || '') + ' · ' + _esc(b.type || '') + ' · ' + _esc(formatPrixPublic(b)) + '</p>' +
         '<p class="admin-src">Réf. ' + _esc(ref) + (statut !== 'vendu' && !b.masque ? ' · <a href="#" onclick="showFiche(' + b.id + ');return false;" style="text-decoration:underline;">voir l\'annonce</a>' : '') + '</p></div>' +
-      '<div class="admin-bien-actions">' + actions + '</div>' +
+      '<div class="admin-bien-actions">' + _adminConseillerSelect(b, dis) + actions + '</div>' +
     '</div>';
 }
 
@@ -11478,10 +11527,11 @@ async function _adminMajBadge(id, changes) {
     if (changes.nouveaute !== undefined) e.nouveaute = !!changes.nouveaute;
     if (changes.baisse !== undefined) e.baisse = !!changes.baisse;
     if (changes.masque !== undefined) { if (changes.masque) e.masque = true; else delete e.masque; e.override = true; }
+    if (changes.conseiller !== undefined) { if (changes.conseiller && changes.conseiller !== CONSEILLER_DEFAUT) e.conseiller = changes.conseiller; else delete e.conseiller; }
     e.titre = b.titre || ''; e.type = b.type || 'Bien'; e.ville = b.ville || ''; e.cp = b.cp || ''; e.img = b.img || ''; e.prix = b.prix || 0;
     if (i >= 0) overlay[i] = e; else overlay.unshift(e);
     overlay = overlay.filter(function (v) {
-      return v.override || v.alaune || v.exclusif || v.masque || (typeof v.nouveaute !== 'undefined') || (typeof v.baisse !== 'undefined') || (v.statut && v.statut !== 'en_vente');
+      return v.override || v.conseiller || v.alaune || v.exclusif || v.masque || (typeof v.nouveaute !== 'undefined') || (typeof v.baisse !== 'undefined') || (v.statut && v.statut !== 'en_vente');
     });
     var ok = await _publierStatuts(overlay);
     if (!ok) return;
@@ -11491,6 +11541,7 @@ async function _adminMajBadge(id, changes) {
     if (changes.alaune !== undefined) b.alaune = !!changes.alaune;
     if (changes.nouveaute !== undefined) b.nouveaute = !!changes.nouveaute;
     if (changes.baisse !== undefined) b.baisse = !!changes.baisse;
+    if (changes.conseiller !== undefined) { if (changes.conseiller && changes.conseiller !== CONSEILLER_DEFAUT) b.conseiller = changes.conseiller; else delete b.conseiller; }
     if (changes.masque !== undefined) {
       b.masque = !!changes.masque;
       biens = biens.filter(function (x) { return x !== b; }); biensMasques = biensMasques.filter(function (x) { return x !== b; });
