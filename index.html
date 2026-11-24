@@ -5177,6 +5177,8 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
   #biensGrid.vue-liste .bien-card { display: block; }
   #biensGrid.vue-liste .bien-card-img { border-radius: 20px 20px 0 0; aspect-ratio: 3 / 2; }
 }
+.equipe-tel { display: inline-block; margin: -4px 0 14px; font-size: 1.15rem; font-weight: 800; color: var(--rouge); text-decoration: none; letter-spacing: .02em; }
+.equipe-tel:hover { text-decoration: underline; }
 
 </style>
 </head>
@@ -5314,12 +5316,14 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
           <img class="equipe-photo" src="img/equipe-charles-morel.webp" alt="Charles Morel, cofondateur" width="640" height="640" loading="lazy" decoding="async">
           <h3 class="equipe-nom">Charles <span>MOREL</span></h3>
           <p class="equipe-role">Cofondateur</p>
+          <a class="equipe-tel" href="tel:+33638555355">06 38 55 53 55</a>
           <p class="equipe-txt">Diplômé d'un Bachelor Responsable commercial et marketing spécialisé dans l'immobilier, Charles a exercé quatre ans comme conseiller indépendant sur le secteur de Sablé-sur-Sarthe, où il comptait parmi les meilleurs de son secteur et accompagnait déjà de nombreux clients angevins. Sa rencontre avec Antoine Hery a été une évidence : ouvrir leur agence, à deux.</p>
         </article>
         <article class="equipe-carte">
           <img class="equipe-photo" src="img/equipe-antoine-hery.webp" alt="Antoine Hery, cofondateur" width="640" height="640" loading="lazy" decoding="async">
           <h3 class="equipe-nom">Antoine <span>HERY</span></h3>
           <p class="equipe-role">Cofondateur</p>
+          <a class="equipe-tel" href="tel:+33682873331">06 82 87 33 31</a>
           <p class="equipe-txt">Antoine compte dix ans d'expérience dans l'immobilier, dont sept ans à Angers. Il a ensuite passé trois ans comme commercial Grand Ouest pour une agence parisienne, où il gérait des biens de prestige dans l'ouest de la France et à Paris. Fort de ce parcours, il revient aujourd'hui à Angers pour s'associer avec Charles Morel et ouvrir son agence, en gardant le meilleur de ses dix années d'expérience.</p>
         </article>
       </div>
@@ -5922,12 +5926,14 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
           <img class="equipe-photo" src="img/equipe-charles-morel.webp" alt="Charles Morel, cofondateur" width="640" height="640" loading="lazy" decoding="async">
           <h3 class="equipe-nom">Charles <span>MOREL</span></h3>
           <p class="equipe-role">Cofondateur</p>
+          <a class="equipe-tel" href="tel:+33638555355">06 38 55 53 55</a>
           <p class="equipe-txt">Diplômé d'un Bachelor Responsable commercial et marketing spécialisé dans l'immobilier, Charles a exercé quatre ans comme conseiller indépendant sur le secteur de Sablé-sur-Sarthe, où il comptait parmi les meilleurs de son secteur et accompagnait déjà de nombreux clients angevins. Sa rencontre avec Antoine Hery a été une évidence : ouvrir leur agence, à deux.</p>
         </article>
         <article class="equipe-carte">
           <img class="equipe-photo" src="img/equipe-antoine-hery.webp" alt="Antoine Hery, cofondateur" width="640" height="640" loading="lazy" decoding="async">
           <h3 class="equipe-nom">Antoine <span>HERY</span></h3>
           <p class="equipe-role">Cofondateur</p>
+          <a class="equipe-tel" href="tel:+33682873331">06 82 87 33 31</a>
           <p class="equipe-txt">Antoine compte dix ans d'expérience dans l'immobilier, dont sept ans à Angers. Il a ensuite passé trois ans comme commercial Grand Ouest pour une agence parisienne, où il gérait des biens de prestige dans l'ouest de la France et à Paris. Fort de ce parcours, il revient aujourd'hui à Angers pour s'associer avec Charles Morel et ouvrir son agence, en gardant le meilleur de ses dix années d'expérience.</p>
         </article>
       </div>
@@ -8366,7 +8372,7 @@ function creerAlerte() {
 }
 
 // Rendre dynamiquement le carrousel des biens vendus (combine les biens "vendus" de l'admin + ceux de 3gimmo)
-var CONSEILLERS = {"charles": {"prenom": "Charles", "nomFamille": "MOREL", "nom": "Charles MOREL", "role": "Cofondateur", "vignette": "img/charles-morel-avatar.jpg", "tel": "06 38 55 53 55", "email": "charles.morel@3gimmobilier.com"}, "antoine": {"prenom": "Antoine", "nomFamille": "HERY", "nom": "Antoine HERY", "role": "Cofondateur", "vignette": "img/equipe-antoine-hery-avatar.webp", "tel": "", "email": ""}};
+var CONSEILLERS = {"charles": {"prenom": "Charles", "nomFamille": "MOREL", "nom": "Charles MOREL", "role": "Cofondateur", "vignette": "img/charles-morel-avatar.jpg", "tel": "06 38 55 53 55", "email": "charles.morel@3gimmobilier.com"}, "antoine": {"prenom": "Antoine", "nomFamille": "HERY", "nom": "Antoine HERY", "role": "Cofondateur", "vignette": "img/equipe-antoine-hery-avatar.webp", "tel": "06 82 87 33 31", "email": ""}};
 var CONSEILLER_DEFAUT = 'charles';
 // ===== REFONTE BINÔME (24/11/2026) — chiffres clés de l'accueil =====
 // Biens vendus = 193 ventes réalisées avant le site (chiffre donné par Charles le 24/11/2026)
