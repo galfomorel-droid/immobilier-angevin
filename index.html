@@ -8097,6 +8097,9 @@ function creerAlerte() {
 var CONSEILLERS = {"charles": {"prenom": "Charles", "nomFamille": "MOREL", "nom": "Charles MOREL", "role": "Cofondateur", "vignette": "img/charles-morel-avatar.jpg", "tel": "06 38 55 53 55", "email": "charles.morel@3gimmobilier.com"}, "antoine": {"prenom": "Antoine", "nomFamille": "HERY", "nom": "Antoine HERY", "role": "Cofondateur", "vignette": "img/equipe-antoine-hery-avatar.webp", "tel": "", "email": ""}};
 var CONSEILLER_DEFAUT = 'charles';
 // ===== REFONTE BINÔME (24/11/2026) — chiffres clés de l'accueil =====
+// Biens vendus = 193 ventes réalisées avant le site (chiffre donné par Charles le 24/11/2026)
+//               + chaque bien passé en « Vendu » dans l'espace pro.
+var VENDUS_DEPART = 193;
 // Biens en vente = annonces publiées sur le site (hors vendus) ; biens vendus = cartes du bandeau « dernières ventes ».
 function majChiffres(nbVendus) {
   try {
@@ -8328,7 +8331,7 @@ function renderVendusCarousel() {
 
   // On met d'abord les ventes récentes (admin + auto 3G), puis les historiques
   var tous = adminVendus.concat(autoVendus).concat(historiques);
-  majChiffres(tous.length);
+  majChiffres(VENDUS_DEPART + adminVendus.length);
 
   // Si aucun bien (cas impossible vu les 4 historiques), masquer la section
   if (tous.length === 0) {
