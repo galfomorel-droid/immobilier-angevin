@@ -7725,7 +7725,8 @@ function _agentAvatar(b) {
   return '<span class="bien-card-agent" title="' + _esc(c.nom) + ' s’occupe de ce bien"><img src="' + c.vignette + '" alt="Conseiller : ' + _esc(c.nom) + '" width="44" height="44" loading="lazy" decoding="async"></span>';
 }
 function majConseillerFiche(b) {
-  setTimeout(function () { _ficheCabaneMaj(b); }, 0);
+  // microtâche : s'exécute dès que showFiche a fini de remplir la fiche, mais avant que le navigateur ne l'affiche
+  (window.queueMicrotask || function (f) { Promise.resolve().then(f); })(function () { _ficheCabaneMaj(b); });
   var c = conseillerDe(b);
   var ph = document.getElementById('ficheAgentPhoto');
   if (ph) { ph.src = c.vignette; ph.alt = c.nom + ', ' + c.role.toLowerCase(); }
@@ -8099,6 +8100,10 @@ function _descFidele(texte) {
   });
   return '<div class="desc-fidele">' + html + '</div>';
 }
+
+// La réorganisation de la fiche (une seule fois) se fait dès le chargement, avant tout affichage d'annonce :
+// sur réseau lent, elle arrivait après le premier affichage et poussait le contenu de 230 px (CLS 0,14 sur mobile).
+document.addEventListener('DOMContentLoaded', function () { try { _ficheCabaneInit(); } catch (e) {} });
 
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
