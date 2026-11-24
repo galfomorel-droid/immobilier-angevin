@@ -5119,6 +5119,65 @@ html.sans-anim .prt-piste[aria-hidden="true"] { display: none; }
 html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .bien-vg.vg-partenaire { background: #fff; color: var(--marine); border: 1px solid rgba(2,20,48,.15); }
 
+/* ===================== PAGE « NOS ANNONCES » FAÇON LA CABANE (24/11/2026) ===================== */
+#page-biens { background: var(--light-bg); }
+#page-biens .page-header { background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 90px, rgba(255,255,255,0) 90px 180px), var(--marine);
+  padding-bottom: clamp(120px, 12vw, 150px); }
+#page-biens .page-header h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+#page-biens .page-header h1 .cb-accent { color: #9DB3D9; }
+.biens-zone { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.biens-recherche { position: relative; margin-top: clamp(-110px, -9vw, -80px); background: #fff; border-radius: 0 20px 20px 20px; padding: 26px 28px 34px;
+  box-shadow: 0 24px 60px rgba(2,20,48,.14); display: grid; grid-template-columns: 1fr auto; gap: 14px 18px; align-items: center; }
+.recherche-onglet { position: absolute; left: 0; top: -40px; height: 40px; display: inline-flex; align-items: center; padding: 0 22px; background: #fff; border-radius: 14px 14px 0 0;
+  font-size: .85rem; font-weight: 700; color: var(--marine); }
+.biens-recherche .search-bar { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: none; border: 0; }
+.biens-recherche .search-bar.plus-ouvert { grid-template-columns: repeat(3, 1fr); }
+.biens-recherche .search-field, .biens-recherche .ms-toggle { background-color: #F1F3F8; border: 0 !important; border-radius: 10px; padding: .9rem 1rem; font-weight: 600; color: var(--marine); width: 100%; }
+.biens-recherche #biensBudget, .biens-recherche #biensBudgetMin { display: none !important; }
+.budget-curseur { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 4px 2px; }
+.bud-lbl { font-weight: 700; color: var(--marine); font-size: .9rem; }
+.bud-val { font-weight: 700; color: var(--marine); font-size: .88rem; white-space: nowrap; }
+.bud-piste { position: relative; height: 28px; }
+.bud-piste::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; background: #DDE3EE; border-radius: 4px; }
+.bud-plage { position: absolute; top: 50%; height: 4px; margin-top: -2px; background: var(--marine); border-radius: 4px; }
+.bud-piste input[type=range] { position: absolute; inset: 0; width: 100%; margin: 0; background: none; pointer-events: none; -webkit-appearance: none; appearance: none; }
+.bud-piste input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; pointer-events: auto; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid var(--marine); box-shadow: 0 2px 6px rgba(2,20,48,.25); cursor: pointer; }
+.bud-piste input[type=range]::-moz-range-thumb { pointer-events: auto; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--marine); cursor: pointer; }
+.bud-piste input[type=range]::-webkit-slider-runnable-track { background: none; }
+.bud-piste input[type=range]::-moz-range-track { background: none; }
+.biens-recherche .feat-chips { grid-column: 1 / 2; margin: 0; }
+.recherche-reset { grid-column: 1 / 2; justify-self: start; font: inherit; font-size: .82rem; font-weight: 700; color: var(--marine); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+.recherche-go { position: absolute; right: 26px; bottom: -22px; display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 700; font-size: .9rem; color: #fff; background: var(--marine);
+  border: 0; border-radius: 999px; padding: 13px 26px; box-shadow: 0 10px 24px rgba(2,20,48,.28); cursor: pointer; transition-property: transform, background-color; transition-duration: .25s; }
+.recherche-go:hover { background: #0D2650; transform: translateY(-2px); }
+#page-biens .biens-resultbar { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+#page-biens #biensReset { display: none !important; }
+.biens-favs { display: inline-flex; align-items: center; gap: 7px; font: inherit; font-size: .82rem; color: var(--marine); background: #fff; border: 1px solid var(--line-c); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.biens-favs svg { color: var(--rouge); }
+.biens-favs .fav-count:empty::before { content: '0'; }
+.vue-bascule { display: inline-flex; gap: 4px; margin-left: auto; }
+.vue-bascule button { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: none; border-radius: 8px; color: #8A93A6; cursor: pointer; }
+.vue-bascule button.on { color: var(--marine); background: #fff; box-shadow: 0 2px 8px rgba(2,20,48,.08); }
+#page-biens .biens-tri label { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; color: #5b6475; }
+#page-biens .biens-tri select { border-radius: 999px; border: 1px solid var(--line-c); background-color: #fff; padding: 7px 30px 7px 14px; font-weight: 600; color: var(--marine); }
+#page-biens .biens-page-grid { max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 28px; padding-right: 28px; }
+/* Affichage en liste : photo à gauche, texte à droite */
+#biensGrid.vue-liste { grid-template-columns: 1fr !important; }
+#biensGrid.vue-liste .bien-card { display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); }
+#biensGrid.vue-liste .bien-card-img { border-radius: 20px 0 0 20px; aspect-ratio: auto; min-height: 100%; }
+@media (max-width: 760px) {
+  .biens-zone, #page-biens .biens-page-grid { padding-left: 16px; padding-right: 16px; }
+  .biens-recherche { grid-template-columns: 1fr; padding: 22px 18px 40px; }
+  .biens-recherche .search-bar, .biens-recherche .search-bar.plus-ouvert { grid-template-columns: 1fr; }
+  .budget-curseur { grid-template-columns: 1fr; gap: 8px; }
+  .bud-val { white-space: normal; }
+  .recherche-go { left: 18px; right: 18px; justify-content: center; }
+  .vue-bascule { display: none; }
+  #biensGrid.vue-liste .bien-card { display: block; }
+  #biensGrid.vue-liste .bien-card-img { border-radius: 20px 20px 0 0; aspect-ratio: 3 / 2; }
+}
+
 </style>
 </head>
 <body>
@@ -5574,10 +5633,11 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 <div id="page-biens" class="page">
   <div class="page-header">
     <span class="cb-kicker" id="biensKicker" style="color:rgba(255,255,255,.62);">Acheter</span>
-    <h1 id="biensTitre">Nos biens à vendre</h1>
+    <h1 id="biensTitre">Nos biens <span class="cb-accent">à vendre</span></h1>
     <p id="biensIntro">Maisons, appartements et terrains à vendre à Angers, à Sablé-sur-Sarthe et alentours, visités et sélectionnés par nos soins.</p>
   </div>
-  <div style="padding:2rem 6% 0;max-width:1400px;margin:0 auto;">
+  <div class="biens-zone">
+    <div class="biens-recherche"><span class="recherche-onglet">Nos annonces</span>
     <div class="search-bar">
       <div id="biensVilleMS" class="ms">
         <button type="button" class="search-field ms-toggle" onclick="toggleVilleMenu(event)"><span id="biensVilleLabel">Toutes les villes</span></button>
@@ -5633,7 +5693,18 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
       </select>
       <input id="biensRef" class="search-field search-ref search-plus" type="text" placeholder="Réf" aria-label="Référence de l'annonce" oninput="setFiltre('ref', this.value)">
     </div>
+    <div class="budget-curseur" id="budgetCurseur">
+      <span class="bud-lbl">Votre budget</span>
+      <div class="bud-piste"><div class="bud-plage" id="budPlage"></div>
+        <input type="range" id="budMin" min="0" max="1000000" step="10000" value="0" aria-label="Budget minimum">
+        <input type="range" id="budMax" min="0" max="1000000" step="10000" value="1000000" aria-label="Budget maximum">
+      </div>
+      <span class="bud-val" id="budVal" aria-live="polite">De 0 € à 1 000 000 € et +</span>
+    </div>
     <div class="feat-chips" id="featChips" aria-label="Critères de recherche"></div>
+    <button type="button" class="recherche-reset" onclick="reinitialiserFiltres()">Réinitialiser les filtres</button>
+    <button type="button" class="recherche-go" onclick="lancerRechercheAnnonces()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Rechercher</button>
+    </div>
     <div class="biens-resultbar">
       <span id="biensCount" class="biens-count" aria-live="polite">— résultats</span>
       <button type="button" class="biens-reset" id="biensReset" onclick="reinitialiserFiltres()" hidden>Réinitialiser les filtres</button>
@@ -5641,6 +5712,8 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         Créer une alerte
       </button>
+      <button type="button" class="biens-favs" onclick="showPage('favoris')"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg><span>Mes favoris (<span id="favsAnnoncesN">0</span>)</span></button>
+      <div class="vue-bascule" role="group" aria-label="Affichage des annonces"><button type="button" data-vue="grille" class="on" aria-pressed="true" aria-label="Affichage en grille"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></button><button type="button" data-vue="liste" aria-pressed="false" aria-label="Affichage en liste"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="3" y="4" width="5" height="4" rx="1"/><rect x="10" y="4" width="11" height="4" rx="1"/><rect x="3" y="10" width="5" height="4" rx="1"/><rect x="10" y="10" width="11" height="4" rx="1"/><rect x="3" y="16" width="5" height="4" rx="1"/><rect x="10" y="16" width="11" height="4" rx="1"/></svg></button></div>
       <button id="biensVueBtn" class="biens-vue-toggle" onclick="toggleVueCarte()">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg>
         <span id="biensVueLabel">Carte</span>
@@ -7121,7 +7194,7 @@ function setTransaction(tx) {
   var loc = tx === 'location';
   var set = function (id, t) { var e = document.getElementById(id); if (e) e.textContent = t; };
   set('biensKicker', loc ? 'Louer' : 'Acheter');
-  set('biensTitre', loc ? 'Nos biens à louer' : 'Nos biens à vendre');
+  var _bt = document.getElementById('biensTitre'); if (_bt) _bt.innerHTML = loc ? 'Nos biens <span class="cb-accent">à louer</span>' : 'Nos biens <span class="cb-accent">à vendre</span>';
   set('biensIntro', loc ? "Studios, appartements et maisons à louer à Angers et dans l'agglomération, vides ou meublés."
                         : "Maisons, appartements et terrains à vendre à Angers, à Sablé-sur-Sarthe et alentours, visités et sélectionnés par nos soins.");
   document.querySelectorAll('.tx-tabs button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-tx') === tx); });
@@ -8426,6 +8499,56 @@ function _mentionPartenaire(b) {
     (p.energie ? ' Dépenses annuelles d’énergie estimées : ' + _esc(p.energie) + '.' : '') +
     (p.url ? ' <a href="' + _esc(p.url) + '" target="_blank" rel="noopener" style="color:var(--or-fonce);border-bottom:1px solid currentColor;">Voir l’annonce d’origine</a>' : '') + '</p>';
 }
+
+// ===== Page « Nos annonces » : curseur de budget, bouton Rechercher, affichage grille / liste =====
+var BUD_MAX = 1000000;
+function _eurBud(n) { return n.toLocaleString('fr-FR').replace(/ | /g, ' ') + ' €'; }
+function _majCurseur() {
+  var mi = document.getElementById('budMin'), ma = document.getElementById('budMax'); if (!mi || !ma) return;
+  mi.value = Math.min(filterBudgetMin || 0, BUD_MAX); ma.value = filterBudgetMax ? Math.min(filterBudgetMax, BUD_MAX) : BUD_MAX;
+  _peindreCurseur();
+}
+function _peindreCurseur() {
+  var mi = document.getElementById('budMin'), ma = document.getElementById('budMax'), pl = document.getElementById('budPlage'), v = document.getElementById('budVal');
+  if (!mi || !ma) return;
+  var a = +mi.value, b = +ma.value;
+  if (pl) { pl.style.left = (a / BUD_MAX * 100) + '%'; pl.style.right = (100 - b / BUD_MAX * 100) + '%'; }
+  if (v) v.textContent = 'De ' + _eurBud(a) + ' à ' + _eurBud(b) + (b >= BUD_MAX ? ' et +' : '');
+}
+var _budTempo = null;
+function _budChange(e) {
+  var mi = document.getElementById('budMin'), ma = document.getElementById('budMax');
+  if (+mi.value > +ma.value) { if (e && e.target === mi) mi.value = ma.value; else ma.value = mi.value; }
+  _peindreCurseur();
+  clearTimeout(_budTempo);
+  _budTempo = setTimeout(function () {
+    filterBudgetMin = +mi.value || 0;
+    filterBudgetMax = (+ma.value >= BUD_MAX) ? 0 : +ma.value;
+    var s1 = document.getElementById('biensBudgetMin'), s2 = document.getElementById('biensBudget');
+    if (s1) s1.value = ''; if (s2) s2.value = '';
+    renderBiensGrid();
+  }, 180);
+}
+function lancerRechercheAnnonces() {
+  renderBiensGrid();
+  var g = document.querySelector('.biens-resultbar') || document.getElementById('biensGrid');
+  if (g) window.scrollTo({ top: g.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+}
+function _vueAnnonces(v) {
+  var g = document.getElementById('biensGrid'); if (!g) return;
+  g.classList.toggle('vue-liste', v === 'liste');
+  document.querySelectorAll('.vue-bascule button').forEach(function (b) { var on = b.getAttribute('data-vue') === v; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  try { localStorage.setItem('ia_vue', v); } catch (e) {}
+}
+document.addEventListener('DOMContentLoaded', function () {
+  ['budMin', 'budMax'].forEach(function (id) { var el = document.getElementById(id); if (el) el.addEventListener('input', _budChange); });
+  document.querySelectorAll('.vue-bascule button').forEach(function (b) { b.addEventListener('click', function () { _vueAnnonces(b.getAttribute('data-vue')); }); });
+  var v = 'grille'; try { v = localStorage.getItem('ia_vue') || 'grille'; } catch (e) {}
+  _vueAnnonces(v); _majCurseur();
+  if (typeof favMajUI === 'function') { var _fav0 = favMajUI; favMajUI = function () { _fav0.apply(this, arguments); _majFavsAnnonces(); }; }
+  _majFavsAnnonces();
+});
+function _majFavsAnnonces() { var n = document.getElementById('favsAnnoncesN'); if (n) { try { n.textContent = favListe().length; } catch (e) { n.textContent = '0'; } } }
 
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
@@ -10354,6 +10477,7 @@ function renderFeatChips() {
   var box = document.getElementById('featChips'); if (!box || typeof biens === 'undefined') return;
   var actifs = biens.filter(function (b) { return b.statut !== 'vendu'; });
   box.classList.toggle('is-open', !!window._featOpen);
+  if (typeof _majCurseur === 'function') _majCurseur();
   var _sb = document.querySelector('#page-biens .search-bar');
   if (_sb) _sb.classList.toggle('plus-ouvert', !!window._featOpen || !!(filterBudgetMin || filterSurfaceMin || filterChambresMin || filterTerrainMin || filterRef));
   var nbOn = filterFeatures.length;
