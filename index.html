@@ -5446,6 +5446,25 @@ body { font-weight: 400; }
 .outils-sr, .outils-label, .outils-res-k, .outils-legend, .terr-title { font-size: .8rem; }
 .equipe-txt { font-size: .98rem; line-height: 1.7; }
 
+/* --- Boutons : une seule famille (pilule 48 px, casse normale, graisse 600) --- */
+.cb-btn, a.cb-btn, button.cb-btn, .form-submit, .recherche-go, .fiche-contact-form button[type="submit"], .fj-contact button[type="submit"] {
+  min-height: 48px; padding: 0 26px; border-radius: 999px; font-size: .95rem; font-weight: 600;
+  text-transform: none; letter-spacing: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.2;
+}
+.cb-btn { background: var(--marine); color: #fff; border: 2px solid var(--marine); }
+.cb-btn:hover { background: #0D2650; border-color: #0D2650; }
+.cb-btn.ghost { background: #fff; color: var(--marine); border: 2px solid var(--marine); }
+.cb-btn.ghost:hover { background: #F5F6F9; }
+.cb-btn.on-dark { background: #fff; color: var(--marine); border-color: #fff; }
+.cb-btn.on-dark-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.7); }
+.cb-btn.rouge, .cb-btn.is-red { background: var(--rouge); border-color: var(--rouge); }
+.form-submit { width: 100%; }
+
+/* --- Cartes et blocs : rayons et ombres communs --- */
+.cb-card { border-radius: 18px; border: 1px solid #E3E7EF; box-shadow: 0 6px 20px rgba(2,20,48,.05); }
+a.cb-card:hover, button.cb-card:hover { box-shadow: 0 12px 30px rgba(2,20,48,.10); }
+.cb-form, .est-card { border-radius: 22px; box-shadow: 0 10px 30px rgba(2,20,48,.08); }
+
 </style>
 </head>
 <body>
