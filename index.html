@@ -8112,6 +8112,16 @@ function _descFidele(texte) {
 // sur réseau lent, elle arrivait après le premier affichage et poussait le contenu de 230 px (CLS 0,14 sur mobile).
 document.addEventListener('DOMContentLoaded', function () { try { _ficheCabaneInit(); } catch (e) {} });
 
+// Ventes reprises de la page conseiller 3G de Charles (data/vendus-3g.json, mis à jour par _communes/vendus_3g.py)
+var _vendus3G = [];
+fetch('data/vendus-3g.json', { cache: 'no-cache' })
+  .then(function (r) { return r.ok ? r.json() : { vendus: [] }; })
+  .then(function (d) {
+    _vendus3G = (d && d.vendus) || [];
+    try { if (typeof biens !== 'undefined' && biens && biens.length) renderVendusCarousel(); } catch (e) {}
+  })
+  .catch(function () {});
+
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
 var _ANIM = document.documentElement.classList.contains('anim');
@@ -8270,8 +8280,12 @@ function renderVendusCarousel() {
     });
 
   // Biens vendus historiques (depuis 3gimmo) — hardcodés
-  var historiques = [
-  ];
+  var _dejaVus = {};
+  biensVendus.forEach(function (b) { _dejaVus[String(b.id)] = 1; });
+  (vendusAuto || []).forEach(function (v) { _dejaVus[String(v.id)] = 1; });
+  var historiques = (typeof _vendus3G !== 'undefined' ? _vendus3G : [])
+    .filter(function (v) { return !_dejaVus[String(v.id)]; })
+    .map(function (v) { return { id: v.id, type: v.type || 'Bien', ville: v.ville || '', img: v.img || '', visuel3G: true }; });
 
   // Convertir les biens vendus admin au même format
   var adminVendus = biensVendus.map(function(b){
@@ -8304,7 +8318,7 @@ function renderVendusCarousel() {
     return '<div class="vendus-card"' + (ariaHidden ? ' aria-hidden="true"' : '') + '>' +
       '<div class="vendus-img-wrap">' +
         '<img src="' + (v.img ? imgOpt(v.img, 700) : PLACEHOLDER_IMG) + '" data-orig="' + (v.img || '') + '" alt="' + altText.replace(/"/g,'&quot;') + '" decoding="async" fetchpriority="low" onerror="imgRepli(this)">' +
-        '<span class="vendus-badge">Vendu</span>' +
+        (v.visuel3G ? '' : '<span class="vendus-badge">Vendu</span>') +
       '</div>' +
       '<div class="vendus-info">' +
         '<div class="vendus-type">' + (v.type || 'Bien') + '</div>' +
@@ -11060,7 +11074,7 @@ function bcNav(ev, btn, dir) {
 // via le relais d'images wsrv.nl (≈ 40 Ko pour une carte, 85× plus léger). Si le relais ne répond pas,
 // la photo d'origine 3G est rechargée automatiquement (attribut data-orig), puis l'image de remplacement.
 function imgOpt(url, w) {
-  if (!url || typeof url !== 'string' || url.indexOf('admin.3gimmobilier.fr') === -1) return url;
+  if (!url || typeof url !== 'string' || (url.indexOf('admin.3gimmobilier.fr') === -1 && url.indexOf('media.3gimmo.com') === -1)) return url;
   return 'https://wsrv.nl/?url=' + url.replace(/^https?:\/\//, '') + '&w=' + (w || 800) + '&we&output=webp&q=74';
 }
 function imgRepli(img) {
