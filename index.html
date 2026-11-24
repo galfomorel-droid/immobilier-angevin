@@ -5352,6 +5352,17 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
    arrête alors la mesure du LCP (accueil noté « NO_LCP » par Lighthouse). */
 .avis3-piste.snap { scroll-snap-type: x mandatory; }
 
+/* ===================== FICHE MOBILE : CARACTÉRISTIQUES SUR UNE COLONNE (priorité 1, 24/11/2026) ===================== */
+@media (max-width: 480px) {
+  #page-fiche .caracs, #page-fiche.fj .caracs { grid-template-columns: 1fr; gap: 0; padding: 8px 18px; }
+  #page-fiche .carac { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+  #page-fiche .carac:last-child { border-bottom: 0; }
+  #page-fiche .carac-txt, #page-fiche.fj .carac-txt { display: flex; flex-direction: row !important; justify-content: space-between; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+  #page-fiche.fj .carac-l { margin: 0 !important; }
+  #page-fiche .carac-l { flex: 0 1 auto; }
+  #page-fiche .carac-v { text-align: right; overflow-wrap: normal; word-break: normal; }
+}
+
 </style>
 </head>
 <body>
