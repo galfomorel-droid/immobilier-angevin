@@ -5363,6 +5363,37 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
   #page-fiche .carac-v { text-align: right; overflow-wrap: normal; word-break: normal; }
 }
 
+/* ===================== PRIORITÉ 2 : ACCUEIL RESSERRÉ (24/11/2026) ===================== */
+/* Pastille de recherche unique sur mobile (formulaire complet conservé sur ordinateur) */
+.hero-pastille { display: none; }
+@media (max-width: 900px) {
+  #hero .hero-search { display: none !important; }
+  .hero-pastille { display: inline-flex; align-items: center; gap: 12px; margin: 22px auto 0; background: #fff; color: var(--marine); text-decoration: none;
+    border-radius: 999px; padding: 10px 26px 10px 10px; box-shadow: 0 10px 30px rgba(2,20,48,.25); max-width: calc(100% - 40px); }
+  .hero-pastille-ico { width: 42px; height: 42px; border-radius: 50%; background: var(--marine); color: #fff; display: grid; place-items: center; flex: 0 0 auto; }
+  .hero-pastille strong { display: block; font-size: 1rem; font-weight: 700; line-height: 1.2; }
+  .hero-pastille small { display: block; font-size: .8rem; color: #5B6475; }
+  html.anim #heroContent .hero-pastille { animation: heroIn 1s cubic-bezier(.2,.7,.2,1) .35s both; }
+  html.anim:not(.sans-intro) #heroContent .hero-pastille { animation-delay: 1.3s; }
+}
+/* Équipe sur l'accueil : photo, nom, rôle, téléphone (parcours sur L'agence) */
+#page-home .equipe .equipe-grid { max-width: 640px; margin-left: auto; margin-right: auto; }
+/* Services : tuiles compactes */
+#page-home #services .cb-grid, #page-home #services [class*="grid"] { gap: 14px; }
+#page-home #services .cb-card { padding: 22px 20px; }
+@media (max-width: 700px) {
+  #page-home #services .cb-grid, #page-home #services [class*="grid"] { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+  #page-home #services .cb-card { padding: 16px 14px; }
+  #page-home #services .cb-card p { display: none; }
+  #page-home #services .cb-card h3 { font-size: 1rem; margin: 8px 0 6px; }
+}
+@media (max-width: 700px) {
+  #page-home .equipe .equipe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  #page-home .equipe .equipe-photo { width: 112px; height: 112px; }
+  #page-home .equipe .equipe-nom { font-size: 1.02rem; }
+  #page-home .equipe .equipe-tel { font-size: .95rem; }
+}
+
 </style>
 </head>
 <body>
@@ -5460,6 +5491,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
       </form>
+      <a class="hero-pastille" href="#acheter" onclick="showPage('acheter');return false;"><span class="hero-pastille-ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><span><strong>Rechercher un bien</strong><small>Ville, type, budget…</small></span></a>
     </div>
   </section>
 
@@ -5500,39 +5532,22 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
           <h3 class="equipe-nom">Charles <span>MOREL</span></h3>
           <p class="equipe-role">Cofondateur</p>
           <a class="equipe-tel" href="tel:+33638555355">06 38 55 53 55</a>
-          <p class="equipe-txt">Diplômé d'un Bachelor Responsable commercial et marketing spécialisé dans l'immobilier, Charles a exercé quatre ans comme conseiller indépendant sur le secteur de Sablé-sur-Sarthe, où il comptait parmi les meilleurs de son secteur et accompagnait déjà de nombreux clients angevins. Sa rencontre avec Antoine Hery a été une évidence : ouvrir leur agence, à deux.</p>
         </article>
         <article class="equipe-carte">
           <img class="equipe-photo" src="img/equipe-antoine-hery.webp" alt="Antoine Hery, cofondateur" width="640" height="640" loading="lazy" decoding="async">
           <h3 class="equipe-nom">Antoine <span>HERY</span></h3>
           <p class="equipe-role">Cofondateur</p>
           <a class="equipe-tel" href="tel:+33682873331">06 82 87 33 31</a>
-          <p class="equipe-txt">Antoine compte dix ans d'expérience dans l'immobilier, dont sept ans à Angers. Il a ensuite passé trois ans comme commercial Grand Ouest pour une agence parisienne, où il gérait des biens de prestige dans l'ouest de la France et à Paris. Fort de ce parcours, il revient aujourd'hui à Angers pour s'associer avec Charles Morel et ouvrir son agence, en gardant le meilleur de ses dix années d'expérience.</p>
         </article>
       </div>
       <div class="cb-actions" style="justify-content:center;">
-        <button class="cb-btn" onclick="showPage('contact')">Nous contacter</button>
-        <a class="cb-btn ghost" data-tel href="#contact">Nous appeler</a>
+        <a class="cb-btn" href="#agence" onclick="showPage('apropos');return false;">Découvrir l'agence</a>
       </div>
     </div>
   </section>
 
 
   <!-- PRÉSENTATION (textes de la page L'agence) -->
-  <section class="cb-section presentation" id="presentation">
-    <div class="cb-wrap pres-split">
-      <div class="pres-txt">
-        <span class="cb-kicker">Notre approche</span>
-        <h2 class="cb-h2">Bien plus qu'une <span class="cb-accent">transaction</span></h2>
-        <p>Notre rôle ne se limite pas à vendre ou acheter un bien. Nous accompagnons des étapes de vie importantes, avec exigence, clarté et engagement.</p>
-        <p>Une première acquisition, une mutation professionnelle, une succession, un investissement locatif : chaque projet a ses enjeux, ses délais et ses contraintes. Nous prenons le temps de les comprendre avant de vous proposer une stratégie.</p>
-        <a class="pres-lien" href="#agence" onclick="showPage('apropos');return false;">Voir plus <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="pres-photo"><img src="img/angers-2-900.webp" srcset="img/angers-2-900.webp 900w, img/angers-2-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 560px" alt="Les quais de la Maine et le château d'Angers" width="900" height="601" loading="lazy" decoding="async"></div>
-    </div>
-  </section>
-
-  <!-- NOS SERVICES -->
   <section class="cb-section cb-center" id="services">
     <div class="cb-wrap">
       <span class="cb-kicker">Nos services</span>
@@ -5682,22 +5697,6 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
     <div class="prt-defile" aria-label="Portails de diffusion">
       <ul class="prt-piste"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#FF6E14;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#12A5A0;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#2E9E7E;">Tous Voisins</span></li></ul>
       <ul class="prt-piste" aria-hidden="true"><li class="prt-logo"><span style="color:#E2001A;font-weight:800">SeLoger</span></li><li class="prt-logo"><span style="color:#FF6E14;font-weight:700">leboncoin</span></li><li class="prt-logo"><span style="color:#12A5A0;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span></li><li class="prt-logo"><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span></li><li class="prt-logo"><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span></li><li class="prt-logo"><span style="color:#192D56;">Le Figaro Immobilier</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span></li><li class="prt-logo"><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span></li><li class="prt-logo"><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span></li><li class="prt-logo"><span style="color:#2D3A8C;">Properstar</span></li><li class="prt-logo"><span style="color:#16324F;font-weight:700">Jinka</span></li><li class="prt-logo"><span style="color:#1F4538;">Gens de Confiance</span></li><li class="prt-logo"><span style="color:#192D56;">Meilleurs Agents</span></li><li class="prt-logo"><span style="color:#2E9E7E;">Tous Voisins</span></li></ul>
-    </div>
-  </section>
-
-  <!-- VALEURS (textes de la page L'agence) -->
-  <section class="cb-section valeurs-home" id="valeurs">
-    <div class="cb-wrap">
-      <span class="cb-kicker">Nos valeurs</span>
-      <h2 class="cb-h2">Les valeurs qui guident <span class="cb-accent">notre travail</span></h2>
-      <div class="valeurs-grid">
-        <div class="valeur"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><h3 class="cb-h3">Transparence</h3><p>Des informations claires et des échanges sincères pour sécuriser votre projet.</p></div>
-        <div class="valeur"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><h3 class="cb-h3">Disponibilité</h3><p>Nous répondons à vos messages et à vos appels rapidement.</p></div>
-        <div class="valeur"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span><h3 class="cb-h3">Expertise de terrain</h3><p>Nous visitons chaque bien que nous proposons, pour vous donner un avis éclairé.</p></div>
-        <div class="valeur"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><h3 class="cb-h3">Suivi dans la durée</h3><p>Notre accompagnement ne s'arrête pas à la signature : nous vous orientons vers les bons interlocuteurs.</p></div>
-        <div class="valeur"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><h3 class="cb-h3">Une expertise locale</h3><p>Nous connaissons les prix réels, les micro-marchés angevins et les opportunités avant qu'elles ne deviennent publiques.</p></div>
-        <div class="valeur"><span class="cb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><h3 class="cb-h3">Un accompagnement sur mesure</h3><p>Pas de standardisation : chaque client a un interlocuteur dédié, de la première visite à la signature.</p></div>
-      </div>
     </div>
   </section>
 
