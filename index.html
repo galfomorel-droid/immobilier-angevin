@@ -5258,6 +5258,40 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 #page-fiche.fj .fj-contact .fiche-agent-contacts { justify-content: center; }
 #page-fiche.fj .fj-contact .fiche-agency-link { display: block; text-align: center; margin-top: 12px; }
 
+/* ===================== CARTES DE BIENS EXACTEMENT FAÇON LA CABANE (24/11/2026) ===================== */
+.bien-card { background: #fff; border: 0; border-radius: 22px; box-shadow: 0 10px 30px rgba(2,20,48,.08); overflow: hidden; }
+.bien-card-img { border-radius: 22px 22px 0 0; }
+.bien-card .bien-card-body { padding: 24px 26px 22px; display: flex; flex-direction: column; }
+.bien-card .bien-card-type { font-size: 1.55rem; font-weight: 800; color: var(--marine); letter-spacing: 0; text-transform: none; margin: 0; line-height: 1.15; }
+.bien-card .bien-card-loc { display: block; font-size: 1rem; color: #3a4252; margin: 6px 0 0; font-weight: 400; }
+.bien-card .bien-card-loc svg { display: none; }
+.bien-card .bien-card-title { display: none; }
+.bien-card .bien-card-specs { display: flex; flex-wrap: wrap; gap: 12px 26px; margin: 20px 0 0; padding: 0; border: 0; }
+.bien-card .bien-card-spec { display: inline-flex; align-items: center; gap: 8px; font-size: .98rem; color: #3a4252; }
+.bien-card .bien-card-spec-icon { width: 20px; height: 20px; color: #4F6FA8; flex: 0 0 auto; }
+.bien-card .bien-card-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line-c); }
+.bien-card .bien-card-ref { background: #EEF1F7; color: #5b6475; border-radius: 999px; padding: 7px 14px; font-size: .82rem; }
+.bien-card .bien-card-price { font-size: 1.45rem; font-weight: 800; color: var(--marine); white-space: nowrap; }
+.bien-card .bien-card-head, .bien-card .bien-card-voir { display: none; }
+/* Photo : badge arrondi, cœur dans un rond blanc, flèches blanches visibles, points à droite */
+.bien-card .bien-vignettes { top: 14px; left: 14px; gap: 6px; }
+.bien-card .bien-vg { border-radius: 10px; padding: 7px 14px; font-size: .82rem; font-weight: 800; letter-spacing: 0; text-transform: none; box-shadow: 0 4px 12px rgba(2,20,48,.16); }
+.bien-card .bien-vg.vg-new { background: #6D8CC4; color: #fff; }
+.bien-card .fav-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.95); box-shadow: 0 4px 14px rgba(2,20,48,.18); }
+.bien-card .bc-arrow { opacity: 1 !important; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.95); color: var(--marine); box-shadow: 0 4px 12px rgba(2,20,48,.2); }
+.bien-card .bc-dots { left: auto; right: 14px; justify-content: flex-end; gap: 5px; bottom: 14px; }
+.bien-card .bc-dots span { width: 9px; height: 9px; }
+.bien-card .bc-dots span.on { width: 26px; background: var(--marine); }
+.bien-card .bien-card-agent { width: 56px; height: 56px; }
+@media (max-width: 480px) {
+  .bien-card .bien-card-body { padding: 20px 20px 18px; }
+  .bien-card .bien-card-specs { gap: 10px 18px; margin-top: 16px; }
+  .bien-card .bien-card-spec { font-size: .92rem; line-height: 1.3; }
+  .bien-card .bien-card-type { font-size: 1.35rem; }
+  .bien-card .bien-card-price { font-size: 1.2rem; }
+  .bien-card .bien-card-agent { width: 46px; height: 46px; }
+}
+
 </style>
 </head>
 <body>
@@ -8210,17 +8244,12 @@ function bienCardHTML(b) {
       bcControls(b) +
     '</div>' +
     '<div class="bien-card-body">' +
-      '<div class="bien-card-head"><div class="bien-card-type">' + _esc(b.type || '—') + '</div>' +
-      '<div class="bien-card-price' + (isPrixMasque(b) ? ' bien-card-price--statut' : '') + '">' + _esc(formatPrixPublic(b)) + '</div></div>' +
-      '<div class="bien-card-loc"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.3-7-11.5A7 7 0 0 1 19 9.5C19 14.7 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>' + _esc(b.ville || '') + (b.cp ? ' (' + _esc(b.cp) + ')' : '') + '</div>' +
-      (b.titre ? '<div class="bien-card-title">' + _esc(b.titre) + '</div>' : '') +
-      '<div class="bien-card-specs">' +
-        (chambres > 0 ? '<span class="bien-card-spec"><svg class="bien-card-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16v-5a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5"/><path d="M2 20v-4h20v4"/><path d="M6 11V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"/></svg> ' + chambres + ' chambre' + (chambres > 1 ? 's' : '') + '</span>' : '') +
-        (b.surface ? '<span class="bien-card-spec"><svg class="bien-card-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h4M3 15h4M9 3v4M15 3v4M17 21v-4M21 9h-4M21 15h-4M9 21v-4"/></svg> ' + b.surface + ' m²</span>' : '') +
-      '</div>' +
+      '<div class="bien-card-type">' + _esc(b.type || 'Bien') + '</div>' +
+      '<div class="bien-card-loc">' + _esc(b.ville || '') + (b.cp ? ' (' + _esc(b.cp) + ')' : '') + '</div>' +
+      '<div class="bien-card-specs">' + _specsCarte(b) + '</div>' +
       '<div class="bien-card-footer">' +
         '<span class="bien-card-ref">' + _esc(ref) + '</span>' +
-        '<span class="bien-card-voir">Découvrir <span aria-hidden="true">→</span></span>' +
+        '<div class="bien-card-price' + (isPrixMasque(b) ? ' bien-card-price--statut' : '') + '">' + _esc(formatPrixPublic(b)) + '</div>' +
       '</div>' +
     '</div>';
   div.addEventListener('click', function() { showFiche(parseInt(b.id)); });
@@ -8765,6 +8794,27 @@ function _fjMontrer(i) {
   document.querySelectorAll('#fjVignettes .fj-vig').forEach(function (v) { v.classList.toggle('on', +v.getAttribute('data-i') === _fjIdx); });
 }
 function _fjAller(d) { _fjMontrer(_fjIdx + d); }
+
+// Ligne d'icônes des cartes de biens (surface, terrain, pièces, chambres, salles d'eau / de bain)
+function _specsCarte(b) {
+  var ico = function (p) { return '<svg class="bien-card-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
+  var I = {
+    surface: '<rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M3 9h3M3 15h3M9 3v3M15 3v3M21 9h-3M21 15h-3M9 21v-3M15 21v-3"/>',
+    terrain: '<path d="M12 21v-7"/><path d="M12 3 7 12h10L12 3z"/><path d="M9 21h6"/>',
+    pieces: '<rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M12 3v18M3 12h9"/>',
+    chambres: '<path d="M3 18V8"/><path d="M3 14h18v4"/><path d="M21 14a3 3 0 0 0-3-3h-7v3"/><path d="M3 21v-3M21 21v-3"/>',
+    eau: '<path d="M7 4h10"/><path d="M12 4v4"/><path d="M8 11a4 4 0 0 1 8 0"/><path d="M9 15v1M12 15v1M15 15v1M9 19v1M12 19v1M15 19v1"/>'
+  };
+  var pl = function (n, s, p) { return n + ' ' + (n > 1 ? p : s); };
+  var sdb = (parseInt(b.sdb) || 0), sdbain = (parseInt(b.salleBain) || 0), out = [];
+  if (b.surface) out.push([I.surface, b.surface + ' m²']);
+  if (parseInt(b.terrain) > 0) out.push([I.terrain, parseInt(b.terrain).toLocaleString('fr-FR') + ' m²']);
+  if (parseInt(b.pieces) > 0) out.push([I.pieces, pl(parseInt(b.pieces), 'pièce', 'pièces')]);
+  if (parseInt(b.chambres) > 0) out.push([I.chambres, pl(parseInt(b.chambres), 'chambre', 'chambres')]);
+  if (sdb > 0) out.push([I.eau, pl(sdb, 'salle d’eau', 'salles d’eau')]);
+  if (sdbain > 0) out.push([I.eau, pl(sdbain, 'salle de bain', 'salles de bain')]);
+  return out.map(function (x) { return '<span class="bien-card-spec">' + ico(x[0]) + ' ' + x[1] + '</span>'; }).join('');
+}
 
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
@@ -11656,7 +11706,7 @@ function bcControls(b) {
          '<div class="bc-dots" aria-hidden="true">' + bcDotsHTML(0, n) + '</div>';
 }
 function bcDotsHTML(i, n) {   // 5 points max, fenêtre glissante autour de la photo affichée
-  var max = 5, start = Math.max(0, Math.min(i - 2, n - max)), end = Math.min(n, start + max), h = '';
+  var max = 9, start = Math.max(0, Math.min(i - 4, n - max)), end = Math.min(n, start + max), h = '';
   for (var k = start; k < end; k++) h += '<span' + (k === i ? ' class="on"' : '') + '></span>';
   return h;
 }
