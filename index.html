@@ -5336,6 +5336,17 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
   .fja-txt strong { font-size: 1.02rem; }
 }
 
+/* ===================== FICHE : DESCRIPTION FIDÈLE (priorité 1, 24/11/2026) ===================== */
+.desc-fidele { color: #3A4252; font-size: 1.02rem; line-height: 1.7; font-weight: 400; max-width: 78ch; }
+.desc-fidele p { margin: 0 0 14px; }
+.desc-fidele .desc-st { font-weight: 700; color: var(--marine); font-size: 1.05rem; margin: 22px 0 8px; }
+.desc-fidele .desc-liste { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; }
+.desc-fidele .desc-liste li { position: relative; padding-left: 20px; }
+.desc-fidele .desc-liste li::before { content: ''; position: absolute; left: 4px; top: .72em; width: 6px; height: 6px; border-radius: 50%; background: var(--rouge); }
+.desc-fidele a { color: var(--marine); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.desc-fidele .desc-liste li.sans-puce { padding-left: 0; }
+.desc-fidele .desc-liste li.sans-puce::before { display: none; }
+
 </style>
 </head>
 <body>
@@ -8963,6 +8974,33 @@ function _fjaVoir(i) {
   document.querySelectorAll('#fjaListe li').forEach(function (li, j) { li.classList.toggle('on', j === i); });
 }
 
+// ===== Fiche : description affichée fidèlement (texte 3G intact : paragraphes, listes, liens) =====
+function _descLiens(h) {
+  return h.replace(/\[([^\]]+)\]\(((?:https?:|mailto:|tel:)[^)\s]+)\)/g, function (m, t, u) {
+    return '<a href="' + u + '"' + (/^https?:/.test(u) ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>';
+  });
+}
+function _descFidele(texte) {
+  var brut = String(texte || '').replace(/\r/g, '').trim(); if (!brut) return '';
+  var principal = (typeof _descSplitLegal === 'function') ? _descSplitLegal(brut).main : brut;   // mentions légales : déjà affichées plus bas
+  var html = '', apresTitre = false;
+  principal.split(/\n\s*\n+/).forEach(function (bloc) {
+    var lignes = bloc.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
+    if (!lignes.length) return;
+    var esc = function (s) { return _descLiens(_esc(s)); };
+    if (lignes.length === 1 && lignes[0].length <= 45 && /:\s*$/.test(lignes[0])) {
+      html += '<p class="desc-st">' + esc(lignes[0].replace(/\s*:\s*$/, '')) + '</p>'; apresTitre = true; return;
+    }
+    if (lignes.length >= 2 && apresTitre && lignes.every(function (l) { return l.length <= 160; })) {
+      html += '<ul class="desc-liste">' + lignes.map(function (l) { l = l.replace(/^[-•·]\s*/, ''); return '<li' + (/^[A-Za-z0-9À-ÿ«"(]/.test(l) ? '' : ' class="sans-puce"') + '>' + esc(l) + '</li>'; }).join('') + '</ul>';
+    } else {
+      html += '<p>' + lignes.map(esc).join('<br>') + '</p>';
+    }
+    apresTitre = false;
+  });
+  return '<div class="desc-fidele">' + html + '</div>';
+}
+
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
 var _ANIM = document.documentElement.classList.contains('anim');
@@ -9241,7 +9279,7 @@ function showFiche(id) {
 
   document.getElementById('ficheSpecs').innerHTML = '<h2 class="caracs-titre">Caractéristiques</h2><div class="caracs">' + tableRows + '</div>';
 
-  document.getElementById('ficheDesc').innerHTML = formatDescription(b.description || b.desc || '', b);
+  document.getElementById('ficheDesc').innerHTML = _descFidele(b.description || b.desc || '');
 
   // Section prix détaillée — masquée si bien sous compromis / offre / vendu
   const prixSection = document.getElementById('fichePrixSection');
