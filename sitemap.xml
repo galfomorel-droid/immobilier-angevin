@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/#acheter</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/#vendre</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/#estimation</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/#parrainage</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/#outils</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/#agence</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/#contact</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/</loc><lastmod>2026-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/angers/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/avrille/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/trelaze/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/les-ponts-de-ce/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/saint-barthelemy-d-anjou/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/beaucouze/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/bouchemaine/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/sable-sur-sarthe/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/solesmes/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/precigne/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/parce-sur-sarthe/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://galfomorel-droid.github.io/immobilier-angevin/immobilier/noyen-sur-sarthe/</loc><lastmod>2026-11-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

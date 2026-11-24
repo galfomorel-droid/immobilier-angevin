@@ -1,0 +1,180 @@
+/* Pages « Immobilier à <commune> » — L'Immobilier Angevin. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
+:root{--marine:#021430;--rouge:#DC071D;--rouge-t:#B50519;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:300;font-size:1rem;line-height:1.7;color:var(--marine);background:#fff}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{font-weight:800;line-height:1.2;margin:0 0 .6em;letter-spacing:-.01em}
+h1{font-size:clamp(1.9rem,6vw,3rem)}
+h2{font-size:clamp(1.45rem,4.2vw,2.1rem)}
+h3{font-size:1.05rem;font-weight:700}
+p{margin:0 0 1em}
+strong{font-weight:600}
+:focus-visible{outline:2px solid var(--rouge);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--marine);color:#fff;padding:.6rem 1rem;z-index:10}
+.skip:focus{left:8px;top:8px}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 16px}
+.etroit>*{max-width:820px}
+@media(min-width:700px){.wrap{padding:0 28px}}
+
+/* En-tête */
+.hd{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--filet)}
+.hd-in{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.hd-logo img{height:30px;width:auto}
+.hd-nav{order:3;flex:1 1 100%;display:flex;gap:4px;justify-content:space-between;border-top:1px solid var(--filet);padding-top:6px}
+.hd-nav a{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:.45rem .3rem}
+.hd-nav a:hover{color:var(--rouge-t)}
+.hd-tel{margin-left:auto;display:inline-flex;align-items:center;gap:.4rem;background:var(--rouge);color:#fff;text-decoration:none;border-radius:999px;padding:.45rem .9rem;font-size:.8125rem;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.hd-tel:hover{background:var(--rouge-t)}
+@media(max-width:400px){.hd-in{gap:8px 10px}.hd-logo img{height:25px}.hd-tel{padding:.45rem .75rem;font-size:.75rem;gap:.3rem}}
+@media(min-width:860px){
+  .hd-in{padding:14px 28px;flex-wrap:nowrap}
+  .hd-logo img{height:40px}
+  .hd-nav{order:0;flex:0 1 auto;margin-left:auto;border:0;padding:0;gap:22px}
+  .hd-tel{margin-left:8px}
+}
+
+/* Fil d'Ariane */
+.ariane ol{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-wrap:wrap;gap:4px;font-size:.8125rem;color:var(--texte2)}
+.ariane li+li::before{content:"›";margin-right:6px}
+.ariane a{color:var(--texte2)}
+.ariane a:hover{color:var(--rouge-t)}
+
+/* Sections */
+.intro{background:var(--gris);padding:32px 0 48px;border-bottom:1px solid var(--filet)}
+.sec{padding:56px 0}
+.sec-gris{background:var(--gris)}
+@media(min-width:860px){.intro{padding:44px 0 72px}.sec{padding:84px 0}}
+.kicker{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rouge-t);margin-bottom:.8em}
+.lead{font-size:clamp(1.05rem,2.6vw,1.2rem);max-width:760px}
+.lead-2{font-size:1.05rem;max-width:820px}
+.petit{font-size:.875rem;color:var(--texte2)}
+.lien{color:var(--rouge-t);font-weight:600;text-underline-offset:3px}
+.grille-2{display:grid;gap:28px}
+@media(min-width:860px){.grille-2{grid-template-columns:1.6fr 1fr;gap:56px;align-items:start}}
+.grille-bas{margin-top:36px}
+@media(min-width:860px){.grille-bas{grid-template-columns:1fr 1fr;gap:28px}}
+
+/* Boutons pilule */
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:.75rem 1.5rem;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid transparent;transition:background .25s,color .25s,border-color .25s}
+.btn-rouge{background:var(--rouge);color:#fff}
+.btn-rouge:hover{background:var(--rouge-t)}
+.btn-marine{background:var(--marine);color:#fff}
+.btn-marine:hover{background:#0B2A5C}
+.btn-blanc{background:#fff;color:var(--marine)}
+.btn-blanc:hover{background:var(--gris)}
+.btn-ligne{border-color:rgba(255,255,255,.7);color:#fff}
+.btn-ligne:hover{background:rgba(255,255,255,.12)}
+.btn-ligne-marine{border-color:var(--marine);color:var(--marine)}
+.btn-ligne-marine:hover{background:var(--marine);color:#fff}
+@media(max-width:480px){.intro .btn,.cta .btn{flex:1 1 100%}}
+
+/* Points de repère */
+.reperes{background:var(--gris);border:1px solid var(--filet);border-radius:var(--r);padding:22px 24px}
+.reperes-t{font-weight:700;font-size:.8125rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.6em}
+.reperes ul{list-style:none;margin:0;padding:0}
+.reperes li{padding:.55rem 0 .55rem 1.3rem;border-bottom:1px solid var(--filet);position:relative;font-weight:500}
+.reperes li:last-child{border-bottom:0}
+.reperes li::before{content:"";position:absolute;left:0;top:1.05rem;width:7px;height:7px;border-radius:50%;background:var(--rouge)}
+
+/* Étapes de vente */
+.etapes{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:14px}
+@media(min-width:700px){.etapes{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.etapes{grid-template-columns:repeat(4,1fr)}}
+.etapes li{background:#fff;border:1px solid var(--filet);border-radius:var(--r);padding:20px;display:flex;gap:14px}
+@media(min-width:1000px){.etapes li{flex-direction:column}}
+.etape-n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--marine);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.etapes h3{margin-bottom:.35em}
+.etapes p{margin:0;font-size:.9rem}
+
+/* Barème */
+.bareme{background:#fff;border:1px solid var(--filet);border-radius:var(--r);padding:22px 24px}
+.bareme-t{font-weight:800;font-size:1.05rem;margin-bottom:.6em}
+.bareme table{width:100%;border-collapse:collapse;margin-bottom:.8em}
+.bareme th,.bareme td{padding:.6rem 0;border-bottom:1px solid var(--filet);font-size:.9rem;text-align:left;vertical-align:top}
+.bareme th{font-weight:400;padding-right:12px}
+.bareme td{font-weight:700;text-align:right;white-space:nowrap}
+
+/* Conseiller */
+.conseiller{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1px solid var(--filet);border-radius:var(--r);padding:22px 24px}
+.conseiller img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none}
+.conseiller p{font-size:.9rem;margin-bottom:.5em}
+.conseiller-n{font-weight:800;font-size:1.05rem!important;margin-bottom:0!important}
+.conseiller-r{color:var(--texte2);font-size:.8125rem!important}
+@media(max-width:420px){.conseiller{flex-direction:column}}
+
+/* Biens */
+.biens{display:grid;gap:18px;margin-top:28px;grid-template-columns:1fr}
+@media(min-width:620px){.biens{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.biens{grid-template-columns:repeat(3,1fr)}}
+.biens-msg{grid-column:1/-1;margin:0;color:var(--texte2)}
+.biens-vide{grid-column:1/-1;background:#fff;border:1px dashed var(--filet);border-radius:var(--r);padding:28px 24px}
+.biens-vide p{margin-bottom:.6em}
+.biens-vide strong{display:block;font-size:1.1rem;font-weight:800;margin-bottom:.4em}
+.bien{display:flex;flex-direction:column;background:#fff;border:1px solid var(--filet);border-radius:var(--r);overflow:hidden;text-decoration:none;transition:box-shadow .3s,transform .3s}
+.bien:hover{box-shadow:0 16px 36px rgba(2,20,48,.1);transform:translateY(-2px)}
+.bien-ph{position:relative;aspect-ratio:4/3;background:var(--gris)}
+.bien-ph img{width:100%;height:100%;object-fit:cover}
+.bien-badge{position:absolute;left:12px;top:12px;background:var(--rouge);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px}
+.bien-badge.marine{background:var(--marine)}
+.bien-txt{padding:16px 18px 18px;display:flex;flex-direction:column;gap:2px;flex:1}
+.bien-type{font-weight:700;font-size:1rem}
+.bien-ville{font-size:.875rem;color:var(--texte2)}
+.bien-carac{font-size:.875rem;margin-top:4px}
+.bien-prix{margin-top:auto;padding-top:10px;font-weight:800;font-size:1.15rem}
+.biens-sous{grid-column:1/-1;margin:0;font-size:.95rem}
+
+/* FAQ */
+.faq details{border-bottom:1px solid var(--filet)}
+.faq details:first-child{border-top:1px solid var(--filet)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-weight:600;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:1.5rem;font-weight:300;color:var(--rouge-t)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 18px;margin:0}
+
+/* Communes voisines */
+.voisins{list-style:none;margin:24px 0 18px;padding:0;display:grid;gap:10px;grid-template-columns:1fr 1fr}
+@media(min-width:860px){.voisins{grid-template-columns:repeat(4,1fr)}}
+.voisins a{display:flex;flex-direction:column;background:#fff;border:1px solid var(--filet);border-radius:var(--r);padding:16px 18px;text-decoration:none;font-weight:700;transition:border-color .25s}
+.voisins a:hover{border-color:var(--rouge)}
+.voisins small{font-weight:400;font-size:.8125rem;color:var(--texte2)}
+
+/* Page « Nos secteurs » */
+.cartes-c{list-style:none;margin:28px 0 18px;padding:0;display:grid;gap:14px}
+@media(min-width:620px){.cartes-c{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.cartes-c{grid-template-columns:repeat(3,1fr)}}
+.carte-c{display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--filet);border-radius:var(--r);padding:22px;text-decoration:none;transition:border-color .25s,box-shadow .25s}
+.carte-c:hover{border-color:var(--rouge);box-shadow:0 14px 32px rgba(2,20,48,.08)}
+.carte-c-n{font-weight:800;font-size:1.2rem}
+.carte-c-cp{font-size:.8125rem;color:var(--texte2);margin-bottom:.6em}
+.carte-c-t{font-size:.9rem;flex:1}
+.carte-c-l{margin-top:12px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rouge-t)}
+
+/* Appel à l'action */
+.cta{padding:16px 0 56px}
+.cta-in{background:var(--marine);color:#fff;border-radius:22px;padding:40px 24px;text-align:center}
+@media(min-width:860px){.cta{padding:0 0 84px}.cta-in{padding:56px 48px}}
+.cta h2{color:#fff}
+.cta p{max-width:640px;margin-left:auto;margin-right:auto}
+.cta .btns{justify-content:center}
+.cta-note{margin-top:22px;font-size:.875rem;color:#C9D1DE}
+.cta-note a{color:#fff;font-weight:600}
+
+/* Pied de page */
+.ft{background:var(--marine);color:#C9D1DE;font-size:.875rem}
+.ft a{color:#fff;text-decoration:none}
+.ft a:hover{text-decoration:underline}
+.ft-in{max-width:1120px;margin:0 auto;padding:48px 16px 28px;display:grid;gap:28px;grid-template-columns:1fr 1fr}
+.ft-brand{grid-column:1/-1}
+.ft-brand img{width:220px;margin-bottom:18px}
+.ft-h{color:#fff;font-weight:700;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.8em}
+.ft ul{list-style:none;margin:0;padding:0}
+.ft li{margin-bottom:.4em}
+@media(min-width:860px){.ft-in{padding:64px 28px 36px;grid-template-columns:1.2fr 1fr 1fr 1fr}.ft-brand{grid-column:auto}}
+.ft-bas{max-width:1120px;margin:0 auto;padding:18px 16px 28px;border-top:1px solid rgba(255,255,255,.16);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:.8125rem}
+.ft-bas p{margin:0}
+@media(min-width:700px){.ft-bas{padding:18px 28px 32px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

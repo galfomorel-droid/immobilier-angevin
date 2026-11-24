@@ -4733,6 +4733,9 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   .ft-bottom, .ft-bottom span, .ft-legal a, .ft-credit, #site-footer a { font-size: .82rem; }
 }
 
+/* Pied de page : 4 colonnes (avec « Mes secteurs ») */
+@media (min-width: 900px) { #site-footer .ft-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1100px; } }
+
 </style>
 </head>
 <body>
@@ -5069,7 +5072,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
           </article>
           <article class="seo-card">
             <h3>Zone d'intervention</h3>
-            <p>Angers, Avrillé, Trélazé, Les Ponts-de-Cé, Saint-Barthélemy-d'Anjou, Beaucouzé, Bouchemaine, Écouflant et toute l'agglomération angevine, ainsi que Sablé-sur-Sarthe, Solesmes, Précigné, Parcé-sur-Sarthe, Noyen-sur-Sarthe et leurs alentours.</p>
+            <p>Angers, Avrillé, Trélazé, Les Ponts-de-Cé, Saint-Barthélemy-d'Anjou, Beaucouzé, Bouchemaine, Écouflant et toute l'agglomération angevine, ainsi que Sablé-sur-Sarthe, Solesmes, Précigné, Parcé-sur-Sarthe, Noyen-sur-Sarthe et leurs alentours. <a href="immobilier/" style="text-decoration:underline;">Voir toutes mes communes</a></p>
           </article>
         </div>
 
@@ -6199,6 +6202,15 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
       <a href="#agence" onclick="showPage('apropos');return false;">Qui sommes-nous ?</a>
       <a href="#favoris" onclick="showPage('favoris');return false;">Mes favoris</a>
       <a href="#" onclick="showLegal('honoraires');return false;">Nos honoraires</a>
+    </div>
+    <div>
+      <h4>Mes secteurs</h4>
+      <a href="immobilier/angers/">Immobilier à Angers</a>
+      <a href="immobilier/avrille/">Avrillé</a>
+      <a href="immobilier/les-ponts-de-ce/">Les Ponts-de-Cé</a>
+      <a href="immobilier/sable-sur-sarthe/">Immobilier à Sablé-sur-Sarthe</a>
+      <a href="immobilier/solesmes/">Solesmes</a>
+      <a href="immobilier/">Toutes les communes →</a>
     </div>
     <div>
       <h4>Nous contacter</h4>
@@ -10538,6 +10550,8 @@ document.addEventListener('DOMContentLoaded', () => {
   loadBiens().then(() => {
     renderHomeGrid();
     refreshVilleSelects();
+    var _pa = document.querySelector('.page.active');
+    if (/^#bien\//.test(location.hash) && (!_pa || _pa.id !== 'page-fiche')) _routeFromHash();
   }).catch(function(){});
 });
 
