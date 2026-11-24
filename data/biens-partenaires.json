@@ -56,7 +56,9 @@
     "honoraires": "5 % TTC (29 900 €) à la charge de l'acquéreur",
     "energie": "1 900 € à 2 590 € par an (prix de l'énergie 2021)"
    },
-   "description": "Situé au cœur de la Loire-Atlantique, ce magnifique domaine équestre de 10 hectares offre un cadre de vie rare, niché dans un environnement calme et préservé.\nLe domaine se compose de trois habitations anciennes pleines de charme.\nLa maison principale, d’environ 170 m² au sol, dispose de 6 chambres et offre de beaux volumes ainsi qu’une atmosphère chaleureuse, idéale pour une résidence familiale confortable.\nUne seconde maison d’environ 100 m² comprenant 2 chambres, avec la possibilité d’aménager une suite parentale supplémentaire.\nEnfin, une troisième habitation d’environ 81 m², parfaitement adaptée pour accueillir ou développer une activité locative.\nUne belle dépendance en pierre de taille d’environ 300 m² complète l’ensemble. Elle accueille déjà plusieurs box pour chevaux, offrant une structure immédiatement fonctionnelle pour une activité équestre.\nPensé pour les passionnés d’équitation, le domaine dispose d’infrastructures adaptées, avec un paddock pour le travail des chevaux et de vastes prairies propices au pâturage. Un étang vient parfaire l’ensemble, apportant charme et sérénité à la propriété."
+   "description": "Situé au cœur de la Loire-Atlantique, ce magnifique domaine équestre de 10 hectares offre un cadre de vie rare, niché dans un environnement calme et préservé.\nLe domaine se compose de trois habitations anciennes pleines de charme.\nLa maison principale, d’environ 170 m² au sol, dispose de 6 chambres et offre de beaux volumes ainsi qu’une atmosphère chaleureuse, idéale pour une résidence familiale confortable.\nUne seconde maison d’environ 100 m² comprenant 2 chambres, avec la possibilité d’aménager une suite parentale supplémentaire.\nEnfin, une troisième habitation d’environ 81 m², parfaitement adaptée pour accueillir ou développer une activité locative.\nUne belle dépendance en pierre de taille d’environ 300 m² complète l’ensemble. Elle accueille déjà plusieurs box pour chevaux, offrant une structure immédiatement fonctionnelle pour une activité équestre.\nPensé pour les passionnés d’équitation, le domaine dispose d’infrastructures adaptées, avec un paddock pour le travail des chevaux et de vastes prairies propices au pâturage. Un étang vient parfaire l’ensemble, apportant charme et sérénité à la propriété.",
+   "lat": 47.514289,
+   "lng": -1.305372
   },
   {
    "id": 85611488,
@@ -110,7 +112,9 @@
     "honoraires": "2,38 % TTC (10 000 €) à la charge de l'acquéreur",
     "energie": "1 497 € à 2 026 € par an (prix de l'énergie 2021)"
    },
-   "description": "Quartier Sainte-Marguerite, dans un environnement calme et résidentiel, construction de 2001 offrant 91 m² habitables (loi Carrez : 91,99 m²). Spacieuse entrée avec placard, belle pièce de vie ouverte sur une cuisine aménagée et équipée. À l'étage, trois chambres et une salle d'eau. Garage avec espace mezzanine.\nBeau terrain clos et arboré sans vis-à-vis, exposé sud-est. Potentiel d'agrandissement avec la possibilité d'aménager une chambre de plain-pied. Proximité directe des commerces et de la plage."
+   "description": "Quartier Sainte-Marguerite, dans un environnement calme et résidentiel, construction de 2001 offrant 91 m² habitables (loi Carrez : 91,99 m²). Spacieuse entrée avec placard, belle pièce de vie ouverte sur une cuisine aménagée et équipée. À l'étage, trois chambres et une salle d'eau. Garage avec espace mezzanine.\nBeau terrain clos et arboré sans vis-à-vis, exposé sud-est. Potentiel d'agrandissement avec la possibilité d'aménager une chambre de plain-pied. Proximité directe des commerces et de la plage.",
+   "lat": 47.259148,
+   "lng": -2.324189
   }
  ]
 }

@@ -5292,6 +5292,50 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
   .bien-card .bien-card-agent { width: 46px; height: 46px; }
 }
 
+/* ===================== FICHE : SERVICES / SE DÉPLACER FAÇON LA CABANE (24/11/2026) ===================== */
+.fj-autour { margin: 22px 0 18px; }
+.fja-onglets, .fja-filtres { display: flex; flex-wrap: wrap; gap: 12px; }
+.fja-filtres { margin-top: 14px; }
+.fja-onglets button { font: inherit; font-size: 1.12rem; font-weight: 800; padding: 13px 28px; border-radius: 14px; border: 2px solid var(--marine); background: #fff; color: var(--marine); cursor: pointer; transition: background .2s, color .2s; }
+.fja-onglets button[aria-pressed="true"] { background: #6D8CC4; border-color: #6D8CC4; color: #fff; }
+.fja-filtres button { font: inherit; font-size: 1rem; padding: 11px 22px; border-radius: 12px; border: 2px solid var(--marine); background: #fff; color: var(--marine); cursor: pointer; transition: background .2s, color .2s; }
+.fja-filtres button[aria-pressed="true"] { background: var(--marine); color: #fff; }
+.fja-onglets button:hover, .fja-filtres button:hover { box-shadow: 0 4px 14px rgba(2,20,48,.12); }
+.fja-grille { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 22px; align-items: stretch; }
+.fja-grille.sans-liste { grid-template-columns: 1fr; }
+.fja-grille.sans-liste .fja-liste { display: none; }
+#page-fiche .fja-grille .fiche-map { height: 520px; border-radius: 22px; border: 0; margin: 0; }
+.fja-liste { scrollbar-width: thin; scrollbar-color: #C9D0DC transparent; list-style: none; margin: 0; padding: 0; height: 520px; overflow-y: auto; border: 1px solid var(--line-c); border-radius: 22px; background: #fff; }
+.fja-liste li { border-bottom: 1px solid var(--line-c); }
+.fja-liste li:last-child { border-bottom: 0; }
+.fja-liste button { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 20px 22px; cursor: pointer; }
+.fja-liste button:hover, .fja-liste li.on button { background: #F3F5FA; }
+.fja-liste button:focus-visible { outline: 2px solid var(--marine); outline-offset: -2px; }
+.fja-ico { width: 46px; height: 46px; border-radius: 50%; background: #EEF1F7; color: var(--marine); display: grid; place-items: center; }
+.fja-ico svg { width: 22px; height: 22px; }
+.fja-txt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fja-txt strong { font-size: 1.12rem; font-weight: 500; color: var(--marine); }
+.fja-txt span { font-size: .93rem; color: #5b6475; line-height: 1.45; }
+.fja-d { font-size: 1.05rem; color: var(--marine); white-space: nowrap; }
+.fja-vide { padding: 24px; color: #5b6475; }
+.fja-note { margin-top: 12px; }
+.fja-pin { background: none; border: 0; }
+.fja-pin span { width: 38px; height: 38px; border-radius: 50%; background: var(--marine); color: #fff; display: grid; place-items: center; border: 2.5px solid #fff; box-shadow: 0 4px 12px rgba(2,20,48,.3); }
+.fja-pin svg { width: 19px; height: 19px; }
+@media (max-width: 860px) {
+  .fja-grille { grid-template-columns: 1fr; }
+  #page-fiche .fja-grille .fiche-map { height: 340px; }
+  .fja-liste { height: auto; max-height: 420px; }
+  .fja-onglets button { font-size: 1rem; padding: 11px 20px; }
+  .fja-filtres { gap: 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .fja-filtres::-webkit-scrollbar { display: none; }
+  .fja-filtres button { flex: 0 0 auto; }
+  .fja-filtres button { font-size: .92rem; padding: 9px 16px; }
+  .fja-liste button { grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; padding: 16px; }
+  .fja-ico { width: 40px; height: 40px; }
+  .fja-txt strong { font-size: 1.02rem; }
+}
+
 </style>
 </head>
 <body>
@@ -8816,6 +8860,109 @@ function _specsCarte(b) {
   return out.map(function (x) { return '<span class="bien-card-spec">' + ico(x[0]) + ' ' + x[1] + '</span>'; }).join('');
 }
 
+// ===== Fiche : « Services / Se déplacer » façon La Cabane (carte + liste des lieux les plus proches) =====
+// Données : data/poi.json (_parts/poi.py, © contributeurs OpenStreetMap) ; distances à vol d'oiseau depuis le centre du secteur.
+var _FJA_ICO = {
+  ecole: '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
+  commerce: '<path d="M3 4h2l2.4 11h10.2L20 8H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>',
+  sante: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>',
+  loisir: '<path d="M12 22v-5"/><path d="M12 3 6 11h3l-4 6h14l-4-6h3z"/>',
+  bus: '<rect x="5" y="3" width="14" height="15" rx="3"/><path d="M5 11h14M8 18v2M16 18v2"/><circle cx="8.5" cy="14.5" r=".6"/><circle cx="15.5" cy="14.5" r=".6"/>',
+  tram: '<rect x="6" y="5" width="12" height="13" rx="3"/><path d="M9 2h6M12 2v3M6 12h12M8 21l2-3M16 21l-2-3"/>',
+  train: '<rect x="5" y="3" width="14" height="14" rx="4"/><path d="M5 10h14M8 21l2-4M16 21l-2-4"/><circle cx="9" cy="13.5" r=".6"/><circle cx="15" cy="13.5" r=".6"/>'
+};
+var _FJA_TYPES = {
+  ecoles: { ico: 'ecole', l: { creche: 'Crèche', maternelle: 'École maternelle', primaire: 'École', college: 'Collège', lycee: 'Lycée', sup: 'Enseignement supérieur' } },
+  commerces: { ico: 'commerce', l: { supermarket: 'Supermarché', bakery: 'Boulangerie', convenience: 'Épicerie', butcher: 'Boucherie', greengrocer: 'Primeur', marche: 'Marché' } },
+  sante: { ico: 'sante', l: { pharmacy: 'Pharmacie', doctors: 'Médecin', hospital: 'Hôpital', clinic: 'Centre de santé', dentist: 'Dentiste' } },
+  loisirs: { ico: 'loisir', l: { park: 'Parc', sports_centre: 'Équipement sportif', swimming_pool: 'Piscine', playground: 'Aire de jeux' } },
+  transports: { ico: 'bus', l: { bus: 'Arrêt de bus', tram: 'Arrêt de tram', train: 'Gare' } }
+};
+var _FJA_GROUPES = {
+  services: { tous: 'Tous les services', f: [['ecoles', 'Écoles'], ['commerces', 'Commerces'], ['sante', 'Santé'], ['loisirs', 'Parcs et sports']] },
+  deplacer: { tous: 'Tous les transports', f: [['bus', 'Bus'], ['tram', 'Tram'], ['train', 'Train et gares']] }
+};
+var _fja = { c: null, map: null, pts: [], g: 'services', f: 'tous', couche: null, ville: '' };
+function _fjaSvg(k) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (_FJA_ICO[k] || _FJA_ICO.bus) + '</svg>'; }
+function _fjaDist(a, b) {
+  var x = (b[1] - a[1]) * Math.PI / 180 * Math.cos((a[0] + b[0]) / 2 * Math.PI / 180), y = (b[0] - a[0]) * Math.PI / 180;
+  return 6371000 * Math.sqrt(x * x + y * y);
+}
+function _fjaDistTxt(m) { return m < 1000 ? (Math.max(10, Math.round(m / 10) * 10)) + ' m' : (Math.round(m / 100) / 10).toLocaleString('fr-FR') + ' km'; }
+function _ficheAutour(c, map, b) {
+  _fja.c = c; _fja.map = map; _fja.pts = []; _fja.ville = b.ville; _fja.couche = null;
+  var box = document.getElementById('fjAutour'); if (!box) return;
+  var go = function () {
+    if (map !== _ficheMap) return;
+    var d = (_poiData && _poiData[b.ville]) || {};
+    Object.keys(_FJA_TYPES).forEach(function (cat) {
+      (d[cat] || []).forEach(function (p) {
+        var st = p[3] || (cat === 'transports' ? (/gare/i.test(p[2]) ? 'train' : 'bus') : '');
+        _fja.pts.push({ lat: p[0], lng: p[1], nom: p[2], cat: cat, st: st, adr: p[4] || '', d: _fjaDist(c, [p[0], p[1]]),
+          ico: cat === 'transports' ? (st || 'bus') : _FJA_TYPES[cat].ico,
+          type: (_FJA_TYPES[cat].l[st]) || { ecoles: 'Établissement scolaire', commerces: 'Commerce', sante: 'Santé', loisirs: 'Loisirs', transports: 'Transport' }[cat] });
+      });
+    });
+    _fja.pts.sort(function (x, y) { return x.d - y.d; });
+    box.hidden = !_fja.pts.length;
+    var gr = document.getElementById('fjaGrille'); if (gr) gr.classList.toggle('sans-liste', !_fja.pts.length);
+    if (_ficheMap) _ficheMap.invalidateSize();
+    if (!_fja.pts.length) return;
+    var aS = _fja.pts.some(function (p) { return p.cat !== 'transports'; }), aD = _fja.pts.some(function (p) { return p.cat === 'transports'; });
+    box.querySelectorAll('.fja-onglets button').forEach(function (bt) { bt.hidden = bt.getAttribute('data-g') === 'services' ? !aS : !aD; });
+    _fjaGroupe(aS ? 'services' : 'deplacer');
+  };
+  if (_poiData) { go(); return; }
+  fetch('data/poi.json', { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw new Error('poi'); return r.json(); })
+    .then(function (j) { _poiData = j; go(); })
+    .catch(function () { _poiData = {}; box.hidden = true; });
+}
+function _fjaCle(p, g) { return g === 'deplacer' ? p.st : p.cat; }
+function _fjaGroupe(g) {
+  _fja.g = g; _fja.f = 'tous';
+  document.querySelectorAll('#fjAutour .fja-onglets button').forEach(function (bt) { bt.setAttribute('aria-pressed', bt.getAttribute('data-g') === g ? 'true' : 'false'); });
+  var dispo = _fja.pts.filter(function (p) { return (g === 'deplacer') === (p.cat === 'transports'); });
+  var f = _FJA_GROUPES[g].f.filter(function (x) { return dispo.some(function (p) { return _fjaCle(p, g) === x[0]; }); });
+  var el = document.getElementById('fjaFiltres');
+  if (el) el.innerHTML = [['tous', _FJA_GROUPES[g].tous]].concat(f).map(function (x) {
+    return '<button type="button" data-f="' + x[0] + '" aria-pressed="' + (x[0] === 'tous') + '" onclick="_fjaFiltre(\'' + x[0] + '\')">' + x[1] + '</button>';
+  }).join('');
+  _fjaFiltre('tous');
+}
+function _fjaFiltre(f) {
+  _fja.f = f; var g = _fja.g;
+  document.querySelectorAll('#fjaFiltres button').forEach(function (bt) { bt.setAttribute('aria-pressed', bt.getAttribute('data-f') === f ? 'true' : 'false'); });
+  var dispo = _fja.pts.filter(function (p) { return (g === 'deplacer') === (p.cat === 'transports'); }), liste;
+  if (f === 'tous') {   // les plus proches de chaque catégorie, mélangés par distance
+    var n = {}; liste = dispo.filter(function (p) { var k = _fjaCle(p, g); n[k] = (n[k] || 0) + 1; return n[k] <= 3; }).slice(0, 12);
+  } else liste = dispo.filter(function (p) { return _fjaCle(p, g) === f; }).slice(0, 10);
+  var ul = document.getElementById('fjaListe');
+  if (ul) ul.innerHTML = liste.length ? liste.map(function (p, i) {
+    return '<li><button type="button" onclick="_fjaVoir(' + i + ')"><span class="fja-ico">' + _fjaSvg(p.ico) + '</span>' +
+      '<span class="fja-txt"><strong>' + _esc(p.nom) + '</strong><span>' + _esc(p.type) + '</span>' + (p.adr ? '<span>' + _esc(p.adr) + '</span>' : '') + '</span>' +
+      '<span class="fja-d">' + _fjaDistTxt(p.d) + '</span></button></li>';
+  }).join('') : '<li class="fja-vide">Aucun lieu trouvé à proximité.</li>';
+  var map = _fja.map; if (!map || !window.L) return;
+  if (_fja.couche) map.removeLayer(_fja.couche);
+  _fja.couche = L.featureGroup(); _fja.liste = liste; _fja.marq = [];
+  liste.forEach(function (p) {
+    var m = L.marker([p.lat, p.lng], { icon: L.divIcon({ className: 'fja-pin', html: '<span>' + _fjaSvg(p.ico) + '</span>', iconSize: [38, 38], iconAnchor: [19, 19] }), title: p.nom, keyboard: false })
+      .bindTooltip(_esc(p.nom) + ' · ' + _fjaDistTxt(p.d), { direction: 'top', offset: [0, -18] });
+    m.addTo(_fja.couche); _fja.marq.push(m);
+  });
+  _fja.couche.addTo(map);
+  var bornes = L.latLng(_fja.c).toBounds(1900);
+  if (liste.length) bornes.extend(_fja.couche.getBounds());
+  map.fitBounds(bornes, { padding: [24, 24], maxZoom: 15 });
+}
+function _fjaVoir(i) {
+  var m = _fja.marq && _fja.marq[i]; if (!m || !_fja.map) return;
+  _fja.map.setView(m.getLatLng(), Math.max(_fja.map.getZoom(), 15), { animate: true });
+  m.openTooltip();
+  document.querySelectorAll('#fjaListe li').forEach(function (li, j) { li.classList.toggle('on', j === i); });
+}
+
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
 var _ANIM = document.documentElement.classList.contains('anim');
@@ -10866,9 +11013,13 @@ function renderFicheExtras(b) {
       ((!masque && prixNum && !_estLocation(b)) ? _ficheCalculetteHTML(prixNum) : '') +
       '<div class="fiche-bloc">' +
         '<h3>Localisation</h3>' +
-        '<div id="ficheMap" class="fiche-map" role="img" aria-label="Secteur approximatif du bien à ' + _esc(ville) + '"></div>' +
         '<p class="fiche-note">Secteur approximatif : ' + _esc(ville) + '. L\'adresse exacte vous est communiquée lors de la visite.</p>' +
-        '<div class="fiche-poi" id="fichePoi" hidden><p class="fiche-poi-titre">Autour du centre de ' + _esc(ville) + ' <span>(1,5 km)</span></p><div class="fiche-poi-chips" id="fichePoiChips"></div></div>' +
+        '<div class="fj-autour" id="fjAutour" hidden>' +
+          '<div class="fja-onglets" role="group" aria-label="Autour du bien"><button type="button" data-g="services" aria-pressed="true" onclick="_fjaGroupe(\'services\')">Services</button><button type="button" data-g="deplacer" aria-pressed="false" onclick="_fjaGroupe(\'deplacer\')">Se déplacer</button></div>' +
+          '<div class="fja-filtres" id="fjaFiltres" role="group" aria-label="Filtrer les lieux"></div>' +
+        '</div>' +
+        '<div class="fja-grille sans-liste" id="fjaGrille"><div id="ficheMap" class="fiche-map" role="img" aria-label="Secteur approximatif du bien à ' + _esc(ville) + '"></div><ul class="fja-liste" id="fjaListe" aria-live="polite"></ul></div>' +
+        '<p class="fiche-note fja-note">Distances à vol d’oiseau depuis le centre du secteur. Lieux : © contributeurs OpenStreetMap.</p>' +
       '</div>' +
       '<div class="fiche-bloc">' +
         '<h3>Risques</h3>' +
@@ -10880,12 +11031,12 @@ function renderFicheExtras(b) {
     _chargerLeaflet(function () {
       var el = document.getElementById('ficheMap'); if (!el || !window.L) return;
       if (_ficheMap) { try { _ficheMap.remove(); } catch (e) {} _ficheMap = null; }
-      var c = (typeof VILLE_COORDS !== 'undefined' && VILLE_COORDS[b.ville]) || _coordVille(b.ville, b.id);
+      var c = (b.partenaire && b.lat && b.lng) ? [b.lat, b.lng] : ((typeof VILLE_COORDS !== 'undefined' && VILLE_COORDS[b.ville]) || _coordVille(b.ville, b.id));
       _ficheMap = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView(c, 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap', maxZoom: 17, subdomains: 'abc' }).addTo(_ficheMap);
-      L.circle(c, { radius: 900, color: '#021430', weight: 2, fillColor: '#DC071D', fillOpacity: .25 }).addTo(_ficheMap);
+      L.circle(c, { radius: 900, color: '#021430', weight: 2, fillColor: '#021430', fillOpacity: .12 }).addTo(_ficheMap);
       setTimeout(function () { if (_ficheMap) _ficheMap.invalidateSize(); }, 300);
-      _fichePoi(c, _ficheMap, b.ville);
+      _ficheAutour(c, _ficheMap, b);
     });
   }
   _ficheCalculer();
