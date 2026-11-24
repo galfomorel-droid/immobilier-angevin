@@ -4987,7 +4987,7 @@ a.cb-card:hover, button.cb-card:hover, .avis2-card:hover { transform: translateY
 .avis3-onglets button span { font-weight: 500; opacity: .6; margin-left: 4px; }
 .avis3-onglets button.on { background: var(--marine); color: #fff; }
 .avis3-carrousel { position: relative; display: flex; align-items: center; gap: 10px; }
-.avis3-piste { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 4px 16px; scrollbar-width: none; flex: 1; min-width: 0; }
+.avis3-piste { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: none; scroll-behavior: smooth; padding: 6px 4px 16px; scrollbar-width: none; flex: 1; min-width: 0; }
 .avis3-piste::-webkit-scrollbar { display: none; }
 .avis3-carte { flex: 0 0 290px; scroll-snap-align: start; background: #fff; border: 1px solid var(--line-c); border-radius: 16px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 10px; text-align: left;
   transition-property: transform, box-shadow; transition-duration: .35s; }
@@ -5346,6 +5346,11 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .desc-fidele a { color: var(--marine); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .desc-fidele .desc-liste li.sans-puce { padding-left: 0; }
 .desc-fidele .desc-liste li.sans-puce::before { display: none; }
+
+/* Aimantage du carrousel d'avis activé seulement au premier geste du visiteur :
+   au chargement, un aimantage « mandatory » fait défiler la piste tout seul et Chrome
+   arrête alors la mesure du LCP (accueil noté « NO_LCP » par Lighthouse). */
+.avis3-piste.snap { scroll-snap-type: x mandatory; }
 
 </style>
 </head>
@@ -9097,6 +9102,8 @@ function initAvis() {
   var sec = document.getElementById('avis'); if (!sec || !sec.classList.contains('avis3')) return;
   var piste = sec.querySelector('.avis3-piste');
   var cartes = [].slice.call(sec.querySelectorAll('.avis3-carte'));
+  var _snap = function () { piste.classList.add('snap'); };
+  ['pointerdown', 'touchstart', 'wheel', 'keydown', 'focusin'].forEach(function (ev) { piste.addEventListener(ev, _snap, { once: true, passive: true }); });
   function majPlus() {
     cartes.forEach(function (c) {
       var t = c.querySelector('.avis3-txt'), b = c.querySelector('.avis3-plus');
