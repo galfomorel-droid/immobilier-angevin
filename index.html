@@ -7501,22 +7501,22 @@ function renderBiensGrid() {
 
 // ===== CARTE (Leaflet, chargé à la demande) =====
 var _carteVisible = false, _leafletMap = null, _leafletLayer = null, _leafletLoading = false;
-var VILLE_COORDS = {
-  'Angers': [47.4736, -0.5542], 'Avrillé': [47.5066, -0.5890], 'Trélazé': [47.4459, -0.4659],
-  'Les Ponts-de-Cé': [47.4244, -0.5250], 'Saint-Barthélemy-d\'Anjou': [47.4676, -0.4952], 'Beaucouzé': [47.4747, -0.6339],
-  'Bouchemaine': [47.4219, -0.6086], 'Écouflant': [47.5306, -0.5283], 'Mûrs-Érigné': [47.4006, -0.5519],
-  'Sainte-Gemmes-sur-Loire': [47.4236, -0.5569], 'Montreuil-Juigné': [47.5272, -0.6142], 'Verrières-en-Anjou': [47.5039, -0.4675],
-  'Saint-Sylvain-d\'Anjou': [47.5039, -0.4675], 'Loire-Authion': [47.4614, -0.3950], 'Saint-Léger-de-Linières': [47.4594, -0.7067],
-  'Longuenée-en-Anjou': [47.5583, -0.6636], 'Brissac Loire Aubance': [47.3536, -0.4483], 'Cantenay-Épinard': [47.5350, -0.5683],
+var VILLE_COORDS = {  // centres : point « commune » de la Base Adresse Nationale (vérifiés le 25/11/2026)
+  'Angers': [47.4675, -0.5616], 'Avrillé': [47.5020, -0.5963], 'Trélazé': [47.4484, -0.4864],
+  'Les Ponts-de-Cé': [47.4293, -0.5220], 'Saint-Barthélemy-d\'Anjou': [47.4723, -0.4902], 'Beaucouzé': [47.4741, -0.6289],
+  'Bouchemaine': [47.4291, -0.6133], 'Écouflant': [47.5179, -0.5198], 'Mûrs-Érigné': [47.3975, -0.5475],
+  'Sainte-Gemmes-sur-Loire': [47.4323, -0.5695], 'Montreuil-Juigné': [47.5391, -0.6093], 'Verrières-en-Anjou': [47.5176, -0.4737],
+  'Saint-Sylvain-d\'Anjou': [47.5176, -0.4737], 'Loire-Authion': [47.4674, -0.3612], 'Saint-Léger-de-Linières': [47.4623, -0.7059],
+  'Longuenée-en-Anjou': [47.5537, -0.6682], 'Brissac Loire Aubance': [47.3471, -0.4136], 'Cantenay-Épinard': [47.5419, -0.5686],
   // Secteur de Sablé-sur-Sarthe
-  'Sablé-sur-Sarthe': [47.8397, -0.3542], 'Solesmes': [47.8409, -0.2832], 'Juigné-sur-Sarthe': [47.8687, -0.2912],
-  'Précigné': [47.7631, -0.3154], 'Parcé-sur-Sarthe': [47.8271, -0.1929], 'Noyen-sur-Sarthe': [47.8569, -0.1031],
-  'Louailles': [47.7816, -0.2416], 'Vion': [47.8136, -0.2654], 'Avoise': [47.8575, -0.1970], 'Pincé': [47.7956, -0.3642],
-  'Morannes sur Sarthe-Daumeray': [47.7181, -0.3816], 'Bouère': [47.8601, -0.4852], 'Val-du-Maine': [47.9362, -0.3801],
-  'Ballée': [47.9362, -0.3801], 'Saint-Denis-d\'Anjou': [47.7900, -0.4412], 'Saint-Loup-du-Dorat': [47.8823, -0.4225],
-  'Mont-Saint-Jean': [48.2431, -0.1123], 'Auvers-le-Hamon': [47.9034, -0.3418], 'Asnières-sur-Vègre': [47.8890, -0.2247],
-  'Bouessay': [47.8722, -0.3939], 'Grez-en-Bouère': [47.8709, -0.5403], 'Saint-Brice': [47.8612, -0.4388],
-  'Malicorne-sur-Sarthe': [47.8124, -0.0874], 'Brûlon': [47.9811, -0.2314], 'Durtal': [47.6654, -0.2456], 'Les Hauts-d\'Anjou': [47.6970, -0.5499]
+  'Sablé-sur-Sarthe': [47.8392, -0.3387], 'Solesmes': [47.8457, -0.3003], 'Juigné-sur-Sarthe': [47.8559, -0.2974],
+  'Précigné': [47.7633, -0.3152], 'Parcé-sur-Sarthe': [47.8349, -0.1984], 'Noyen-sur-Sarthe': [47.8616, -0.0974],
+  'Louailles': [47.7892, -0.2490], 'Vion': [47.8134, -0.2704], 'Avoise': [47.8654, -0.2066], 'Pincé': [47.7992, -0.3783],
+  'Morannes sur Sarthe-Daumeray': [47.7183, -0.3785], 'Bouère': [47.8656, -0.4820], 'Val-du-Maine': [47.9322, -0.4168],
+  'Ballée': [47.9322, -0.4168], 'Saint-Denis-d\'Anjou': [47.7894, -0.4366], 'Saint-Loup-du-Dorat': [47.8853, -0.4103],
+  'Mont-Saint-Jean': [48.2483, -0.1057], 'Auvers-le-Hamon': [47.9066, -0.3491], 'Asnières-sur-Vègre': [47.8900, -0.2343],
+  'Bouessay': [47.8727, -0.3923], 'Grez-en-Bouère': [47.8772, -0.5256], 'Saint-Brice': [47.8669, -0.4292],
+  'Malicorne-sur-Sarthe': [47.8125, -0.0982], 'Brûlon': [47.9706, -0.2368], 'Durtal': [47.6809, -0.2571], 'Les Hauts-d\'Anjou': [47.6808, -0.4878]
 }
 function _coordVille(ville, id) {
   var _b = (typeof biens !== 'undefined' && biens.find(function (x) { return String(x.id) === String(id); })) || {};
