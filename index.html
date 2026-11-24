@@ -5480,6 +5480,12 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 12px 30px rgba(2,20,48,.10
 }
 
 </style>
+<style id="technique">
+/* ===================== TECHNIQUE (priorité 4 de l'audit, 24/11/2026) ===================== */
+/* Couleur d'attente : un cadre gris-bleu plutôt qu'un trou blanc pendant le chargement des photos */
+.cb-photo, .pres-photo, .bien-card-img, .bc-slide, .fiche-gallery-main, .fj-vig, .equipe-photo, .vendus-track img { background-color: #E9EDF3; }
+
+</style>
 </head>
 <body>
 <div id="intro-logo" aria-hidden="true"><img src="logo-angevin-blanc-400.webp" alt="" width="400" height="262"></div>
@@ -6512,7 +6518,7 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 12px 30px rgba(2,20,48,.10
         </div>
       </div>
       <div class="vd-photo">
-        <div class="cb-photo"><img src="img/hero-angers.jpg" alt="Angers" loading="lazy" decoding="async"></div>
+        <div class="cb-photo"><img src="img/hero-angers-900.webp" srcset="img/hero-angers-900.webp 900w, img/hero-angers-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 560px" width="900" height="506" alt="Angers" loading="lazy" decoding="async"></div>
         <div class="vd-float f1"><strong>Estimation offerte</strong>sous 24 h, sans engagement</div>
         <div class="vd-float f2"><strong>Un compte rendu</strong>après chaque visite</div>
       </div>
@@ -12751,7 +12757,7 @@ function showCookieSection(key,el){
   <div id="modal-legal" style="display:none;position:fixed;inset:0;background:white;z-index:5000;overflow-y:auto;padding-top:5rem;">
     <nav style="position:fixed;top:0;left:0;right:0;background:white;border-bottom:1px solid var(--beige);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;z-index:5001;">
       <span onclick="closeLegal()" style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);cursor:pointer;display:flex;align-items:center;gap:.5rem;">← Retour à l'accueil</span>
-      <img src="logo-angevin-h-marine.png" alt="L'Immobilier Angevin" style="height:28px;width:auto;display:block;">
+      <img src="logo-angevin-h-marine-450.webp" srcset="logo-angevin-h-marine-450.webp 450w, logo-angevin-h-marine-900.webp 900w" sizes="175px" width="450" height="72" alt="L'Immobilier Angevin" style="height:28px;width:auto;display:block;">
     </nav>
     <div style="max-width:860px;margin:0 auto;padding:2rem;">
       <div id="legal-content"></div>
