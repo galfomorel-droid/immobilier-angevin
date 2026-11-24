@@ -61,7 +61,7 @@
 
   function vide() {
     el.innerHTML = '<div class="biens-vide"><strong>Aucun bien ' + txt(aCommune) + ' en ce moment</strong>' +
-      '<p>Confiez-moi votre recherche\u202f: je vous préviens dès qu\'un bien correspondant à votre projet se présente.</p>' +
+      '<p>Confiez-nous votre recherche\u202f: nous vous prévenons dès qu\'un bien correspondant à votre projet se présente.</p>' +
       '<a class="btn btn-rouge" href="' + root + '#contact">Confier ma recherche</a></div>';
   }
 
@@ -96,8 +96,8 @@
         return;
       }
       if (autour.length) {
-        afficher(autour.slice(0, 6), 'Pas de bien ' + txt(aCommune) + ' en ce moment\u202f: voici mes biens dans les communes voisines. ' +
-          '<a class="lien" href="' + root + '#contact">Confiez-moi votre recherche</a>.');
+        afficher(autour.slice(0, 6), 'Pas de bien ' + txt(aCommune) + ' en ce moment\u202f: voici nos biens dans les communes voisines. ' +
+          '<a class="lien" href="' + root + '#contact">Confiez-nous votre recherche</a>.');
         return;
       }
       vide();

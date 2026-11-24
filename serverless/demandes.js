@@ -295,7 +295,7 @@ ${b.img ? `<tr><td><a href="${esc(url)}"><img src="${esc(b.img)}" alt="" width="
           subject: n > 1 ? n + ' biens correspondent à votre recherche' : (pour[0].quoi === 'baisse' ? 'Baisse de prix : ' : 'Nouveau : ') + pour[0].b.type + ' à ' + pour[0].b.ville,
           html: gabarit(env, n > 1 ? n + ' biens pour votre recherche' : 'Un bien pour votre recherche',
             `<p style="font-size:14px;line-height:1.6;margin:0 0 18px;color:#5b6475;">Votre recherche : ${esc(resumeCriteres(a.criteres))}</p>${cartes}
-<p style="font-size:14px;line-height:1.6;margin:0;">Une question, une visite ? Répondez simplement à cet e-mail ou appelez-moi.</p>`,
+<p style="font-size:14px;line-height:1.6;margin:0;">Une question, une visite ? Répondez simplement à cet e-mail ou appelez-nous.</p>`,
             `Vous recevez cet e-mail car vous avez créé une alerte sur le site. <a href="${esc(stop)}" style="color:#5b6475;">Arrêter cette alerte</a>`),
           text: pour.map(({ b }) => b.type + ' à ' + b.ville + ' · ' + eur(b.prix) + ' · ' + site + '#bien/' + slug(b)).join('\n') + '\n\nArrêter cette alerte : ' + stop,
         });
