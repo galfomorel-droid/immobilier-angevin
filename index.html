@@ -5180,6 +5180,84 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .equipe-tel { display: inline-block; margin: -4px 0 14px; font-size: 1.15rem; font-weight: 800; color: var(--rouge); text-decoration: none; letter-spacing: .02em; }
 .equipe-tel:hover { text-decoration: underline; }
 
+/* ===================== FICHE ANNONCE FAÇON LA CABANE (24/11/2026) ===================== */
+#page-fiche.fj .fiche-body { display: block; max-width: 1184px; margin: 0 auto; padding: 0 28px; }
+#page-fiche.fj .fiche-body > div:first-child { max-width: none; width: 100%; }
+#page-fiche.fj .fiche-sidebar { display: none !important; }
+#page-fiche.fj .fiche-toolbar { max-width: 1184px; margin: 0 auto; padding: 22px 28px 0; }
+#page-fiche.fj .back-btn { border: 1px solid var(--line-c); border-radius: 999px; padding: 10px 18px; background: #fff; font-weight: 700; color: var(--marine); }
+.fj-tete { max-width: 1184px; margin: 18px auto 22px; padding: 0 28px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.fj-kicker { display: block; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rouge); font-weight: 700; margin-bottom: 6px; }
+#page-fiche.fj .fj-tete .fiche-title { font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 800; color: var(--marine); line-height: 1.05; margin: 0 0 12px; }
+#page-fiche.fj .fj-tete .fiche-loc { display: inline-flex; align-items: center; gap: 6px; background: #E8EDF6; color: var(--marine); font-weight: 700; font-size: .85rem; padding: 6px 14px; border-radius: 999px; margin: 0; }
+#page-fiche.fj .fj-tete .fiche-loc::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--rouge); }
+.fj-ref { margin: 0; color: #5b6475; font-size: .9rem; } .fj-ref strong { color: var(--marine); }
+/* Galerie : une grande photo arrondie, flèches rondes, actions posées sur la photo */
+.fj-galenv { position: relative; max-width: 1070px; margin: 0 auto; padding: 0 28px; }
+#page-fiche.fj .fj-galerie { display: block; position: relative; height: auto; }
+#page-fiche.fj .fj-galerie .fiche-gallery-main { width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; }
+#page-fiche.fj .fj-galerie .fiche-gallery-main img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
+#page-fiche.fj .fj-galerie .fiche-photos-btn { display: none; }
+.fj-fleche { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--marine); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; z-index: 3; box-shadow: 0 8px 20px rgba(2,20,48,.3); }
+.fj-fleche.prec { left: -6px; } .fj-fleche.suiv { right: -6px; }
+.fj-fleche[hidden] { display: none; }
+#page-fiche.fj .fj-galenv .fiche-actions-bar { position: absolute; right: 48px; bottom: 18px; z-index: 3; background: none; padding: 0; width: auto; }
+#page-fiche.fj .fj-galenv .fiche-share-btn { background: rgba(255,255,255,.95); border: 0; box-shadow: 0 6px 16px rgba(2,20,48,.2); }
+.fj-vignettes { max-width: 1070px; margin: 16px auto 0; padding: 0 28px; display: flex; gap: 12px; align-items: stretch; }
+.fj-vig { flex: 1 1 0; min-width: 0; aspect-ratio: 16 / 9; padding: 0; border: 2px solid transparent; border-radius: 12px; overflow: hidden; cursor: pointer; background: #E8EDF6; }
+.fj-vig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fj-vig.on { border-color: var(--marine); }
+.fj-cpt { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0 10px; border: 0; background: none; color: var(--marine); font: inherit; font-size: .72rem; cursor: pointer; }
+.fj-cpt strong { font-size: 1.1rem; }
+/* Prix */
+.fj-prixbloc { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: start; margin: clamp(30px, 4vw, 48px) 0 clamp(30px, 4vw, 48px); }
+#page-fiche.fj .fj-prix .fiche-price { font-size: clamp(2.2rem, 4.8vw, 3.4rem); font-weight: 800; color: #4F6FA8; margin: 0; line-height: 1.05; }
+.fj-prix-det p { margin: 6px 0 0; color: #3a4252; font-size: .92rem; }
+.fj-prix-det .fj-m2 { font-weight: 800; color: var(--marine); font-size: 1.15rem; }
+.fj-prix-det em { color: #5b6475; font-size: .78rem; }
+#page-fiche.fj .fj-prixbloc .fiche-keys { margin: 0; }
+/* Titres de sections */
+.fj-h2, #page-fiche.fj .caracs-titre, #page-fiche.fj #ficheExtras .fiche-bloc > h3 { font-size: clamp(1.7rem, 3vw, 2.3rem) !important; font-weight: 800 !important; color: var(--marine) !important; margin: clamp(36px, 5vw, 60px) 0 18px !important; line-height: 1.1; }
+.fj-h2[hidden] { display: none; }
+#page-fiche.fj .caracs-titre .fj-sous { display: block; font-size: 1rem; font-weight: 500; color: #5b6475; margin-top: 8px; }
+/* Caractéristiques : carte marine */
+#page-fiche.fj .caracs { background: var(--marine); border-radius: 22px; padding: 26px; gap: 14px 18px; }
+#page-fiche.fj .carac-ico { background: rgba(255,255,255,.1); color: #fff; }
+#page-fiche.fj .carac-l { color: rgba(255,255,255,.65); }
+#page-fiche.fj .carac-v { color: #fff; }
+/* Bilan énergétique en cases */
+.fj-dpe { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.fj-dpe-t { font-weight: 700; color: var(--marine); margin: 0 0 12px; font-size: .95rem; }
+.fj-dpe-cases { display: flex; gap: 6px; align-items: flex-start; }
+.fj-dpe-l { width: 38px; height: 38px; border-radius: 9px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: .95rem; opacity: .5; position: relative; }
+.fj-dpe-l.on { opacity: 1; width: 54px; height: 54px; font-size: 1.4rem; box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--marine); }
+.fj-dpe-l small { position: absolute; top: 62px; left: 50%; transform: translateX(-50%); font-size: .68rem; font-weight: 700; color: var(--marine); white-space: nowrap; text-align: center; line-height: 1.25; }
+.fj-dpe-n { margin: 52px 0 0; color: #3a4252; font-size: .9rem; }
+.fj-dpe + .fj-dpe-n, .fj-dpe { padding-bottom: 34px; }
+/* Contact : carte du conseiller + formulaire côte à côte */
+.fj-contact-grille { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+#page-fiche.fj .fj-contact .fiche-agent-card { border-radius: 20px; }
+#page-fiche.fj .fj-contact .fiche-agent-photo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; }
+#page-fiche.fj .fj-contact .fiche-contact-form { border-radius: 20px; margin: 0; }
+#page-fiche.fj .fiche-similaires-section { margin-top: clamp(40px, 6vw, 80px); }
+@media (max-width: 860px) {
+  #page-fiche.fj .fiche-body, .fj-tete, .fj-galenv, .fj-vignettes, #page-fiche.fj .fiche-toolbar { padding-left: 16px; padding-right: 16px; }
+  .fj-fleche { width: 38px; height: 38px; font-size: 1.3rem; } .fj-fleche.prec { left: 6px; } .fj-fleche.suiv { right: 6px; }
+  #page-fiche.fj .fj-galenv .fiche-actions-bar { right: 26px; bottom: 12px; }
+  #page-fiche.fj .fj-galenv .fiche-share-btn .lbl-lg, #page-fiche.fj .fj-galenv .fiche-share-btn span { display: none; }
+  .fj-vig:nth-child(n+4) { display: none; }
+  .fj-prixbloc, .fj-contact-grille, .fj-dpe { grid-template-columns: 1fr; }
+  .fj-dpe-cases { gap: 4px; } .fj-dpe-l { width: 32px; height: 32px; } .fj-dpe-l.on { width: 46px; height: 46px; }
+}
+.fj-dpe-nr { margin: 0; color: #5b6475; font-style: italic; }
+#page-fiche.fj .fj-contact { padding: 0; }
+#page-fiche.fj .fj-contact .fiche-agent-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 28px 22px; border: 1px solid var(--line-c); background: #fff; }
+#page-fiche.fj .fj-contact .fiche-agent-photo { width: 120px; height: 120px; box-shadow: 0 10px 26px rgba(2,20,48,.16); }
+#page-fiche.fj .fj-contact .fiche-agent-info { align-items: center; display: flex; flex-direction: column; }
+#page-fiche.fj .fj-contact .fiche-agent-name { font-size: 1.35rem; font-weight: 800; color: var(--marine); }
+#page-fiche.fj .fj-contact .fiche-agent-contacts { justify-content: center; }
+#page-fiche.fj .fj-contact .fiche-agency-link { display: block; text-align: center; margin-top: 12px; }
+
 </style>
 </head>
 <body>
@@ -8464,6 +8542,7 @@ function _agentAvatar(b) {
   return '<span class="bien-card-agent" title="' + _esc(c.nom) + ' s’occupe de ce bien"><img src="' + c.vignette + '" alt="Conseiller : ' + _esc(c.nom) + '" width="44" height="44" loading="lazy" decoding="async"></span>';
 }
 function majConseillerFiche(b) {
+  setTimeout(function () { _ficheCabaneMaj(b); }, 0);
   var c = conseillerDe(b);
   var ph = document.getElementById('ficheAgentPhoto');
   if (ph) { ph.src = c.vignette; ph.alt = c.nom + ', ' + c.role.toLowerCase(); }
@@ -8555,6 +8634,137 @@ document.addEventListener('DOMContentLoaded', function () {
   _majFavsAnnonces();
 });
 function _majFavsAnnonces() { var n = document.getElementById('favsAnnoncesN'); if (n) { try { n.textContent = favListe().length; } catch (e) { n.textContent = '0'; } } }
+
+// ===================== FICHE ANNONCE FAÇON LA CABANE (24/11/2026) =====================
+// Mise en page sur une colonne : en-tête (type, ville, référence), grande photo + vignettes, prix, caractéristiques,
+// bilan énergétique en cases A→G, description, localisation, mensualités, « Contacter <conseiller> », autres biens.
+var _fjIdx = 0;
+function _ficheCabaneInit() {
+  var p = document.getElementById('page-fiche'); if (!p || p.classList.contains('fj')) return;
+  p.classList.add('fj');
+  var body = p.querySelector('.fiche-body'), main = body && body.firstElementChild, side = p.querySelector('.fiche-sidebar');
+  var gal = document.getElementById('ficheGallery');
+  if (!body || !main || !gal) return;
+  // En-tête : kicker + titre + ville | référence
+  var tete = document.createElement('div'); tete.className = 'fj-tete';
+  tete.innerHTML = '<div class="fj-tete-g"><span class="fj-kicker" id="fjKicker">Acheter</span></div><p class="fj-ref" id="fjRef"></p>';
+  var tg = tete.querySelector('.fj-tete-g');
+  tg.appendChild(document.getElementById('ficheTitre')); tg.appendChild(document.getElementById('ficheLoc'));
+  gal.parentNode.insertBefore(tete, gal);
+  // Enveloppe autour de la galerie (son contenu est réécrit à chaque fiche) : boutons favori / PDF / partage posés sur la photo
+  var env = document.createElement('div'); env.className = 'fj-galenv'; gal.parentNode.insertBefore(env, gal); env.appendChild(gal);
+  var act = p.querySelector('.fiche-actions-bar'); if (act) env.appendChild(act);
+  // Vignettes sous la photo
+  var th = document.createElement('div'); th.className = 'fj-vignettes'; th.id = 'fjVignettes'; env.parentNode.insertBefore(th, env.nextSibling);
+  // Bloc prix (prix + détails) à côté des chiffres clés
+  var pp = document.createElement('div'); pp.className = 'fj-prixbloc';
+  pp.innerHTML = '<div class="fj-prix"></div>'; pp.firstChild.appendChild(document.getElementById('fichePrix'));
+  var det = document.createElement('div'); det.className = 'fj-prix-det'; det.id = 'fjPrixDet'; pp.firstChild.appendChild(det);
+  var keys = document.getElementById('ficheKeys'); if (keys) pp.appendChild(keys);
+  main.insertBefore(pp, main.firstChild);
+  // Titres de sections
+  var t = function (txt, avant, id) { var h = document.createElement('h2'); h.className = 'fj-h2'; h.textContent = txt; if (id) h.id = id; avant.parentNode.insertBefore(h, avant); return h; };
+  var desc = document.getElementById('ficheDesc'); if (desc) t('Description', desc);
+  var dpe = document.getElementById('ficheDPE');
+  // Ordre : caractéristiques, bilan énergétique, description, (extras : localisation, mensualités…), prix détaillé, mentions
+  var specs = document.getElementById('ficheSpecs');
+  if (specs && dpe) { var hd = t('Bilan énergétique', specs.nextSibling, 'fjDpeTitre'); hd.parentNode.insertBefore(dpe, hd.nextSibling); }
+  var extras = document.getElementById('ficheExtras'), prixS = document.getElementById('fichePrixSection'), legal = document.getElementById('ficheLegal');
+  if (extras) { if (prixS) main.appendChild(prixS); if (legal) main.appendChild(legal); }
+  // Section « Contacter … » : carte du conseiller + formulaire (plus de colonne latérale)
+  var sec = document.createElement('section'); sec.className = 'fj-contact';
+  sec.innerHTML = '<h2 class="fj-h2">Contacter <span id="fjContactPrenom">Charles</span></h2><div class="fj-contact-grille"></div>';
+  var gr = sec.querySelector('.fj-contact-grille');
+  var card = p.querySelector('.fiche-agent-card'), form = p.querySelector('.fiche-contact-form'), lien = p.querySelector('.fiche-agency-link');
+  if (card) { var col = document.createElement('div'); col.className = 'fj-contact-carte'; col.appendChild(card); if (lien) col.appendChild(lien); gr.appendChild(col); }
+  if (form) gr.appendChild(form);
+  main.appendChild(sec);
+  if (side) side.hidden = true;
+}
+function _fjCouleurs(k) {
+  return k === 'ges' ? { A: '#A4DBF8', B: '#8CB4D3', C: '#7792B1', D: '#6D7896', E: '#5D6178', F: '#474B5F', G: '#2C2F3F' }
+                     : { A: '#009C6D', B: '#52B153', C: '#78BD76', D: '#F4E70F', E: '#F0B50F', F: '#EB8235', G: '#D7221F' };
+}
+function _fjEchelle(titre, classe, valeur, unite, k) {
+  var c = _fjCouleurs(k), cl = String(classe || '').toUpperCase();
+  var cases = 'ABCDEFG'.split('').map(function (l) {
+    var on = l === cl, fonce = (k === 'ges' && 'DEFG'.indexOf(l) !== -1) || (k !== 'ges' && l === 'G');
+    return '<span class="fj-dpe-l' + (on ? ' on' : '') + '" style="background:' + c[l] + ';color:' + (fonce ? '#fff' : '#021430') + '">' + l +
+      (on && valeur ? '<small>' + valeur + '<br>' + unite + '</small>' : '') + '</span>';
+  }).join('');
+  return '<div class="fj-dpe-bloc"><p class="fj-dpe-t">' + titre + '</p><div class="fj-dpe-cases">' + cases + '</div></div>';
+}
+function _ficheCabaneMaj(b) {
+  _ficheCabaneInit();
+  var p = document.getElementById('page-fiche'); if (!p || !b) return;
+  var c = conseillerDe(b);
+  var k = document.getElementById('fjKicker'); if (k) k.textContent = (typeof _estLocation === 'function' && _estLocation(b)) ? 'Louer' : 'Acheter';
+  var ref = document.getElementById('fjRef'); if (ref) ref.innerHTML = 'Référence du bien : <strong>' + _esc(b.ref || b.id) + '</strong>';
+  var loc = document.getElementById('ficheLoc'); if (loc) loc.textContent = (b.ville || '') + (b.cp ? ' (' + b.cp + ')' : '');
+  var pr = document.getElementById('fjContactPrenom'); if (pr) pr.textContent = c.prenom;
+  // Prix : au m² et honoraires
+  var det = document.getElementById('fjPrixDet');
+  if (det) {
+    var fai = parseInt(b.prixFAI || b.prix) || 0, hh = parseInt(b.prixHH) || 0, s = parseFloat(b.surface) || 0, lignes = [];
+    var masque = (typeof isPrixMasque === 'function') && isPrixMasque(b);
+    if (!masque && fai && s && !_estLocation(b)) lignes.push('<span class="fj-m2">' + Math.round(fai / s).toLocaleString('fr-FR') + ' € / m²</span>');
+    if (!masque && fai && hh && fai > hh && b.honoraires !== 'vendeur') lignes.push('dont ' + (Math.round((fai - hh) / hh * 1000) / 10).toLocaleString('fr-FR') + ' % d’honoraires à la charge de l’acquéreur');
+    if (!masque && !_estLocation(b)) lignes.push('<em>* FAI : frais d’agence inclus.</em>');
+    det.innerHTML = lignes.map(function (l) { return '<p>' + l + '</p>'; }).join('');
+  }
+  // Sous-titre des caractéristiques
+  var specs = document.getElementById('ficheSpecs'), st = specs && specs.querySelector('.caracs-titre');
+  if (st) st.innerHTML = 'Caractéristiques<span class="fj-sous">' + [b.pieces ? b.pieces + ' pièces' : '', b.surface ? 'Surface : ' + b.surface + ' m²' : ''].filter(Boolean).join(' – ') + '</span>';
+  // Bilan énergétique en cases (si le DPE est connu)
+  var dpe = document.getElementById('ficheDPE'), dt = document.getElementById('fjDpeTitre');
+  if (dpe && b.dpeClasse) {
+    dpe.innerHTML = '<div class="fj-dpe">' + _fjEchelle('Consommation énergétique', b.dpeClasse, b.dpeConso, 'kWh/m².an', 'dpe') +
+      (b.gesClasse ? _fjEchelle('Émissions de gaz à effet de serre', b.gesClasse, b.gesConso, 'kg CO₂/m².an', 'ges') : '<div class="fj-dpe-bloc"><p class="fj-dpe-t">Émissions de gaz à effet de serre</p><p class="fj-dpe-nr">Non renseignées</p></div>') + '</div>' +
+      ((b.partenaire && b.partenaire.energie) ? '<p class="fj-dpe-n">Dépenses annuelles d’énergie pour un usage standard : ' + _esc(b.partenaire.energie) + '.</p>' : '');
+    if (dt) dt.hidden = false;
+  } else if (dt) dt.hidden = !(dpe && dpe.textContent.trim());
+  // Localisation avant les mensualités (comme La Cabane)
+  var ex = document.getElementById('ficheExtras');
+  if (ex) {
+    var blocs = [].slice.call(ex.querySelectorAll(':scope > .fiche-bloc')), calc = ex.querySelector('.fiche-calc');
+    var locb = blocs.find(function (x) { var h = x.querySelector('h3'); return h && /Localisation/.test(h.textContent); });
+    if (calc && locb && calc.compareDocumentPosition(locb) & Node.DOCUMENT_POSITION_FOLLOWING) ex.insertBefore(locb, calc);
+  }
+  // Galerie : une grande photo, flèches, vignettes
+  _fjIdx = 0; _fjGalerie(b);
+}
+function _fjGalerie(b) {
+  var gal = document.getElementById('ficheGallery'); if (!gal) return;
+  var photos = (b.photos && b.photos.length ? b.photos : (b.img ? [b.img] : []));
+  var mainImg = gal.querySelector('.fiche-gallery-main img');
+  var sub = gal.querySelector('.fiche-gallery-sub'); if (sub) sub.remove();
+  gal.className = 'fiche-gallery fj-galerie';
+  if (!gal.querySelector('.fj-fleche')) {
+    gal.insertAdjacentHTML('beforeend', '<button type="button" class="fj-fleche prec" aria-label="Photo précédente">‹</button><button type="button" class="fj-fleche suiv" aria-label="Photo suivante">›</button>');
+    gal.querySelector('.fj-fleche.prec').addEventListener('click', function (e) { e.stopPropagation(); _fjAller(-1); });
+    gal.querySelector('.fj-fleche.suiv').addEventListener('click', function (e) { e.stopPropagation(); _fjAller(1); });
+  }
+  gal.querySelectorAll('.fj-fleche').forEach(function (f) { f.hidden = photos.length < 2; });
+  gal._photos = photos;
+  if (mainImg) mainImg.onclick = function () { if (typeof openLightbox === 'function') openLightbox(_fjIdx); };
+  var th = document.getElementById('fjVignettes');
+  if (th) {
+    var n = Math.min(photos.length, 6);
+    th.innerHTML = photos.slice(0, n).map(function (u, i) {
+      return '<button type="button" class="fj-vig' + (i === 0 ? ' on' : '') + '" data-i="' + i + '" aria-label="Photo ' + (i + 1) + '"><img src="' + _esc(imgOpt(u, 300)) + '" alt="" loading="lazy" decoding="async"></button>';
+    }).join('') + '<button type="button" class="fj-cpt" aria-label="Voir les ' + photos.length + ' photos"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.2"/></svg><strong>' + photos.length + '</strong> Photos</button>';
+    th.querySelectorAll('.fj-vig').forEach(function (v) { v.addEventListener('click', function () { _fjMontrer(+v.getAttribute('data-i')); }); });
+    th.querySelector('.fj-cpt').addEventListener('click', function () { if (typeof openLightbox === 'function') openLightbox(_fjIdx); });
+  }
+}
+function _fjMontrer(i) {
+  var gal = document.getElementById('ficheGallery'); if (!gal || !gal._photos) return;
+  var ph = gal._photos; _fjIdx = (i + ph.length) % ph.length;
+  var img = gal.querySelector('.fiche-gallery-main img');
+  if (img) { img.removeAttribute('srcset'); img.src = imgOpt(ph[_fjIdx], 1600); img.setAttribute('data-orig', ph[_fjIdx]); }
+  document.querySelectorAll('#fjVignettes .fj-vig').forEach(function (v) { v.classList.toggle('on', +v.getAttribute('data-i') === _fjIdx); });
+}
+function _fjAller(d) { _fjMontrer(_fjIdx + d); }
 
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
