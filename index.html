@@ -4835,6 +4835,25 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 .seo-plus > summary::after { content: '+'; font-weight: 700; }
 .seo-plus[open] > summary { display: none; }
 
+/* ===== Barre d'onglets mobile (refonte binôme) ===== */
+.tabbar { display: none; }
+@media (max-width: 767px) {
+  .tabbar { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 940;
+    background: #fff; border-top: 1px solid var(--line-c); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
+  .tabbar a { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0; min-height: 48px; justify-content: center;
+    font-size: .7rem; font-weight: 500; color: #5b6475; text-decoration: none; }
+  .tabbar a svg { width: 22px; height: 22px; }
+  .tabbar a.is-active { color: var(--marine); font-weight: 700; }
+  .tabbar a.is-active svg { color: var(--rouge); }
+  body { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+  .wa-float { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  /* La fiche a déjà sa barre « Appeler / Visiter » en bas : pas de doublon */
+  body:has(#page-fiche.active) .tabbar, body.admin-mode .tabbar, body:has(#page-admin.active) .tabbar { display: none; }
+  body:has(#page-fiche.active) { padding-bottom: 0; }
+  body:has(#page-fiche.active) .wa-float { bottom: 84px; }
+}
+@media print { .tabbar { display: none !important; } }
+
 </style>
 </head>
 <body>
@@ -4850,8 +4869,6 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
     <li><a href="#acheter" data-nav="acheter" onclick="showPage('acheter');return false;">Acheter</a></li>
     <li><a href="#vendre" data-nav="vendre" onclick="showPage('vendre');return false;">Vendre</a></li>
     <li><a href="#estimation" data-nav="estimation" onclick="showPage('estimation');return false;">Estimer</a></li>
-    <li><a href="#parrainage" data-nav="parrainage" onclick="showPage('parrainage');return false;">Parrainer</a></li>
-    <li><a href="#outils" data-nav="outils" onclick="showPage('outils');return false;">Outils</a></li>
     <li><a href="#agence" data-nav="apropos" onclick="showPage('apropos');return false;">L'agence</a></li>
     <li><a href="#contact" data-nav="contact" onclick="showPage('contact');return false;">Contact</a></li>
     <li><a href="#favoris" class="nav-fav" data-nav="favoris" onclick="showPage('favoris');return false;" aria-label="Mes favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg><span class="fav-count" data-n="0"></span></a></li>
@@ -4875,6 +4892,15 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
   <a href="#agence" onclick="showPage('apropos');closeMobileMenu();return false;">L'agence</a>
   <a href="#contact" onclick="showPage('contact');closeMobileMenu();return false;">Contact</a>
   <a href="#favoris" onclick="showPage('favoris');closeMobileMenu();return false;">Mes favoris <span class="fav-count" data-n="0"></span></a>
+</div>
+
+<!-- BARRE D'ONGLETS MOBILE (refonte binôme) -->
+<div class="tabbar" role="navigation" aria-label="Navigation principale (mobile)">
+  <a href="./" data-nav="home" onclick="showPage('home');return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg><span>Accueil</span></a>
+  <a href="#acheter" data-nav="acheter" onclick="showPage('acheter');return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>Acheter</span></a>
+  <a href="#vendre" data-nav="vendre" onclick="showPage('vendre');return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><span>Vendre</span></a>
+  <a href="#estimation" data-nav="estimation" onclick="showPage('estimation');return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg><span>Estimer</span></a>
+  <a href="#contact" data-nav="contact" onclick="showPage('contact');return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Contact</span></a>
 </div>
 
 <main id="contenu" tabindex="-1">
@@ -6884,7 +6910,7 @@ function showPage(id) {
   if (id === 'estimation') refreshVilleSelects();
   if (id === 'favoris') renderFavoris();
   if (id === 'admin') renderAdmin();
-  document.querySelectorAll('.nav-links a[data-nav]').forEach(function(a){ a.classList.toggle('is-active', a.getAttribute('data-nav') === _navId); });
+  document.querySelectorAll('.nav-links a[data-nav], .tabbar a[data-nav]').forEach(function(a){ var on = a.getAttribute('data-nav') === _navId; a.classList.toggle('is-active', on); if (a.closest('.tabbar')) { if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); } });
   if (typeof favMajUI === 'function') favMajUI();
 
   // ===== SEO DYNAMIQUE PAR PAGE =====
@@ -7963,6 +7989,18 @@ function majChiffres(nbVendus) {
     });
   } catch (e) {}
 }
+
+// Onglet actif de la barre mobile au premier affichage (ensuite, showPage s'en charge)
+function majOngletMobile() {
+  var p = document.querySelector('.page.active');
+  var cle = { 'page-home': 'home', 'page-biens': 'acheter', 'page-vendre': 'vendre', 'page-estimation': 'estimation', 'page-contact': 'contact' }[p ? p.id : ''];
+  document.querySelectorAll('.tabbar a[data-nav]').forEach(function (a) {
+    var on = a.getAttribute('data-nav') === cle;
+    a.classList.toggle('is-active', on);
+    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+}
+window.addEventListener('load', function () { if (!document.querySelector('.tabbar .is-active')) majOngletMobile(); });
 
 function renderVendusCarousel() {
   var track = document.querySelector('.vendus-track');
