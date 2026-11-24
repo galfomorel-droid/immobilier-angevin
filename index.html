@@ -4892,6 +4892,12 @@ a.cb-card:hover, button.cb-card:hover, .reseau-card:hover, .reseau-card:hover .r
 @media (max-width: 860px) { .cb-photo.arch.duo { aspect-ratio: 6 / 5; max-width: 100%; } }
 .admin-conseiller { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; color: #3a4252; margin-right: 6px; }
 .admin-conseiller select { font: inherit; font-size: .8rem; padding: 6px 8px; border: 1px solid var(--line-c); border-radius: 8px; background: #fff; color: var(--marine); }
+/* Page L'agence (ordinateur) : la photo du duo occupe toute la hauteur du texte */
+@media (min-width: 861px) {
+  .cb-hero .cb-split:has(.cb-photo.duo) { align-items: stretch; }
+  .cb-hero .cb-photo.arch.duo { aspect-ratio: auto; height: 100%; min-height: 420px; border-radius: 999px 999px 18px 18px / 22% 22% 18px 18px; }
+  .cb-hero .cb-photo.arch.duo img { object-position: 50% 20%; }
+}
 
 </style>
 </head>
