@@ -3238,8 +3238,9 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
   border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; }
 #lightbox-fs:hover { background: rgba(255,255,255,.3); }
 #lightbox-fs svg { width: 18px; height: 18px; }
-
-
+/* ---------- Vendre : portails ---------- */
+.vd-group { margin-top: 34px; }
+.vd-gt { font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gris); font-weight: 600; text-align: center; margin-bottom: 14px; }
 
 
 
@@ -4467,6 +4468,14 @@ html.sans-anim .avis3-logos { -webkit-mask-image: none; mask-image: none; }
 #biens-home .bien-card-agent { display: none; }
 @media (max-width: 700px) { .avis3-onglets button { white-space: nowrap; padding: 9px 12px; font-size: .8rem; } }
 
+/* Page Vendre : trois rubriques de portails (habitation, commerce, terrain) en cartes blanches (25/11/2026) */
+.vd-group { margin-top: clamp(28px, 4vw, 44px); }
+.vd-group .vd-gt { margin: 0 0 14px; text-align: center; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--marine); }
+.vd-group .vd-logos { margin-top: 0; }
+.vd-hab .vd-logos { max-width: 1114px; }
+.prt-logo.prt-texte { text-align: center; white-space: normal; font-size: 1.05rem; line-height: 1.2; }
+@media (max-width: 600px) { .prt-logo.prt-texte { font-size: .9rem; } }
+
 </style>
 <style id="direction-artistique">
 /* ===================== DIRECTION ARTISTIQUE (priorité 3 de l'audit, 24/11/2026) =====================
@@ -5649,8 +5658,11 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
     <div class="cb-wrap">
       <span class="cb-kicker">Diffusion</span>
       <h2 class="cb-h2">Une diffusion ciblée sur les grands portails</h2>
-      <p class="cb-lead">Maison, appartement ou terrain : votre annonce est présentée sur notre site et sur les grands portails immobiliers, puis à notre fichier d'acquéreurs.</p>
-      <ul class="vd-logos" aria-label="Portails de diffusion"><li class="prt-logo"><img src="img/portails/leboncoin.webp" alt="leboncoin" width="160" height="29" decoding="async"></li><li class="prt-logo"><img src="img/portails/seloger.webp" alt="SeLoger" width="160" height="39" decoding="async"></li><li class="prt-logo"><img src="img/portails/logicimmo.webp" alt="Logic-Immo" width="123" height="44" decoding="async"></li><li class="prt-logo"><img src="img/portails/bienici.webp" alt="Bien&#x27;ici" width="160" height="33" decoding="async"></li><li class="prt-logo"><img src="img/portails/figaroimmo.webp" alt="Figaro Immobilier" width="140" height="44" decoding="async"></li><li class="prt-logo"><img src="img/portails/paruvendu.webp" alt="ParuVendu" width="160" height="28" decoding="async"></li><li class="prt-logo"><img src="img/portails/superimmo.webp" alt="Superimmo" width="160" height="34" decoding="async"></li><li class="prt-logo"><img src="img/portails/properstar.webp" alt="Properstar" width="160" height="24" decoding="async"></li><li class="prt-logo"><img src="img/portails/3gimmo.webp" alt="3G Immo" width="160" height="28" decoding="async"></li></ul>
+      <p class="cb-lead">Maison, appartement, local commercial ou terrain : votre annonce est présentée sur notre site, sur les portails les plus adaptés à votre bien, puis à notre fichier d'acquéreurs.</p>
+      <div class="vd-group vd-hab"><p class="vd-gt">Habitation</p><ul class="vd-logos" aria-label="Portails : Habitation"><li class="prt-logo"><img src="img/portails/leboncoin.webp" alt="leboncoin" width="160" height="29" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/seloger.webp" alt="SeLoger" width="160" height="39" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/logicimmo.webp" alt="Logic-Immo" width="123" height="44" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/bienici.webp" alt="Bien&#x27;ici" width="160" height="33" decoding="async" loading="lazy"></li><li class="prt-logo prt-texte"><span style="color:#B2282B;font-weight:700">ouestfrance-immo</span></li><li class="prt-logo"><img src="img/portails/figaroimmo.webp" alt="Figaro Immobilier" width="140" height="44" decoding="async" loading="lazy"></li><li class="prt-logo prt-texte"><span style="color:#192D56;letter-spacing:.08em;font-weight:600">Belles Demeures</span></li><li class="prt-logo"><img src="img/portails/proprietes.webp" alt="Propriétés Le Figaro" width="160" height="39" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/paruvendu.webp" alt="ParuVendu" width="160" height="28" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/superimmo.webp" alt="Superimmo" width="160" height="34" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/properstar.webp" alt="Properstar" width="160" height="24" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/jinka.webp" alt="Jinka" width="135" height="44" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/gdc.webp" alt="Gens de Confiance" width="91" height="44" decoding="async" loading="lazy"></li><li class="prt-logo prt-texte"><span style="color:#186CDA;font-weight:700">Meilleurs Agents</span></li><li class="prt-logo"><img src="img/portails/3gimmo.webp" alt="3G Immo" width="160" height="28" decoding="async" loading="lazy"></li></ul></div>
+      <div class="vd-group vd-pro"><p class="vd-gt">Commerce &amp; professionnel</p><ul class="vd-logos" aria-label="Portails : Commerce &amp; professionnel"><li class="prt-logo prt-texte"><span style="color:#E2001A;font-weight:800">SeLoger <span style="color:#0E2A47;font-weight:600">Bureaux &amp; Commerces</span></span></li><li class="prt-logo prt-texte"><span style="color:#0E2A47;font-weight:800">Webimm</span></li><li class="prt-logo prt-texte"><span style="color:#C0392B;font-style:italic;font-weight:700">Commerce en direct</span></li><li class="prt-logo prt-texte"><span style="color:#192D56;font-weight:700">Hôtel Restau</span></li><li class="prt-logo prt-texte"><span style="color:#CA3187;font-weight:700">octissimo</span></li><li class="prt-logo prt-texte"><span style="color:#D7221F;font-weight:800">DOM<span style="color:#192D56;font-weight:600">immo</span></span></li></ul></div>
+      <div class="vd-group vd-ter"><p class="vd-gt">Terrain</p><ul class="vd-logos" aria-label="Portails : Terrain"><li class="prt-logo"><img src="img/portails/terrainconstruction.webp" alt="Terrain Construction" width="127" height="44" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/lesterrains.webp" alt="les-terrains" width="110" height="44" decoding="async" loading="lazy"></li><li class="prt-logo"><img src="img/portails/superimmo.webp" alt="Superimmo" width="160" height="34" decoding="async" loading="lazy"></li></ul></div>
+
     </div>
   </section>
 
