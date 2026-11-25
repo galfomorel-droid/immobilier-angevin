@@ -4411,6 +4411,28 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .est-confiance .est-duo span { color: var(--marine); font-weight: 600; font-size: .88rem; line-height: 1.35; }
 @media (max-width: 760px) { .est-confiance { grid-template-columns: repeat(3, 1fr); } .est-confiance .est-duo { grid-column: 1 / -1; justify-content: center; } .est-confiance > div { padding: 12px; text-align: center; } .est-confiance strong { font-size: 1.1rem; } }
 
+/* ===================== SUIVI DES ESTIMATIONS (25/11/2026) ===================== */
+.est-suivi-ok { display: flex; gap: 10px; align-items: flex-start; margin-top: 10px; cursor: pointer; }
+.est-suivi-ok input { margin-top: 3px; flex: 0 0 auto; }
+.est-visite { margin-top: 28px; padding: 22px; border-radius: 18px; background: #F5F6F9; border: 1px solid #E3E7EF; text-align: left; }
+.est-visite-t { font-size: 1.15rem; font-weight: 800; color: var(--marine); margin: 0 0 6px; }
+.est-visite-p { margin: 0 0 14px; color: #3A4252; }
+.est-visite-l { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #5B6475; margin: 12px 0 8px; }
+.est-crens { display: flex; flex-wrap: wrap; gap: 8px; }
+.est-cren { font: inherit; font-size: .9rem; padding: 9px 14px; border-radius: 999px; border: 1.5px solid #C9D0DC; background: #fff; color: var(--marine); cursor: pointer; }
+.est-cren[aria-pressed="true"] { background: var(--marine); border-color: var(--marine); color: #fff; }
+.est-visite textarea { width: 100%; }
+.est-visite-go { margin-top: 14px; }
+.est-visite-ok { margin: 6px 0 0; padding: 14px 16px; border-radius: 12px; background: #E6F4EA; color: #1B5E31; }
+.est-visite-lien { margin-bottom: 24px; }
+.admin-demande.a-rappeler { border-left: 4px solid var(--rouge); }
+.admin-suivi { margin-top: 12px; padding-top: 12px; border-top: 1px dashed #D6DBE5; }
+.admin-suivi-g { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.admin-suivi label { display: flex; flex-direction: column; gap: 4px; font-size: .8rem; font-weight: 600; color: #5B6475; }
+.admin-suivi-n { margin-top: 10px; }
+.admin-suivi-visite { background: #FBECEE; border-radius: 10px; padding: 8px 12px; }
+@media (max-width: 520px) { .admin-suivi-g { grid-template-columns: 1fr; } }
+
 </style>
 <style id="direction-artistique">
 /* ===================== DIRECTION ARTISTIQUE (priorité 3 de l'audit, 24/11/2026) =====================
@@ -5400,6 +5422,7 @@ html.anim:not(.sans-intro) #heroContent .hero-accroche { animation-delay: 1.2s; 
             <div class="form-row"><label class="form-label" for="estimTel">Téléphone *</label><input type="tel" id="estimTel" class="form-input" placeholder="06 00 00 00 00" required pattern="[0-9 .+\-()]{8,20}" maxlength="20"></div>
           </div>
           <p class="form-consent">Vos données sont utilisées uniquement pour répondre à votre demande d'estimation (voir <a href="#confidentialite" onclick="showLegal('rgpd');return false;" style="text-decoration:underline;">protection des données</a>).</p>
+          <label class="form-consent est-suivi-ok"><input type="checkbox" id="estimSuivi"> <span>J'accepte de recevoir par e-mail le suivi de mon estimation (3 messages au plus : visite, prix du marché dans ma commune). Un lien dans chaque e-mail permet d'arrêter.</span></label>
           <input type="text" id="estimSite" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="form-submit" onclick="submitEstimation()">Voir mon estimation</button>
         </div>
@@ -6701,6 +6724,7 @@ var legalPages = {
     '<div class="legal-section"><h3>Données collectées et finalités</h3>' +
       '<p>Les données saisies dans les formulaires (nom, prénom, téléphone, e-mail, informations sur votre bien ou votre recherche) sont utilisées uniquement pour répondre à votre demande : prise de contact, estimation, visite, recherche de bien, parrainage. Base légale : votre consentement et les mesures précontractuelles prises à votre demande.</p>' +
       '<p><b>Estimation en ligne.</b> La fourchette de prix est calculée dans votre navigateur à partir des données publiques DVF (ventes immobilières publiées par l\'administration fiscale) ; c\'est une estimation indicative, qui ne remplace pas un avis de valeur. Votre demande est transmise à Charles MOREL pour qu\'il vous recontacte.</p>' +
+      '<p><b>Suivi de votre estimation.</b> Après une demande d\'estimation, nous vous rappelons au numéro indiqué. Si vous avez coché la case prévue, vous recevez en plus au plus 3 e-mails de suivi (proposition de visite, prix du marché dans votre commune, point sur votre projet) ; ils s\'arrêtent dès que vous demandez une visite ou en un clic grâce au lien présent dans chaque e-mail.</p>' +
       '<p><b>Alertes e-mail.</b> Si vous créez une alerte, votre adresse e-mail et vos critères de recherche servent uniquement à vous envoyer les nouveaux biens correspondants. L\'alerte ne démarre qu\'après votre clic de confirmation, et chaque e-mail contient un lien pour l\'arrêter : l\'adresse est alors effacée. Une alerte non confirmée est effacée au bout de 7 jours.</p></div>' +
     '<div class="legal-section"><h3>Destinataires et durée de conservation</h3>' +
       '<p>Les données sont destinées exclusivement à Charles MOREL et, pour le suivi des mandats, au réseau 3G IMMO. Elles ne sont ni vendues ni cédées, et sont conservées 3 ans à compter du dernier contact. Les demandes d\'estimation et les alertes sont stockées chez Cloudflare (hébergement du serveur du site) et les e-mails sont envoyés par le service Resend ; les autres formulaires transitent par le service d\'envoi Web3Forms. Ces prestataires agissent comme sous-traitants et peuvent héberger des données hors de l\'Union européenne, avec les garanties prévues par le RGPD (clauses contractuelles types).</p></div>' +
@@ -8122,6 +8146,101 @@ fetch('data/vendus-3g.json', { cache: 'no-cache' })
   })
   .catch(function () {});
 
+// ===== Suivi des estimations : demande de visite (résultat et lien des e-mails), espace pro =====
+var _estJeton = '';
+var EST_JOURS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+var EST_MOMENTS = ['Matin', 'Midi', 'Après-midi', 'Fin de journée', 'Dès que possible'];
+function _estVisiteHTML(intro) {
+  if (!_estJeton) return '';
+  var puce = function (c) { return '<button type="button" class="est-cren" aria-pressed="false" onclick="this.setAttribute(\'aria-pressed\', this.getAttribute(\'aria-pressed\') === \'true\' ? \'false\' : \'true\')">' + c + '</button>'; };
+  return '<div class="est-visite" id="estVisite">' +
+    '<h3 class="est-visite-t">' + (intro || 'Affinez ce prix : visite d’estimation gratuite') + '</h3>' +
+    '<p class="est-visite-p">30 minutes chez vous pour un prix argumenté, sans engagement. Indiquez vos disponibilités, nous vous rappelons pour fixer le rendez-vous.</p>' +
+    '<p class="est-visite-l">Jours</p><div class="est-crens">' + EST_JOURS.map(puce).join('') + '</div>' +
+    '<p class="est-visite-l">Moments</p><div class="est-crens">' + EST_MOMENTS.map(puce).join('') + '</div>' +
+    '<label class="est-visite-l" for="estVisiteMsg">Précision (facultatif)</label>' +
+    '<textarea id="estVisiteMsg" class="form-input" rows="2" maxlength="600" placeholder="Ex. : plutôt après 17 h"></textarea>' +
+    '<button type="button" class="cb-btn accent est-visite-go" onclick="estDemanderVisite()">Demander ma visite</button>' +
+    '<p class="est-visite-ok" id="estVisiteOk" role="status" hidden></p></div>';
+}
+async function estDemanderVisite() {
+  var box = document.getElementById('estVisite'); if (!box || !_estJeton) return;
+  var creneaux = [].slice.call(box.querySelectorAll('.est-cren[aria-pressed="true"]')).map(function (b) { return b.textContent; });
+  if (!creneaux.length) { showToast('Choisissez au moins un jour ou un moment.', 'error'); return; }
+  var btn = box.querySelector('.est-visite-go'); btn.disabled = true; btn.textContent = 'Envoi…';
+  var ok = false, prenom = '';
+  try {
+    var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'visite', jeton: _estJeton, creneaux: creneaux, message: (document.getElementById('estVisiteMsg') || {}).value || '' }) });
+    ok = r.ok; if (ok) prenom = ((await r.json()) || {}).prenom || '';
+  } catch (e) {}
+  var m = document.getElementById('estVisiteOk');
+  if (ok) {
+    [].forEach.call(box.querySelectorAll('.est-crens, .est-visite-l, textarea, .est-visite-go, .est-visite-p'), function (e) { e.hidden = true; e.style.display = 'none'; });
+    m.hidden = false; m.innerHTML = '<b>Merci' + (prenom ? ' ' + _esc(prenom) : '') + ' !</b> Votre demande de visite est bien reçue : nous vous rappelons très vite pour fixer le rendez-vous (' + _esc(creneaux.join(', ')) + ').';
+  } else {
+    btn.disabled = false; btn.textContent = 'Demander ma visite';
+    showToast('Envoi impossible pour le moment : appelez-nous au ' + (AGENCE.telephone || '06 38 55 53 55') + '.', 'error', 7000);
+  }
+}
+// Lien « Choisir un créneau » des e-mails de suivi : ?rdv=<jeton>#estimation
+// lu tout de suite : le routeur du site réécrit ensuite l'adresse (le paramètre disparaîtrait)
+var _rdvLien = (function () { try { return (new URLSearchParams(location.search)).get('rdv') || ''; } catch (e) { return ''; } })();
+async function _estVisiteDepuisLien() {
+  var j = _rdvLien;
+  if (!j || !/^[0-9a-f]{48}$/.test(j) || !AGENCE.statutProxyUrl) return;
+  if (typeof showPage === 'function') showPage('estimation');
+  var info = null;
+  try { var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'visite-info', jeton: j }) }); if (r.ok) info = await r.json(); } catch (e) {}
+  var card = document.getElementById('estCard'); if (!card || !info) return;
+  _estJeton = j;
+  var el = document.createElement('div'); el.className = 'est-card est-visite-lien';
+  el.innerHTML = '<span class="cb-kicker">Votre estimation</span><h2 class="est-q">Bonjour ' + _esc(info.prenom || '') + '</h2>' +
+    '<p class="est-help">' + _esc(info.bien || '') + (info.estimation ? ' · estimation en ligne : <b>' + _esc(info.estimation.split(' (')[0]) + '</b>' : '') + '</p>' +
+    (info.dejaDemandee ? '<p class="est-help"><b>Votre demande de visite est déjà enregistrée</b> : nous vous rappelons pour fixer le rendez-vous. Vous pouvez préciser d’autres disponibilités ci-dessous.</p>' : '') +
+    _estVisiteHTML('Choisissez vos disponibilités pour la visite');
+  card.parentNode.insertBefore(el, card);
+  setTimeout(function () { el.scrollIntoView({ block: 'start' }); window.scrollBy(0, -100); }, 300);
+}
+document.addEventListener('DOMContentLoaded', function () { setTimeout(_estVisiteDepuisLien, 400); });
+
+// Espace pro : état, date de rappel, note
+var SUIVI_ETATS = [['nouveau', 'Nouvelle demande'], ['a_rappeler', 'À rappeler'], ['rappele', 'Rappelé'], ['rdv_demande', 'Visite demandée'],
+  ['rdv_pris', 'Visite programmée'], ['mandat', 'Mandat signé'], ['perdu', 'Sans suite']];
+function _adminADue(x) {
+  var s = x.suivi || { etat: 'nouveau', rappel: x.recu };
+  return ['nouveau', 'a_rappeler', 'rdv_demande'].indexOf(s.etat) !== -1 && s.rappel && Date.parse(s.rappel) <= Date.now();
+}
+function _adminTrierDemandes(d) {
+  return d.slice().sort(function (a, b) { return (_adminADue(b) ? 1 : 0) - (_adminADue(a) ? 1 : 0); });
+}
+function _adminSuiviHTML(x) {
+  var s = x.suivi || { etat: 'nouveau', rappel: x.recu, note: '' };
+  var k = _esc(x.cle).replace(/[^a-z0-9:]/gi, '');
+  var jour = s.rappel ? String(s.rappel).slice(0, 10) : '';
+  return '<div class="admin-suivi" data-cle="' + _esc(x.cle) + '">' +
+    (x.visite ? '<p class="admin-suivi-visite">Visite demandée · disponibilités : <b>' + _esc((x.visite.creneaux || []).join(', ')) + '</b>' + (x.visite.message ? ' · « ' + _esc(x.visite.message) + ' »' : '') + '</p>' : '') +
+    '<div class="admin-suivi-g">' +
+      '<label>État<select class="form-select" data-k="etat">' + SUIVI_ETATS.map(function (e) { return '<option value="' + e[0] + '"' + (e[0] === s.etat ? ' selected' : '') + '>' + e[1] + '</option>'; }).join('') + '</select></label>' +
+      '<label>Rappeler le<input type="date" class="form-input" data-k="rappel" value="' + _esc(jour) + '"></label>' +
+    '</div>' +
+    '<label class="admin-suivi-n">Note<textarea class="form-input" rows="2" data-k="note" maxlength="1000">' + _esc(s.note || '') + '</textarea></label>' +
+    '<p class="admin-src">' + (x.consentSuivi ? 'E-mails de suivi acceptés' + (s.relances ? ' · ' + s.relances + ' envoyé' + (s.relances > 1 ? 's' : '') : '') : 'Pas d’e-mails de suivi (non acceptés)') + '</p>' +
+    '<div class="admin-bien-actions"><button class="btn-statut" onclick="adminMajSuivi(this)">Enregistrer le suivi</button></div></div>';
+}
+async function adminMajSuivi(btn) {
+  var box = btn.closest('.admin-suivi'); if (!box) return;
+  var val = function (k) { var e = box.querySelector('[data-k="' + k + '"]'); return e ? e.value : ''; };
+  btn.disabled = true;
+  try {
+    var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: _adminPwd, action: 'suivi', cle: box.getAttribute('data-cle'), etat: val('etat'), rappel: val('rappel'), note: val('note') }) });
+    if (!r.ok) throw new Error();
+    showToast('Suivi enregistré.', 'success', 2500);
+    _adminChargerDemandes(true);
+  } catch (e) { showToast('Enregistrement impossible pour le moment.', 'error', 5000); btn.disabled = false; }
+}
+
 // ===== ANIMATIONS DE L'ACCUEIL (24/11/2026, demande de Charles : « aussi bien que La Cabane ») =====
 // Tout est désactivé si le visiteur a demandé moins d'animations (classe html.sans-anim, posée dans <head>).
 var _ANIM = document.documentElement.classList.contains('anim');
@@ -9141,14 +9260,14 @@ function _estCalculer(d, dvf) {
 function _estResultatHTML(est, prenom, envoye) {
   var tel = AGENCE.telephone || '', wa = AGENCE.whatsapp || '';
   var actions = '<div class="est-res-actions">' +
-    (tel ? '<a class="cb-btn" href="tel:' + _telIntl(tel) + '">Appeler Charles · ' + _esc(tel) + '</a>' : '') +
+    (tel ? '<a class="cb-btn ghost" href="tel:' + _telIntl(tel) + '">Appeler Charles · ' + _esc(tel) + '</a>' : '') +
     (wa ? '<a class="cb-btn ghost" href="https://wa.me/' + _esc(wa) + '" target="_blank" rel="noopener">Écrire sur WhatsApp</a>' : '') +
     '<button type="button" class="est-back" onclick="estRecommencer()">Faire une autre estimation</button></div>';
   var alerte = envoye ? '' : '<p class="est-res-warn" role="alert">Votre demande n\'a pas pu être transmise automatiquement : appelez-nous ou écrivez-nous pour que nous l\'affinions avec vous.</p>';
   if (!est) {
     return '<div class="est-res" tabindex="-1" id="estRes"><span class="cb-kicker">Demande reçue</span>' +
       '<h2 class="est-q">Merci ' + _esc(prenom) + ', nous nous occupons de votre estimation</h2>' + alerte +
-      '<p class="est-help">Pour ce type de bien ou cette commune, une estimation automatique ne serait pas fiable : nous vous recontactons sous 24 h pour vous donner un avis de valeur argumenté, après une visite si besoin. C\'est gratuit et sans engagement.</p>' + actions + '</div>';
+      '<p class="est-help">Pour ce type de bien ou cette commune, une estimation automatique ne serait pas fiable : nous vous recontactons sous 24 h pour vous donner un avis de valeur argumenté, après une visite si besoin. C\'est gratuit et sans engagement.</p>' + actions + _estVisiteHTML() + '</div>';
   }
   var typeTxt = est.k === 'm' ? 'maisons vendues' : 'appartements vendus';
   return '<div class="est-res" tabindex="-1" id="estRes"><span class="cb-kicker">Votre estimation indicative</span>' +
@@ -9159,7 +9278,7 @@ function _estResultatHTML(est, prenom, envoye) {
       (est.ajust.length ? ', ajusté selon ' + est.ajust.join(', ').replace(/, ([^,]*)$/, ' et $1') : '') + '.' +
       (est.secteur ? ' Il y a trop peu de ventes dans votre commune : le calcul utilise tout le secteur, la fourchette est donc plus large.' : '') + '</p>' +
       '<p>Un calcul automatique ne voit ni la rue, ni la vue, ni la luminosité, ni la qualité des travaux. <b>Nous vous recontactons sous 24 h</b> pour affiner ce prix lors d\'une visite, gratuitement et sans engagement.</p></div>' +
-    actions + '</div>';
+    actions + _estVisiteHTML() + '</div>';
 }
 
 async function submitEstimation() {
@@ -9169,6 +9288,8 @@ async function submitEstimation() {
     adresse: v('estimAdresse'), surface: v('estimSurface'), terrain: v('estimTerrain'), pieces: v('estimPieces'), chambres: v('estimChambres'),
     sdb: v('estimSdb'), annee: v('estimAnnee'), etage: v('estimEtage'), etat: v('estimEtat'), projet: v('estimProjet'), dpe: v('estimDpe'), message: v('estimMessage')
   };
+  var _suiviOk = !!(document.getElementById('estimSuivi') || {}).checked;
+  _estJeton = '';
   var prest = [];
   document.querySelectorAll('#estimPrestations input[type=checkbox]:checked').forEach(function (cb) { prest.push(cb.value); });
   if (!d.prenom || !d.nom) { showToast('Merci de renseigner vos prénom et nom.', 'error'); return; }
@@ -9180,13 +9301,14 @@ async function submitEstimation() {
   var btn = document.querySelector('#page-estimation .form-submit');
   if (btn) { btn.disabled = true; btn.textContent = 'Calcul en cours…'; }
   var est = _estCalculer({ type: d.type, ville: d.ville, surface: d.surface, etat: d.etat, dpe: d.dpe, prestations: prest }, await _chargerPrixDvf());
-  var demande = Object.assign({}, d, { prestations: prest.join(', '), estimation: est ? _eur(est.bas) + ' – ' + _eur(est.haut) + ' (médiane ' + est.pm2 + ' €/m², ' + est.lieu + ')' : '' });
+  var demande = Object.assign({}, d, { consentSuivi: _suiviOk, prestations: prest.join(', '), estimation: est ? _eur(est.bas) + ' – ' + _eur(est.haut) + ' (médiane ' + est.pm2 + ' €/m², ' + est.lieu + ')' : '' });
   var envoye = false;
   if (AGENCE.statutProxyUrl) {
     try {
       var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'estimation', demande: demande, site: v('estimSite') }) });
       envoye = r.ok;
+      if (r.ok) { try { _estJeton = ((await r.json()) || {}).jeton || ''; } catch (e) {} }
     } catch (e) { envoye = false; }
   }
   if (btn) { btn.disabled = false; btn.textContent = 'Voir mon estimation'; }
@@ -11610,20 +11732,22 @@ async function _adminChargerDemandes(force) {
     if (r.ok) j = await r.json();
   } catch (e) {}
   if (!j) { info.textContent = 'Impossible de charger les demandes pour le moment.'; _adminDemandesChargees = false; return; }
-  var d = j.demandes || [], a = j.alertes || [];
-  info.textContent = (d.length ? d.length + ' demande' + (d.length > 1 ? 's' : '') + ', la plus récente en premier.' : 'Aucune demande pour le moment.') +
+  var d = _adminTrierDemandes(j.demandes || []), a = j.alertes || [];
+  var _aTraiter = d.filter(_adminADue).length;
+  info.textContent = (_aTraiter ? _aTraiter + ' à rappeler maintenant (en haut). ' : '') + (d.length ? d.length + ' demande' + (d.length > 1 ? 's' : '') + ' au total.' : 'Aucune demande pour le moment.') +
     (j.emails ? ' Chaque nouvelle demande vous est aussi envoyée par e-mail.' : ' L\'envoi par e-mail n\'est pas encore branché : consultez vos demandes ici.') +
     ' Elles sont effacées automatiquement après 3 ans.';
   liste.innerHTML = d.map(function (x) {
     var bien = [x.type, x.surface ? x.surface + ' m²' : '', x.terrain ? 'terrain ' + x.terrain + ' m²' : '', x.pieces ? x.pieces + ' p.' : ''].filter(Boolean).join(' · ');
     var plus = [x.etat, x.dpe ? 'DPE ' + x.dpe : '', x.annee ? 'construit en ' + x.annee : '', x.prestations, x.projet].filter(Boolean).join(' · ');
-    return '<div class="admin-demande">' +
+    return '<div class="admin-demande' + (_adminADue(x) ? ' a-rappeler' : '') + '">' +
       '<div class="admin-demande-tete"><strong>' + _esc(x.prenom + ' ' + x.nom) + '</strong><span>' + _esc(_adminDate(x.recu)) + '</span></div>' +
       '<p><a href="tel:' + _esc(String(x.tel || '').replace(/[^0-9+]/g, '')) + '">' + _esc(x.tel) + '</a> · <a href="mailto:' + _esc(x.email) + '">' + _esc(x.email) + '</a></p>' +
       '<p><b>' + _esc(bien) + '</b> à ' + _esc((x.adresse ? x.adresse + ', ' : '') + x.ville) + '</p>' +
       (plus ? '<p class="admin-src">' + _esc(plus) + '</p>' : '') +
       (x.estimation ? '<p>Estimation affichée : <b>' + _esc(x.estimation) + '</b></p>' : '<p class="admin-src">Pas d\'estimation automatique (type de bien ou commune sans données).</p>') +
       (x.message ? '<p class="admin-demande-msg">« ' + _esc(x.message) + ' »</p>' : '') +
+      _adminSuiviHTML(x) +
       '<div class="admin-bien-actions"><button class="btn-statut btn-supprimer" onclick="adminSupprimerDemande(\'' + _esc(x.cle) + '\')">Supprimer</button></div>' +
     '</div>';
   }).join('');
