@@ -203,7 +203,7 @@ export async function tourneeSuivi(env) {
 <p style="margin:0 0 4px;font-size:14px;color:#5b6475;">${esc(bienDe(dem))}${dem.estimation ? ' · estimé ' + esc(dem.estimation.split(' (')[0]) : ''}</p>
 ${dem.visite ? `<p style="margin:0 0 4px;font-size:14px;">Disponibilités : ${esc(dem.visite.creneaux.join(', '))}</p>` : ''}
 ${dem.suivi.note ? `<p style="margin:0 0 4px;font-size:14px;color:#5b6475;">Note : ${esc(dem.suivi.note)}</p>` : ''}
-<p style="margin:6px 0 0;"><a href="tel:${esc(String(dem.tel || '').replace(/[^0-9+]/g, ''))}" style="color:#936421;font-weight:bold;text-decoration:none;">${esc(dem.tel)}</a></p></td></tr>`;
+<p style="margin:6px 0 0;"><a href="tel:${esc(String(dem.tel || '').replace(/[^0-9+]/g, ''))}" style="color:#021430;font-weight:bold;text-decoration:none;">${esc(dem.tel)}</a></p></td></tr>`;
     }).join('');
     const n = dues.length;
     const r = await envoyerEmail(env, {

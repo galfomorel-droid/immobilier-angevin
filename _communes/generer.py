@@ -579,7 +579,7 @@ def page_secteurs(communes, secteurs):
 
 # ------------------------------------------------------------------ CSS
 CSS = """/* Pages « Immobilier à <commune> » — L'Ardoise Immobilier. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
-:root{--marine:#021430;--rouge:#F6A737;--rouge-t:#936421;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
+:root{--marine:#021430;--rouge:#F6A737;--rouge-t:#021430;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:300;font-size:1rem;line-height:1.7;color:var(--marine);background:#fff}
@@ -606,7 +606,7 @@ strong{font-weight:600}
 .hd-nav::-webkit-scrollbar{display:none}
 .hd-nav a{white-space:nowrap}
 .hd-nav a{font-size:.8125rem;font-weight:500;letter-spacing:0;text-transform:none;text-decoration:none;padding:.45rem .3rem}
-.hd-nav a:hover{color:var(--rouge-t)}
+.hd-nav a:hover{color:var(--rouge)}
 .hd-tel{margin-left:auto;display:inline-flex;align-items:center;gap:.4rem;background:var(--marine);color:#fff;text-decoration:none;border-radius:999px;padding:.45rem .9rem;font-size:.8125rem;font-weight:700;letter-spacing:.02em;white-space:nowrap}
 .hd-tel:hover{background:#0D2650}
 @media(max-width:400px){.hd-in{gap:8px 10px}.hd-logo img{height:25px}.hd-tel{padding:.45rem .75rem;font-size:.75rem;gap:.3rem}}
@@ -621,14 +621,14 @@ strong{font-weight:600}
 .ariane ol{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-wrap:wrap;gap:4px;font-size:.8125rem;color:var(--texte2)}
 .ariane li+li::before{content:"›";margin-right:6px}
 .ariane a{color:var(--texte2)}
-.ariane a:hover{color:var(--rouge-t)}
+.ariane a:hover{color:var(--rouge)}
 
 /* Sections */
 .intro{background:var(--gris);padding:32px 0 48px;border-bottom:1px solid var(--filet)}
 .sec{padding:56px 0}
 .sec-gris{background:var(--gris)}
 @media(min-width:860px){.intro{padding:44px 0 72px}.sec{padding:84px 0}}
-.kicker{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#936421;margin-bottom:.8em}
+.kicker{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#F6A737;margin-bottom:.8em}
 .lead{font-size:clamp(1.05rem,2.6vw,1.2rem);max-width:760px}
 .lead-2{font-size:1.05rem;max-width:820px}
 .petit{font-size:.875rem;color:var(--texte2)}
@@ -736,7 +736,7 @@ strong{font-weight:600}
 .faq details:first-child{border-top:1px solid var(--filet)}
 .faq summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-weight:600;position:relative}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:1.5rem;font-weight:300;color:var(--rouge-t)}
+.faq summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:1.5rem;font-weight:300;color:var(--rouge)}
 .faq details[open] summary::after{content:"–"}
 .faq details p{padding:0 0 18px;margin:0}
 

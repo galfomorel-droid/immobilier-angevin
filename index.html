@@ -99,11 +99,11 @@
   --gris: #5A6B86;         /* Texte secondaire, labels (AA sur blanc) */
   --or: #F6A737;           /* Accent bleu doux — CTA, badges, filets */
   --or-light: #F8B95C;     /* Accent clair — hover des CTA primaires */
-  --or-fonce: #936421;     /* Accent foncé — accent en TEXTE sur fond clair (prix), AA */
+  --or-fonce: #021430;     /* Accent foncé — accent en TEXTE sur fond clair (prix), AA */
   --white: #FFFFFF;        /* Blanc — cartes, texte sur marine */
   --sauge: #F6A737;        /* Filets, soulignés, bordures, focus */
   --sauge-light: #FF6B75;  /* Accents sur fond sombre */
-  --sauge-text: #936421;   /* Eyebrow / kicker en texte sur fond clair */
+  --sauge-text: #021430;   /* Eyebrow / kicker en texte sur fond clair */
   --ardoise: #021430;      /* Alias sémantique des sections sombres */
   --coquillage: #FFFFFF;   /* Alias texte/badges sur fond sombre */
   --light: #F5F6F9;        /* Sections claires bleutées */
@@ -747,7 +747,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
   line-height: 1;
   box-shadow: 0 2px 10px rgba(2,20,48,0.22);
 }
-.vg-new       { background: #936421; }              /* nouveauté — sauge */
+.vg-new       { background: #021430; }              /* nouveauté — sauge */
 .vg-exclu     { background: var(--or); color: #021430; } /* exclusivité — sel doré */
 .vg-compromis { background: #B8731E; }              /* sous compromis */
 .vg-offre     { background: #C24D0C; }              /* offre d'achat en cours */
@@ -2405,7 +2405,7 @@ textarea.form-input { resize: vertical; min-height: 80px; font-family: var(--san
 
 
 /* Boutons de statut */
-.btn-exclu { background: #FEF3E2; color: #936421; border: 1px solid #F6D9AE; }
+.btn-exclu { background: #FEF3E2; color: #021430; border: 1px solid #F6D9AE; }
 .btn-exclu:hover { background: #EFE3C5; }
 .btn-exclu.active { background: #F6A737; color: #fff; border-color: #F6A737; }
 .btn-compromis { background: #FFF4E0; color: #B8731E; border: 1px solid #F3CE8A; }
@@ -2418,12 +2418,12 @@ textarea.form-input { resize: vertical; min-height: 80px; font-family: var(--san
 
 .btn-vendu { background: #E6F4EA; color: #1B7A3E; border: 1px solid #A8D5B8; }
 .btn-vendu:hover { background: #C9E8D4; }
-.btn-une { background: #FEF3E2; color: #936421; border: 1px solid #F6D9AE; }
+.btn-une { background: #FEF3E2; color: #021430; border: 1px solid #F6D9AE; }
 .btn-une:hover { background: #E3E9D9; }
-.btn-une.active { background: #936421; color: #fff; border-color: #936421; }
-.btn-new { background: #FEF3E2; color: #936421; border: 1px solid #F6D9AE; }
+.btn-une.active { background: #021430; color: #fff; border-color: #021430; }
+.btn-new { background: #FEF3E2; color: #021430; border: 1px solid #F6D9AE; }
 .btn-new:hover { background: #E3E9D9; }
-.btn-new.active { background: #936421; color: #fff; border-color: #936421; }
+.btn-new.active { background: #021430; color: #fff; border-color: #021430; }
 .btn-baisse { background: #FBE9E7; color: #B5271C; border: 1px solid #F0C6C1; }
 .btn-baisse:hover { background: #F7D8D4; }
 .btn-baisse.active { background: #F6A737; color: #fff; border-color: #F6A737; }
@@ -3477,7 +3477,7 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
    L'ARDOISE — charte du logo (marine #021430, rouge #F6A737, blanc)
    Bloc placé en fin de feuille : il prend le dessus sur la charte d'origine.
    ===================================================================== */
-:root { --rouge: #F6A737; --rouge-fonce: #936421; --marine: #021430; }
+:root { --rouge: #F6A737; --rouge-fonce: #021430; --marine: #021430; }
 
 /* Logo horizontal dans le menu */
 .nav-logo-word { height: 40px; width: auto; }
@@ -3639,8 +3639,8 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 .vendus-track.vendus-static { animation: none !important; transform: none !important; width: 100%; justify-content: center; flex-wrap: wrap; }
 
 /* Espace pro : supprimer / réafficher */
-.btn-statut.btn-supprimer { background: #fff; color: #936421; border: 1px solid #E7A2A9; }
-.btn-statut.btn-supprimer:hover { background: #936421; color: #fff; border-color: #936421; }
+.btn-statut.btn-supprimer { background: #fff; color: #B42318; border: 1px solid #E7A2A9; }
+.btn-statut.btn-supprimer:hover { background: #B42318; color: #fff; border-color: #B42318; }
 .btn-statut.btn-reafficher { background: var(--marine); color: #fff; border-color: var(--marine); }
 #adminMasques .admin-bien-row { opacity: .75; }
 
@@ -4251,7 +4251,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 
 .bien-card .bien-card-specs { display: flex; flex-wrap: wrap; gap: 12px 26px; margin: 20px 0 0; padding: 0; border: 0; }
 .bien-card .bien-card-spec { display: inline-flex; align-items: center; gap: 8px; font-size: .98rem; color: #3a4252; }
-.bien-card .bien-card-spec-icon { width: 20px; height: 20px; color: #936421; flex: 0 0 auto; }
+.bien-card .bien-card-spec-icon { width: 20px; height: 20px; color: #F6A737; flex: 0 0 auto; }
 .bien-card .bien-card-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line-c); }
 .bien-card .bien-card-ref { background: #EEF1F7; color: #5b6475; border-radius: 999px; padding: 7px 14px; font-size: .82rem; }
 .bien-card .bien-card-price { font-size: 1.45rem; font-weight: 800; color: var(--marine); white-space: nowrap; }
@@ -4259,7 +4259,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 /* Photo : badge arrondi, cœur dans un rond blanc, flèches blanches visibles, points à droite */
 .bien-card .bien-vignettes { top: 14px; left: 14px; gap: 6px; }
 .bien-card .bien-vg { border-radius: 10px; padding: 7px 14px; font-size: .82rem; font-weight: 800; letter-spacing: 0; text-transform: none; box-shadow: 0 4px 12px rgba(2,20,48,.16); }
-.bien-card .bien-vg.vg-new { background: #936421; color: #fff; }
+.bien-card .bien-vg.vg-new { background: #F6A737; color: #fff; }
 .bien-card .fav-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.95); box-shadow: 0 4px 14px rgba(2,20,48,.18); }
 .bien-card .bc-arrow { opacity: 1 !important; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.95); color: var(--marine); box-shadow: 0 4px 12px rgba(2,20,48,.2); }
 .bien-card .bc-dots { left: auto; right: 14px; justify-content: flex-end; gap: 5px; bottom: 14px; }
@@ -4280,7 +4280,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .fja-onglets, .fja-filtres { display: flex; flex-wrap: wrap; gap: 12px; }
 .fja-filtres { margin-top: 14px; }
 .fja-onglets button { font: inherit; font-size: 1.12rem; font-weight: 800; padding: 13px 28px; border-radius: 14px; border: 2px solid var(--marine); background: #fff; color: var(--marine); cursor: pointer; transition: background .2s, color .2s; }
-.fja-onglets button[aria-pressed="true"] { background: #936421; border-color: #936421; color: #fff; }
+.fja-onglets button[aria-pressed="true"] { background: #F6A737; border-color: #F6A737; color: #fff; }
 .fja-filtres button { font: inherit; font-size: 1rem; padding: 11px 22px; border-radius: 12px; border: 2px solid var(--marine); background: #fff; color: var(--marine); cursor: pointer; transition: background .2s, color .2s; }
 .fja-filtres button[aria-pressed="true"] { background: var(--marine); color: #fff; }
 .fja-onglets button:hover, .fja-filtres button:hover { box-shadow: 0 4px 14px rgba(2,20,48,.12); }
@@ -4383,7 +4383,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .contact-duo .cd-c img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; box-shadow: 0 6px 18px rgba(2,20,48,.14); }
 .contact-duo .cd-n { font-weight: 700; color: var(--marine); margin: 0; font-size: .98rem; }
 .contact-duo .cd-r { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #5B6475; margin: 2px 0 6px; }
-.contact-duo .cd-t { font-weight: 700; color: var(--rouge-fonce, #936421); text-decoration: none; white-space: nowrap; }
+.contact-duo .cd-t { font-weight: 700; color: var(--rouge-fonce, #021430); text-decoration: none; white-space: nowrap; }
 .contact-duo .cd-t:hover { text-decoration: underline; }
 
 /* ===================== PRIORITÉ 2 : BOUTON WHATSAPP SUR MOBILE (24/11/2026) ===================== */
@@ -4512,23 +4512,26 @@ html.anim:not(.sans-intro) #heroContent .hero-accroche { animation-delay: 1.2s; 
 .hero-accroche { margin-top: -0.6rem; }
 </style>
 <style id="couleurs">
-:root { --orange: #F6A737; --cuivre: #936421; }
+:root { --orange: #F6A737; --info: #021430; }
 .cb-btn.accent:hover, .hero-search-btn:hover, .alerte-ligne .cb-btn:hover { background: #E08E1F !important; border-color: #E08E1F !important; }
+/* Petits textes d'information : marine (lisibles) */
 [style*="color:var(--or)"], [style*="color: var(--or)"], [style*="color:var(--or-fonce)"], [style*="color: var(--or-fonce)"],
-[style*="color:var(--rouge)"], [style*="color: var(--rouge)"], .biens-alerte, .est-num, .parrain-prime .k, .k { color: var(--cuivre) !important; }
-.fiche-agency-link { color: var(--cuivre) !important; }
+[style*="color:var(--rouge)"], [style*="color: var(--rouge)"], .biens-alerte, .est-num, .parrain-prime .k, .k { color: var(--info) !important; }
+.fiche-agency-link { color: var(--info) !important; }
+.cb-more, .fiche-price, .fj-prix .fiche-price, #page-fiche.fj .fj-prix .fiche-price, .equipe-tel, .cd-t, .contact-duo .cd-t, .fav-count { color: var(--info); }
+/* Boutons, badges et onglets sur fond orangé : texte marine */
 .bien-card-exclusive { background: var(--orange) !important; color: #021430 !important; }
-/* Boutons et badges sur fond orangé : texte marine */
-.cb-btn.accent, .cb-btn.accent:hover, .alerte-ligne .cb-btn, .hero-search-btn, .bien-vg, .vg-exclu, .bien-card-exclusive,
-.fiche-badge, .est-cren[aria-pressed="true"], .tabbar a.is-active svg ~ span { color: #021430 !important; }
+.cb-btn.accent, .cb-btn.accent:hover, .alerte-ligne .cb-btn, .hero-search-btn, .bien-vg, .vg-exclu, .bien-card .bien-vg.vg-new, .bien-card-exclusive,
+.fiche-badge, .est-cren[aria-pressed="true"], .tabbar a.is-active svg ~ span, .btn-exclu.active,
+.fja-onglets button[aria-pressed="true"] { color: #021430 !important; }
+.btn-exclu:not(.active), .btn-une:not(.active), .btn-new:not(.active) { color: #021430 !important; border-color: var(--orange) !important; }
 .hero-search-btn svg, .cb-btn.accent svg { stroke: #021430; }
-/* Textes orangés sur fond clair : nuance cuivrée lisible */
-.cb-accent, .cb-kicker, .section-tag, .fj-kicker, .cb-more, .fiche-price, .fj-prix .fiche-price, #page-fiche.fj .fj-prix .fiche-price,
-.equipe-tel, .equipe-nom span, .cd-t, .contact-duo .cd-t, .seo-section .cb-accent, .chiffre-ico, .cb-ico, .fav-btn.on, .fav-count { color: var(--cuivre); }
-/* Sur fond sombre : l'orangé vif */
+/* Mots mis en valeur, surtitres et icônes : l'orangé du logo, partout */
+.cb-accent, .cb-kicker, .section-tag, .fj-kicker, .seo-section .cb-accent, .equipe-nom span, .chiffre-ico, .cb-ico, .fav-btn.on,
 .dark .cb-accent, .cb-section.dark .cb-accent, .cb-hero:not(.is-light) .cb-accent, .vd-hero .cb-accent, #secteur .cb-accent,
 .page-header .cb-accent, #biens-home .cb-accent, .dark .cb-kicker, .cb-hero:not(.is-light) .cb-kicker, .vd-hero .cb-kicker, #secteur .cb-kicker,
 #biens-home .section-tag, .page-header .section-tag, footer .cb-accent { color: var(--orange); }
+.cb-kicker, .section-tag, .fj-kicker { font-weight: 700; }
 </style>
 </head>
 <body>
@@ -6055,7 +6058,7 @@ html.anim:not(.sans-intro) #heroContent .hero-accroche { animation-delay: 1.2s; 
       </div>
       <button type="submit" class="form-submit" id="adminLoginBtn">Accéder</button>
     </form>
-    <p id="adminError" style="color:#936421;font-size:.8rem;margin-top:.8rem;display:none;">Mot de passe incorrect.</p>
+    <p id="adminError" style="color:#B42318;font-size:.8rem;margin-top:.8rem;display:none;">Mot de passe incorrect.</p>
   </div>
 </div>
 
@@ -6581,7 +6584,7 @@ const defaultImgs = [
 var PLACEHOLDER_IMG = 'data:image/svg+xml,' + encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">' +
   '<rect width="1200" height="800" fill="#E8EBF1"/>' +
-  '<g fill="none" stroke="#936421" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">' +
+  '<g fill="none" stroke="#021430" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">' +
   '<path d="M540 360 L600 308 L660 360"/><rect x="556" y="360" width="88" height="84"/>' +
   '<path d="M588 444 L588 402 L612 402 L612 444"/></g>' +
   '<text x="600" y="520" font-family="Georgia, serif" font-size="30" font-style="italic" fill="#8C8270" text-anchor="middle">Photo à venir</text>' +
@@ -7629,7 +7632,7 @@ function renderBiensMap() {
     L.marker(c).addTo(_leafletLayer).bindPopup(
       '<div class="biens-map-popup"><strong>' + (b.type||'Bien') + '</strong><br>' +
       (b.ville||'') + (b.surface ? ' · ' + b.surface + ' m²' : '') + '<br>' +
-      '<span style="color:#936421;font-weight:600;">' + prix + '</span><br>' +
+      '<span style="color:#021430;font-weight:600;">' + prix + '</span><br>' +
       '<a onclick="showFiche(' + (parseInt(b.id)||0) + ');return false;">Voir le bien →</a></div>');
   });
   setTimeout(function(){ _leafletMap.invalidateSize(); if (bounds.length) _leafletMap.fitBounds(bounds, { padding: [40,40], maxZoom: 13 }); }, 120);
