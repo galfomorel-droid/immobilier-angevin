@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker — relais de l'ESPACE PRO du site Bagatelle Immobilier Patrimoine.
+ * Cloudflare Worker — relais de l'ESPACE PRO du site L'Ardoise Immobilier.
  *
  * Il garde les statuts des biens (à la une, nouveauté, baisse, exclusivité, offre,
  * compromis, vendu) dans le stockage Cloudflare KV « STATUTS », et le mot de passe
