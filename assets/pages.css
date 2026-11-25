@@ -70,6 +70,21 @@ strong{font-weight:600}
 .btn-ligne{border-color:rgba(255,255,255,.7);color:#fff}
 .btn-ligne:hover{background:rgba(255,255,255,.12)}
 .btn-contour{border-color:var(--marine);color:var(--marine);background:#fff}
+.prix-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:20px 0 8px}
+.prix-c{background:#fff;border:1px solid var(--filet);border-radius:18px;padding:20px 22px}
+.sec-gris .prix-c{background:#fff}
+.prix-c p{margin:0}
+.prix-c-t{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--texte2)}
+.prix-c-v{font-size:2rem;font-weight:800;color:var(--marine);line-height:1.2;margin:6px 0 4px!important}
+.prix-c-d{font-size:.9rem;color:var(--texte2)}
+.prix-c-n{font-size:.85rem;font-weight:600;margin-top:8px!important}
+.tab-prix-w{overflow-x:auto;margin-top:18px;border:1px solid var(--filet);border-radius:14px;background:#fff}
+.tab-prix{width:100%;border-collapse:collapse;font-size:.95rem}
+.tab-prix th,.tab-prix td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--filet);vertical-align:top}
+.tab-prix thead th{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--texte2);background:var(--gris)}
+.tab-prix td span{display:block;font-size:.8rem;color:var(--texte2)}
+.tab-prix tbody tr:last-child th,.tab-prix tbody tr:last-child td{border-bottom:0}
+@media(max-width:520px){.tab-prix{font-size:.82rem}.tab-prix th,.tab-prix td{padding:8px 8px}.tab-prix thead th{font-size:.68rem;letter-spacing:.04em}}
 .btn-contour:hover{background:var(--gris)}
 .btn-ligne-marine{border-color:var(--marine);color:var(--marine)}
 .btn-ligne-marine:hover{background:var(--marine);color:#fff}

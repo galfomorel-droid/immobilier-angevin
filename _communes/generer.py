@@ -180,6 +180,7 @@ def pied(root, communes, secteurs):
       <li><a href="{root}">Accueil</a></li>
       <li><a href="{root}annonce/">Nos annonces</a></li>
       <li><a href="{root}immobilier/">Nos secteurs</a></li>
+      <li><a href="{root}immobilier/prix/">Prix de l'immobilier</a></li>
       <li><a href="{root}#acheter">Acheter</a></li>
       <li><a href="{root}#vendre">Vendre</a></li>
       <li><a href="{root}#estimation">Estimation gratuite</a></li>
@@ -282,6 +283,119 @@ def bloc_conseiller(root):
     </aside>"""
 
 
+# ------------------------------------------------------------------ prix de l'immobilier (ventes réelles DVF, data/prix.json)
+def charger_prix():
+    try:
+        with open(os.path.join(RACINE, "data", "prix.json"), encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
+PRIX = charger_prix()
+MIN_VENTES = 10
+
+
+def periode_txt():
+    p = (PRIX or {}).get("periode") or []
+    if len(p) < 2:
+        return ""
+    fin = "fin " + p[1][:4] if p[1].endswith("-12-31") else p[1]
+    return f"de {p[0][:4]} à {fin}"
+
+
+def eur_m2(n):
+    return typo(f"{int(n):,} €".replace(",", " ")) + "/m²"
+
+
+def carte_prix(titre, st):
+    return f"""<div class="prix-c">
+          <p class="prix-c-t">{esc(titre)}</p>
+          <p class="prix-c-v">{eur_m2(st["p50"])}</p>
+          <p class="prix-c-d">{typo(f"La moitié des ventes entre {int(st['p25']):,} € et {int(st['p75']):,} € le m²".replace(",", " "))}</p>
+          <p class="prix-c-n">{typo(f"{int(st['n']):,} ventes".replace(",", " "))}</p>
+        </div>"""
+
+
+def bloc_prix_commune(c, root):
+    if not PRIX:
+        return ""
+    d = (PRIX.get("communes") or {}).get(c["nom"])
+    if not d:
+        return ""
+    cartes = []
+    if (d.get("m") or {}).get("n", 0) >= MIN_VENTES:
+        cartes.append(carte_prix("Maisons", d["m"]))
+    if (d.get("a") or {}).get("n", 0) >= MIN_VENTES:
+        cartes.append(carte_prix("Appartements", d["a"]))
+    if not cartes:
+        return ""
+    return f"""
+  <section class="sec" aria-labelledby="prix">
+    <div class="wrap">
+      <p class="kicker">Prix de l'immobilier</p>
+      <h2 id="prix">Prix au m² {esc(c["a"])}</h2>
+      <p class="lead-2">{typo("Prix médians des ventes réellement conclues " + c["a"] + ", " + periode_txt() + ", d'après les données publiques DVF de l'administration fiscale. L'écart entre deux biens vient de l'emplacement, de l'état et des prestations : seule une visite permet de situer le vôtre.")}</p>
+      <div class="prix-g">{"".join(cartes)}</div>
+      <div class="btns"><a class="btn btn-rouge" href="{root}#estimation">Estimer mon bien</a><a class="btn btn-contour" href="{root}immobilier/prix/">Prix des communes voisines</a></div>
+      <p class="petit">{typo("Source : Demandes de valeurs foncières (DVF), DGFiP, data.gouv.fr. Prix au m² de surface habitable, hors terrains à bâtir.")}</p>
+    </div>
+  </section>"""
+
+
+def page_prix(communes, secteurs):
+    root = "../../"
+    chemin = "immobilier/prix/"
+    url = BASE_URL + chemin
+    titre = f"Prix de l'immobilier d'Angers à Sablé-sur-Sarthe · prix au m² par commune | {NOM}"
+    desc = "Prix médian au m² des maisons et appartements vendus, commune par commune, d'Angers à Sablé-sur-Sarthe : ventes réelles (DVF) " + periode_txt() + "."
+    par_nom = {x["nom"]: x for x in communes}
+    blocs = []
+    for cle, sect in secteurs.items():
+        st = (PRIX.get("secteurs") or {}).get(cle) or {}
+        lignes = []
+        rows = [(n, d) for n, d in (PRIX.get("communes") or {}).items() if d.get("s") == cle
+                and max((d.get("m") or {}).get("n", 0), (d.get("a") or {}).get("n", 0)) >= MIN_VENTES]
+        rows.sort(key=lambda r: -((r[1].get("m") or {}).get("n", 0) + (r[1].get("a") or {}).get("n", 0)))
+        for n, d in rows:
+            lien = f'<a class="lien" href="../{par_nom[n]["slug"]}/">{esc(n)}</a>' if n in par_nom else esc(n)
+            def cel(k):
+                x = d.get(k) or {}
+                return f'{eur_m2(x["p50"])}<span>{typo(str(x["n"]) + " ventes")}</span>' if x.get("n", 0) >= MIN_VENTES else '<span>trop peu de ventes</span>'
+            lignes.append(f'<tr><th scope="row">{lien}</th><td>{cel("m")}</td><td>{cel("a")}</td></tr>')
+        resume = "".join(carte_prix(t, st[k]) for k, t in (("m", "Maisons"), ("a", "Appartements")) if (st.get(k) or {}).get("n", 0) >= MIN_VENTES)
+        blocs.append(f"""<section class="sec{' sec-gris' if cle != 'angers' else ''}" aria-labelledby="p-{cle}">
+    <div class="wrap">
+      <h2 id="p-{cle}">{esc(sect["nom"])}</h2>
+      <div class="prix-g">{resume}</div>
+      <div class="tab-prix-w"><table class="tab-prix"><thead><tr><th scope="col">Commune</th><th scope="col">Maisons</th><th scope="col">Appartements</th></tr></thead>
+      <tbody>{"".join(lignes)}</tbody></table></div>
+    </div>
+  </section>""")
+    graph = {"@context": "https://schema.org", "@graph": [
+        ld_ariane([("Accueil", BASE_URL), ("Nos secteurs", BASE_URL + "immobilier/"), ("Prix de l'immobilier", url)])]}
+    corps = f"""{entete(root)}
+<main id="contenu">
+  <section class="intro">
+    <div class="wrap">
+      {fil_ariane(root, [("Accueil", root), ("Nos secteurs", root + "immobilier/"), ("Prix de l'immobilier", None)])}
+      <p class="kicker">Ventes réelles · {esc(periode_txt())}</p>
+      <h1>Prix de l'immobilier d'Angers à Sablé-sur-Sarthe</h1>
+      <p class="lead">{typo("Prix médian au m² des maisons et des appartements réellement vendus, commune par commune, d'après les données publiques DVF de l'administration fiscale. Ces repères ne remplacent pas une estimation : l'emplacement, l'état et les prestations font varier la valeur d'un bien.")}</p>
+      <div class="btns"><a class="btn btn-rouge" href="{root}#estimation">Estimer mon bien gratuitement</a></div>
+    </div>
+  </section>
+  {"".join(blocs)}
+  <section class="sec"><div class="wrap"><p class="petit">{typo("Source : Demandes de valeurs foncières (DVF), DGFiP, data.gouv.fr, " + periode_txt() + ". Prix médian au m² de surface habitable ; communes affichées à partir de " + str(MIN_VENTES) + " ventes.")}</p></div></section>
+{bloc_cta(root, "Combien vaut votre bien ?", "Un avis de valeur argumenté, après visite, gratuit et sans engagement.")}
+</main>
+{pied(root, communes, secteurs)}
+</body>
+</html>
+"""
+    return chemin + "index.html", head(titre, desc, chemin, root, jsonld(graph)) + corps
+
+
 # ------------------------------------------------------------------ page commune
 def page_commune(c, communes, secteurs):
     root = "../../"
@@ -346,6 +460,7 @@ def page_commune(c, communes, secteurs):
     </div>
   </section>
 
+{bloc_prix_commune(c, root)}
   <section class="sec sec-gris" aria-labelledby="vendre">
     <div class="wrap">
       <p class="kicker">Vendre</p>
@@ -417,7 +532,7 @@ def page_secteurs(communes, secteurs):
     chemin = "immobilier/"
     url = BASE_URL + chemin
     titre = f"Nos secteurs · Immobilier d'Angers à Sablé-sur-Sarthe | {NOM}"
-    desc = ("Les communes où j'interviens pour l'achat, la vente et l'estimation : Angers et son agglomération, "
+    desc = ("Les communes où nous intervenons pour l'achat, la vente et l'estimation : Angers et son agglomération, "
             "Sablé-sur-Sarthe et ses alentours, avec Charles MOREL et Antoine HÉRY, cofondateurs.")
     area = [{"@type": "City", "name": c["nom"], "url": BASE_URL + f"immobilier/{c['slug']}/"} for c in communes]
     graph = {"@context": "https://schema.org", "@graph": [
@@ -535,6 +650,21 @@ strong{font-weight:600}
 .btn-ligne{border-color:rgba(255,255,255,.7);color:#fff}
 .btn-ligne:hover{background:rgba(255,255,255,.12)}
 .btn-contour{border-color:var(--marine);color:var(--marine);background:#fff}
+.prix-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:20px 0 8px}
+.prix-c{background:#fff;border:1px solid var(--filet);border-radius:18px;padding:20px 22px}
+.sec-gris .prix-c{background:#fff}
+.prix-c p{margin:0}
+.prix-c-t{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--texte2)}
+.prix-c-v{font-size:2rem;font-weight:800;color:var(--marine);line-height:1.2;margin:6px 0 4px!important}
+.prix-c-d{font-size:.9rem;color:var(--texte2)}
+.prix-c-n{font-size:.85rem;font-weight:600;margin-top:8px!important}
+.tab-prix-w{overflow-x:auto;margin-top:18px;border:1px solid var(--filet);border-radius:14px;background:#fff}
+.tab-prix{width:100%;border-collapse:collapse;font-size:.95rem}
+.tab-prix th,.tab-prix td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--filet);vertical-align:top}
+.tab-prix thead th{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--texte2);background:var(--gris)}
+.tab-prix td span{display:block;font-size:.8rem;color:var(--texte2)}
+.tab-prix tbody tr:last-child th,.tab-prix tbody tr:last-child td{border-bottom:0}
+@media(max-width:520px){.tab-prix{font-size:.82rem}.tab-prix th,.tab-prix td{padding:8px 8px}.tab-prix thead th{font-size:.68rem;letter-spacing:.04em}}
 .btn-contour:hover{background:var(--gris)}
 .btn-ligne-marine{border-color:var(--marine);color:var(--marine)}
 .btn-ligne-marine:hover{background:var(--marine);color:#fff}
@@ -782,7 +912,7 @@ def js_biens(bandeau, forcees):
 
 # ------------------------------------------------------------------ sitemap / robots
 def sitemap(communes):
-    urls = [("", "weekly", "1.0"), ("immobilier/", "monthly", "0.8")]
+    urls = [("", "weekly", "1.0"), ("immobilier/", "monthly", "0.8")] + ([("immobilier/prix/", "monthly", "0.8")] if PRIX else [])
     urls += [(f"immobilier/{c['slug']}/", "weekly", "0.7") for c in communes]
     # pages d'annonces générées par annonces.py (une adresse par bien en vente)
     dossier = os.path.join(RACINE, "annonce")
@@ -817,6 +947,8 @@ def main():
     faits.append(ecrire("assets/pages.css", CSS))
     faits.append(ecrire("assets/biens-commune.js", js_biens(bandeau, forcees)))
     faits.append(ecrire(*page_secteurs(communes, secteurs)))
+    if PRIX:
+        faits.append(ecrire(*page_prix(communes, secteurs)))
     for c in communes:
         faits.append(ecrire(*page_commune(c, communes, secteurs)))
     faits.append(ecrire("sitemap.xml", sitemap(communes)))
