@@ -2954,8 +2954,8 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 14px 34px rgba(2,20,48,.10
 .vd-float.f1 { top: 22px; left: -22px; }
 .vd-float.f2 { bottom: 22px; right: -18px; }
 @media (max-width: 860px) { .vd-float.f1 { left: 10px; } .vd-float.f2 { right: 10px; } }
-.vd-portals { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 34px; }
-.vd-portals > span { border: 1px solid var(--line-c); border-radius: 12px; padding: 14px 22px; font-weight: 700; font-size: .95rem; color: var(--noir); background: #fff; }
+
+
 .pr-reward { background: #fff; border: 1px solid var(--line-c); border-radius: 18px; padding: 34px 28px; text-align: center; box-shadow: 0 14px 34px rgba(2,20,48,.08); }
 .pr-reward .k { font-size: .66rem; letter-spacing: .26em; text-transform: uppercase; color: var(--accent-b); font-weight: 500; }
 .pr-reward .v { font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 800; color: var(--noir); line-height: 1.05; margin: 10px 0 8px; }
@@ -3238,11 +3238,10 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
   border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; }
 #lightbox-fs:hover { background: rgba(255,255,255,.3); }
 #lightbox-fs svg { width: 18px; height: 18px; }
-/* ---------- Vendre : portails ---------- */
-.vd-group { margin-top: 34px; }
-.vd-gt { font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gris); font-weight: 600; text-align: center; margin-bottom: 14px; }
-.vd-portals { margin-top: 0; }
-.vd-portals > span { min-width: 150px; text-align: center; }
+
+
+
+
 
 @media print { .fiche-mobile-bar, .fiche-actions, .fiche-share-wrap { display: none !important; } }
 
@@ -3312,9 +3311,8 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
   .hide-sm { display: none; }
   .back-btn { white-space: nowrap; }
   .fiche-share-btn { width: 40px; height: 40px; }
-  /* Portails : grille 2 colonnes */
-  .vd-portals { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .vd-portals > span { min-width: 0; padding: 12px 8px; font-size: .84rem; display: flex; align-items: center; justify-content: center; text-align: center; }
+  
+  
   .honoraires-table th, .honoraires-table td { padding: 12px 10px !important; font-size: .85rem; }
   /* Fiche : caractéristiques en 2 colonnes lisibles */
   #ficheSpecs table, #ficheSpecs tbody { display: block; width: 100%; }
@@ -4420,6 +4418,12 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .prt-logo img { display: block; max-width: 160px; max-height: 44px; width: auto; height: auto; object-fit: contain; }
 .prt-defile, .prt-piste { padding-top: 6px; padding-bottom: 18px; }
 @media (max-width: 600px) { .prt-logo { width: 168px; height: 76px; padding: 0 16px; } .prt-logo img { max-width: 128px; max-height: 36px; } }
+
+/* Page Vendre : grille des logos des portails (mêmes cartes que l'accueil) */
+.vd-logos { list-style: none; margin: 34px auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; max-width: 1140px; }
+.vd-logos .prt-logo { background: #fff; }
+.vd-logos { max-width: 662px; }
+@media (max-width: 600px) { .vd-logos { gap: 12px; max-width: 360px; } .vd-logos .prt-logo { width: calc(50% - 6px); height: 70px; padding: 0 12px; } .vd-logos .prt-logo img { max-width: 100%; max-height: 32px; } }
 
 </style>
 <style id="direction-artistique">
@@ -5576,10 +5580,8 @@ html.anim:not(.sans-intro) #heroContent .hero-accroche { animation-delay: 1.2s; 
     <div class="cb-wrap">
       <span class="cb-kicker">Diffusion</span>
       <h2 class="cb-h2">Une diffusion ciblée sur les grands portails</h2>
-      <p class="cb-lead">Maison, appartement, local commercial ou terrain : votre annonce est présentée sur notre site, sur les portails les plus adaptés à votre bien, puis à notre fichier d'acquéreurs.</p>
-      <div class="vd-group"><p class="vd-gt">Habitation</p><div class="vd-portals"><span style="color:#E2001A;font-weight:800">SeLoger</span><span style="color:#B94E0D;font-weight:700">leboncoin</span><span style="color:#0D7F7C;font-weight:600">bien<span style="color:#F4B400">'</span>ici</span><span style="color:#0A4FA0;font-weight:800">LOGIC-IMMO</span><span style="color:#B2282B;font-weight:600">ouestfrance-immo</span><span style="color:#192D56;">Le Figaro Immobilier</span><span style="color:#192D56;letter-spacing:.08em">Belles Demeures</span><span style="color:#192D56;letter-spacing:.06em">Propriétés Le Figaro</span><span style="color:#192D56;font-weight:800"><span style="color:#E2001A">Paru</span>Vendu</span><span style="color:#2D3A8C;">Properstar</span><span style="color:#16324F;font-weight:700">Jinka</span><span style="color:#1F4538;">Gens de Confiance</span><span style="color:#192D56;">Meilleurs Agents</span><span style="color:#258267;">Tous Voisins</span></div></div>
-      <div class="vd-group"><p class="vd-gt">Commerce &amp; professionnel</p><div class="vd-portals"><span style="color:#E2001A;font-weight:700">SeLoger Bureaux &amp; Commerces</span><span style="color:#0E2A47;font-weight:700">Webimm</span><span style="color:#C0392B;font-style:italic;font-weight:700">Commerce en direct</span><span style="color:#192D56;">Hôtel Restau</span><span style="color:#CA3187;">octissimo</span><span style="color:#192D56;">DOM immo</span></div></div>
-      <div class="vd-group"><p class="vd-gt">Terrain</p><div class="vd-portals"><span style="color:#192D56;">Terrain Construction</span><span style="color:#458122;">les-terrains</span><span style="color:#192D56;">Superimmo</span></div></div>
+      <p class="cb-lead">Maison, appartement ou terrain : votre annonce est présentée sur notre site et sur les grands portails immobiliers, puis à notre fichier d'acquéreurs.</p>
+      <ul class="vd-logos" aria-label="Portails de diffusion"><li class="prt-logo"><img src="img/portails/leboncoin.webp" alt="leboncoin" width="160" height="29" decoding="async"></li><li class="prt-logo"><img src="img/portails/seloger.webp" alt="SeLoger" width="160" height="39" decoding="async"></li><li class="prt-logo"><img src="img/portails/logicimmo.webp" alt="Logic-Immo" width="123" height="44" decoding="async"></li><li class="prt-logo"><img src="img/portails/bienici.webp" alt="Bien&#x27;ici" width="160" height="33" decoding="async"></li><li class="prt-logo"><img src="img/portails/figaroimmo.webp" alt="Figaro Immobilier" width="140" height="44" decoding="async"></li><li class="prt-logo"><img src="img/portails/paruvendu.webp" alt="ParuVendu" width="160" height="28" decoding="async"></li><li class="prt-logo"><img src="img/portails/superimmo.webp" alt="Superimmo" width="160" height="34" decoding="async"></li><li class="prt-logo"><img src="img/portails/properstar.webp" alt="Properstar" width="160" height="24" decoding="async"></li><li class="prt-logo"><img src="img/portails/3gimmo.webp" alt="3G Immo" width="160" height="28" decoding="async"></li></ul>
     </div>
   </section>
 
