@@ -107,7 +107,7 @@ def page_annonce(a, relais):
         intl = "+33" + c["tel"].replace(" ", "")[1:] if c.get("tel") else ""
         conseiller = f"""<aside class="an-cons">
         <img src="{root}{G.esc(c['photo'])}" alt="" width="72" height="72" loading="lazy">
-        <div><p class="an-cons-n">{G.esc(c['nom'])}</p><p class="an-cons-r">{G.esc(c.get('role', ''))}</p>
+        <div><p class="an-cons-n">{G.esc(c['nom'])}</p>
         {f'<a class="lien" href="tel:{intl}">{G.esc(c["tel"])}</a>' if intl else ''}</div>
       </aside>"""
 

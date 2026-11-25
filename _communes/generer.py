@@ -221,7 +221,7 @@ def ld_agence(area, url):
         "email": EMAIL,
         "image": BASE_URL + "og-image.jpg",
         "logo": BASE_URL + "logo-ardoise-marine.png",
-        "employee": [{"@type": "Person", "name": d["nom"], "jobTitle": "Cofondateur", "telephone": d["intl"]} for d in DUO],
+        "employee": [{"@type": "Person", "name": d["nom"], "telephone": d["intl"]} for d in DUO],
         "areaServed": area,
         "mainEntityOfPage": url,
     }
@@ -271,9 +271,8 @@ def bloc_bareme():
 
 def bloc_conseiller(root):
     cartes = "".join(f"""<div class="duo-c">
-        <img src="{root}{d['photo']}" alt="{esc(d['nom'])}, {d['role'].lower()}" width="400" height="400" loading="lazy">
+        <img src="{root}{d['photo']}" alt="{esc(d['nom'])}" width="400" height="400" loading="lazy">
         <p class="conseiller-n">{esc(d['nom'])}</p>
-        <p class="conseiller-r">{d['role']}</p>
         <p><a class="lien" href="tel:{d['intl']}">{d['tel'].replace(' ', '&nbsp;')}</a></p>
       </div>""" for d in DUO)
     return f"""<aside class="conseiller duo">
@@ -533,7 +532,7 @@ def page_secteurs(communes, secteurs):
     url = BASE_URL + chemin
     titre = f"Nos secteurs · Immobilier d'Angers à Sablé-sur-Sarthe | {NOM}"
     desc = ("Les communes où nous intervenons pour l'achat, la vente et l'estimation : Angers et son agglomération, "
-            "Sablé-sur-Sarthe et ses alentours, avec Charles MOREL et Antoine HÉRY, cofondateurs.")
+            "Sablé-sur-Sarthe et ses alentours, avec Charles MOREL et Antoine HÉRY.")
     area = [{"@type": "City", "name": c["nom"], "url": BASE_URL + f"immobilier/{c['slug']}/"} for c in communes]
     graph = {"@context": "https://schema.org", "@graph": [
         ld_agence(area, url),
