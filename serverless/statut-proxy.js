@@ -22,7 +22,15 @@
  *   POST { password, action: 'demandes' }           → demandes + alertes, pour l'espace pro
  *   POST { password, action: 'supprimer', cle }     → efface une demande ou une alerte
  *   Tous les jours à 8 h (cron) : e-mail aux abonnés pour chaque nouveau bien ou baisse de prix.
+ *
+ * Suivi des estimations (serverless/suivi.js) :
+ *   POST { action: 'visite', jeton, creneaux, message }  → le propriétaire demande une visite d'estimation
+ *   POST { action: 'visite-info', jeton }                → prénom et bien, pour le lien « Choisir un créneau »
+ *   GET/POST /suivi?arreter=<jeton>                      → arrêt des e-mails de suivi
+ *   POST { password, action: 'suivi', cle, etat, rappel, note } → espace pro : état, date de rappel, note
+ *   Tous les jours à 8 h (cron) : récapitulatif « à rappeler » pour Charles + relances acceptées par le propriétaire.
  */
+import { demanderVisite, infoVisite, pageSuivi, majSuivi, tourneeSuivi } from './suivi.js';
 import { alertesActives, recevoirEstimation, creerAlerte, pageAlerte, demandesPourAdmin, supprimerPourAdmin, tourneeAlertes } from './demandes.js';
 
 const ORIGINES = ['https://galfomorel-droid.github.io', 'https://limmobilierangevin.fr', 'https://www.limmobilierangevin.fr'];
@@ -73,6 +81,7 @@ export default {
 
     const url = new URL(request.url);
     if (url.pathname === '/alerte' && (request.method === 'GET' || request.method === 'POST')) return pageAlerte(request, env);
+    if (url.pathname === '/suivi' && (request.method === 'GET' || request.method === 'POST')) return pageSuivi(request, env);
 
     if (request.method === 'GET') {
       const ventes = (await env.STATUTS.get('ventes', 'json')) || [];
@@ -87,6 +96,8 @@ export default {
       return json({ configure: !!(await env.STATUTS.get('motdepasse')), alertes: alertesActives(env) }, 200);
     }
     if (body.action === 'estimation') { const r = await recevoirEstimation(body, request, env); return json(r.corps, r.status); }
+    if (body.action === 'visite') { const r = await demanderVisite(body, request, env); return json(r.corps, r.status); }
+    if (body.action === 'visite-info') { const r = await infoVisite(body, env); return json(r.corps, r.status); }
     if (body.action === 'alerte') { const r = await creerAlerte(body, request, env, url.origin + '/'); return json(r.corps, r.status); }
 
     if (body.action === 'setup') {
@@ -101,6 +112,7 @@ export default {
     if (!(await verifier(env, body.password))) return refus();
     if (body.check) return json({ ok: true }, 200);
     if (body.action === 'demandes') return json(await demandesPourAdmin(env), 200, { 'Cache-Control': 'no-store' });
+    if (body.action === 'suivi') { const r = await majSuivi(body, env); return json(r.corps, r.status); }
     if (body.action === 'supprimer') return (await supprimerPourAdmin(env, body.cle)) ? json({ ok: true }, 200) : json({ error: 'Clé invalide' }, 400);
 
     if (!Array.isArray(body.ventes)) return json({ error: 'Champ « ventes » manquant' }, 400);
@@ -111,6 +123,10 @@ export default {
 
   // Tournée quotidienne des alertes e-mail (déclencheur « crons » de wrangler.toml)
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(tourneeAlertes(env).then((r) => console.log('alertes', JSON.stringify(r))).catch((e) => console.error('alertes', e.message)));
+    // Suivi des estimations d'abord (au plus 12 requêtes), puis les alertes (au plus 31) : sous la limite de 50
+    ctx.waitUntil((async () => {
+      try { console.log('suivi', JSON.stringify(await tourneeSuivi(env))); } catch (e) { console.error('suivi', e.message); }
+      try { console.log('alertes', JSON.stringify(await tourneeAlertes(env))); } catch (e) { console.error('alertes', e.message); }
+    })());
   },
 };

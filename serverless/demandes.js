@@ -14,23 +14,23 @@
  * vérifié chez Resend (pas l'adresse de test « resend.dev »).
  */
 
-const JOUR = 86400;
+export const JOUR = 86400;
 const TYPES = ['Maison', 'Appartement', 'Terrain', 'Immeuble', 'Local commercial'];
-const MAX_EMAILS_PAR_TOURNEE = 40;   // limite de requêtes d'un Worker gratuit (50)
+const MAX_EMAILS_PAR_TOURNEE = 30;   // limite de requêtes d'un Worker gratuit (50), partagée avec le suivi des estimations (suivi.js)
 
 // ----------------------------------------------------------------- outils
-const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const eur = (n) => Math.round(Number(n) || 0).toLocaleString('fr-FR').replace(/ | /g, ' ') + ' €';
-const jeton = () => [...crypto.getRandomValues(new Uint8Array(24))].map((b) => b.toString(16).padStart(2, '0')).join('');
-const emailValide = (e) => typeof e === 'string' && e.length <= 120 && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(e);
-const texte = (v, max) => String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max || 200);
+export const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+export const eur = (n) => Math.round(Number(n) || 0).toLocaleString('fr-FR').replace(/ | /g, ' ') + ' €';
+export const jeton = () => [...crypto.getRandomValues(new Uint8Array(24))].map((b) => b.toString(16).padStart(2, '0')).join('');
+export const emailValide = (e) => typeof e === 'string' && e.length <= 120 && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(e);
+export const texte = (v, max) => String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max || 200);
 const entier = (v, max) => { const n = parseInt(v, 10); return Number.isFinite(n) && n > 0 ? Math.min(n, max) : 0; };
 
 export function alertesActives(env) {
   return !!(env.RESEND_API_KEY && env.EMAIL_FROM && !/resend\.dev/i.test(env.EMAIL_FROM));
 }
 
-async function limiter(request, env) {
+export async function limiter(request, env) {
   const ip = request.headers.get('CF-Connecting-IP') || 'local';
   const cle = 'rl:' + ip;
   const n = parseInt((await env.STATUTS.get(cle)) || '0', 10);
@@ -39,7 +39,7 @@ async function limiter(request, env) {
   return true;
 }
 
-async function envoyerEmail(env, { to, subject, html, text, replyTo, desabonnement }) {
+export async function envoyerEmail(env, { to, subject, html, text, replyTo, desabonnement }) {
   if (!env.RESEND_API_KEY || !env.EMAIL_FROM) return { ok: false, raison: 'non configuré' };
   const corps = { from: env.EMAIL_FROM, to: [to], subject, html, text };
   if (replyTo) corps.reply_to = replyTo;
@@ -57,14 +57,14 @@ async function envoyerEmail(env, { to, subject, html, text, replyTo, desabonneme
 }
 
 // Gabarit commun des e-mails (aux couleurs du logo)
-function gabarit(env, titre, contenu, pied) {
+export function gabarit(env, titre, contenu, pied) {
   const site = env.SITE_URL || '';
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;background:#f3f4f7;font-family:Arial,Helvetica,sans-serif;color:#1d2433;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f7;padding:24px 12px;"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:10px;overflow:hidden;">
 <tr><td style="background:#021430;padding:20px 28px;"><a href="${esc(site)}" style="text-decoration:none;"><img src="${esc(site)}logo-angevin-h-blanc.png" alt="L'Immobilier Angevin" width="220" style="display:block;border:0;width:220px;max-width:70%;height:auto;"></a></td></tr>
 <tr><td style="padding:28px;"><h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;color:#021430;">${titre}</h1>${contenu}</td></tr>
-<tr><td style="padding:18px 28px;background:#f8f9fb;font-size:12px;line-height:1.6;color:#5b6475;">Charles MOREL · L'Immobilier Angevin · conseiller 3G IMMO · ${esc(env.TELEPHONE || '06 38 55 53 55')}<br>${pied || ''}</td></tr>
+<tr><td style="padding:18px 28px;background:#f8f9fb;font-size:12px;line-height:1.6;color:#5b6475;">L'Immobilier Angevin · Charles MOREL et Antoine HÉRY · ${esc(env.TELEPHONE || '06 38 55 53 55')}<br>${pied || ''}</td></tr>
 </table></td></tr></table></body></html>`;
 }
 
@@ -148,8 +148,13 @@ export async function recevoirEstimation(body, request, env) {
   if (!(await limiter(request, env))) return { status: 429, corps: { error: 'Trop de demandes, réessayez plus tard' } };
   dem.recu = new Date().toISOString();
   dem.genre = 'estimation';
+  // Suivi (serverless/suivi.js) : à rappeler tout de suite ; relances e-mail seulement si le propriétaire les a acceptées
+  dem.consentSuivi = d.consentSuivi === true;
+  dem.jeton = jeton();
+  dem.suivi = { etat: 'nouveau', rappel: dem.recu, note: '', relances: 0, historique: [{ le: dem.recu, etat: 'nouveau' }] };
   const cle = 'demande:' + String(9999999999999 - Date.now()).padStart(13, '0') + ':' + jeton().slice(0, 6);
   await env.STATUTS.put(cle, JSON.stringify(dem), { expirationTtl: 3 * 365 * JOUR });
+  await env.STATUTS.put('suivi:' + dem.jeton, cle, { expirationTtl: 3 * 365 * JOUR });
 
   // Prévenir Charles (si l'envoi d'e-mails est branché)
   const lignes = [['Bien', dem.type + (dem.surface ? ', ' + dem.surface + ' m²' : '') + (dem.terrain ? ', terrain ' + dem.terrain + ' m²' : '')],
@@ -165,7 +170,7 @@ export async function recevoirEstimation(body, request, env) {
     await envoyerEmail(env, { to: env.EMAIL_AGENT, replyTo: dem.email, subject: 'Estimation demandée : ' + dem.type + ' à ' + dem.ville + ' (' + dem.prenom + ' ' + dem.nom + ')',
       html, text: lignes.map(([a, b]) => a + ' : ' + b).join('\n') });
   }
-  return { status: 200, corps: { ok: true } };
+  return { status: 200, corps: { ok: true, jeton: dem.jeton } };
 }
 
 // ----------------------------------------------------------------- alertes : inscription, confirmation, désinscription
@@ -195,7 +200,7 @@ export async function creerAlerte(body, request, env, relais) {
   return { status: 200, corps: { ok: true } };
 }
 
-function pageHtml(env, titre, message, bouton) {
+export function pageHtml(env, titre, message, bouton) {
   const site = env.SITE_URL || '/';
   return new Response(`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(titre)} · L'Immobilier Angevin</title>
 <style>body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1d2433;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}main{background:#fff;max-width:480px;width:100%;border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(2,20,48,.08)}header{background:#021430;padding:18px 24px}header img{width:200px;height:auto;display:block}section{padding:26px 24px}h1{font-size:21px;color:#021430;margin:0 0 12px}p{line-height:1.6;margin:0 0 18px}a.b,button{display:inline-block;background:#DC071D;color:#fff;border:0;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;font-size:15px;cursor:pointer}a.l{color:#021430}</style></head>
