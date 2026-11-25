@@ -1,0 +1,10 @@
+{
+  "_lisezmoi": "Adresses e-mail de L'Ardoise Immobilière. Tant que les boîtes ne fonctionnent pas, laisser emails_actifs à false : le site garde l'adresse 3G actuelle. Passer à true puis relancer python3 _communes/generer.py, python3 _communes/annonces.py et python3 _parts/build.py.",
+  "emails_actifs": false,
+  "emails": {
+    "contact": "contact@lardoiseimmobiliere.com",
+    "charles": "charlesmorel@lardoiseimmobiliere.com",
+    "antoine": "antoinehery@lardoiseimmobiliere.com"
+  },
+  "email_actuel": "charles.morel@3gimmobilier.com"
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Pages statiques « Immobilier à <commune> » (SEO local) — L'Ardoise Immobilier.
+Pages statiques « Immobilier à <commune> » (SEO local) — L'Ardoise Immobilière.
 
 Usage :  python3 _communes/generer.py      (depuis n'importe quel dossier)
 
@@ -27,7 +27,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.dirname(ICI)
 
 FLUX_3G = "https://raw.githubusercontent.com/galfomorel-droid/charles-morel-immobilier/main/data/biens.json"
-NOM = "L'Ardoise Immobilier"
+NOM = "L'Ardoise Immobilière"
 CONSEILLER = "Charles MOREL"
 DUO = [  # même ordre et mêmes coordonnées que la section équipe du site
     {"nom": "Charles MOREL", "role": "Cofondateur", "tel": "06 38 55 53 55", "intl": "+33638555355", "photo": "img/charles-morel-avatar.jpg"},
@@ -35,7 +35,11 @@ DUO = [  # même ordre et mêmes coordonnées que la section équipe du site
 ]
 TEL = "06 38 55 53 55"
 TEL_INTL = "+33638555355"
-EMAIL = "charles.morel@3gimmobilier.com"
+# Adresses e-mail : _communes/coordonnees.json (emails_actifs = false tant que les boîtes de lardoiseimmobiliere.com ne fonctionnent pas)
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "coordonnees.json"), encoding="utf-8") as _f:
+    _COORD = json.load(_f)
+EMAIL = _COORD["emails"]["contact"] if _COORD["emails_actifs"] else _COORD["email_actuel"]
+EMAILS_DUO = ({"Charles MOREL": _COORD["emails"]["charles"], "Antoine HÉRY": _COORD["emails"]["antoine"]} if _COORD["emails_actifs"] else {})
 MENTION = "Charles MOREL, agent commercial 3G IMMO · RSAC Le Mans 900 233 800"
 BAREME = [
     ("Jusqu'à 100 000 € net vendeur", "forfait de 5 000 € TTC"),
@@ -274,6 +278,7 @@ def bloc_conseiller(root):
         <img src="{root}{d['photo']}" alt="{esc(d['nom'])}" width="400" height="400" loading="lazy">
         <p class="conseiller-n">{esc(d['nom'])}</p>
         <p><a class="lien" href="tel:{d['intl']}">{d['tel'].replace(' ', '&nbsp;')}</a></p>
+        {f'<p class="petit"><a class="lien" href="mailto:{EMAILS_DUO[d["nom"]]}">{EMAILS_DUO[d["nom"]]}</a></p>' if d['nom'] in EMAILS_DUO else ''}
       </div>""" for d in DUO)
     return f"""<aside class="conseiller duo">
       <p class="duo-t">{typo("Vos interlocuteurs, du premier rendez-vous à la signature chez le notaire")}</p>
@@ -577,7 +582,7 @@ def page_secteurs(communes, secteurs):
 
 
 # ------------------------------------------------------------------ CSS
-CSS = """/* Pages « Immobilier à <commune> » — L'Ardoise Immobilier. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
+CSS = """/* Pages « Immobilier à <commune> » — L'Ardoise Immobilière. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
 :root{--marine:#021430;--rouge:#F6A737;--rouge-t:#021430;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}

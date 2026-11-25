@@ -178,7 +178,7 @@ def page_liste(annonces):
     root = "../"
     chemin = "annonce/"
     titre = f"Nos annonces immobilières · Maisons et appartements à vendre | {G.NOM}"
-    desc = "Toutes les annonces de L'Ardoise Immobilier : maisons, appartements et terrains à vendre d'Angers à Sablé-sur-Sarthe."
+    desc = "Toutes les annonces de L'Ardoise Immobilière : maisons, appartements et terrains à vendre d'Angers à Sablé-sur-Sarthe."
     items = ""
     for n, a in enumerate([x for x in annonces if x["photos"]]):
         prio = ' fetchpriority="high"' if n == 0 else ""
