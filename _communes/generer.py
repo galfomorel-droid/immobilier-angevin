@@ -579,7 +579,7 @@ def page_secteurs(communes, secteurs):
 
 # ------------------------------------------------------------------ CSS
 CSS = """/* Pages « Immobilier à <commune> » — L'Ardoise Immobilier. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
-:root{--marine:#021430;--rouge:#04254B;--rouge-t:#021430;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
+:root{--marine:#021430;--rouge:#F6A737;--rouge-t:#936421;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:300;font-size:1rem;line-height:1.7;color:var(--marine);background:#fff}
@@ -628,7 +628,7 @@ strong{font-weight:600}
 .sec{padding:56px 0}
 .sec-gris{background:var(--gris)}
 @media(min-width:860px){.intro{padding:44px 0 72px}.sec{padding:84px 0}}
-.kicker{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#4F6FA8;margin-bottom:.8em}
+.kicker{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#936421;margin-bottom:.8em}
 .lead{font-size:clamp(1.05rem,2.6vw,1.2rem);max-width:760px}
 .lead-2{font-size:1.05rem;max-width:820px}
 .petit{font-size:.875rem;color:var(--texte2)}
@@ -641,10 +641,8 @@ strong{font-weight:600}
 /* Boutons pilule */
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.75rem 1.6rem;border-radius:999px;font-size:.95rem;font-weight:600;letter-spacing:0;text-transform:none;text-decoration:none;border:1.5px solid transparent;transition:background .25s,color .25s,border-color .25s}
-.btn-rouge{background:var(--rouge);color:#fff}
-.btn-rouge:hover{background:var(--rouge-t)}
-.cta .btn-rouge{background:#4F6FA8}
-.cta .btn-rouge:hover{background:#3F5D93}
+.btn-rouge{background:var(--rouge);color:#021430}
+.btn-rouge:hover{background:#E08E1F}
 .btn-marine{background:var(--marine);color:#fff}
 .btn-marine:hover{background:#0B2A5C}
 .btn-blanc{background:#fff;color:var(--marine)}
@@ -724,7 +722,7 @@ strong{font-weight:600}
 .bien:hover{box-shadow:0 16px 36px rgba(2,20,48,.1)}
 .bien-ph{position:relative;aspect-ratio:4/3;background:var(--gris)}
 .bien-ph img{width:100%;height:100%;object-fit:cover}
-.bien-badge{position:absolute;left:12px;top:12px;background:var(--rouge);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px}
+.bien-badge{position:absolute;left:12px;top:12px;background:var(--rouge);color:#021430;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px}
 .bien-badge.marine{background:var(--marine)}
 .bien-txt{padding:16px 18px 18px;display:flex;flex-direction:column;gap:2px;flex:1}
 .bien-type{font-weight:700;font-size:1rem}

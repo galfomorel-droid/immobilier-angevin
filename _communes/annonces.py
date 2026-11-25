@@ -244,7 +244,7 @@ CSS_ANNONCE = """/* Pages « annonce » — générées par _communes/annonces.p
 .an-legal{margin-top:28px;font-size:.85rem;color:var(--texte2)}
 .an-legal h3,.an-legal h4{font-size:.95rem;color:var(--marine)}
 .an-carte{background:#fff;border:1px solid var(--filet);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(2,20,48,.06)}
-.an-prix{font-size:1.9rem;font-weight:800;color:var(--rouge);margin:0 0 4px;line-height:1.15}
+.an-prix{font-size:1.9rem;font-weight:800;color:var(--rouge-t);margin:0 0 4px;line-height:1.15}
 .an-prix-d{font-size:.85rem;color:var(--texte2);margin:0 0 2px}
 .an-btn{width:100%;justify-content:center;margin-top:12px}
 .an-cons{display:flex;gap:14px;align-items:center;margin-top:18px;padding-top:18px;border-top:1px solid var(--filet)}

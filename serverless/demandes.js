@@ -164,7 +164,7 @@ export async function recevoirEstimation(body, request, env) {
     ['Téléphone', dem.tel], ['E-mail', dem.email]];
   const html = gabarit(env, 'Nouvelle demande d\'estimation', `<p style="margin:0 0 16px;font-size:15px;"><strong>${esc(dem.prenom)} ${esc(dem.nom)}</strong> vient de demander une estimation sur le site.</p>
 <table role="presentation" cellpadding="6" cellspacing="0" style="font-size:14px;border-collapse:collapse;width:100%;">${lignes.map(([a, b]) => `<tr><td style="color:#5b6475;width:38%;vertical-align:top;border-bottom:1px solid #eef0f4;">${esc(a)}</td><td style="border-bottom:1px solid #eef0f4;">${esc(b)}</td></tr>`).join('')}</table>
-<p style="margin:20px 0 0;"><a href="tel:${esc(dem.tel.replace(/[^0-9+]/g, ''))}" style="display:inline-block;background:#04254B;color:#fff;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;">Appeler ${esc(dem.prenom)}</a></p>`,
+<p style="margin:20px 0 0;"><a href="tel:${esc(dem.tel.replace(/[^0-9+]/g, ''))}" style="display:inline-block;background:#F6A737;color:#021430;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;">Appeler ${esc(dem.prenom)}</a></p>`,
     'Retrouvez toutes vos demandes dans l\'espace pro du site.');
   if (env.EMAIL_AGENT) {
     await envoyerEmail(env, { to: env.EMAIL_AGENT, replyTo: dem.email, subject: 'Estimation demandée : ' + dem.type + ' à ' + dem.ville + ' (' + dem.prenom + ' ' + dem.nom + ')',
@@ -191,8 +191,8 @@ export async function creerAlerte(body, request, env, relais) {
     to: email, subject: 'Confirmez votre alerte immobilière',
     html: gabarit(env, 'Confirmez votre alerte', `<p style="font-size:15px;line-height:1.6;margin:0 0 12px;">Bonjour,</p>
 <p style="font-size:15px;line-height:1.6;margin:0 0 12px;">Vous avez demandé à recevoir par e-mail les nouveaux biens correspondant à votre recherche :</p>
-<p style="font-size:15px;line-height:1.6;margin:0 0 20px;padding:12px 16px;background:#f3f4f7;border-left:4px solid #04254B;">${esc(resumeCriteres(criteres))}</p>
-<p style="margin:0 0 20px;"><a href="${esc(lien)}" style="display:inline-block;background:#04254B;color:#fff;text-decoration:none;padding:13px 22px;border-radius:6px;font-weight:bold;">Activer mon alerte</a></p>
+<p style="font-size:15px;line-height:1.6;margin:0 0 20px;padding:12px 16px;background:#f3f4f7;border-left:4px solid #F6A737;">${esc(resumeCriteres(criteres))}</p>
+<p style="margin:0 0 20px;"><a href="${esc(lien)}" style="display:inline-block;background:#F6A737;color:#021430;text-decoration:none;padding:13px 22px;border-radius:6px;font-weight:bold;">Activer mon alerte</a></p>
 <p style="font-size:13px;color:#5b6475;line-height:1.6;margin:0;">Si vous n'êtes pas à l'origine de cette demande, ignorez simplement ce message : rien ne sera activé.</p>`),
     text: 'Activez votre alerte (' + resumeCriteres(criteres) + ') : ' + lien,
   });
@@ -203,7 +203,7 @@ export async function creerAlerte(body, request, env, relais) {
 export function pageHtml(env, titre, message, bouton) {
   const site = env.SITE_URL || '/';
   return new Response(`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(titre)} · L'Ardoise Immobilier</title>
-<style>body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1d2433;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}main{background:#fff;max-width:480px;width:100%;border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(2,20,48,.08)}header{background:#021430;padding:18px 24px}header img{width:200px;height:auto;display:block}section{padding:26px 24px}h1{font-size:21px;color:#021430;margin:0 0 12px}p{line-height:1.6;margin:0 0 18px}a.b,button{display:inline-block;background:#04254B;color:#fff;border:0;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;font-size:15px;cursor:pointer}a.l{color:#021430}</style></head>
+<style>body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1d2433;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}main{background:#fff;max-width:480px;width:100%;border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(2,20,48,.08)}header{background:#021430;padding:18px 24px}header img{width:200px;height:auto;display:block}section{padding:26px 24px}h1{font-size:21px;color:#021430;margin:0 0 12px}p{line-height:1.6;margin:0 0 18px}a.b,button{display:inline-block;background:#F6A737;color:#021430;border:0;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;font-size:15px;cursor:pointer}a.l{color:#021430}</style></head>
 <body><main><header><img src="${esc(site)}logo-ardoise-h-blanc.png" alt="L'Ardoise Immobilier"></header><section><h1>${esc(titre)}</h1><p>${message}</p>${bouton || `<a class="b" href="${esc(site)}#biens">Voir les biens à vendre</a>`}</section></main></body></html>`,
   { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' } });
 }

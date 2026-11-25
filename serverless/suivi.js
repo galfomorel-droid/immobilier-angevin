@@ -71,7 +71,7 @@ export async function demanderVisite(body, request, env) {
       html: gabarit(env, 'Visite d\'estimation demandée', `<p style="font-size:15px;line-height:1.6;margin:0 0 12px;"><strong>${esc(dem.prenom)} ${esc(dem.nom)}</strong> souhaite une visite pour affiner l'estimation de son bien : ${esc(bienDe(dem))}.</p>
 <p style="font-size:15px;line-height:1.6;margin:0 0 12px;">Disponibilités : <strong>${esc(creneaux.join(', '))}</strong></p>
 ${dem.visite.message ? `<p style="font-size:15px;line-height:1.6;margin:0 0 12px;">« ${esc(dem.visite.message)} »</p>` : ''}
-<p style="margin:18px 0 0;"><a href="tel:${esc(String(dem.tel || '').replace(/[^0-9+]/g, ''))}" style="display:inline-block;background:#04254B;color:#fff;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;">Appeler ${esc(dem.prenom)} · ${esc(dem.tel)}</a></p>`,
+<p style="margin:18px 0 0;"><a href="tel:${esc(String(dem.tel || '').replace(/[^0-9+]/g, ''))}" style="display:inline-block;background:#F6A737;color:#021430;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;">Appeler ${esc(dem.prenom)} · ${esc(dem.tel)}</a></p>`,
         'Pensez à passer la demande en « Visite programmée » dans l\'espace pro une fois le rendez-vous fixé.'),
       text: dem.prenom + ' ' + dem.nom + ' demande une visite (' + bienDe(dem) + '). Disponibilités : ' + creneaux.join(', ') + '. Tél. ' + dem.tel,
     });
@@ -155,7 +155,7 @@ function periodeTxt(p) {
 
 function emailRelance(env, n, dem, prix) {
   const j = dem.jeton, visite = lienVisite(env, j), arret = lienArret(env, j);
-  const bouton = `<p style="margin:20px 0 6px;"><a href="${esc(visite)}" style="display:inline-block;background:#04254B;color:#fff;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;">Choisir un créneau de visite</a></p>
+  const bouton = `<p style="margin:20px 0 6px;"><a href="${esc(visite)}" style="display:inline-block;background:#F6A737;color:#021430;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;">Choisir un créneau de visite</a></p>
 <p style="font-size:14px;line-height:1.6;margin:8px 0 0;color:#5b6475;">Ou appelez-nous au ${esc(env.TELEPHONE || '06 38 55 53 55')}, ou répondez simplement à cet e-mail.</p>`;
   const pied = `Vous recevez cet e-mail car vous avez demandé une estimation sur notre site et accepté d'en recevoir le suivi (3 e-mails au plus). <a href="${esc(arret)}" style="color:#5b6475;">Ne plus recevoir ces e-mails</a>`;
   const bonjour = `<p style="font-size:15px;line-height:1.6;margin:0 0 12px;">Bonjour ${esc(dem.prenom)},</p>`;
@@ -203,7 +203,7 @@ export async function tourneeSuivi(env) {
 <p style="margin:0 0 4px;font-size:14px;color:#5b6475;">${esc(bienDe(dem))}${dem.estimation ? ' · estimé ' + esc(dem.estimation.split(' (')[0]) : ''}</p>
 ${dem.visite ? `<p style="margin:0 0 4px;font-size:14px;">Disponibilités : ${esc(dem.visite.creneaux.join(', '))}</p>` : ''}
 ${dem.suivi.note ? `<p style="margin:0 0 4px;font-size:14px;color:#5b6475;">Note : ${esc(dem.suivi.note)}</p>` : ''}
-<p style="margin:6px 0 0;"><a href="tel:${esc(String(dem.tel || '').replace(/[^0-9+]/g, ''))}" style="color:#04254B;font-weight:bold;text-decoration:none;">${esc(dem.tel)}</a></p></td></tr>`;
+<p style="margin:6px 0 0;"><a href="tel:${esc(String(dem.tel || '').replace(/[^0-9+]/g, ''))}" style="color:#936421;font-weight:bold;text-decoration:none;">${esc(dem.tel)}</a></p></td></tr>`;
     }).join('');
     const n = dues.length;
     const r = await envoyerEmail(env, {
