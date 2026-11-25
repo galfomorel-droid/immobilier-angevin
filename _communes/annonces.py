@@ -88,6 +88,14 @@ def page_annonce(a, relais):
             galerie += f'<p class="an-plus"><a class="lien" href="{fiche}">Voir les {len(photos)} photos</a></p>'
 
     cles = ('<ul class="an-cles">' + "".join(f"<li><span>{G.esc(k[0])}</span><strong>{G.esc(k[-1])}</strong></li>" for k in a.get("cles", [])) + "</ul>") if a.get("cles") else ""
+    # Bilan énergétique : classes DPE / GES (le texte affiché par la fiche est une échelle graphique, illisible en texte brut)
+    depenses = [l.strip() for l in (a.get("dpeTexte") or "").split("\n") if l.strip().startswith("Dépenses annuelles")]
+    dpe_html = ""
+    if a.get("dpe") or a.get("ges"):
+        dpe_html = ('<h2>Bilan énergétique</h2><ul class="an-dpe">'
+                    + '<li><span>Consommation énergétique</span><strong class="an-cl an-cl-%s">%s</strong></li>' % (G.esc(a.get("dpe") or "x").lower(), G.esc(a.get("dpe") or "Non renseignée"))
+                    + '<li><span>Émissions de gaz à effet de serre</span><strong class="an-cl an-cl-%s">%s</strong></li>' % (G.esc(a.get("ges") or "x").lower(), G.esc(a.get("ges") or "Non renseignées"))
+                    + "</ul>" + "".join('<p class="petit">%s</p>' % G.typo(d) for d in depenses))
     caracs = "".join(f"<li><span>{G.esc(l)}</span><strong>{G.esc(v)}</strong></li>" for l, v in a["caracs"])
     prix_lignes = [l.strip() for l in a["prixBloc"].split("\n") if l.strip()]
     prix = ""
@@ -138,7 +146,7 @@ def page_annonce(a, relais):
       <h2>Description</h2>
       <div class="an-desc">{nettoyer(a['descHTML'], root)}</div>
       {('<h2>Caractéristiques</h2><ul class="an-caracs">' + caracs + '</ul>') if caracs else ''}
-      {('<h2>Bilan énergétique</h2><p class="an-dpe">' + G.esc(a['dpeTexte']).replace(chr(10), '<br>') + '</p>') if a['dpeTexte'] else ''}
+      {dpe_html}
       <div class="an-legal">{nettoyer(a['prixSection'], root)}{nettoyer(a['legal'], root)}</div>
     </div>
     <aside class="an-d">
@@ -211,7 +219,7 @@ CSS_ANNONCE = """/* Pages « annonce » — générées par _communes/annonces.p
 .an-cles li{background:#fff;border:1px solid var(--filet);border-radius:14px;padding:10px 16px;display:flex;flex-direction:column;min-width:96px}
 .an-cles span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texte2)}
 .an-cles strong{font-size:1.05rem}
-.an-indispo{background:#FBECEE;border:1px solid #F2C4C9;color:var(--marine);border-radius:12px;padding:12px 16px;margin:0 0 16px}
+.an-indispo{background:#EEF1F7;border:1px solid #C9D3E3;color:var(--marine);border-radius:12px;padding:12px 16px;margin:0 0 16px}
 .an-corps{padding-top:8px}
 .an-grille{display:grid;gap:28px}
 @media(min-width:960px){.an-grille{grid-template-columns:minmax(0,1fr) 340px;align-items:start}.an-d{position:sticky;top:100px}}
@@ -228,7 +236,11 @@ CSS_ANNONCE = """/* Pages « annonce » — générées par _communes/annonces.p
 .an-caracs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0 24px}
 .an-caracs li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--filet)}
 .an-caracs span{color:var(--texte2)}
-.an-dpe{white-space:normal}
+.an-dpe{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.an-dpe li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--filet)}
+.an-dpe span{color:var(--texte2)}
+.an-cl{min-width:38px;text-align:center;padding:4px 10px;border-radius:8px;color:#fff;background:#5B6475}
+.an-cl-a{background:#1F6B22}.an-cl-b{background:#3C8A2E}.an-cl-c{background:#6E9F28}.an-cl-d{background:#B59A00;color:#1d2433}.an-cl-e{background:#C26A0F}.an-cl-f{background:#B4421A}.an-cl-g{background:#9B1C1C}
 .an-legal{margin-top:28px;font-size:.85rem;color:var(--texte2)}
 .an-legal h3,.an-legal h4{font-size:.95rem;color:var(--marine)}
 .an-carte{background:#fff;border:1px solid var(--filet);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(2,20,48,.06)}
