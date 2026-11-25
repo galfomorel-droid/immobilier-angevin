@@ -938,54 +938,13 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 6%; }
   transform: translateY(-4px);
   box-shadow: 0 14px 36px rgba(0,0,0,0.12);
 }
-.vendus-img-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: var(--beige);
-}
-.vendus-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .25s ease;
-}
-.vendus-card:hover .vendus-img-wrap img {
-  transform: scale(1.05);
-}
-.vendus-badge {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: var(--noir);
-  color: var(--white);
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 0.4rem 0.9rem;
-  font-weight: 600;
-  border-radius: 2px;
-}
-.vendus-info {
-  padding: 1.2rem 1.3rem 1.4rem;
-}
-.vendus-type {
-  font-family: var(--sans);
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: var(--noir);
-  margin-bottom: 0.25rem;
-  letter-spacing: -0.01em;
-}
-.vendus-ville {
-  font-family: var(--sans);
-  font-size: 0.92rem;
-  color: var(--gris);
-  font-weight: 400;
-}
+
+
+
+
+
+
+
 @media (max-width: 600px) {
   .vendus-section { padding: 3.5rem 5%; }
   .vendus-card { flex: 0 0 260px; }
@@ -4435,6 +4394,26 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .admin-suivi-n { margin-top: 10px; }
 .admin-suivi-visite { background: #FEF3E2; border-radius: 10px; padding: 8px 12px; }
 @media (max-width: 520px) { .admin-suivi-g { grid-template-columns: 1fr; } }
+
+/* ===================== NOS DERNIÈRES VENTES : CARTES « ARDOISE » (25/11/2026) ===================== */
+/* Les visuels 3G (petits, bandeau VENDU bleu-vert) ne servent plus que de filigrane. */
+.vendus-card.vd2 { position: relative; flex: 0 0 280px; height: 230px; border-radius: 18px; overflow: hidden; background: var(--marine); border: 0;
+  box-shadow: 0 14px 34px rgba(2,20,48,.18); color: #fff; }
+.vd2-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) blur(4px); opacity: .13; transform: scale(1.12); }
+.vendus-card.vd2::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(2,20,48,.35), rgba(2,20,48,.85)); }
+.vd2-cadre { position: absolute; inset: 14px; z-index: 1; border: 1.5px solid rgba(246,167,55,.75); border-radius: 10px; padding: 18px 20px;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; }
+.vd2-badge { position: absolute; top: 16px; left: 18px; background: #F6A737; color: #021430; font-size: .74rem; font-weight: 800; letter-spacing: .16em;
+  text-transform: uppercase; padding: 6px 12px; border-radius: 6px; }
+.vd2-type { font-size: 1.45rem; font-weight: 800; line-height: 1.1; color: #fff; }
+.vd2-ville { font-size: .98rem; font-weight: 600; color: rgba(255,255,255,.92); line-height: 1.3; }
+.vd2-cp { font-weight: 400; color: rgba(255,255,255,.7); }
+.vd2-date { margin-top: 8px; font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #F6A737; }
+.vd2-date::first-letter { text-transform: uppercase; }
+@media (max-width: 600px) { .vendus-card.vd2 { flex-basis: 240px; height: 210px; } .vd2-type { font-size: 1.3rem; } }
+
+.vendus-header .section-tag { display: flex; justify-content: center; text-align: center; margin-left: auto; margin-right: auto; }
+.vendus-section .vendus-marquee { padding-top: 12px; padding-bottom: 40px; margin-bottom: -28px; }
 
 </style>
 <style id="direction-artistique">
@@ -8441,11 +8420,11 @@ function renderVendusCarousel() {
   (vendusAuto || []).forEach(function (v) { _dejaVus[String(v.id)] = 1; });
   var historiques = (typeof _vendus3G !== 'undefined' ? _vendus3G : [])
     .filter(function (v) { return !_dejaVus[String(v.id)]; })
-    .map(function (v) { return { id: v.id, type: v.type || 'Bien', ville: v.ville || '', img: v.img || '', visuel3G: true }; });
+    .map(function (v) { return { id: v.id, type: v.type || 'Bien', ville: v.ville || '', cp: v.cp || '', date: v.date || '', img: v.img || '', visuel3G: true }; });
 
   // Convertir les biens vendus admin au même format
   var adminVendus = biensVendus.map(function(b){
-    return { id: b.id, type: b.type || 'Bien', ville: b.ville || '', img: b.img || '' };
+    return { id: b.id, type: b.type || 'Bien', ville: b.ville || '', cp: b.cp || '', date: b.dateVente || '', img: b.img || '' };
   });
 
   // Ventes détectées AUTO depuis 3G (bien archivé/vendu → disparu du flux), sans doublonner l'admin.
@@ -8469,16 +8448,21 @@ function renderVendusCarousel() {
   if (section) section.style.display = '';
 
   // Construire les cartes (doubler pour la boucle infinie)
+  var _MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+  function _moisVente(d) {
+    var m = /^(\d{4})-(\d{2})/.exec(String(d || ''));
+    return m ? 'Vendu en ' + _MOIS[parseInt(m[2], 10) - 1] + ' ' + m[1] : 'Vendu';
+  }
+  function _esc(t) { return String(t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
   function buildCard(v, ariaHidden) {
-    var altText = (v.type || 'Bien vendu') + ' ' + (v.ville || '');
-    return '<div class="vendus-card"' + (ariaHidden ? ' aria-hidden="true"' : '') + '>' +
-      '<div class="vendus-img-wrap">' +
-        '<img src="' + (v.img ? imgOpt(v.img, 700) : PLACEHOLDER_IMG) + '" data-orig="' + (v.img || '') + '" alt="' + altText.replace(/"/g,'&quot;') + '" decoding="async" fetchpriority="low" onerror="imgRepli(this)">' +
-        (v.visuel3G ? '' : '<span class="vendus-badge">Vendu</span>') +
-      '</div>' +
-      '<div class="vendus-info">' +
-        '<div class="vendus-type">' + (v.type || 'Bien') + '</div>' +
-        '<div class="vendus-ville">' + (v.ville || '') + '</div>' +
+    var ville = _esc(v.ville), cp = v.cp ? ' <span class="vd2-cp">(' + _esc(v.cp) + ')</span>' : '';
+    return '<div class="vendus-card vd2"' + (ariaHidden ? ' aria-hidden="true"' : '') + '>' +
+      (v.img ? '<img class="vd2-photo" src="' + imgOpt(v.img, 500) + '" data-orig="' + _esc(v.img) + '" alt="" decoding="async" loading="lazy" fetchpriority="low" onerror="this.remove()">' : '') +
+      '<div class="vd2-cadre">' +
+        '<span class="vd2-badge">Vendu</span>' +
+        '<div class="vd2-type">' + _esc(v.type || 'Bien') + '</div>' +
+        '<div class="vd2-ville">' + ville + cp + '</div>' +
+        '<div class="vd2-date">' + _moisVente(v.date).replace(/^Vendu en /, '') + '</div>' +
       '</div>' +
     '</div>';
   }
