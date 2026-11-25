@@ -62,9 +62,9 @@ export function gabarit(env, titre, contenu, pied) {
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;background:#f3f4f7;font-family:Arial,Helvetica,sans-serif;color:#1d2433;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f7;padding:24px 12px;"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:10px;overflow:hidden;">
-<tr><td style="background:#021430;padding:20px 28px;"><a href="${esc(site)}" style="text-decoration:none;"><img src="${esc(site)}logo-angevin-h-blanc.png" alt="L'Immobilier Angevin" width="220" style="display:block;border:0;width:220px;max-width:70%;height:auto;"></a></td></tr>
+<tr><td style="background:#021430;padding:20px 28px;"><a href="${esc(site)}" style="text-decoration:none;"><img src="${esc(site)}logo-bagatelle-h-blanc.png" alt="Bagatelle Immobilier Patrimoine" width="220" style="display:block;border:0;width:220px;max-width:70%;height:auto;"></a></td></tr>
 <tr><td style="padding:28px;"><h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;color:#021430;">${titre}</h1>${contenu}</td></tr>
-<tr><td style="padding:18px 28px;background:#f8f9fb;font-size:12px;line-height:1.6;color:#5b6475;">L'Immobilier Angevin · Charles MOREL et Antoine HÉRY · ${esc(env.TELEPHONE || '06 38 55 53 55')}<br>${pied || ''}</td></tr>
+<tr><td style="padding:18px 28px;background:#f8f9fb;font-size:12px;line-height:1.6;color:#5b6475;">Bagatelle Immobilier Patrimoine · Charles MOREL et Antoine HÉRY · ${esc(env.TELEPHONE || '06 38 55 53 55')}<br>${pied || ''}</td></tr>
 </table></td></tr></table></body></html>`;
 }
 
@@ -202,9 +202,9 @@ export async function creerAlerte(body, request, env, relais) {
 
 export function pageHtml(env, titre, message, bouton) {
   const site = env.SITE_URL || '/';
-  return new Response(`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(titre)} · L'Immobilier Angevin</title>
+  return new Response(`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(titre)} · Bagatelle Immobilier Patrimoine</title>
 <style>body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1d2433;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}main{background:#fff;max-width:480px;width:100%;border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(2,20,48,.08)}header{background:#021430;padding:18px 24px}header img{width:200px;height:auto;display:block}section{padding:26px 24px}h1{font-size:21px;color:#021430;margin:0 0 12px}p{line-height:1.6;margin:0 0 18px}a.b,button{display:inline-block;background:#DC071D;color:#fff;border:0;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;font-size:15px;cursor:pointer}a.l{color:#021430}</style></head>
-<body><main><header><img src="${esc(site)}logo-angevin-h-blanc.png" alt="L'Immobilier Angevin"></header><section><h1>${esc(titre)}</h1><p>${message}</p>${bouton || `<a class="b" href="${esc(site)}#biens">Voir les biens à vendre</a>`}</section></main></body></html>`,
+<body><main><header><img src="${esc(site)}logo-bagatelle-h-blanc.png" alt="Bagatelle Immobilier Patrimoine"></header><section><h1>${esc(titre)}</h1><p>${message}</p>${bouton || `<a class="b" href="${esc(site)}#biens">Voir les biens à vendre</a>`}</section></main></body></html>`,
   { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' } });
 }
 

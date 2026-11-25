@@ -1,4 +1,4 @@
-# L'Immobilier Angevin — site internet
+# Bagatelle Immobilier Patrimoine — site internet
 
 Site d'une seule page (`index.html`), même squelette que cotepresquile.com et lacabane-immo.com,
 aux couleurs du logo : marine `#021430`, rouge `#DC071D`, blanc. Police : Montserrat.

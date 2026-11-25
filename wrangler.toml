@@ -14,12 +14,12 @@ id = "240745a1136548bb917eaf33dd4309e7"
 crons = ["0 7 * * *"]
 
 # Réglages publics (le secret RESEND_API_KEY s'ajoute dans Cloudflare, jamais ici).
-# À la bascule du domaine : SITE_URL → https://limmobilierangevin.fr/
-# et EMAIL_FROM → "L'Immobilier Angevin <alertes@limmobilierangevin.fr>" (domaine vérifié chez Resend).
+# À la bascule du domaine : SITE_URL → https://votre-domaine.fr/
+# et EMAIL_FROM → "Bagatelle Immobilier Patrimoine <alertes@votre-domaine.fr>" (domaine vérifié chez Resend).
 [vars]
 SITE_URL = "https://galfomorel-droid.github.io/immobilier-angevin/"
 RELAIS_URL = "https://immobilier-angevin.galfomorel.workers.dev/"
 FLUX_3G = "https://raw.githubusercontent.com/galfomorel-droid/charles-morel-immobilier/main/data/biens.json"
-EMAIL_FROM = "L'Immobilier Angevin <onboarding@resend.dev>"
+EMAIL_FROM = "Bagatelle Immobilier Patrimoine <onboarding@resend.dev>"
 EMAIL_AGENT = "charles.morel@3gimmobilier.com"
 TELEPHONE = "06 38 55 53 55"

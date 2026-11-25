@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Pages statiques « Immobilier à <commune> » (SEO local) — L'Immobilier Angevin.
+Pages statiques « Immobilier à <commune> » (SEO local) — Bagatelle Immobilier Patrimoine.
 
 Usage :  python3 _communes/generer.py      (depuis n'importe quel dossier)
 
@@ -27,7 +27,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.dirname(ICI)
 
 FLUX_3G = "https://raw.githubusercontent.com/galfomorel-droid/charles-morel-immobilier/main/data/biens.json"
-NOM = "L'Immobilier Angevin"
+NOM = "Bagatelle Immobilier Patrimoine"
 CONSEILLER = "Charles MOREL"
 DUO = [  # même ordre et mêmes coordonnées que la section équipe du site
     {"nom": "Charles MOREL", "role": "Cofondateur", "tel": "06 38 55 53 55", "intl": "+33638555355", "photo": "img/charles-morel-avatar.jpg"},
@@ -144,7 +144,7 @@ def head(titre, description, chemin, root, ldjson):
 def entete(root):
     return f"""<header class="hd">
   <div class="hd-in">
-    <a class="hd-logo" href="{root}" aria-label="{esc(NOM)}, accueil"><img src="{root}logo-angevin-h-marine-450.webp" srcset="{root}logo-angevin-h-marine-450.webp 450w, {root}logo-angevin-h-marine-900.webp 900w" sizes="250px" alt="{esc(NOM)}" width="450" height="72"></a>
+    <a class="hd-logo" href="{root}" aria-label="{esc(NOM)}, accueil"><img src="{root}logo-bagatelle-h-marine-450.webp" srcset="{root}logo-bagatelle-h-marine-450.webp 450w, {root}logo-bagatelle-h-marine-900.webp 900w" sizes="250px" alt="{esc(NOM)}" width="450" height="84"></a>
     <nav class="hd-nav" aria-label="Menu principal">
       <a href="{root}">Accueil</a>
       <a href="{root}#acheter">Acheter</a>
@@ -164,7 +164,7 @@ ICONE_TEL = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
 
 
 def pied(root, communes, secteurs):
-    # Logo horizontal blanc : le logo complet (logo-angevin-blanc.png) porte la mention « location », non proposée.
+    # Logo complet blanc (monogramme, BAGATELLE, IMMOBILIER PATRIMOINE)
     cols = []
     for cle, sect in secteurs.items():
         liens = "".join(f'<li><a href="{root}immobilier/{c["slug"]}/">{esc(c["nom"])}</a></li>'
@@ -173,7 +173,7 @@ def pied(root, communes, secteurs):
     return f"""<footer class="ft">
   <div class="ft-in">
     <div class="ft-brand">
-      <a href="{root}"><img src="{root}logo-angevin-blanc-400.webp" srcset="{root}logo-angevin-blanc-400.webp 400w, {root}logo-angevin-blanc-800.webp 800w" sizes="200px" alt="{esc(NOM)}" width="400" height="262" loading="lazy"></a>
+      <a href="{root}"><img src="{root}logo-bagatelle-blanc-400.webp" srcset="{root}logo-bagatelle-blanc-400.webp 400w, {root}logo-bagatelle-blanc-800.webp 800w" sizes="200px" alt="{esc(NOM)}" width="400" height="221" loading="lazy"></a>
     </div>
     {''.join(cols)}
     <div><p class="ft-h">Le site</p><ul>
@@ -220,7 +220,7 @@ def ld_agence(area, url):
         "telephone": TEL_INTL,
         "email": EMAIL,
         "image": BASE_URL + "og-image.jpg",
-        "logo": BASE_URL + "logo-angevin-h-marine.png",
+        "logo": BASE_URL + "logo-bagatelle-marine.png",
         "employee": [{"@type": "Person", "name": d["nom"], "jobTitle": "Cofondateur", "telephone": d["intl"]} for d in DUO],
         "areaServed": area,
         "mainEntityOfPage": url,
@@ -578,7 +578,7 @@ def page_secteurs(communes, secteurs):
 
 
 # ------------------------------------------------------------------ CSS
-CSS = """/* Pages « Immobilier à <commune> » — L'Immobilier Angevin. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
+CSS = """/* Pages « Immobilier à <commune> » — Bagatelle Immobilier Patrimoine. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
 :root{--marine:#021430;--rouge:#DC071D;--rouge-t:#B50519;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -601,7 +601,7 @@ strong{font-weight:600}
 /* En-tête */
 .hd{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--filet)}
 .hd-in{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
-.hd-logo img{height:30px;width:auto}
+.hd-logo img{height:34px;width:auto}
 .hd-nav{order:3;flex:1 1 100%;min-width:0;display:flex;gap:16px;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--filet);padding-top:6px}
 .hd-nav::-webkit-scrollbar{display:none}
 .hd-nav a{white-space:nowrap}
@@ -612,7 +612,7 @@ strong{font-weight:600}
 @media(max-width:400px){.hd-in{gap:8px 10px}.hd-logo img{height:25px}.hd-tel{padding:.45rem .75rem;font-size:.75rem;gap:.3rem}}
 @media(min-width:860px){
   .hd-in{padding:14px 28px;flex-wrap:nowrap}
-  .hd-logo img{height:40px}
+  .hd-logo img{height:44px}
   .hd-nav{order:0;flex:0 1 auto;margin-left:auto;border:0;padding:0;gap:22px;overflow:visible}
   .hd-tel{margin-left:8px}
 }

@@ -1,4 +1,4 @@
-/* Pages « Immobilier à <commune> » — L'Immobilier Angevin. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
+/* Pages « Immobilier à <commune> » — Bagatelle Immobilier Patrimoine. Généré par _communes/generer.py : modifier le script, pas ce fichier. */
 :root{--marine:#021430;--rouge:#DC071D;--rouge-t:#B50519;--gris:#F5F6F9;--filet:#D6DBE5;--texte2:#5A6B86;--r:14px}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -21,7 +21,7 @@ strong{font-weight:600}
 /* En-tête */
 .hd{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--filet)}
 .hd-in{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
-.hd-logo img{height:30px;width:auto}
+.hd-logo img{height:34px;width:auto}
 .hd-nav{order:3;flex:1 1 100%;min-width:0;display:flex;gap:16px;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--filet);padding-top:6px}
 .hd-nav::-webkit-scrollbar{display:none}
 .hd-nav a{white-space:nowrap}
@@ -32,7 +32,7 @@ strong{font-weight:600}
 @media(max-width:400px){.hd-in{gap:8px 10px}.hd-logo img{height:25px}.hd-tel{padding:.45rem .75rem;font-size:.75rem;gap:.3rem}}
 @media(min-width:860px){
   .hd-in{padding:14px 28px;flex-wrap:nowrap}
-  .hd-logo img{height:40px}
+  .hd-logo img{height:44px}
   .hd-nav{order:0;flex:0 1 auto;margin-left:auto;border:0;padding:0;gap:22px;overflow:visible}
   .hd-tel{margin-left:8px}
 }
