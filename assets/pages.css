@@ -100,6 +100,18 @@ strong{font-weight:600}
 
 /* Étapes de vente */
 .etapes{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:14px}
+.evol-t{font-size:1rem;margin:28px 0 10px}
+.evol{overflow-x:auto}
+.evol table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--filet);border-radius:var(--r);font-size:.92rem}
+.evol th,.evol td{padding:10px 12px;border-bottom:1px solid var(--filet);text-align:left;vertical-align:top}
+.evol thead th{font-weight:700;color:var(--marine)}
+.evol td{font-weight:700;color:var(--marine)}
+.evol td .petit{font-weight:400;color:var(--texte2)}
+.nv{list-style:none;margin:20px 0 10px;padding:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.nv li{background:#fff;border:1px solid var(--filet);border-radius:var(--r);overflow:hidden}
+.nv img{display:block;width:100%;height:auto;aspect-ratio:5/2;object-fit:cover;object-position:center bottom}
+.nv .nv-t{font-weight:700;margin:10px 14px 0}
+.nv .petit{margin:2px 14px 12px}
 @media(min-width:700px){.etapes{grid-template-columns:1fr 1fr}}
 @media(min-width:1000px){.etapes{grid-template-columns:repeat(4,1fr)}}
 .etapes li{background:#fff;border:1px solid var(--filet);border-radius:var(--r);padding:20px;display:flex;gap:14px}
