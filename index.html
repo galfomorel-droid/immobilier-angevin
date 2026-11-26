@@ -6241,7 +6241,8 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
 </div>
 
 <!-- ===== ESPACE PRO : gestion des biens ===== -->
-<div id="page-admin" class="page">
+<div id="page-admin" class="page" data-nosnippet></div>
+<template id="tpl-admin">
   <div class="admin-header">
     <h2>Espace pro</h2>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -6276,7 +6277,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
       <div class="admin-biens-list" id="adminMasques"></div>
     </div>
   </div>
-</div>
+</template>
 
 </main>
 
@@ -6788,7 +6789,12 @@ let sortBiens = 'recent';  // recent | prix_asc | prix_desc | surface_desc
 let previousPage = 'biens';
 
 // ===== NAVIGATION PAGES =====
+function _adminDom() {
+  var p = document.getElementById('page-admin'), t = document.getElementById('tpl-admin');
+  if (p && t && !p.firstElementChild) p.appendChild(t.content.cloneNode(true));
+}
 function showPage(id) {
+  if (id === 'admin') _adminDom();
   var _ALIAS = { estimer: 'estimation', 'me-connaitre': 'apropos', connaitre: 'apropos', agence: 'apropos', parrainer: 'parrainage' };
   if (_ALIAS[id]) id = _ALIAS[id];
   if (id === 'admin' && !_adminPwd) { ouvrirEspacePro(); return; }
@@ -11932,6 +11938,7 @@ function _adminMode(setup) {
 var _adminAttempts = 0, _adminLockedUntil = 0, _adminBusy = false;
 
 async function ouvrirEspacePro() {
+  _adminDom();
   if (_adminPwd) { showPage('admin'); return; }
   var e = document.getElementById('adminError'); if (e) e.style.display = 'none';
   _adminMode(false);
