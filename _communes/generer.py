@@ -30,7 +30,7 @@ FLUX_3G = "https://raw.githubusercontent.com/galfomorel-droid/charles-morel-immo
 NOM = "L'Ardoise Immobilière"
 CONSEILLER = "Charles MOREL"
 DUO = [  # même ordre et mêmes coordonnées que la section équipe du site
-    {"nom": "Charles MOREL", "role": "Cofondateur", "tel": "06 38 55 53 55", "intl": "+33638555355", "photo": "img/charles-morel-avatar.jpg"},
+    {"nom": "Charles MOREL", "role": "Cofondateur", "tel": "06 38 55 53 55", "intl": "+33638555355", "photo": "img/charles-morel-avatar.webp"},
     {"nom": "Antoine HÉRY", "role": "Cofondateur", "tel": "06 82 87 33 31", "intl": "+33682873331", "photo": "img/equipe-antoine-hery-avatar.webp"},
 ]
 TEL = "06 38 55 53 55"
@@ -86,7 +86,8 @@ def ecrire(chemin_rel, contenu):
 def lire_constantes_site():
     """Reprend (lecture seule) les listes PHOTOS_BANDEAU et COMMUNES_FORCEES du site principal."""
     src = ""
-    for f in ("_parts/build_js.py", "index.html"):
+    # depuis la phase 4 (26/11/2026), le JavaScript du site est dans assets/app.<empreinte>.js
+    for f in ["_parts/build_js.py", "index.html"] + sorted("assets/" + n for n in os.listdir(os.path.join(RACINE, "assets")) if n.startswith("app.") and n.endswith(".js")):
         try:
             with open(os.path.join(RACINE, f), encoding="utf-8") as h:
                 src = h.read()

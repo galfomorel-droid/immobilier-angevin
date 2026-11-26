@@ -24,6 +24,11 @@ with open(os.path.join(ICI, "communes.json"), encoding="utf-8") as f:
 COMMUNES, SECTEURS = _D["communes"], _D["secteurs"]
 with open(os.path.join(RACINE, "index.html"), encoding="utf-8") as f:
     SITE = f.read()
+# le JavaScript du site (pages légales) est dans assets/app.<empreinte>.js depuis la phase 4
+for _n in sorted(os.listdir(os.path.join(RACINE, "assets"))):
+    if _n.startswith("app.") and _n.endswith(".js"):
+        with open(os.path.join(RACINE, "assets", _n), encoding="utf-8") as f:
+            SITE += "\n" + f.read()
 
 PAGES_INDEXEES = ["estimation-immobiliere/", "vendre/", "lagence/", "contact/", "honoraires/"]
 PAGES_LEGALES = {"mentions-legales/": "mentions", "confidentialite/": "rgpd", "cgu/": "cgu", "cookies/": "cookies-info"}
@@ -287,13 +292,13 @@ def page_agence():
     chemin = "lagence/"
     nom = "L'agence"
     bios = [
-        ("Charles MOREL", "06 38 55 53 55", "+33638555355", "img/equipe-charles-morel.webp",
+        ("Charles MOREL", "06 38 55 53 55", "+33638555355", "img/equipe-charles-morel-400.webp",
          "Diplômé d'un Bachelor Responsable commercial et marketing spécialisé dans l'immobilier, Charles a exercé quatre ans comme conseiller indépendant sur le secteur de Sablé-sur-Sarthe, où il comptait parmi les meilleurs de son secteur et accompagnait déjà de nombreux clients angevins. Sa rencontre avec Antoine Héry a été une évidence : ouvrir leur agence, à deux."),
-        ("Antoine HÉRY", "06 82 87 33 31", "+33682873331", "img/equipe-antoine-hery.webp",
+        ("Antoine HÉRY", "06 82 87 33 31", "+33682873331", "img/equipe-antoine-hery-400.webp",
          "Antoine compte dix ans d'expérience dans l'immobilier, dont sept ans à Angers. Il a ensuite passé trois ans comme commercial Grand Ouest pour une agence parisienne, où il gérait des biens de prestige dans l'ouest de la France et à Paris. Fort de ce parcours, il revient aujourd'hui à Angers pour s'associer avec Charles Morel et ouvrir son agence, en gardant le meilleur de ses dix années d'expérience."),
     ]
     equipe = "".join(f"""<article class="rb-pers">
-        <img src="{ROOT}{ph}" alt="{G.esc(n)}" width="640" height="640" loading="lazy">
+        <img src="{ROOT}{ph}" alt="{G.esc(n)}" width="400" height="400" loading="lazy">
         <div><h3>{G.esc(n)}</h3>
         <p><a class="lien" href="tel:{intl}">{tel.replace(' ', '&nbsp;')}</a>{(' · <a class="lien" href="mailto:%s">%s</a>' % (G.EMAILS_DUO[n], G.EMAILS_DUO[n].replace('@', '<wbr>@'))) if n in G.EMAILS_DUO else ''}</p>
         <p>{T(bio)}</p></div>
