@@ -4388,3 +4388,21 @@ html.sans-anim .avis3-logos { -webkit-mask-image: none; mask-image: none; }
 .prt-logo.prt-texte { text-align: center; white-space: normal; font-size: 1.05rem; line-height: 1.2; }
 @media (max-width: 600px) { .prt-logo.prt-texte { font-size: .9rem; } }
 
+
+/* ===== Vitrine (p11_vitrine, 26/11/2026) : carrousel « à la une » automatique, cartes au clavier ===== */
+#homeGrid { scroll-behavior: auto; overscroll-behavior-x: contain; }
+#homeGrid:focus-visible { outline: 3px solid #F6A737; outline-offset: 6px; border-radius: 14px; }
+.bien-card-lien { color: inherit; text-decoration: none; }
+.bien-card-lien:focus-visible { outline: none; }
+.bien-card:has(.bien-card-lien:focus-visible) { outline: 3px solid #F6A737; outline-offset: 3px; }
+#biens-home .une-arrows { display: flex; gap: 10px; margin-top: 0; }
+#biens-home .une-arrow svg { display: block; }
+#biens-home .une-arrow:focus-visible { outline: 3px solid #F6A737; outline-offset: 3px; }
+#biens-home .une-pause .ico-lecture, #biens-home .une-pause.en-pause .ico-pause { display: none; }
+#biens-home .une-pause.en-pause .ico-lecture { display: block; }
+#biens-home:not(.une-auto) .une-pause, #biens-home:not(.une-defile) .une-arrows { display: none; }
+@media (max-width: 760px) {
+  #biens-home .une-intro { grid-template-areas: "tag" "titre" "desc" "actions" "fleches"; }
+  #biens-home .une-arrows { grid-area: fleches; justify-self: end; margin-top: 18px; }
+  #biens-home .une-arrow { width: 44px; height: 44px; }
+}

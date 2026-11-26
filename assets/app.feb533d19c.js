@@ -1163,7 +1163,8 @@ function bienCardHTML(b) {
       bcControls(b) +
     '</div>' +
     '<div class="bien-card-body">' +
-      '<div class="bien-card-type">' + _esc(b.type || 'Bien') + '</div>' +
+      '<div class="bien-card-type"><a class="bien-card-lien" href="#bien/' + _esc(_slugifyBien(b)) + '" onclick="event.preventDefault()"' +
+        ' aria-label="' + _esc((b.type || 'Bien') + ' à ' + (b.ville || '') + ', ' + formatPrixPublic(b)) + '">' + _esc(b.type || 'Bien') + '</a></div>' +
       '<div class="bien-card-loc">' + _esc(b.ville || '') + (b.cp ? ' (' + _esc(b.cp) + ')' : '') + '</div>' +
       '<div class="bien-card-specs">' + _specsCarte(b) + '</div>' +
       '<div class="bien-card-footer">' +
@@ -1187,6 +1188,7 @@ function renderHomeGrid() {
   const featured = choisis.length ? choisis : actifs.slice(0, 9);
   grid.innerHTML = '';
   featured.forEach(function(b) { grid.appendChild(bienCardHTML(b)); });
+  if (typeof _uneMonter === 'function') _uneMonter(grid, featured);
   var _sec = document.getElementById('biens-home');
   if (_sec) _sec.classList.toggle('une-vide', featured.length === 0);
   if (!featured.length) {
@@ -1200,9 +1202,128 @@ function renderHomeGrid() {
   renderReseauxThumbs();
 }
 // Défilement du carrousel « Nos biens à la une »
+// Défilement automatique lent (p11_vitrine, 26/11/2026). Les cartes sont suivies de copies (cachées aux lecteurs
+// d'écran, hors tabulation) : arrivé au bout de la première série, on recule d'une série entière ; l'image est
+// identique, le saut ne se voit pas. Pause au survol de la souris, au toucher, quand le clavier est dans le carrousel,
+// quand la section n'est pas à l'écran, et avec le bouton pause. Rien ne bouge si « réduire les animations » est activé.
+var _UNE_VITESSE = 26;   // pixels par seconde
+var _une = { el: null, liste: [], pas: 360, W: 0, boucle: false, pos: 0, dernier: -1, raf: 0, t0: 0, aMesurer: false,
+  survol: false, focus: false, doigt: false, arret: false, visible: true, reprise: 0, minuteur: 0 };
+var _uneRM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+function _uneReduit() { return !!(_uneRM && _uneRM.matches); }
+function _uneMonter(grid, liste) {
+  _une.el = grid; _une.liste = liste || [];
+  if (!grid._uneLie) _uneLier(grid);
+  _uneMesurer();
+}
+function _uneMesurer() {
+  var g = _une.el; if (!g) return;
+  g.querySelectorAll('.une-clone').forEach(function (c) { c.remove(); });
+  var cartes = g.querySelectorAll('.bien-card'), n = cartes.length;
+  _une.boucle = false; _une.W = 0;
+  _une.aMesurer = !g.clientWidth;          // page cachée : on mesurera quand la section sera affichée
+  if (_une.aMesurer) return;
+  var gauche = function (c) { return c.getBoundingClientRect().left - cartes[0].getBoundingClientRect().left; };   // au demi-pixel près
+  if (n > 1) _une.pas = gauche(cartes[1]) || _une.pas;
+  var deborde = n > 0 && g.scrollWidth > g.clientWidth + 2;
+  if (n >= 3 && deborde) {
+    var copies = Math.ceil((g.clientWidth + _une.pas) / (_une.pas * n));
+    for (var k = 0; k < copies; k++) _une.liste.forEach(function (b) {
+      var c = bienCardHTML(b);
+      c.classList.add('une-clone'); c.setAttribute('aria-hidden', 'true');
+      c.querySelectorAll('a, button, input, [tabindex]').forEach(function (e) { e.setAttribute('tabindex', '-1'); });
+      g.appendChild(c);
+    });
+    var premier = g.querySelector('.une-clone');
+    _une.W = premier ? gauche(premier) : 0;
+    _une.boucle = _une.W > 0;
+    if (_une.boucle && g.scrollLeft >= _une.W) g.scrollLeft = g.scrollLeft % _une.W;
+  }
+  var sec = document.getElementById('biens-home');
+  if (sec) { sec.classList.toggle('une-defile', deborde); sec.classList.toggle('une-auto', _une.boucle && !_uneReduit()); }
+  _uneBouton(); _uneLancer();
+}
+function _uneLier(g) {
+  g._uneLie = true;
+  g.setAttribute('tabindex', '0');
+  g.setAttribute('role', 'region');
+  g.setAttribute('aria-roledescription', 'carrousel');
+  g.setAttribute('aria-label', 'Nos biens à la une (flèches gauche et droite pour faire défiler)');
+  g.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') _une.survol = true; });
+  g.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { _une.survol = false; _uneLancer(); } });
+  g.addEventListener('touchstart', function () { _une.doigt = true; }, { passive: true });
+  var lacher = function () { _une.doigt = false; _unePause(5000); };
+  g.addEventListener('touchend', lacher, { passive: true });
+  g.addEventListener('touchcancel', lacher, { passive: true });
+  g.addEventListener('focusin', function () { _une.focus = true; });
+  g.addEventListener('focusout', function (e) { if (!g.contains(e.relatedTarget)) { _une.focus = false; _uneLancer(); } });
+  g.addEventListener('keydown', function (e) {
+    if (e.target !== g || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+    e.preventDefault(); scrollUne(e.key === 'ArrowRight' ? 1 : -1);
+  });
+  var att = 0;   // défilement à la main (doigt, pavé tactile, flèches) : une fois arrêté, on se recale dans la boucle
+  g.addEventListener('scroll', function () { if (_une.raf) return; clearTimeout(att); att = setTimeout(_uneRecaler, 160); }, { passive: true });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
+    _une.visible = es[es.length - 1].isIntersecting;
+    if (_une.visible && _une.aMesurer) _uneMesurer(); else _uneLancer();
+  }).observe(g);
+  document.addEventListener('visibilitychange', _uneLancer);
+  if (_uneRM) { var f = function () { _uneMesurer(); }; if (_uneRM.addEventListener) _uneRM.addEventListener('change', f); else if (_uneRM.addListener) _uneRM.addListener(f); }
+  var rz = 0; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(_uneMesurer, 200); });
+}
+function _uneActif() {
+  return !!_une.el && _une.boucle && !_uneReduit() && !_une.arret && !_une.survol && !_une.focus && !_une.doigt &&
+    _une.visible && !document.hidden && Date.now() >= _une.reprise;
+}
+function _uneLancer() {
+  if (_une.raf || !_uneActif()) return;
+  _une.t0 = 0; _une.dernier = -1;
+  _une.raf = requestAnimationFrame(_uneTic);
+}
+function _uneTic(t) {
+  _une.raf = 0;
+  if (!_uneActif()) return;
+  var g = _une.el;
+  if (_une.dernier < 0 || Math.abs(g.scrollLeft - _une.dernier) > 1.5) _une.pos = g.scrollLeft;   // bougé à la main
+  if (_une.t0) _une.pos += _UNE_VITESSE * Math.min(t - _une.t0, 50) / 1000;
+  _une.t0 = t;
+  if (_une.pos >= _une.W) _une.pos -= _une.W;
+  g.scrollLeft = _une.pos; _une.dernier = g.scrollLeft;
+  _une.raf = requestAnimationFrame(_uneTic);
+}
+function _unePause(ms) {
+  _une.reprise = Date.now() + ms;
+  clearTimeout(_une.minuteur); _une.minuteur = setTimeout(_uneLancer, ms + 30);
+}
+function _uneRecaler() {   // garde la position entre une demi-carte et une série plus une demi-carte (même image)
+  var g = _une.el; if (!g || !_une.boucle || _une.doigt) return;
+  var x = g.scrollLeft, a = _une.pas / 2;
+  if (x < a) g.scrollLeft = x + _une.W;
+  else if (x >= a + _une.W) g.scrollLeft = x - _une.W * Math.floor((x - a) / _une.W);
+}
+function _uneBouton() {
+  var b = document.getElementById('unePause'); if (!b) return;
+  b.classList.toggle('en-pause', _une.arret);
+  b.setAttribute('aria-label', _une.arret ? 'Reprendre le défilement automatique' : 'Mettre en pause le défilement automatique');
+}
+function _unePauseBouton() {
+  _une.arret = !_une.arret; _uneBouton();
+  if (!_une.arret) { _une.reprise = 0; _uneLancer(); }
+}
 function scrollUne(dir) {
-  var c = document.getElementById('homeGrid');
-  if (c) c.scrollBy({ left: dir * 360, behavior: 'smooth' });
+  var g = document.getElementById('homeGrid'); if (!g) return;
+  _unePause(6000);
+  var pas = _une.pas || 360, x = g.scrollLeft;
+  if (_une.boucle) {   // se placer là où l'on peut avancer ou reculer d'une carte (même image)
+    if (dir < 0 && x - pas < -1) { x += _une.W; g.scrollLeft = x; }
+    else if (dir > 0 && x >= _une.W) { x -= _une.W * Math.floor(x / _une.W); g.scrollLeft = x; }
+  }
+  // cible = bord gauche réel de la carte suivante / précédente (pas un multiple arrondi, qui dériverait)
+  var c0 = g.firstElementChild, base = c0 ? c0.getBoundingClientRect().left - x : 0, cible = dir > 0 ? x + pas : x - pas;
+  var bords = [].map.call(g.children, function (c) { return c.getBoundingClientRect().left - base; });
+  var suiv = bords.filter(function (v) { return dir > 0 ? v > x + 2 : v < x - 2; });
+  if (suiv.length) cible = dir > 0 ? Math.min.apply(null, suiv) : Math.max.apply(null, suiv);
+  g.scrollTo({ left: Math.max(0, cible), behavior: _uneReduit() ? 'auto' : 'smooth' });
 }
 
 // Remplit les 3 vignettes « feed » de chaque carte réseau avec de VRAIES photos
@@ -1831,7 +1952,7 @@ function _fjaFiltre(f) {
     m.addTo(_fja.couche); _fja.marq.push(m);
   });
   _fja.couche.addTo(map);
-  var bornes = L.latLng(_fja.c).toBounds(1900);
+  var bornes = L.latLng(_fja.c).toBounds(1300 * 2 + 200);
   if (liste.length) bornes.extend(_fja.couche.getBounds());
   map.fitBounds(bornes, { padding: [24, 24], maxZoom: 15 });
 }
@@ -4179,11 +4300,15 @@ function renderFicheExtras(b) {
     _chargerLeaflet(function () {
       var el = document.getElementById('ficheMap'); if (!el || !window.L) return;
       if (_ficheMap) { try { _ficheMap.remove(); } catch (e) {} _ficheMap = null; }
-      var c = (b.partenaire && b.lat && b.lng) ? [b.lat, b.lng] : ((typeof VILLE_COORDS !== 'undefined' && VILLE_COORDS[b.ville]) || _coordVille(b.ville, b.id));
-      _ficheMap = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView(c, 13);
+      // Zone approximative : biens en partenariat = point déjà décalé au build (data/biens-partenaires.json, « zone »),
+      // biens 3G = centre de la commune (le flux ne donne aucune adresse). Aucun point exact n'est publié.
+      var z = b.zone && +b.zone.lat && +b.zone.lng ? [+b.zone.lat, +b.zone.lng] : null;
+      var c = z || ((typeof VILLE_COORDS !== 'undefined' && VILLE_COORDS[b.ville]) || _coordVille(b.ville, b.id));
+      var zoneBornes = L.latLng(c).toBounds(1300 * 2);
+      _ficheMap = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).fitBounds(zoneBornes, { padding: [14, 14] });
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap', maxZoom: 17, subdomains: 'abc' }).addTo(_ficheMap);
-      L.circle(c, { radius: 900, color: '#021430', weight: 2, fillColor: '#021430', fillOpacity: .12 }).addTo(_ficheMap);
-      setTimeout(function () { if (_ficheMap) _ficheMap.invalidateSize(); }, 300);
+      L.circle(c, { radius: 1300, color: '#021430', weight: 2, fillColor: '#021430', fillOpacity: .12, interactive: false }).addTo(_ficheMap);
+      setTimeout(function () { if (!_ficheMap) return; _ficheMap.invalidateSize(); if (!_fja.couche) _ficheMap.fitBounds(zoneBornes, { padding: [14, 14] }); }, 300);
       _ficheAutour(c, _ficheMap, b);
     });
   }
