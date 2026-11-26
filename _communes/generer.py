@@ -918,6 +918,12 @@ def js_biens(bandeau, forcees):
 
 
 # ------------------------------------------------------------------ sitemap / robots
+def _noindex(fichier):
+    """Page retirée (bien vendu ou disparu) : elle n'a rien à faire dans le sitemap."""
+    with open(fichier, encoding="utf-8") as f:
+        return 'content="noindex' in f.read(4000)
+
+
 def sitemap(communes):
     urls = [("", "weekly", "1.0"), ("immobilier/", "monthly", "0.8")] + ([("immobilier/prix/", "monthly", "0.8")] if PRIX else [])
     urls += [(f"immobilier/{c['slug']}/", "weekly", "0.7") for c in communes]
@@ -926,7 +932,7 @@ def sitemap(communes):
     if os.path.isdir(os.path.join(dossier)):
         urls.append(("annonce/", "daily", "0.8"))
         urls += [(f"annonce/{n}/", "daily", "0.8") for n in sorted(os.listdir(dossier))
-                 if os.path.isfile(os.path.join(dossier, n, "index.html"))]
+                 if os.path.isfile(os.path.join(dossier, n, "index.html")) and not _noindex(os.path.join(dossier, n, "index.html"))]
     lignes = "".join(
         f"  <url><loc>{esc(BASE_URL + u)}</loc><lastmod>{AUJOURDHUI}</lastmod><changefreq>{f}</changefreq><priority>{p}</priority></url>\n"
         for u, f, p in urls)

@@ -127,7 +127,7 @@ def page_annonce(a, relais):
     var st = ((r[1] && r[1].ventes) || []).filter(function (v) {{ return String(v.id) === id; }})[0] || {{}};
     if (present && st.statut !== 'vendu' && !st.masque) return;
     var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m);
-    var b = document.getElementById('anIndispo'); if (b) {{ b.hidden = false; b.querySelector('strong').textContent = st.statut === 'vendu' ? 'Ce bien est vendu.' : "Ce bien n'est plus disponible."; }}
+    var b = document.getElementById('anIndispo'); if (b) {{ b.hidden = false; var t = b.querySelector('strong'); if (!t.textContent || st.statut === 'vendu') t.textContent = st.statut === 'vendu' ? 'Ce bien est vendu.' : "Ce bien n'est plus disponible."; }}
   }}).catch(function () {{}});
 }})();
 </script>"""
@@ -263,6 +263,48 @@ CSS_ANNONCE = """/* Pages « annonce » — générées par _communes/annonces.p
 """
 
 
+def _vendus_ids():
+    try:
+        with open(os.path.join(RACINE, "data", "vendus-3g.json"), encoding="utf-8") as f:
+            return {str(v["id"]) for v in json.load(f).get("vendus", [])}
+    except (OSError, ValueError):
+        return set()
+
+
+def retirer(dossier, nom, garde_jours=365):
+    """Annonce disparue : la page reste en ligne (bandeau, noindex) pendant garde_jours, puis elle est supprimée."""
+    import datetime
+    f = os.path.join(dossier, "index.html")
+    if not os.path.isfile(f):
+        return []
+    with open(f, encoding="utf-8") as fh:
+        s = fh.read()
+    m = re.search(r'<meta name="retire-le" content="(\d{4}-\d{2}-\d{2})">', s)
+    if m:
+        age = (datetime.date.today() - datetime.date.fromisoformat(m.group(1))).days
+        if age > garde_jours:
+            shutil.rmtree(dossier); print("  supprimée (plus d'un an) :", nom)
+        return []
+    ref = (re.search(r"ref-(\d+)$", nom) or [None, ""])[1]
+    vendu = ref in _vendus_ids()
+    texte = "Ce bien est vendu." if vendu else "Ce bien n'est plus disponible."
+    # lien vers la page commune quand elle existe
+    villes = {c["nom"]: c["slug"] for c in COMMUNES}
+    mv = re.search(r'<p class="surtitre">[^<]*· ([^<(]+?)(?: \(\d{5}\))?</p>', s)
+    ville = html.unescape(mv.group(1)).strip() if mv else ""
+    lien_c = (f' · <a class="lien" href="../../immobilier/{villes[ville]}/">Immobilier à {G.esc(ville)}</a>'
+              if ville in villes else "")
+    s = re.sub(r'<meta name="robots" content="[^"]*">',
+               '<meta name="robots" content="noindex, follow">\n<meta name="retire-le" content="%s">' % datetime.date.today().isoformat(), s, count=1)
+    s = re.sub(r'<p class="an-indispo" id="anIndispo" hidden><strong></strong>',
+               '<p class="an-indispo" id="anIndispo"><strong>%s</strong>' % texte, s, count=1)
+    s = s.replace('Voir nos biens disponibles</a></p>', 'Voir nos biens disponibles</a>%s</p>' % lien_c, 1)
+    with open(f, "w", encoding="utf-8") as fh:
+        fh.write(s)
+    print("  retirée (page conservée, noindex) :", nom, "· vendu" if vendu else "")
+    return [os.path.relpath(f, RACINE)]
+
+
 def main():
     global COMMUNES, SECTEURS
     with open(os.path.join(ICI, "communes.json"), encoding="utf-8") as f:
@@ -278,12 +320,13 @@ def main():
         chemin, contenu = page_annonce(a, relais)
         faits.append(G.ecrire(chemin, contenu)); garder.add(a["slug"])
     faits.append(G.ecrire(*page_liste(annonces)))
-    # pages d'annonces disparues du site (vendues, retirées) : supprimées
+    # pages d'annonces disparues du site (vendues, retirées) : conservées un an avec un bandeau « vendu »,
+    # en noindex et hors sitemap (plutôt qu'une erreur 404), puis supprimées (SEO, 26/11/2026)
     dossier = os.path.join(RACINE, "annonce")
     for nom in os.listdir(dossier):
         p = os.path.join(dossier, nom)
         if os.path.isdir(p) and nom not in garder:
-            shutil.rmtree(p); print("  retirée :", nom)
+            faits += retirer(p, nom)
     # sitemap : réécrit seulement si la liste des adresses change (sinon seule la date du jour changerait)
     nouveau = G.sitemap(COMMUNES)
     try:

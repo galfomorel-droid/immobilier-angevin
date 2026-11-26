@@ -178,7 +178,7 @@
     var st = ((r[1] && r[1].ventes) || []).filter(function (v) { return String(v.id) === id; })[0] || {};
     if (present && st.statut !== 'vendu' && !st.masque) return;
     var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m);
-    var b = document.getElementById('anIndispo'); if (b) { b.hidden = false; b.querySelector('strong').textContent = st.statut === 'vendu' ? 'Ce bien est vendu.' : "Ce bien n'est plus disponible."; }
+    var b = document.getElementById('anIndispo'); if (b) { b.hidden = false; var t = b.querySelector('strong'); if (!t.textContent || st.statut === 'vendu') t.textContent = st.statut === 'vendu' ? 'Ce bien est vendu.' : "Ce bien n'est plus disponible."; }
   }).catch(function () {});
 })();
 </script>
