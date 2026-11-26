@@ -323,6 +323,83 @@ def carte_prix(titre, st):
         </div>"""
 
 
+def _charger(nom):
+    try:
+        with open(os.path.join(RACINE, "data", nom), encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
+DETAIL = _charger("prix-detail.json")          # ventes DVF par année (_parts/dvf_detail.py)
+VENDUS = (_charger("vendus-3g.json") or {}).get("vendus", [])   # nos ventes réelles (vendus_3g.py)
+MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+CENTRES = {"angers": ("d'Angers", (47.4736, -0.5542)), "sable": ("de Sablé-sur-Sarthe", (47.8399, -0.3347))}
+
+
+def km(a, b):
+    import math
+    la1, lo1 = map(math.radians, a); la2, lo2 = map(math.radians, b)
+    h = math.sin((la2 - la1) / 2) ** 2 + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2
+    return 6371 * 2 * math.asin(math.sqrt(h))
+
+
+def repere_distance(c):
+    """Distance à vol d'oiseau jusqu'au centre du secteur (calculée, pas estimée)."""
+    nom_c, ctr = CENTRES[c["secteur"]]
+    d = km(tuple(c["geo"]), ctr)
+    if d < 2:
+        return ""
+    return f"À {round(d)} km à vol d'oiseau du centre {nom_c}"
+
+
+def bloc_evolution(c):
+    """Ventes DVF année par année : nombre de ventes et prix médian (affiché à partir de 8 ventes)."""
+    d = ((DETAIL or {}).get("communes") or {}).get(c["nom"])
+    if not d:
+        return ""
+    ans = sorted(d)
+    lignes, petit_n = [], False
+    for cle, lib in (("m", "Maisons"), ("a", "Appartements")):
+        cel = []
+        total = sum((d[an].get(cle) or {}).get("n", 0) for an in ans)
+        if total < 10:
+            continue
+        for an in ans:
+            st = d[an].get(cle) or {"n": 0}
+            petit_n = petit_n or 0 < st["n"] < 20
+            v = (eur_m2(st["p50"]) + "<br>") if "p50" in st else ""
+            cel.append(f'<td>{v}<span class="petit">{typo(str(st["n"]) + " vente" + ("s" if st["n"] > 1 else ""))}</span></td>')
+        lignes.append(f'<tr><th scope="row">{lib}</th>{"".join(cel)}</tr>')
+    if not lignes:
+        return ""
+    entete = "".join(f'<th scope="col">{an}</th>' for an in ans)
+    note = " Moins de 20 ventes dans l'année : la médiane varie fortement d'un bien à l'autre, à lire avec prudence." if petit_n else ""
+    return f"""
+      <h3 class="evol-t">Année par année</h3>
+      <div class="evol"><table><thead><tr><th></th>{entete}</tr></thead><tbody>{"".join(lignes)}</tbody></table></div>
+      <p class="petit">{typo("Prix médian au m² et nombre de ventes enregistrées (DVF). Médiane affichée à partir de 8 ventes." + note)}</p>"""
+
+
+def bloc_nos_ventes(c, root):
+    v = sorted((x for x in VENDUS if x.get("ville") == c["nom"]), key=lambda x: x.get("date", ""), reverse=True)
+    if not v:
+        return ""
+    cartes = "".join(f"""<li><img src="{root}{esc(x['img'])}" alt="{esc('Vendu : ' + (x.get('type') or 'bien').lower() + ' à ' + c['nom'])}" width="320" height="220" loading="lazy">
+        <p class="nv-t">{esc(x.get('type') or 'Bien')} vendu{'e' if (x.get('type') or '').lower() in ('maison', 'propriété') else ''}</p>
+        <p class="petit">{esc(MOIS[int(x['date'][5:7]) - 1] + ' ' + x['date'][:4]) if x.get('date') else ''}</p></li>""" for x in v[:12])
+    n = len(v)
+    return f"""
+  <section class="sec" aria-labelledby="nos-ventes">
+    <div class="wrap">
+      <p class="kicker">Nos ventes</p>
+      <h2 id="nos-ventes">{typo(f"{n} bien{'s' if n > 1 else ''} vendu{'s' if n > 1 else ''} par nos soins {c['a']}")}</h2>
+      <ul class="nv">{cartes}</ul>
+      <p class="petit">{typo("Ventes conclues par Charles MOREL, telles que publiées sur sa page 3G IMMO.")}</p>
+    </div>
+  </section>"""
+
+
 def bloc_prix_commune(c, root):
     if not PRIX:
         return ""
@@ -342,8 +419,8 @@ def bloc_prix_commune(c, root):
       <p class="kicker">Prix de l'immobilier</p>
       <h2 id="prix">Prix au m² {esc(c["a"])}</h2>
       <p class="lead-2">{typo("Prix médians des ventes réellement conclues " + c["a"] + ", " + periode_txt() + ", d'après les données publiques DVF de l'administration fiscale. L'écart entre deux biens vient de l'emplacement, de l'état et des prestations : seule une visite permet de situer le vôtre.")}</p>
-      <div class="prix-g">{"".join(cartes)}</div>
-      <div class="btns"><a class="btn btn-rouge" href="{root}#estimation">Estimer mon bien</a><a class="btn btn-contour" href="{root}immobilier/prix/">Prix des communes voisines</a></div>
+      <div class="prix-g">{"".join(cartes)}</div>{bloc_evolution(c)}
+      <div class="btns"><a class="btn btn-rouge" href="{root}estimation-immobiliere/">Estimer mon bien</a><a class="btn btn-contour" href="{root}immobilier/prix/">Prix des communes voisines</a></div>
       <p class="petit">{typo("Source : Demandes de valeurs foncières (DVF), DGFiP, data.gouv.fr. Prix au m² de surface habitable, hors terrains à bâtir.")}</p>
     </div>
   </section>"""
@@ -436,7 +513,7 @@ def page_commune(c, communes, secteurs):
     ]}
 
     vivre = "".join(f"<p>{typo(p)}</p>" for p in c["vivre"])
-    reperes = "".join(f"<li>{typo(r)}</li>" for r in c.get("reperes", []))
+    reperes = "".join(f"<li>{typo(r)}</li>" for r in c.get("reperes", []) + ([repere_distance(c)] if repere_distance(c) else []))
     acheter = "".join(f"<p>{typo(p)}</p>" for p in c["acheter"])
     etapes = "".join(f'<li><span class="etape-n">{i + 1}</span><div><h3>{typo(t)}</h3><p>{typo(d)}</p></div></li>'
                      for i, (t, d) in enumerate(ETAPES))
@@ -475,18 +552,15 @@ def page_commune(c, communes, secteurs):
     </div>
   </section>
 
-{bloc_prix_commune(c, root)}
+{bloc_prix_commune(c, root)}{bloc_nos_ventes(c, root)}
   <section class="sec sec-gris" aria-labelledby="vendre">
     <div class="wrap">
       <p class="kicker">Vendre</p>
       <h2 id="vendre">Vendre votre bien {esc(a)}</h2>
       <p class="lead-2">{typo(c["vendre"])}</p>
-      <ol class="etapes">{etapes}</ol>
-      <div class="grille-2 grille-bas">
-        {bloc_bareme()}
-        {bloc_conseiller(root)}
-      </div>
-      <div class="btns"><a class="btn btn-rouge" href="{root}#estimation">Demander mon estimation gratuite</a></div>
+      <p>{typo("Estimation offerte, mise en valeur, diffusion sur les grands portails, visites filtrées et suivi jusqu'à l'acte :")} <a class="lien" href="{root}vendre/">notre méthode de vente, étape par étape</a>. {typo("Honoraires à la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, puis 5 % ou 4 % TTC")} (<a class="lien" href="{root}honoraires/">barème complet</a>).</p>
+      <div class="grille-bas">{bloc_conseiller(root)}</div>
+      <div class="btns"><a class="btn btn-rouge" href="{root}estimation-immobiliere/">Demander mon estimation gratuite</a></div>
     </div>
   </section>
 
@@ -695,6 +769,18 @@ strong{font-weight:600}
 
 /* Étapes de vente */
 .etapes{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:14px}
+.evol-t{font-size:1rem;margin:28px 0 10px}
+.evol{overflow-x:auto}
+.evol table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--filet);border-radius:var(--r);font-size:.92rem}
+.evol th,.evol td{padding:10px 12px;border-bottom:1px solid var(--filet);text-align:left;vertical-align:top}
+.evol thead th{font-weight:700;color:var(--marine)}
+.evol td{font-weight:700;color:var(--marine)}
+.evol td .petit{font-weight:400;color:var(--texte2)}
+.nv{list-style:none;margin:20px 0 10px;padding:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.nv li{background:#fff;border:1px solid var(--filet);border-radius:var(--r);overflow:hidden}
+.nv img{display:block;width:100%;height:auto;aspect-ratio:5/2;object-fit:cover;object-position:center bottom}
+.nv .nv-t{font-weight:700;margin:10px 14px 0}
+.nv .petit{margin:2px 14px 12px}
 @media(min-width:700px){.etapes{grid-template-columns:1fr 1fr}}
 @media(min-width:1000px){.etapes{grid-template-columns:repeat(4,1fr)}}
 .etapes li{background:#fff;border:1px solid var(--filet);border-radius:var(--r);padding:20px;display:flex;gap:14px}
