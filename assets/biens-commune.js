@@ -19,6 +19,9 @@
   function estBandeau(u) { var m = String(u).match(/get_file_id\/(\d+)/); return !!(m && PHOTOS_BANDEAU[m[1]]); }
 
   var cleCommune = cle(commune);
+  // communes déléguées (ex. Ballée pour Val-du-Maine) : leurs annonces comptent comme celles de la commune
+  var clesIci = {}; clesIci[cleCommune] = 1;
+  try { JSON.parse(el.getAttribute('data-alias') || '[]').forEach(function (v) { clesIci[cle(v)] = 1; }); } catch (e) {}
   var clesSecteur = {};
   secteur.forEach(function (v) { clesSecteur[cle(v)] = 1; });
 
@@ -84,8 +87,8 @@
       ((res[1] && res[1].ventes) || []).forEach(function (v) { if (v.masque || v.statut === 'vendu') hors[String(v.id)] = 1; });
       var brut = (Array.isArray(d) ? d : (d.properties || [])).filter(function (x) { return !hors[String(x.id)]; });
       var tous = brut.map(conv).filter(function (b) { return b.ville && !b.location; });
-      var ici = tous.filter(function (b) { return cle(b.ville) === cleCommune; });
-      var autour = tous.filter(function (b) { return cle(b.ville) !== cleCommune && clesSecteur[cle(b.ville)] === 1; });
+      var ici = tous.filter(function (b) { return clesIci[cle(b.ville)] === 1; });
+      var autour = tous.filter(function (b) { return clesIci[cle(b.ville)] !== 1 && clesSecteur[cle(b.ville)] === 1; });
       if (ici.length) {
         // Peu de biens dans la commune : on complète avec quelques biens des alentours
         var complement = ici.length < 3 ? autour.slice(0, 3 - ici.length) : [];

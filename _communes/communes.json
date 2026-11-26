@@ -56,7 +56,7 @@
     "sable": {
       "nom": "Secteur de Sablé-sur-Sarthe",
       "intro": "Sablé-sur-Sarthe et les communes de la vallée de la Sarthe et de la campagne alentour.",
-      "autres": "Juigné-sur-Sarthe, Louailles, Vion, Morannes-sur-Sarthe, Bouère, Ballée, Saint-Denis-d'Anjou et leurs alentours",
+      "autres": "Juigné-sur-Sarthe, Louailles, Vion, Bouère, Saint-Denis-d'Anjou, Malicorne-sur-Sarthe et leurs alentours",
       "alentours": [
         "Sablé-sur-Sarthe",
         "Solesmes",
@@ -542,7 +542,9 @@
         "solesmes",
         "precigne",
         "parce-sur-sarthe",
-        "noyen-sur-sarthe"
+        "noyen-sur-sarthe",
+        "morannes-sur-sarthe-daumeray",
+        "val-du-maine"
       ]
     },
     {
@@ -599,7 +601,8 @@
         "sable-sur-sarthe",
         "parce-sur-sarthe",
         "precigne",
-        "noyen-sur-sarthe"
+        "noyen-sur-sarthe",
+        "val-du-maine"
       ]
     },
     {
@@ -655,7 +658,8 @@
         "sable-sur-sarthe",
         "solesmes",
         "parce-sur-sarthe",
-        "noyen-sur-sarthe"
+        "noyen-sur-sarthe",
+        "morannes-sur-sarthe-daumeray"
       ]
     },
     {
@@ -768,6 +772,130 @@
         "parce-sur-sarthe",
         "sable-sur-sarthe",
         "solesmes",
+        "precigne"
+      ]
+    },
+    {
+      "slug": "morannes-sur-sarthe-daumeray",
+      "nom": "Morannes sur Sarthe-Daumeray",
+      "a": "à Morannes sur Sarthe-Daumeray",
+      "cp": [
+        "49640"
+      ],
+      "dep": "Maine-et-Loire",
+      "secteur": "sable",
+      "geo": [
+        47.7245,
+        -0.4095
+      ],
+      "deleguees": [
+        "Morannes",
+        "Morannes-sur-Sarthe",
+        "Daumeray",
+        "Chemiré-sur-Sarthe"
+      ],
+      "teaser": "À l'ouest de Sablé, la commune nouvelle de Morannes, Chemiré-sur-Sarthe et Daumeray, dans la vallée de la Sarthe.",
+      "meta": "Immobilier à Morannes sur Sarthe-Daumeray : prix des ventes réelles, maisons à vendre et estimation gratuite avec Charles MOREL et Antoine HÉRY.",
+      "intro": "Entre Sablé-sur-Sarthe et Angers, Morannes sur Sarthe-Daumeray réunit depuis 2017 les bourgs de Morannes, Chemiré-sur-Sarthe et Daumeray. Nous y accompagnons vendeurs et acquéreurs, et nous y avons déjà conclu une vente.",
+      "vivre": [
+        "Morannes sur Sarthe-Daumeray est une commune nouvelle créée le 1er janvier 2017. Elle rassemble trois communes déléguées, Morannes, Chemiré-sur-Sarthe et Daumeray, sur près de 88 km².",
+        "La Sarthe borde la commune à l'ouest et la traverse au nord-ouest : une partie du territoire vit au rythme de la rivière, le reste alterne campagne, hameaux et bourgs.",
+        "Chaque bourg garde son église : Saint-Aubin à Morannes, Saint-Germain à Daumeray, Saint-Jacques à Chemiré-sur-Sarthe. Le château de la Roche-Jacquelin fait aussi partie du patrimoine de la commune."
+      ],
+      "reperes": [
+        "Morannes, Chemiré-sur-Sarthe et Daumeray",
+        "La Sarthe",
+        "Église Saint-Aubin de Morannes",
+        "Château de la Roche-Jacquelin"
+      ],
+      "vendre": "Maison de bourg, maison de campagne avec terrain ou bien proche de la Sarthe : nous estimons votre bien à partir des ventes réellement conclues dans la commune et d'une visite, puis nous le présentons sur notre site, sur les grands portails et à notre fichier d'acquéreurs.",
+      "acheter": [
+        "Vous cherchez une maison avec du terrain entre Sablé et Angers ? Les ventes réelles ci-dessus donnent un premier repère ; l'état du bien, le chauffage, l'assainissement et les travaux à prévoir font ensuite toute la différence. Nous vous aidons à les évaluer à chaque visite.",
+        "Nous vous accompagnons aux visites et jusqu'à la signature, en restant votre interlocuteur unique."
+      ],
+      "faq": [
+        {
+          "q": "Quelles communes forment Morannes sur Sarthe-Daumeray ?",
+          "a": "Depuis le 1er janvier 2017, Morannes, Chemiré-sur-Sarthe et Daumeray, devenues communes déléguées. Le code postal est 49640."
+        },
+        {
+          "q": "Avez-vous déjà vendu à Morannes sur Sarthe-Daumeray ?",
+          "a": "Oui : Charles MOREL y a conclu la vente d'une maison, présentée dans la rubrique « Nos ventes » de cette page."
+        },
+        {
+          "q": "Que faut-il pour vendre une maison non raccordée au tout-à-l'égout ?",
+          "a": "Un diagnostic de l'assainissement non collectif de moins de 3 ans, joint au dossier de diagnostics remis à l'acquéreur. Nous vous aidons à l'obtenir à temps."
+        },
+        {
+          "q": "Quels sont vos honoraires ?",
+          "a": "À la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "precigne",
+        "sable-sur-sarthe",
+        "solesmes",
+        "parce-sur-sarthe"
+      ]
+    },
+    {
+      "slug": "val-du-maine",
+      "nom": "Val-du-Maine",
+      "a": "à Val-du-Maine (Ballée)",
+      "cp": [
+        "53340"
+      ],
+      "dep": "Mayenne",
+      "secteur": "sable",
+      "geo": [
+        47.9362,
+        -0.3977
+      ],
+      "deleguees": [
+        "Ballée",
+        "Épineux-le-Seguin"
+      ],
+      "teaser": "Au nord-ouest de Sablé, côté Mayenne : Ballée et Épineux-le-Seguin, réunies depuis 2017.",
+      "meta": "Immobilier à Val-du-Maine (Ballée, Épineux-le-Seguin) : prix des ventes réelles, maisons à vendre et estimation gratuite près de Sablé-sur-Sarthe.",
+      "intro": "Au nord-ouest de Sablé-sur-Sarthe, côté Mayenne, Val-du-Maine réunit depuis 2017 Ballée et Épineux-le-Seguin. Nous y accompagnons vendeurs et acquéreurs : retrouvez plus bas nos maisons en vente à Ballée et alentour.",
+      "vivre": [
+        "Val-du-Maine est une commune nouvelle créée le 1er janvier 2017. Elle rassemble Ballée, son chef-lieu, et Épineux-le-Seguin, sur près de 24 km².",
+        "L'Erve traverse Ballée du nord au sud. La commune se trouve en Mayenne, à la limite du département de la Sarthe.",
+        "Le logis de Linières, du XVIIe siècle, est protégé au titre des monuments historiques depuis 1983, et les stalles de l'église Saint-Sulpice sont classées."
+      ],
+      "reperes": [
+        "Ballée et Épineux-le-Seguin",
+        "L'Erve",
+        "Logis de Linières (XVIIe siècle)",
+        "Limite de la Sarthe"
+      ],
+      "vendre": "Maison de bourg à Ballée, longère ou maison à rénover à la campagne : nous estimons votre bien à partir des ventes réellement conclues dans la commune et d'une visite, puis nous le présentons aux acquéreurs du secteur de Sablé-sur-Sarthe.",
+      "acheter": [
+        "Les ventes réelles ci-dessus donnent un premier repère ; à Val-du-Maine comme ailleurs, l'état du bâti et les travaux à prévoir expliquent l'essentiel de l'écart entre deux maisons. Nous vous aidons à les évaluer à chaque visite.",
+        "Nous vous accompagnons aux visites et jusqu'à la signature, en restant votre interlocuteur unique."
+      ],
+      "faq": [
+        {
+          "q": "Ballée fait-elle partie de Val-du-Maine ?",
+          "a": "Oui. Depuis le 1er janvier 2017, Ballée (chef-lieu) et Épineux-le-Seguin forment la commune nouvelle de Val-du-Maine, en Mayenne, code postal 53340."
+        },
+        {
+          "q": "Intervenez-vous en Mayenne ?",
+          "a": "Oui, autour de Sablé-sur-Sarthe : Val-du-Maine, Saint-Denis-d'Anjou, Bouère, Saint-Loup-du-Dorat et leurs alentours."
+        },
+        {
+          "q": "Que faut-il pour vendre une maison non raccordée au tout-à-l'égout ?",
+          "a": "Un diagnostic de l'assainissement non collectif de moins de 3 ans, joint au dossier de diagnostics remis à l'acquéreur. Nous vous aidons à l'obtenir à temps."
+        },
+        {
+          "q": "Quels sont vos honoraires ?",
+          "a": "À la charge de l'acquéreur : forfait de 5 000 € TTC jusqu'à 100 000 € net vendeur, 5 % TTC de 100 001 à 300 000 €, 4 % TTC au-delà."
+        }
+      ],
+      "voisins": [
+        "sable-sur-sarthe",
+        "solesmes",
+        "parce-sur-sarthe",
         "precigne"
       ]
     }
