@@ -237,7 +237,7 @@ nav.scrolled .hamburger span { background: var(--noir); }
 #heroVilleMS .ms-toggle { border-right: 1px solid rgba(255,255,255,0.18); }
 .hero-search-field::placeholder { color: rgba(255,255,255,0.72); }
 .hero-search-field option { color: #021430; background: #fff; }
-select.hero-search-field {
+select.hero-search-field, .dd-btn.hero-search-field {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ffffff' stroke-width='1.3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 0.55rem center;
   padding-right: 1.5rem;
@@ -254,7 +254,7 @@ select.hero-search-field {
 @media (max-width: 900px) {
   .hero-search { flex-direction: column; width: 100%; max-width: 340px; left: auto; transform: none; margin: 0 auto 1.8rem; }
   .hero-search-field { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.18); text-align: center; }
-  select.hero-search-field { text-align: left; }
+  select.hero-search-field, .dd-btn.hero-search-field { text-align: left; }
   
   .hero-search-btn { padding: 0.9rem; }
 }
@@ -271,7 +271,7 @@ select.hero-search-field {
   font-family: var(--sans); font-size: 0.85rem; color: var(--noir);
   appearance: none; -webkit-appearance: none; cursor: pointer;
 }
-select.search-field {
+select.search-field, .dd-btn.search-field {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236E6450' stroke-width='1.3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 0.75rem center;
   padding-right: 1.9rem;
@@ -322,7 +322,7 @@ select.search-field {
 .biens-map-popup strong { font-family: var(--serif); font-size: 1rem; }
 .biens-map-popup a { color: var(--or-fonce); font-weight: 600; cursor: pointer; }
 .biens-tri { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--gris); }
-.biens-tri select {
+.biens-tri select, .biens-tri .dd-btn {
   border: 1px solid var(--beige-dark); background: #fff; padding: 0.5rem 0.75rem;
   font-family: var(--sans); font-size: 0.82rem; color: var(--noir); cursor: pointer;
 }
@@ -2679,7 +2679,7 @@ nav, nav.scrolled {
 }
 .hero-search-field { color: var(--noir); font-weight: 400; border-right: 1px solid var(--line-c); padding: .9rem .9rem; }
 .hero-search-field::placeholder { color: var(--gris); }
-select.hero-search-field {
+select.hero-search-field, .dd-btn.hero-search-field {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23021430' stroke-width='1.3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 #heroVilleMS .ms-toggle { border-right: 1px solid var(--line-c); }
@@ -3517,8 +3517,8 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 /* Fiche : calculette de mensualités */
 .fiche-calc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 14px; }
 .fiche-calc-grid label { display: flex; flex-direction: column; gap: 6px; font-size: .78rem; font-weight: 500; color: var(--marine); }
-.fiche-calc-grid input, .fiche-calc-grid select { font: inherit; font-size: .95rem; font-weight: 400; padding: .65rem .8rem; border: 1px solid var(--line-c); border-radius: 10px; background: #fff; color: var(--marine); }
-.fiche-calc-grid input:focus, .fiche-calc-grid select:focus { outline: 2px solid var(--rouge); outline-offset: 1px; }
+.fiche-calc-grid input, .fiche-calc-grid select, .fiche-calc-grid .dd-btn { font: inherit; font-size: .95rem; font-weight: 400; padding: .65rem .8rem; border: 1px solid var(--line-c); border-radius: 10px; background: #fff; color: var(--marine); }
+.fiche-calc-grid input:focus, .fiche-calc-grid select:focus, .fiche-calc-grid .dd-btn:focus { outline: 2px solid var(--rouge); outline-offset: 1px; }
 .fiche-calc-res { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 16px 18px; border-radius: 14px; background: var(--light-bg); }
 .fiche-calc-res span { font-size: .8rem; color: var(--gris); }
 .fiche-calc-res strong { font-size: 1.5rem; font-weight: 800; color: var(--marine); }
@@ -3563,7 +3563,7 @@ footer#site-footer { background: var(--navy-deep); color: #fff; padding: 80px 0 
 .skip-link { position: absolute; left: 12px; top: -60px; z-index: 10000; background: var(--marine); color: #fff; padding: .7rem 1.1rem; border-radius: 999px; font-size: .85rem; font-weight: 600; transition: top .2s; }
 .skip-link:focus { top: 12px; }
 #contenu:focus { outline: none; }
-a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible, .dd-btn:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
 .cb-kicker, .section-tag { font-size: .75rem; }
 .bien-vg { font-size: .7rem; }
 .bien-card-ref, .bien-card-discover { font-size: .78rem; }
@@ -4013,7 +4013,7 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
 .vue-bascule button { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: none; border-radius: 8px; color: #8A93A6; cursor: pointer; }
 .vue-bascule button.on { color: var(--marine); background: #fff; box-shadow: 0 2px 8px rgba(2,20,48,.08); }
 #page-biens .biens-tri label { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; color: #5b6475; }
-#page-biens .biens-tri select { border-radius: 999px; border: 1px solid var(--line-c); background-color: #fff; padding: 7px 30px 7px 14px; font-weight: 600; color: var(--marine); }
+#page-biens .biens-tri select, #page-biens .biens-tri .dd-btn { border-radius: 999px; border: 1px solid var(--line-c); background-color: #fff; padding: 7px 30px 7px 14px; font-weight: 600; color: var(--marine); }
 #page-biens .biens-page-grid { max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 28px; padding-right: 28px; }
 /* Affichage en liste : photo à gauche, texte à droite */
 #biensGrid.vue-liste { grid-template-columns: 1fr !important; }
@@ -4406,3 +4406,25 @@ html.sans-anim .avis3-logos { -webkit-mask-image: none; mask-image: none; }
   #biens-home .une-arrows { grid-area: fleches; justify-self: end; margin-top: 18px; }
   #biens-home .une-arrow { width: 44px; height: 44px; }
 }
+
+/* ===== Menus déroulants habillés comme « Ville » (p12_menus, 26/11/2026) ===== */
+:where(.dd-btn) { font: inherit; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  -webkit-appearance: none; appearance: none; }
+.dd-btn { display: block; }
+.dd-btn.dd-chevron { padding-right: 2.4rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23021430' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 1rem center; background-size: 12px 8px; }
+.dd-btn.dd-invalide { border-color: #C62828 !important; box-shadow: 0 0 0 3px rgba(198,40,40,.18); }
+.dd-btn[aria-expanded="true"] { background-color: #F5F6F9; }
+select.dd-natif { position: absolute !important; width: 1px !important; height: 1px !important; min-width: 0 !important; padding: 0 !important;
+  margin: 0 !important; border: 0 !important; opacity: 0 !important; pointer-events: none !important; clip-path: inset(50%) !important; }
+.dd-panel { position: fixed; top: 0; left: 0; z-index: 3000; display: none; }
+.dd-panel.ouvert { display: block; }
+.dd-panel .ms-opt { font-size: .9rem; }
+.dd-panel .ms-opt span:last-child { white-space: normal; overflow: visible; line-height: 1.35; }
+#page-biens .biens-tri .dd-btn.dd-chevron { padding-right: 36px; background-position: right 14px center; }
+.dd-panel .ms-opt[aria-disabled="true"] { opacity: .45; cursor: default; }
+.dd-panel .ms-opt.actif { background: #F5F6F9; }
+.dd-panel .dd-groupe { padding: .55rem .95rem .25rem; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gris); }
+.dd-rond { flex: 0 0 auto; width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid #767676; background: #fff; box-sizing: border-box; }
+.ms-opt[aria-selected="true"] .dd-rond { border-color: var(--or, #F6A737); background: radial-gradient(circle, var(--or, #F6A737) 0 3.5px, #fff 4px); }
+.ms-opt[aria-selected="true"] span:last-child { font-weight: 600; }

@@ -5878,3 +5878,189 @@ function showCookieSection(key,el){
   var el2=document.getElementById('cookie-section-content');
   if(el2&&titles[key]) el2.innerHTML='<h3>'+titles[key]+'</h3>'+(htmls[key]||'');
 }
+
+// ===== Menus déroulants habillés comme « Ville » (p12_menus, 26/11/2026) =====
+// Chaque <select> (sauf espace pro) est remplacé à l'écran par un bouton qui ouvre la même liste que « Ville ».
+// Le <select> reste dans la page, caché : il porte la valeur ; un choix y est écrit puis « input » et « change »
+// sont déclenchés, donc les onchange existants et les formulaires marchent comme avant. Clavier : flèches, Début/Fin,
+// Entrée/Espace, Échap, Tab, saisie des premières lettres (motif « combobox » du W3C).
+(function () {
+  var panel = null, courant = null, actif = -1, tampon = '', tamponT = 0, n = 0;
+  var PROTO = HTMLSelectElement.prototype;
+  function exclu(sel) {
+    return sel.multiple || sel.size > 1 || sel.hasAttribute('hidden') || sel.getAttribute('aria-hidden') === 'true' ||
+      !!sel.closest('#page-admin, [id^="admin"], [class*="admin"], [data-natif], template');
+  }
+  function libelle(sel) {
+    var l = sel.getAttribute('aria-label');
+    if (!l && sel.id) { var lb = document.querySelector('label[for="' + sel.id + '"]'); if (lb) l = lb.textContent; }
+    return (l || '').replace(/\s*\*\s*$/, '').replace(/\s+/g, ' ').trim();
+  }
+  function texte(sel) { var o = sel.options[sel.selectedIndex]; return o ? (o.label || o.textContent).trim() : ''; }
+  function maj(sel) {
+    var b = sel._dd; if (!b) return;
+    var t = texte(sel), l = libelle(sel);
+    b.querySelector('.dd-txt').textContent = t || l;
+    b.setAttribute('aria-label', l && t && t !== l ? l + ' : ' + t : (l || t));
+    var inv = b.classList.contains('dd-invalide') && !sel.value;
+    b.className = sel.className.replace(/\bdd-natif\b/g, '').trim() + ' dd-btn' + (b._chevron ? ' dd-chevron' : '') + (inv ? ' dd-invalide' : '');
+    b.hidden = sel.hidden; b.disabled = sel.disabled;
+    b.style.display = sel.style.display === 'none' ? 'none' : '';
+    if (sel.required) b.setAttribute('aria-required', 'true'); else b.removeAttribute('aria-required');
+    if (courant === sel) remplir();
+  }
+  function habiller(sel) {
+    if (sel._dd || exclu(sel)) return;
+    var b = document.createElement('button');
+    b.type = 'button'; b.id = 'dd-' + (sel.id || ++n);
+    b.setAttribute('role', 'combobox'); b.setAttribute('aria-haspopup', 'listbox'); b.setAttribute('aria-expanded', 'false');
+    b.setAttribute('aria-controls', 'ddPanel');
+    b.innerHTML = '<span class="dd-txt"></span>';
+    var cs = getComputedStyle(sel);
+    b._chevron = cs.backgroundImage === 'none';
+    if (sel.style.width) b.style.width = sel.style.width;
+    sel._dd = b; b._sel = sel;
+    sel.parentNode.insertBefore(b, sel.nextSibling);
+    sel.classList.add('dd-natif'); sel.setAttribute('tabindex', '-1'); sel.setAttribute('aria-hidden', 'true');
+    ['value', 'selectedIndex'].forEach(function (k) {   // une valeur posée par le code se voit aussitôt sur le bouton
+      var d = Object.getOwnPropertyDescriptor(PROTO, k);
+      Object.defineProperty(sel, k, { configurable: true, get: function () { return d.get.call(this); },
+        set: function (v) { d.set.call(this, v); maj(this); } });
+    });
+    new MutationObserver(function () { maj(sel); }).observe(sel, { childList: true, subtree: true, characterData: true,
+      attributes: true, attributeFilter: ['class', 'style', 'hidden', 'disabled', 'required', 'selected', 'label'] });
+    sel.addEventListener('change', function () { maj(sel); });
+    sel.addEventListener('invalid', function () { b.classList.add('dd-invalide'); b.focus(); });
+    if (sel.id) document.querySelectorAll('label[for="' + sel.id + '"]').forEach(function (lb) {
+      lb.addEventListener('click', function (e) { e.preventDefault(); b.focus(); });
+    });
+    b.addEventListener('click', function () { if (courant === sel) fermer(); else ouvrir(sel); });
+    b.addEventListener('keydown', function (e) { clavier(e, sel); });
+    b.addEventListener('blur', function () { setTimeout(function () { if (courant === sel && document.activeElement !== b) fermer(); }, 120); });
+    maj(sel);
+  }
+  function options(sel) { return [].slice.call(sel.options).filter(function (o) { return !o.hidden; }); }
+  function creerPanel() {
+    panel = document.createElement('div');
+    panel.id = 'ddPanel'; panel.className = 'ms-panel dd-panel'; panel.setAttribute('role', 'listbox'); panel.tabIndex = -1;
+    panel.addEventListener('mousedown', function (e) { e.preventDefault(); });   // le focus reste sur le bouton
+    panel.addEventListener('click', function (e) {
+      var o = e.target.closest('.ms-opt'); if (!o || o.getAttribute('aria-disabled') === 'true') return;
+      choisir(+o.getAttribute('data-i')); fermer(true);
+    });
+    panel.addEventListener('mousemove', function (e) { var o = e.target.closest('.ms-opt'); if (o) activer(+o.getAttribute('data-i'), false); });
+    document.body.appendChild(panel);
+  }
+  function remplir() {
+    var sel = courant, html = '', groupe = null;
+    options(sel).forEach(function (o) {
+      var i = o.index, g = o.parentNode.tagName === 'OPTGROUP' ? o.parentNode : null;
+      if (g && g !== groupe) html += '<div class="dd-groupe" role="presentation">' + _esc(g.label) + '</div>';
+      groupe = g;
+      html += '<div class="ms-opt" role="option" id="ddOpt' + i + '" data-i="' + i + '" aria-selected="' + (i === sel.selectedIndex) + '"' +
+        (o.disabled ? ' aria-disabled="true"' : '') + '><span class="dd-rond" aria-hidden="true"></span><span>' + _esc((o.label || o.textContent).trim()) + '</span></div>';
+    });
+    panel.innerHTML = html;
+    panel.setAttribute('aria-label', libelle(sel) || 'Choix');
+    activer(actif >= 0 ? actif : sel.selectedIndex, true);
+  }
+  function placer() {
+    if (!courant) return;
+    var r = courant._dd.getBoundingClientRect(), vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    if (r.bottom < 0 || r.top > vh) { fermer(); return; }
+    var w = Math.min(Math.max(r.width, 230), vw - 16), left = Math.min(Math.max(8, r.left), vw - w - 8);
+    panel.style.width = w + 'px'; panel.style.left = left + 'px';
+    var h = Math.min(panel.scrollHeight, 300), bas = vh - r.bottom - 8, haut = r.top - 8;
+    panel.style.maxHeight = Math.max(140, Math.min(300, bas >= h || bas >= haut ? bas : haut)) + 'px';
+    panel.style.top = (bas >= h || bas >= haut ? r.bottom + 4 : Math.max(8, r.top - 4 - Math.min(h, haut))) + 'px';
+  }
+  function ouvrir(sel) {
+    if (!panel) creerPanel();
+    if (courant && courant !== sel) fermer();
+    document.querySelectorAll('.ms.open').forEach(function (m) { m.classList.remove('open'); });   // ferme « Ville »
+    courant = sel; actif = sel.selectedIndex;
+    remplir(); panel.classList.add('ouvert'); placer();
+    sel._dd.setAttribute('aria-expanded', 'true');
+    var o = panel.querySelector('[aria-selected="true"]'); if (o) panel.scrollTop = Math.max(0, o.offsetTop - panel.clientHeight / 2 + o.offsetHeight / 2);
+  }
+  function fermer(focus) {
+    if (!courant) return;
+    var b = courant._dd; courant = null; actif = -1;
+    if (panel) { panel.classList.remove('ouvert'); panel.removeAttribute('aria-activedescendant'); }
+    b.setAttribute('aria-expanded', 'false'); b.removeAttribute('aria-activedescendant');
+    if (focus) b.focus();
+  }
+  function activer(i, defiler) {
+    if (!panel || !courant) return;
+    actif = i;
+    panel.querySelectorAll('.ms-opt.actif').forEach(function (o) { o.classList.remove('actif'); });
+    var o = document.getElementById('ddOpt' + i);
+    if (!o) { courant._dd.removeAttribute('aria-activedescendant'); return; }
+    o.classList.add('actif'); courant._dd.setAttribute('aria-activedescendant', o.id);
+    if (defiler) { var t = o.offsetTop, bb = t + o.offsetHeight; if (t < panel.scrollTop) panel.scrollTop = t; else if (bb > panel.scrollTop + panel.clientHeight) panel.scrollTop = bb - panel.clientHeight; }
+  }
+  function choisir(i) {
+    var sel = courant; if (!sel || i < 0) return;
+    if (sel.selectedIndex !== i) {
+      sel.selectedIndex = i;
+      sel.dispatchEvent(new Event('input', { bubbles: true }));
+      sel.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    maj(sel);
+  }
+  function voisin(sel, dep, pas) {   // prochaine option utilisable (ni cachée ni désactivée)
+    var l = options(sel).filter(function (o) { return !o.disabled; }).map(function (o) { return o.index; });
+    if (!l.length) return -1;
+    if (pas === 'debut') return l[0];
+    if (pas === 'fin') return l[l.length - 1];
+    var p = l.indexOf(dep);
+    return p < 0 ? l[0] : l[Math.max(0, Math.min(l.length - 1, p + pas))];
+  }
+  function clavier(e, sel) {
+    var k = e.key, ouvert = courant === sel;
+    if (k === 'ArrowDown' || k === 'ArrowUp') {
+      e.preventDefault();
+      if (!ouvert) { ouvrir(sel); return; }
+      activer(voisin(sel, actif, k === 'ArrowDown' ? 1 : -1), true);
+    } else if (k === 'Home' || k === 'End') {
+      if (!ouvert) return; e.preventDefault(); activer(voisin(sel, actif, k === 'Home' ? 'debut' : 'fin'), true);
+    } else if (k === 'PageDown' || k === 'PageUp') {
+      if (!ouvert) return; e.preventDefault(); activer(voisin(sel, actif, k === 'PageDown' ? 8 : -8), true);
+    } else if (k === 'Enter' || k === ' ') {
+      e.preventDefault();
+      if (!ouvert) { ouvrir(sel); return; }
+      if (k === ' ' && tampon) { tape(sel, ' '); return; }
+      choisir(actif); fermer(true);
+    } else if (k === 'Escape') {
+      if (ouvert) { e.preventDefault(); e.stopPropagation(); fermer(true); }
+    } else if (k === 'Tab') {
+      if (ouvert) { choisir(actif); fermer(); }
+    } else if (k.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      if (!ouvert) ouvrir(sel);
+      tape(sel, k);
+    }
+  }
+  function sansAccent(t) { return t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function tape(sel, c) {
+    clearTimeout(tamponT); tampon += sansAccent(c); tamponT = setTimeout(function () { tampon = ''; }, 600);
+    var l = options(sel).filter(function (o) { return !o.disabled; });
+    var dep = l.map(function (o) { return o.index; }).indexOf(actif);
+    var tri = l.slice(dep + (tampon.length === 1 ? 1 : 0)).concat(l.slice(0, dep + (tampon.length === 1 ? 1 : 0)));
+    var o = tri.filter(function (x) { return sansAccent((x.label || x.textContent).trim()).indexOf(tampon) === 0; })[0];
+    if (o) activer(o.index, true);
+  }
+  document.addEventListener('mousedown', function (e) {
+    if (courant && !panel.contains(e.target) && !courant._dd.contains(e.target)) fermer();
+  });
+  window.addEventListener('resize', function () { fermer(); });
+  window.addEventListener('scroll', function (e) { if (courant && e.target !== panel) placer(); }, true);
+  function tout(racine) { (racine || document).querySelectorAll('select').forEach(habiller); }
+  tout();
+  new MutationObserver(function (ms) {   // menus créés plus tard (calculette de la fiche, outils…)
+    ms.forEach(function (m) { m.addedNodes.forEach(function (nd) {
+      if (nd.nodeType !== 1) return;
+      if (nd.tagName === 'SELECT') habiller(nd); else if (nd.querySelector && nd.querySelector('select')) tout(nd);
+    }); });
+  }).observe(document.body, { childList: true, subtree: true });
+  window.habillerMenus = tout;
+})();
