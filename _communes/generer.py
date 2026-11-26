@@ -151,11 +151,11 @@ def entete(root):
     <a class="hd-logo" href="{root}" aria-label="{esc(NOM)}, accueil"><img src="{root}logo-ardoise-h-marine-450.webp" srcset="{root}logo-ardoise-h-marine-450.webp 450w, {root}logo-ardoise-h-marine-900.webp 900w" sizes="250px" alt="{esc(NOM)}" width="450" height="85"></a>
     <nav class="hd-nav" aria-label="Menu principal">
       <a href="{root}">Accueil</a>
-      <a href="{root}#acheter">Acheter</a>
-      <a href="{root}#vendre">Vendre</a>
-      <a href="{root}#estimation">Estimer</a>
-      <a href="{root}#agence">L'agence</a>
-      <a href="{root}#contact">Contact</a>
+      <a href="{root}annonce/">Acheter</a>
+      <a href="{root}vendre/">Vendre</a>
+      <a href="{root}estimation-immobiliere/">Estimer</a>
+      <a href="{root}lagence/">L'agence</a>
+      <a href="{root}contact/">Contact</a>
     </nav>
     <a class="hd-tel" href="tel:{TEL_INTL}" aria-label="Appeler l'agence au {TEL}">{ICONE_TEL}<span>{TEL.replace(' ', '&nbsp;')}</span></a>
   </div>
@@ -185,11 +185,12 @@ def pied(root, communes, secteurs):
       <li><a href="{root}annonce/">Nos annonces</a></li>
       <li><a href="{root}immobilier/">Nos secteurs</a></li>
       <li><a href="{root}immobilier/prix/">Prix de l'immobilier</a></li>
-      <li><a href="{root}#acheter">Acheter</a></li>
-      <li><a href="{root}#vendre">Vendre</a></li>
-      <li><a href="{root}#estimation">Estimation gratuite</a></li>
+      <li><a href="{root}vendre/">Vendre</a></li>
+      <li><a href="{root}estimation-immobiliere/">Estimation gratuite</a></li>
+      <li><a href="{root}honoraires/">Honoraires</a></li>
+      <li><a href="{root}lagence/">L'agence</a></li>
       <li><a href="{root}#parrainage">Parrainage</a></li>
-      <li><a href="{root}#contact">Contact</a></li>
+      <li><a href="{root}contact/">Contact</a></li>
     </ul></div>
     <div><p class="ft-h">Nous contacter</p><ul>
       {''.join(f'<li>{esc(d["nom"])}<br><a href="tel:{d["intl"]}">{d["tel"].replace(" ", "&nbsp;")}</a></li>' for d in DUO)}
@@ -198,6 +199,7 @@ def pied(root, communes, secteurs):
   </div>
   <div class="ft-bas">
     <p>© {datetime.date.today().year} {esc(NOM)} · {esc(MENTION)}</p>
+    <p class="ft-legal"><a href="{root}mentions-legales/">Mentions légales</a> · <a href="{root}honoraires/">Honoraires</a> · <a href="{root}confidentialite/">Protection des données</a> · <a href="{root}cgu/">CGU</a> · <a href="{root}cookies/">Cookies</a></p>
     <a href="https://www.creationsiteimmobilier.fr/" target="_blank" rel="noopener">Site créé par creationsiteimmobilier</a>
   </div>
 </footer>
@@ -277,7 +279,7 @@ def bloc_conseiller(root):
         <img src="{root}{d['photo']}" alt="{esc(d['nom'])}" width="400" height="400" loading="lazy">
         <p class="conseiller-n">{esc(d['nom'])}</p>
         <p><a class="lien" href="tel:{d['intl']}">{d['tel'].replace(' ', '&nbsp;')}</a></p>
-        {f'<p class="petit"><a class="lien" href="mailto:{EMAILS_DUO[d["nom"]]}">{EMAILS_DUO[d["nom"]]}</a></p>' if d['nom'] in EMAILS_DUO else ''}
+        {f'<p class="petit"><a class="lien duo-m" href="mailto:{EMAILS_DUO[d["nom"]]}">{EMAILS_DUO[d["nom"]].replace("@", "<wbr>@")}</a></p>' if d['nom'] in EMAILS_DUO else ''}
       </div>""" for d in DUO)
     return f"""<aside class="conseiller duo">
       <p class="duo-t">{typo("Vos interlocuteurs, du premier rendez-vous à la signature chez le notaire")}</p>
@@ -400,6 +402,9 @@ def page_prix(communes, secteurs):
 
 
 # ------------------------------------------------------------------ page commune
+AGENCES = ()
+
+
 def page_commune(c, communes, secteurs):
     root = "../../"
     par_slug = {x["slug"]: x for x in communes}
@@ -410,7 +415,9 @@ def page_commune(c, communes, secteurs):
     chemin = f"immobilier/{c['slug']}/"
     url = BASE_URL + chemin
     # titre ≤ 60 caractères : le plus complet qui tient (SEO, 26/11/2026)
-    titre = [t for t in (f"Immobilier {a} : achat, vente, estimation | L'Ardoise",
+    agence = c["slug"] in AGENCES   # Angers et Sablé : pages « agence immobilière » (SEO, phase 3)
+    titre = [t for t in ((f"Agence immobilière {a} : vente, achat | L'Ardoise", f"Agence immobilière {a} | L'Ardoise") if agence else ()) + (
+                         f"Immobilier {a} : achat, vente, estimation | L'Ardoise",
                          f"Immobilier {a} : vente, achat | L'Ardoise",
                          f"Immobilier {a} | L'Ardoise Immobilière",
                          f"Immobilier {a} | L'Ardoise") if len(t) <= 60][0]
@@ -444,7 +451,7 @@ def page_commune(c, communes, secteurs):
     <div class="wrap">
       {fil_ariane(root, [("Accueil", root), ("Nos secteurs", "../"), (nom, None)])}
       <p class="kicker">{esc(sect["nom"])} · {esc(cp_txt)}</p>
-      <h1>Immobilier {esc(a)}</h1>
+      <h1>{"Agence immobilière" if agence else "Immobilier"} {esc(a)}</h1>
       <p class="lead">{typo(c["intro"])}</p>
       <div class="btns">
         <a class="btn btn-rouge" href="{root}#estimation">Estimer mon bien</a>
@@ -711,7 +718,10 @@ strong{font-weight:600}
 .conseiller-r{color:var(--texte2);font-size:.8125rem!important}
 .duo{display:block;text-align:center}
 .duo-t{font-weight:700;font-size:.95rem!important;margin-bottom:16px!important}
-.duo-g{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+.duo-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:14px}
+.grille-2>*,.duo-c{min-width:0}
+.duo-m{overflow-wrap:anywhere;font-size:.75rem}
+@media(max-width:480px){.duo-g{gap:10px}.duo-m{font-size:.66rem;letter-spacing:-.01em}}
 .duo-c img{width:84px;height:84px;margin:0 auto 10px}
 .duo-c p{margin-bottom:.2em}
 .duo .petit{font-size:.8125rem;color:var(--texte2);margin:0}
@@ -927,6 +937,11 @@ def _noindex(fichier):
 def sitemap(communes):
     urls = [("", "weekly", "1.0"), ("immobilier/", "monthly", "0.8")] + ([("immobilier/prix/", "monthly", "0.8")] if PRIX else [])
     urls += [(f"immobilier/{c['slug']}/", "weekly", "0.7") for c in communes]
+    # pages de rubrique générées par pages.py (Vendre, Estimation, L'agence, Contact, Honoraires) ; les pages légales sont en noindex
+    for r in ("estimation-immobiliere/", "vendre/", "lagence/", "contact/", "honoraires/"):
+        f = os.path.join(RACINE, r, "index.html")
+        if os.path.isfile(f) and not _noindex(f):
+            urls.append((r, "monthly", "0.8"))
     # pages d'annonces générées par annonces.py (une adresse par bien en vente)
     dossier = os.path.join(RACINE, "annonce")
     if os.path.isdir(os.path.join(dossier)):

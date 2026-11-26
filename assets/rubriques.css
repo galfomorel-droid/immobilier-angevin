@@ -1,0 +1,30 @@
+/* Pages de rubrique (Vendre, Estimer, L'agence, Contact, légal) — généré par _communes/pages.py */
+.rb-cartes{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.rb-cartes li{background:#fff;border:1px solid var(--filet);border-radius:14px;padding:20px}
+.sec-gris .rb-cartes li{background:#fff}
+.rb-cartes h3{font-size:1.02rem;margin:0 0 6px}
+.rb-cartes p{margin:0;font-size:.92rem}
+.rb-liens-c h3 a{color:var(--marine);text-decoration:none;border-bottom:2px solid var(--rouge)}
+.rb-h2b{margin-top:48px}
+.rb-tab{overflow-x:auto;margin:20px 0 12px}
+.rb-tab table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:.95rem}
+.rb-tab th,.rb-tab td{padding:10px 14px;border-bottom:1px solid var(--filet);text-align:left}
+.rb-tab thead th{background:var(--marine);color:#fff;font-weight:600}
+.rb-tab td{white-space:nowrap}
+.rb-liens{line-height:2}
+.rb-equipe{display:grid;gap:24px;margin-top:24px}
+.rb-pers{display:grid;gap:20px;grid-template-columns:1fr;align-items:start;background:#fff;border:1px solid var(--filet);border-radius:16px;padding:20px}
+.rb-pers img{width:100%;max-width:220px;height:auto;border-radius:12px}
+.rb-pers h3{margin:0 0 4px}
+@media(min-width:760px){.rb-pers{grid-template-columns:220px 1fr}}
+.rb-infos dl{margin:12px 0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.rb-infos dt{font-weight:700;color:var(--marine)}
+.rb-infos dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.rb-legal h2{font-size:1.15rem;margin:28px 0 8px}
+.rb-legal .lg-t{width:100%;border-collapse:collapse;margin:12px 0}
+.rb-legal .lg-t th,.rb-legal .lg-t td{padding:8px 12px;border-bottom:1px solid var(--filet);text-align:left}
+.rb-portails .vd-group{margin:22px 0 0}
+.rb-portails .vd-gt{font-weight:700;color:var(--marine);margin:0 0 10px}
+.rb-portails .vd-logos{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.rb-portails .prt-logo{background:#fff;border:1px solid var(--filet);border-radius:10px;min-height:60px;padding:8px 14px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.rb-portails .prt-logo img{max-height:30px;width:auto;max-width:130px}
