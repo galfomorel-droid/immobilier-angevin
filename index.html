@@ -61,20 +61,133 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  "@id": "https://galfomorel-droid.github.io/immobilier-angevin/#agence",
-  "url": "https://galfomorel-droid.github.io/immobilier-angevin/",
-  "name": "L'Ardoise Immobilière",
-  "description": "Agence immobilière d'Angers à Sablé-sur-Sarthe : achat, vente et estimation de maisons et d'appartements à Angers, à Sablé-sur-Sarthe et alentours.",
-  "image": "https://galfomorel-droid.github.io/immobilier-angevin/og-image.jpg",
-  "logo": "https://galfomorel-droid.github.io/immobilier-angevin/icon-512.png",
-  "telephone": "+33638555355",
-  "email": "contact@lardoiseimmobiliere.com",
-  "employee": { "@type": "Person", "name": "Charles MOREL", "jobTitle": "Conseiller immobilier", "image": "img/charles-morel.jpg" },
-  "address": { "@type": "PostalAddress", "addressLocality": "Angers", "postalCode": "49000", "addressRegion": "Pays de la Loire", "addressCountry": "FR" },
-  "geo": { "@type": "GeoCoordinates", "latitude": 47.4736, "longitude": -0.5542 },
-  "areaServed": ["Angers", "Avrillé", "Trélazé", "Les Ponts-de-Cé", "Saint-Barthélemy-d'Anjou", "Beaucouzé", "Bouchemaine", "Écouflant", "Mûrs-Érigné", "Sainte-Gemmes-sur-Loire", "Sablé-sur-Sarthe", "Solesmes", "Précigné", "Parcé-sur-Sarthe", "Noyen-sur-Sarthe"],
-  "knowsAbout": ["Achat immobilier", "Vente immobilière", "Estimation immobilière"]
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://galfomorel-droid.github.io/immobilier-angevin/#agence",
+      "url": "https://galfomorel-droid.github.io/immobilier-angevin/",
+      "name": "L'Ardoise Immobilière",
+      "description": "Agence immobilière d'Angers à Sablé-sur-Sarthe : achat, vente et estimation de maisons et d'appartements à Angers, à Sablé-sur-Sarthe et alentours.",
+      "image": "https://galfomorel-droid.github.io/immobilier-angevin/og-image.jpg",
+      "logo": "https://galfomorel-droid.github.io/immobilier-angevin/icon-512.png",
+      "telephone": "+33638555355",
+      "email": "contact@lardoiseimmobiliere.com",
+      "employee": [
+        {
+          "@type": "Person",
+          "name": "Charles MOREL",
+          "jobTitle": "Conseiller immobilier",
+          "telephone": "+33638555355",
+          "image": "https://galfomorel-droid.github.io/immobilier-angevin/img/charles-morel.jpg",
+          "sameAs": [
+            "https://www.google.com/maps/place/Charles+Morel+3G+IMMOBILIER/@47.8408201,-0.3336595,17z/data=!4m8!3m7!1s0x6c677999aa68d8e3:0xa26da4ce9e52696e!8m2!3d47.8408201!4d-0.3336595!9m1!1b1",
+            "https://www.immodvisor.com/professionnels/mandataire-immobilier/pro/3g-immo-charles-morel-ei-75753",
+            "https://www.facebook.com/profile.php?id=61566342466588",
+            "https://www.instagram.com/limmobilier_sabolien/",
+            "https://www.linkedin.com/in/charles-morel44/",
+            "https://www.tiktok.com/@charles.morel3gimmo"
+          ]
+        },
+        {
+          "@type": "Person",
+          "name": "Antoine HÉRY",
+          "jobTitle": "Conseiller immobilier",
+          "telephone": "+33682873331",
+          "image": "https://galfomorel-droid.github.io/immobilier-angevin/img/equipe-antoine-hery.webp"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Angers",
+        "postalCode": "49000",
+        "addressRegion": "Pays de la Loire",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 47.4736,
+        "longitude": -0.5542
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Angers"
+        },
+        {
+          "@type": "City",
+          "name": "Avrillé"
+        },
+        {
+          "@type": "City",
+          "name": "Trélazé"
+        },
+        {
+          "@type": "City",
+          "name": "Les Ponts-de-Cé"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Barthélemy-d'Anjou"
+        },
+        {
+          "@type": "City",
+          "name": "Beaucouzé"
+        },
+        {
+          "@type": "City",
+          "name": "Bouchemaine"
+        },
+        {
+          "@type": "City",
+          "name": "Écouflant"
+        },
+        {
+          "@type": "City",
+          "name": "Mûrs-Érigné"
+        },
+        {
+          "@type": "City",
+          "name": "Sainte-Gemmes-sur-Loire"
+        },
+        {
+          "@type": "City",
+          "name": "Sablé-sur-Sarthe"
+        },
+        {
+          "@type": "City",
+          "name": "Solesmes"
+        },
+        {
+          "@type": "City",
+          "name": "Précigné"
+        },
+        {
+          "@type": "City",
+          "name": "Parcé-sur-Sarthe"
+        },
+        {
+          "@type": "City",
+          "name": "Noyen-sur-Sarthe"
+        }
+      ],
+      "knowsAbout": [
+        "Achat immobilier",
+        "Vente immobilière",
+        "Estimation immobilière"
+      ],
+      "priceRange": "Honoraires : 5 000 € TTC jusqu'à 100 000 €, puis 5 % ou 4 % TTC"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://galfomorel-droid.github.io/immobilier-angevin/#site",
+      "url": "https://galfomorel-droid.github.io/immobilier-angevin/",
+      "name": "L'Ardoise Immobilière",
+      "inLanguage": "fr-FR",
+      "publisher": {
+        "@id": "https://galfomorel-droid.github.io/immobilier-angevin/#agence"
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json" id="ldjson-breadcrumb">

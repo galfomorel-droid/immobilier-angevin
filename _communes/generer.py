@@ -227,7 +227,6 @@ def ld_agence(area, url):
         "logo": BASE_URL + "logo-ardoise-marine.png",
         "employee": [{"@type": "Person", "name": d["nom"], "telephone": d["intl"]} for d in DUO],
         "areaServed": area,
-        "mainEntityOfPage": url,
     }
 
 
