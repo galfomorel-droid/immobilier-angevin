@@ -145,7 +145,7 @@ body {
 }
 
 /* ===== TYPOGRAPHY ===== */
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h2:where(.vue-h1) {
   font-family: var(--serif);
   font-weight: 400;
   line-height: 1.12;
@@ -153,7 +153,7 @@ h1, h2, h3, h4 {
   font-optical-sizing: auto;
   text-wrap: balance; /* évite les lignes orphelines dans les titres */
 }
-h1 { font-size: clamp(2.8rem, 6vw, 5rem); }
+h1, h2:where(.vue-h1) { font-size: clamp(2.8rem, 6vw, 5rem); }
 h2 { font-size: clamp(2rem, 4vw, 3.25rem); }
 h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 500; }
 
@@ -1331,7 +1331,7 @@ textarea.form-input { resize: vertical; min-height: 80px; font-family: var(--san
   text-align: center;
   color: var(--white);
 }
-.page-header h1 {
+.page-header h1, .page-header h2:where(.vue-h1) {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 400;
@@ -2670,7 +2670,7 @@ button:focus-visible,
 .footer-brand-name,
 .admin-header h2,
 .admin-add h3,
-.legal-title {
+.legal-title, .page-header h2:where(.vue-h1) {
   font-style: normal;
 }
 
@@ -2690,7 +2690,7 @@ body { font-weight: 400; line-height: 1.7; }
 body::before { display: none; }              /* plus de grain « lin » : rendu net */
 p { color: var(--noir); font-weight: 400; }
 strong, b { font-weight: 600; }
-h1, h2, h3, h4 { font-family: var(--sans); font-weight: 800; font-style: normal; letter-spacing: -0.01em; line-height: 1.12; }
+h1, h2, h3, h4, h2:where(.vue-h1) { font-family: var(--sans); font-weight: 800; font-style: normal; letter-spacing: -0.01em; line-height: 1.12; }
 h3 { font-weight: 700; }
 .section-title, .vendus-title, .cta-title, .seo-title, .modal-title, .legal-title,
 .contact-form-wrap h3, .fiche-title {
@@ -2897,7 +2897,7 @@ a.cb-card:hover, button.cb-card:hover { box-shadow: 0 14px 34px rgba(2,20,48,.10
 /* Page Biens : bandeau marine aligné à gauche */
 #page-biens .page-header { text-align: left; padding: calc(var(--nav-h) + clamp(48px, 6vw, 80px)) 0 clamp(48px, 6vw, 72px); background: var(--noir); }
 #page-biens .page-header > * { max-width: 1120px; margin-left: auto; margin-right: auto; padding-left: 28px; padding-right: 28px; }
-#page-biens .page-header h1 { font-family: var(--sans); font-weight: 800; color: #fff; font-size: clamp(2.2rem, 4.6vw, 3.5rem); }
+#page-biens .page-header h1, #page-biens .page-header h2:where(.vue-h1) { font-family: var(--sans); font-weight: 800; color: #fff; font-size: clamp(2.2rem, 4.6vw, 3.5rem); }
 #page-biens .page-header p { color: rgba(255,255,255,.85); }
 
 /* ---------- Estimation en 5 étapes ---------- */
@@ -4065,8 +4065,8 @@ html.sans-anim .prt-piste { flex-wrap: wrap; justify-content: center; }
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 283 268'%3E%3Cg fill='none' stroke='%23F6A737' opacity='.13'%3E%3Crect x='5' y='5' width='273' height='258' stroke-width='10'/%3E%3Cpath d='M47 0V198' stroke-width='16'/%3E%3Cpath d='M39 192.5H228' stroke-width='11'/%3E%3Cpath d='M49.7 268L159.4 90.6L268 268' stroke-width='13'/%3E%3C/g%3E%3C/svg%3E") right max(28px, calc(50% - 600px)) top clamp(56px, 7vw, 96px) / auto clamp(170px, 22vw, 300px) no-repeat,
     radial-gradient(ellipse 60% 75% at 88% 30%, rgba(246,167,55,.10), rgba(246,167,55,0) 70%), var(--marine);
   padding-bottom: clamp(120px, 12vw, 150px); }
-#page-biens .page-header h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
-#page-biens .page-header h1 .cb-accent { color: #F6A737; }
+#page-biens .page-header h1, #page-biens .page-header h2:where(.vue-h1) { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+#page-biens .page-header h1 .cb-accent, #page-biens .page-header h2:where(.vue-h1) .cb-accent { color: #F6A737; }
 .biens-zone { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
 .biens-recherche { position: relative; margin-top: clamp(-110px, -9vw, -80px); background: #fff; border-radius: 0 20px 20px 20px; padding: 26px 28px 34px;
   box-shadow: 0 24px 60px rgba(2,20,48,.14); display: grid; grid-template-columns: 1fr auto; gap: 14px 18px; align-items: center; }
@@ -5024,7 +5024,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
 <div id="page-biens" class="page">
   <div class="page-header">
     <span class="cb-kicker" id="biensKicker" style="color:rgba(255,255,255,.62);">Acheter</span>
-    <h1 id="biensTitre">Nos biens <span class="cb-accent">à vendre</span></h1>
+    <h2 class="vue-h1" id="biensTitre">Nos biens <span class="cb-accent">à vendre</span></h2>
     <p id="biensIntro">Maisons, appartements et terrains à vendre à Angers, à Sablé-sur-Sarthe et alentours, visités et sélectionnés par nos soins.</p>
   </div>
   <div class="biens-zone">
@@ -5216,7 +5216,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
   <div class="fiche-body">
     <div>
       <div id="ficheBadge"></div>
-      <h1 class="fiche-title" id="ficheTitre"></h1>
+      <h2 class="vue-h1 fiche-title" id="ficheTitre"></h2>
       <p class="fiche-accroche" id="ficheAccroche" style="display:none;"></p>
       <p class="fiche-loc" id="ficheLoc"></p>
       <div class="fiche-price" id="fichePrix"></div>
@@ -5295,7 +5295,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
       <div class="cb-photo arch duo"><img src="img/charles-antoine-1200.webp" srcset="img/charles-antoine-700.webp 700w, img/charles-antoine-1200.webp 1200w" sizes="(max-width: 860px) 92vw, 560px" width="1200" height="1024" alt="Charles Morel et Antoine Héry, L'Ardoise Immobilière" decoding="async"></div>
       <div>
         <span class="cb-kicker">L'agence</span>
-        <h1 class="cb-h1">Angevins de cœur, <span class="cb-accent">dédiés à vos projets</span></h1>
+        <h2 class="vue-h1 cb-h1">Angevins de cœur, <span class="cb-accent">dédiés à vos projets</span></h2>
         <p class="cb-lead">L'Ardoise Immobilière, c'est une agence montée à deux : <strong>Charles MOREL</strong> et <strong>Antoine HÉRY</strong> accompagnent ensemble particuliers et investisseurs dans l'achat, la vente et l'estimation de biens d'Angers à Sablé-sur-Sarthe.</p>
         <p class="cb-lead" style="margin-top:14px;">Notre conviction : un projet immobilier réussi repose sur un prix juste, une information claire et un interlocuteur réellement disponible.</p>
         <div class="cb-actions"><button class="cb-btn" onclick="showPage('contact')">Nous contacter</button><button class="cb-btn ghost" onclick="showPage('estimation')">Estimer mon bien</button></div>
@@ -5400,7 +5400,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
   <section class="cb-hero cb-center">
     <div class="cb-wrap">
       <span class="cb-kicker">Estimation gratuite</span>
-      <h1 class="cb-h1">Combien vaut <span class="cb-accent">votre bien</span> ?</h1>
+      <h2 class="vue-h1 cb-h1">Combien vaut <span class="cb-accent">votre bien</span> ?</h2>
       <p class="cb-lead">Décrivez votre bien en 2 minutes : vous obtenez aussitôt une fourchette de prix calculée sur les ventes réelles de votre commune, puis nous vous proposons une visite pour l'affiner, gratuitement et sans engagement.</p>
       <div class="est-progress" id="estProgress" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span></div>
     </div>
@@ -5549,7 +5549,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
   <section class="cb-hero cb-center">
     <div class="cb-wrap">
       <span class="cb-kicker">Contact</span>
-      <h1 class="cb-h1">Parlons de votre projet</h1>
+      <h2 class="vue-h1 cb-h1">Parlons de votre projet</h2>
       <p class="cb-lead">Une question, une visite, une estimation ? Écrivez-nous : nous vous répondons rapidement.</p>
     </div>
   </section>
@@ -5623,7 +5623,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
     <div class="cb-wrap cb-split">
       <div>
         <span class="cb-kicker" style="color:rgba(255,255,255,.62);">Vendre</span>
-        <h1 class="cb-h1">Vendre au bon prix, <span class="cb-accent">sereinement</span></h1>
+        <h2 class="vue-h1 cb-h1">Vendre au bon prix, <span class="cb-accent">sereinement</span></h2>
         <p class="cb-lead">Une vente réussie se prépare : estimation argumentée, mise en valeur soignée, diffusion large et suivi régulier. Nous nous occupons de tout, à vos côtés.</p>
         <div class="cb-actions">
           <button class="cb-btn on-dark" onclick="showPage('estimation')">Estimer mon bien</button>
@@ -5708,7 +5708,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
     <div class="cb-wrap cb-split split-parrain">
       <div>
         <span class="cb-kicker">Parrainage</span>
-        <h1 class="cb-h1">Vous connaissez un vendeur ? <span class="cb-accent">Parlez-lui de nous</span></h1>
+        <h2 class="vue-h1 cb-h1">Vous connaissez un vendeur ? <span class="cb-accent">Parlez-lui de nous</span></h2>
         <p class="cb-lead">Un proche, un voisin, un collègue souhaite vendre à Angers ou dans l'agglomération ? Mettez-nous en relation : si la vente se conclut par notre intermédiaire, nous vous remercions.</p>
       </div>
       <div class="pr-reward">
@@ -5772,7 +5772,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
   <section class="cb-hero">
     <div class="cb-wrap">
       <p class="cb-kicker">Outils</p>
-      <h1 class="cb-h1">Simulez votre <span class="cb-accent">projet immobilier</span></h1>
+      <h2 class="vue-h1 cb-h1">Simulez votre <span class="cb-accent">projet immobilier</span></h2>
       <p class="cb-lead">Avant de vous lancer, il est rassurant de savoir où vous en êtes. Nous avons réuni ici quatre simulateurs simples pour estimer votre capacité d'emprunt, vos frais de notaire, votre mensualité et la durée de votre prêt. Les résultats s'affichent au fil de votre saisie.</p>
     </div>
   </section>
@@ -6028,7 +6028,7 @@ html.anim .sect-cartes .sect-carte:nth-child(2) { --decal: 150ms; }
   <section class="cb-hero">
     <div class="cb-wrap">
       <span class="cb-kicker">Mes favoris</span>
-      <h1 class="cb-h1">Les biens que vous avez aimés</h1>
+      <h2 class="vue-h1 cb-h1">Les biens que vous avez aimés</h2>
       <p class="cb-lead">Cliquez sur le cœur d'une annonce pour la retrouver ici. Vos favoris restent enregistrés sur cet appareil.</p>
     </div>
   </section>
