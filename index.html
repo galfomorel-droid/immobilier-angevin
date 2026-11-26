@@ -8766,7 +8766,7 @@ function renderVendusCarousel() {
   function buildCard(v, ariaHidden) {
     var ville = _esc(v.ville), cp = v.cp ? ' <span class="vd2-cp">(' + _esc(v.cp) + ')</span>' : '';
     return '<div class="vendus-card vd2"' + (ariaHidden ? ' aria-hidden="true"' : '') + '>' +
-      (v.img ? '<img class="vd2-photo" src="' + imgOpt(v.img, 500) + '" data-orig="' + _esc(v.img) + '" alt="" decoding="async" loading="lazy" fetchpriority="low" onerror="this.remove()">' : '') +
+      (v.img ? '<img class="vd2-photo" src="' + imgOpt(v.img, 500) + '" data-orig="' + _esc(v.img) + '" alt="' + _esc('Vendu : ' + (v.type || 'bien').toLowerCase() + (v.ville ? ' à ' + v.ville : '')) + '" decoding="async" loading="lazy" fetchpriority="low" onerror="this.remove()">' : '') +
       '<div class="vd2-cadre">' +
         '<span class="vd2-badge">Vendu</span>' +
         '<div class="vd2-type">' + _esc(v.type || 'Bien') + '</div>' +
@@ -11715,6 +11715,7 @@ function updateLightbox() {
   _lbImg.onerror = function () { imgRepli(this); };
   _lbImg.src = imgOpt(photos[_lbIdx], 2000);
   document.getElementById('lightbox-counter').textContent = (_lbIdx + 1) + ' / ' + photos.length;
+  _lbImg.alt = 'Photo ' + (_lbIdx + 1) + ' sur ' + photos.length + ((document.getElementById('ficheTitre') || {}).textContent ? ' : ' + document.getElementById('ficheTitre').textContent : '');
 
   // Flèches : masquer si 1 seule photo
   document.getElementById('lightbox-prev').style.display = photos.length > 1 ? 'flex' : 'none';
