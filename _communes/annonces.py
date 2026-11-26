@@ -305,6 +305,22 @@ def retirer(dossier, nom, garde_jours=365):
     return [os.path.relpath(f, RACINE)]
 
 
+TYPES_TITRE = re.compile(r"^(maison|appartement|terrain|propri[ée]t[ée]|long[èe]re|villa|immeuble|local|ferme|grange|corps de ferme|"
+                         r"studio|duplex|loft|parking|garage|b[âa]timent|demeure|manoir|ch[âa]teau|pavillon)", re.I)
+
+
+def titre_propre(a):
+    """Titre affiché (H1) : celui de 3G s'il nomme le bien, avec la commune ; sinon un titre construit
+    (certaines annonces 3G ont pour titre une phrase de la description, ex. « En complément du bâtiment… »)."""
+    t = re.sub(r"\s+", " ", a.get("titre") or "").strip()
+    ville = a.get("ville") or ""
+    if t and TYPES_TITRE.match(t) and len(t) <= 70:
+        return t if not ville or ville.lower() in t.lower() else f"{t} à {ville}"
+    typ = (a.get("type") or "Bien").strip()
+    p = f" {a['pieces']} pièces" if a.get("pieces") else ""
+    return f"{typ}{p} à {ville}" if ville else f"{typ}{p}"
+
+
 def main():
     global COMMUNES, SECTEURS
     with open(os.path.join(ICI, "communes.json"), encoding="utf-8") as f:
@@ -316,6 +332,8 @@ def main():
         raise SystemExit("Aucune annonce extraite : rien n'est modifié.")
     faits = [G.ecrire("assets/annonce.css", CSS_ANNONCE)]
     garder = set()
+    for a in annonces:
+        a["titre"] = titre_propre(a)
     for a in annonces:
         chemin, contenu = page_annonce(a, relais)
         faits.append(G.ecrire(chemin, contenu)); garder.add(a["slug"])
