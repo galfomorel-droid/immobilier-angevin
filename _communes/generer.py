@@ -189,6 +189,7 @@ def pied(root, communes, secteurs):
       <li><a href="{root}vendre/">Vendre</a></li>
       <li><a href="{root}estimation-immobiliere/">Estimation gratuite</a></li>
       <li><a href="{root}honoraires/">Honoraires</a></li>
+      <li><a href="{root}guides/">Guides</a></li>
       <li><a href="{root}lagence/">L'agence</a></li>
       <li><a href="{root}#parrainage">Parrainage</a></li>
       <li><a href="{root}contact/">Contact</a></li>
@@ -400,6 +401,18 @@ def bloc_nos_ventes(c, root):
   </section>"""
 
 
+def guides_commune(c, root):
+    """Liens vers les guides utiles depuis une page commune."""
+    l = []
+    if c["slug"] == "angers":
+        l.append(f'<a class="lien" href="{root}guides/prix-immobilier-quartiers-angers/">Prix par quartier d\'Angers</a>')
+    g = "ou-acheter-autour-d-angers" if c["secteur"] == "angers" else "ou-acheter-autour-de-sable"
+    autour = "d’Angers" if c["secteur"] == "angers" else "de Sablé"
+    l.append(f'<a class="lien" href="{root}guides/{g}/">Où acheter autour {autour} ?</a>')
+    l.append(f'<a class="lien" href="{root}guides/">Tous nos guides</a>')
+    return "Nos guides : " + " · ".join(l)
+
+
 def bloc_prix_commune(c, root):
     if not PRIX:
         return ""
@@ -601,6 +614,7 @@ def page_commune(c, communes, secteurs):
       <h2 id="proximite">Nous intervenons aussi à proximité</h2>
       <ul class="voisins">{voisins}</ul>
       <p class="petit">{typo("Et aussi : " + sect["autres"] + ".")} <a class="lien" href="../">Voir tous nos secteurs</a></p>
+      <p>{guides_commune(c, root)}</p>
     </div>
   </section>
 
@@ -1025,7 +1039,9 @@ def sitemap(communes):
     urls = [("", "weekly", "1.0"), ("immobilier/", "monthly", "0.8")] + ([("immobilier/prix/", "monthly", "0.8")] if PRIX else [])
     urls += [(f"immobilier/{c['slug']}/", "weekly", "0.7") for c in communes]
     # pages de rubrique générées par pages.py (Vendre, Estimation, L'agence, Contact, Honoraires) ; les pages légales sont en noindex
-    for r in ("estimation-immobiliere/", "vendre/", "lagence/", "contact/", "honoraires/"):
+    guides = os.path.join(RACINE, "guides")
+    extra = (["guides/"] + [f"guides/{n}/" for n in sorted(os.listdir(guides)) if os.path.isdir(os.path.join(guides, n))]) if os.path.isdir(guides) else []
+    for r in ["estimation-immobiliere/", "vendre/", "lagence/", "contact/", "honoraires/"] + extra:
         f = os.path.join(RACINE, r, "index.html")
         if os.path.isfile(f) and not _noindex(f):
             urls.append((r, "monthly", "0.8"))

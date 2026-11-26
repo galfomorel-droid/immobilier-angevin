@@ -1,0 +1,19 @@
+/* Guides — généré par _communes/guides.py */
+.gd-puces{margin:12px 0 18px;padding-left:1.1em}
+.gd-puces li{margin:0 0 8px}
+.gd-src-t{font-size:1.05rem}
+.gd-src{padding-left:1.1em;font-size:.9rem}
+.gd-src li{margin:0 0 6px;overflow-wrap:anywhere}
+.gq{align-items:center}
+.gq-carte{margin:0}
+.gq-carte svg{width:100%;height:auto;display:block}
+.gq-n{font:700 15px/1 Montserrat,system-ui,sans-serif;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.gq-carte figcaption{display:flex;flex-direction:column;gap:6px;margin-top:10px;font-size:.85rem}
+.gq-leg{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.gq-leg span{display:inline-flex}
+.gq-leg i{display:inline-block;width:26px;height:12px;border-radius:3px}
+.gq-i{color:var(--texte2);width:2.5em}
+.gd-etapes{counter-reset:e;list-style:none;padding:0;margin:16px 0}
+.gd-etapes li{position:relative;padding:0 0 14px 44px}
+.gd-etapes li::before{counter-increment:e;content:counter(e);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--marine);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.gd-note{background:#fff;border-left:4px solid var(--rouge);padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0}
