@@ -402,7 +402,7 @@ def page_prix(communes, secteurs):
 
 
 # ------------------------------------------------------------------ page commune
-AGENCES = ()
+AGENCES = ("angers", "sable-sur-sarthe")
 
 
 def page_commune(c, communes, secteurs):
