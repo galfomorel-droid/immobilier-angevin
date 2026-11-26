@@ -15,5 +15,7 @@
   "mesure": {
     "outil": "",
     "site": ""
-  }
+  },
+  "_lisezmoi_formulaires": "Clé d'accès Web3Forms (gratuite, web3forms.com) : les formulaires contact, fiche de bien, visite et parrainage arrivent par e-mail à l'adresse du compte Web3Forms. Coller la clé entre les guillemets de web3forms_cle. Elle est faite pour être publique (elle figure dans le code du site) mais ne la partagez pas ailleurs. Vide = formulaires inactifs.",
+  "web3forms_cle": ""
 }
