@@ -60,7 +60,9 @@ def page_annonce(a, relais):
     fiche = f"{root}#bien/{a['slug']}"
     titre = a["docTitle"] or f"{a['titre']} | {G.NOM}"
     desc_txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", a["descHTML"]))).strip()
-    meta = (a["metaDesc"] or desc_txt)[:300]
+    meta = a["metaDesc"] or desc_txt
+    if len(meta) > 155:   # description ≤ 155 caractères, coupée à un mot
+        meta = re.sub(r"\s+\S*$", "", meta[:154]) + "…"
     photos = [p for p in a["photos"] if isinstance(p, str) and p.startswith("http")]
 
     ld = {"@context": "https://schema.org", "@graph": [
@@ -177,7 +179,7 @@ def page_annonce(a, relais):
 def page_liste(annonces):
     root = "../"
     chemin = "annonce/"
-    titre = f"Nos annonces immobilières · Maisons et appartements à vendre | {G.NOM}"
+    titre = "Annonces immobilières Angers & Sablé-sur-Sarthe | L'Ardoise"
     desc = "Toutes les annonces de L'Ardoise Immobilière : maisons, appartements et terrains à vendre d'Angers à Sablé-sur-Sarthe."
     items = ""
     for n, a in enumerate([x for x in annonces if x["photos"]]):

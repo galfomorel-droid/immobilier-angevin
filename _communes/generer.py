@@ -351,7 +351,7 @@ def page_prix(communes, secteurs):
     root = "../../"
     chemin = "immobilier/prix/"
     url = BASE_URL + chemin
-    titre = f"Prix de l'immobilier d'Angers à Sablé-sur-Sarthe · prix au m² par commune | {NOM}"
+    titre = "Prix au m² d'Angers à Sablé-sur-Sarthe (DVF) | L'Ardoise"
     desc = "Prix médian au m² des maisons et appartements vendus, commune par commune, d'Angers à Sablé-sur-Sarthe : ventes réelles (DVF) " + periode_txt() + "."
     par_nom = {x["nom"]: x for x in communes}
     blocs = []
@@ -410,7 +410,11 @@ def page_commune(c, communes, secteurs):
     cp_txt = ", ".join(cps)
     chemin = f"immobilier/{c['slug']}/"
     url = BASE_URL + chemin
-    titre = f"Immobilier {a} ({cp_txt}) · Achat, vente, estimation | {NOM}"
+    # titre ≤ 60 caractères : le plus complet qui tient (SEO, 26/11/2026)
+    titre = [t for t in (f"Immobilier {a} : achat, vente, estimation | L'Ardoise",
+                         f"Immobilier {a} : vente, achat | L'Ardoise",
+                         f"Immobilier {a} | L'Ardoise Immobilière",
+                         f"Immobilier {a} | L'Ardoise") if len(t) <= 60][0]
 
     # JSON-LD
     ville = {"@type": "City", "name": nom,
@@ -535,9 +539,9 @@ def page_secteurs(communes, secteurs):
     root = "../"
     chemin = "immobilier/"
     url = BASE_URL + chemin
-    titre = f"Nos secteurs · Immobilier d'Angers à Sablé-sur-Sarthe | {NOM}"
-    desc = ("Les communes où nous intervenons pour l'achat, la vente et l'estimation : Angers et son agglomération, "
-            "Sablé-sur-Sarthe et ses alentours, avec Charles MOREL et Antoine HÉRY.")
+    titre = "Nos secteurs, d'Angers à Sablé-sur-Sarthe | L'Ardoise"
+    desc = ("Nos communes pour acheter, vendre ou estimer : Angers et son agglomération, Sablé-sur-Sarthe "
+            "et ses alentours, avec Charles MOREL et Antoine HÉRY.")
     area = [{"@type": "City", "name": c["nom"], "url": BASE_URL + f"immobilier/{c['slug']}/"} for c in communes]
     graph = {"@context": "https://schema.org", "@graph": [
         ld_agence(area, url),
