@@ -1909,7 +1909,7 @@ async function estDemanderVisite() {
   try {
     var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'visite', jeton: _estJeton, creneaux: creneaux, message: (document.getElementById('estVisiteMsg') || {}).value || '' }) });
-    ok = r.ok; if (ok) prenom = ((await r.json()) || {}).prenom || '';
+    ok = r.ok; if (ok) mesurer('visite-demandee'); if (ok) prenom = ((await r.json()) || {}).prenom || '';
   } catch (e) {}
   var m = document.getElementById('estVisiteOk');
   if (ok) {
@@ -2700,7 +2700,7 @@ async function submitFicheContact(e) {
       })
     });
     var r = await res.json().catch(function () { return {}; });
-    if (!res.ok || !r.success) throw new Error('envoi');
+    if (!res.ok || !r.success) throw new Error('envoi'); mesurer('demande-fiche-envoyee');
     var successBox = document.getElementById('ficheContactSuccess');
     if (successBox) successBox.classList.add('show');
     form.reset();
@@ -3050,7 +3050,7 @@ async function submitModal(e) {
       })
     });
     var _r = await res.json().catch(function(){ return {}; });
-    if (!res.ok || !_r.success) throw new Error('envoi');
+    if (!res.ok || !_r.success) throw new Error('envoi'); mesurer('demande-envoyee');
   } catch (err) {
     if (btn) { btn.disabled = false; btn.textContent = 'Envoyer ma demande'; }
     showToast("Erreur d'envoi." + contactDirect(), 'error', 6000);
@@ -3172,7 +3172,7 @@ async function submitEstimation() {
     try {
       var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'estimation', demande: demande, site: v('estimSite') }) });
-      envoye = r.ok;
+      envoye = r.ok; if (r.ok) mesurer('estimation-envoyee');
       if (r.ok) { try { _estJeton = ((await r.json()) || {}).jeton || ''; } catch (e) {} }
     } catch (e) { envoye = false; }
   }
@@ -3246,7 +3246,7 @@ async function creerAlerteEmail(ev) {
   try {
     var r = await fetch(AGENCE.statutProxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'alerte', email: email, criteres: _criteresAlerte(), consentement: true, site: ((document.getElementById('alerteSite') || {}).value || '') }) });
-    status = r.status; try { err = (await r.json()).error || ''; } catch (e) {}
+    status = r.status; if (r.ok) mesurer('alerte-creee'); try { err = (await r.json()).error || ''; } catch (e) {}
   } catch (e) { status = -1; }
   if (btn) { btn.disabled = false; btn.textContent = 'Créer mon alerte'; }
   if (status !== 200) { showToast(err ? err + '.' : 'Impossible de créer l\'alerte pour le moment.' + contactDirect(), 'error', 7000); return; }
@@ -3291,7 +3291,7 @@ async function submitContact() {
       body: JSON.stringify(payload)
     });
     var data = await res.json();
-    if (data.success) {
+    if (data.success) { mesurer('contact-envoye');
       showToast('✅ Message envoyé ! Nous vous répondons très rapidement.', 'success', 5000);
       ['contactNom','contactEmail','contactTel','contactMessage','critVilles','critBudget','critSurface'].forEach(function(id) {
         var el = document.getElementById(id); if (el) el.value = '';
@@ -3498,7 +3498,7 @@ async function submitParrainage(e) {
       })
     });
     var data = await res.json();
-    if (data.success) {
+    if (data.success) { mesurer('parrainage-envoye');
       showToast('Merci ! Votre recommandation est bien envoyée, nous contactons le propriétaire rapidement.', 'success', 6000);
       var f = document.getElementById('parrainageForm'); if (f) f.reset();
     } else showToast("Erreur d'envoi." + contactDirect(), 'error', 6000);

@@ -6,5 +6,14 @@
     "charles": "charlesmorel@lardoiseimmobiliere.com",
     "antoine": "antoinehery@lardoiseimmobiliere.com"
   },
-  "email_actuel": "charles.morel@3gimmobilier.com"
+  "email_actuel": "charles.morel@3gimmobilier.com",
+  "_lisezmoi_suivi": "Suivi (phase 6 SEO). verification : codes fournis par Google Search Console et Bing Webmaster Tools (méthode « balise HTML », ne copier que la valeur de content). mesure : outil d'audience SANS cookie, 'goatcounter' (site = code du compte, ex. lardoise) ou 'plausible' (site = nom de domaine déclaré). Laisser vide = rien n'est chargé. Après modification : python3 _parts/build.py, python3 _communes/generer.py, python3 _communes/pages.py, python3 _communes/guides.py, python3 _communes/annonces.py.",
+  "verification": {
+    "google": "",
+    "bing": ""
+  },
+  "mesure": {
+    "outil": "",
+    "site": ""
+  }
 }

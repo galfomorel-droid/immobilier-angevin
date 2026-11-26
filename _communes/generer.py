@@ -41,6 +41,51 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "coordonnees.
 EMAIL = _COORD["emails"]["contact"] if _COORD["emails_actifs"] else _COORD["email_actuel"]
 EMAILS_DUO = ({"Charles MOREL": _COORD["emails"]["charles"], "Antoine HÉRY": _COORD["emails"]["antoine"]} if _COORD["emails_actifs"] else {})
 MENTION = "Charles MOREL, agent commercial 3G IMMO · RSAC Le Mans 900 233 800"
+VERIF = _COORD.get("verification", {}) or {}
+MESURE = _COORD.get("mesure", {}) or {}
+MESURE_ACTIVE = MESURE.get("outil") in ("goatcounter", "plausible") and bool(MESURE.get("site"))
+
+
+def mesure_js():
+    """assets/mesure.js : mesure d'audience sans cookie + événements (téléphone, e-mail, WhatsApp, formulaires).
+    Respecte un refus enregistré dans le bandeau cookies du site (localStorage cookieConsent = refused)."""
+    return """/* Mesure d'audience sans cookie — généré par _communes/generer.py depuis _communes/coordonnees.json (ne pas modifier à la main). */
+(function () {
+  var CFG = %s;
+  var refus = false; try { refus = localStorage.getItem('cookieConsent') === 'refused'; } catch (e) {}
+  window.mesurer = function (nom) {
+    if (refus) return;
+    try {
+      if (CFG.outil === 'goatcounter' && window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'evenement-' + nom, title: nom, event: true });
+      else if (CFG.outil === 'plausible' && window.plausible) window.plausible(nom);
+    } catch (e) {}
+  };
+  if (refus) return;
+  var s = document.createElement('script'); s.async = true;
+  if (CFG.outil === 'goatcounter') { s.src = 'https://gc.zgo.at/count.js'; s.setAttribute('data-goatcounter', 'https://' + CFG.site + '.goatcounter.com/count'); }
+  else { window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); }; s.defer = true; s.src = 'https://plausible.io/js/script.js'; s.setAttribute('data-domain', CFG.site); }
+  document.head.appendChild(s);
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.getAttribute('href') || '';
+    if (h.indexOf('tel:') === 0) window.mesurer('clic-telephone');
+    else if (h.indexOf('mailto:') === 0) window.mesurer('clic-email');
+    else if (h.indexOf('wa.me') !== -1) window.mesurer('clic-whatsapp');
+  }, true);
+})();
+""" % json.dumps({"outil": MESURE.get("outil", ""), "site": MESURE.get("site", "")})
+
+
+def balises_suivi(root):
+    """Balises de vérification (Search Console, Bing) et script de mesure, seulement s'ils sont configurés."""
+    out = ""
+    if VERIF.get("google"):
+        out += f'<meta name="google-site-verification" content="{esc(VERIF["google"])}">\n'
+    if VERIF.get("bing"):
+        out += f'<meta name="msvalidate.01" content="{esc(VERIF["bing"])}">\n'
+    if MESURE_ACTIVE:
+        out += f'<script src="{root}assets/mesure.js" defer></script>\n'
+    return out
 BAREME = [
     ("Jusqu'à 100 000 € net vendeur", "forfait de 5 000 € TTC"),
     ("De 100 001 à 300 000 €", "5 % TTC"),
@@ -132,7 +177,7 @@ def head(titre, description, chemin, root, ldjson):
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#021430">
-<link rel="icon" type="image/png" sizes="32x32" href="{root}favicon-32.png">
+{balises_suivi(root)}<link rel="icon" type="image/png" sizes="32x32" href="{root}favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="{root}icon-192.png">
 <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1080,6 +1125,7 @@ def main():
     faits = []
     faits.append(ecrire("assets/pages.css", CSS))
     faits.append(ecrire("assets/biens-commune.js", js_biens(bandeau, forcees)))
+    faits.append(ecrire("assets/mesure.js", mesure_js()))
     faits.append(ecrire(*page_secteurs(communes, secteurs)))
     if PRIX:
         faits.append(ecrire(*page_prix(communes, secteurs)))
